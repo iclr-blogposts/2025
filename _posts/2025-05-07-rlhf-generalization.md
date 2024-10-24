@@ -68,12 +68,12 @@ OpenAI has demonstrated the generalization ability from reward model in RLHF pro
 - OpenAI first discovered that reward models (verifiers) scale significantly better with increased data compared to supervised fine-tuning <d-cite key="cobbe2021training"></d-cite>.
     They show that, compared to a fine-tuning baseline, the use of verifiers (reward model) results in approximately the same performance boost as a 30x model size increase, and that verifiers scale significantly better with increased data.
 - Subsequently, OpenAI discovered the scaling law of the reward model and RL benefits from the scaling of the reward model.<d-cite key="gao2023scaling"></d-cite>
-    * The losses on reward validation dataset break down by increasing preference dataset size and reward model size.
-      {% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image1.png" class="img-fluid" %} <div class="caption">Figure 3: RM losses broken down by data size and RM size.</div>
-
-    * Both best of N strategy and RL benefits from the scaling of reward model size and preference dataset size.
-      {% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image2.png" class="img-fluid" %} <div class="caption">Figure 4: RM data scaling experiments. RM size is held constant (12M), while RM data is varied. The x-axis has a square root scale. Note that the plots have different axes. Dotted lines indicate proxy rewards, solid lines indicate gold rewards.</div>
+    * The losses on reward validation dataset break down by increasing preference dataset size and reward model size (Figure 3).
+    * Both best of N strategy and RL benefits from the scaling of reward model size and preference dataset size (Figure 4).
       
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image1.png" class="img-fluid" %} <div class="caption">Figure 3: RM losses broken down by data size and RM size.</div>     
+
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image2.png" class="img-fluid" %} <div class="caption">Figure 4: RM data scaling experiments. RM size is held constant (12M), while RM data is varied. The x-axis has a square root scale. Note that the plots have different axes. Dotted lines indicate proxy rewards, solid lines indicate gold rewards.</div>
 
 Additionally, we demonstrate the generalization ability of reward model through our experiments utilizing leetcode datasets. Specifically, we initially gathered 1200 Python prompts from the leetcode website spanning from September 2022 to September 2023 for our training set, and another 474 prompts from September 2023 to June 2024 for our test set. Subsequently, we collected five responses per prompt from various models, including GPT4, GPT4o, Deepseek, among others, for both the training and test sets. Finally, we submitted these responses to the leetcode website to ascertain the ground truth for each response, yielding 30,000 training preference pairs and 12,000 test preference pairs.
 
