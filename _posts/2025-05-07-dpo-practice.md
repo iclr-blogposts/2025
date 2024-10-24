@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Challenges of Sample Inefficiency (CSI) - Practical Limitations of Direct Preference Optimization Algorithm
-description: This blog post explores the distinctions between Direct Preference Optimization (DPO) and Reinforcement Learning from Human Feedback (RLHF), focusing on their practical implications for training large language models.
+description: In this blog, we compare Direct Preference Optimization (DPO) and Proximal Policy Optimization (PPO) from a reinforcement learning perspective. The absence of a critic model, the lack of GAE estimation, and the use of off-policy sampling in DPO result in high variance but unbiased token-wise rewards estimates. This leads to a significant drawback of DPO - sample inefficiency. Due to limited training samples and a reliance on off-policy data, DPO faces the state distribution shift problem. Additionally, as a Bradley-Terry model with limited samples, DPO struggles to distinguish response pairs with substantial token overlap while still attempting to maximize the difference between them. This interplay between the state distribution shift problem and the limitations of the Bradley-Terry model can result in reduced likelihoods for both positive and negative samples.
 date: 2025-05-07
 future: true
 htmlwidgets: true
@@ -52,7 +52,7 @@ In this section, we will introduce the DPO and PPO algorithms, demonstrate their
 
 ### Preliminary
 
-In a traditional RLHF <d-cite key="ouyang2022training"></d-cite><d-cite key="achiam2023gpt"></d-cite>, the Bradley-Terry model is utilized to represent the preference function  $p(y \succ y^{'}|x)$ as a sigmoid function of the difference between rewards:
+In a traditional RLHF <d-cite key="ouyang2022training"></d-cite><d-cite key="achiam2023gpt"></d-cite>, the Bradley-Terry model is utilized to represent the preference function as a sigmoid function of the difference between rewards:
 
 $$
 p(y\succ y^{'}|x)=\sigma(r(x,y)-r(x,y^{'}))\ \ \ (1)
@@ -88,13 +88,17 @@ $$
 \pi_r(y|x) = \frac{1}{Z(x)}\pi_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y)) \ \ \ (6)
 $$
 
-where  $Z(x) = \sum_{y}\pi_{ref}(y | x) exp(\frac{1}{\beta}r(x, y))$ is the *partition function*. See <d-cite key="rafailov2024direct"></d-cite> for a complete derivation. When taking the logarithm of both sides of Equation 6 and then with some algebra, the authors obtain:
+where 
+
+$$ Z(x) = \sum_{y}\pi_{ref}(y | x) exp(\frac{1}{\beta}r(x, y)) $$ 
+
+is the *partition function*. See <d-cite key="rafailov2024direct"></d-cite> for a complete derivation. When taking the logarithm of both sides of Equation 6 and then with some algebra, the authors obtain:
 
 $$
 r(x,y) = \beta \log\frac{\pi_r(y|x)}{\pi_{\text{ref}}(y|x)} + \beta \log Z(x) \ \ \ (7)
 $$
 
-The authors then apply this re-parameterization to the ground-truth reward $r^*$ and corresponding optimal model $\pi^*$ in Equation 3. The loss DPO optimizes:
+The authors then apply this re-parameterization to the ground-truth reward $ r^* $ and corresponding optimal model $ \pi^* $ in Equation 3. The loss DPO optimizes:
 
 $$
  \min_\pi E_{(x, y,y^{'})\sim D}[-\log \sigma(\beta \log \frac{\pi(y|x)}{\pi_{\text{ref}}(y|x)} - \beta \log \frac{\pi(y^{'}|x)}{\pi_{\text{ref}}(y^{'}|x)})]\ \ \ \ (8)
@@ -120,7 +124,11 @@ $$
 p_{\pi_{\theta}}(\tau) = \rho(s_0)\prod_{i} \pi_{\theta}(a_i|s_i) C(s_{i+1}|s_i, a_{i}) \ \ \ (10)
 $$
 
-where $C(s_{i+1} | s_i, a_{i})$ represents the state transition matrix. Given the consistent nature of actions and states in the LLM, the state transition matrix can be straightforwardly expressed as:
+where 
+
+$$ C(s_{i+1} | s_i, a_{i}) $$ 
+
+represents the state transition matrix. Given the consistent nature of actions and states in the LLM, the state transition matrix can be straightforwardly expressed as:
 
 $$
 C(s_{i+1} | s_i, a_{i}) = \mathbf{1}(a_i == s_{i+1}) \ \ \ (11)
