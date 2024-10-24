@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Generalization Progress in RLHF - Insights into the Impact of Reward Models and PPO
-description: This blog post delves into the generalization capabilities of RLHF, particularly focusing on the roles of reward models and PPO in achieving generalization to unseen prompts.
+description: In this blog, we summarize recent research and design experiments to explore the generalization process in RLHF. The generalization in RLHF involves two primary aspects - generalization originating from the training of the reward model and generalization resulting from PPO training. The generalization of the reward model primarily stems from the preference datasets and the inherent generalization capabilities of pre-trained models. Meanwhile, the generalization achieved through PPO training encompasses two key components - generalization derived from on-policy samples and generalization stemming from token-wise rewards. Based on these findings, we offer some recommendations for data construction in RLHF.
 date: 2025-05-07
 future: true
 htmlwidgets: true
