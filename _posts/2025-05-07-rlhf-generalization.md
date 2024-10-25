@@ -51,11 +51,11 @@ Finally, we give some recommendations for data construction in RLHF based on the
 
 **Reward Model Training:** The reward model provides LLMs with a signal that guides the reinforcement learning process. In general, we first gather datasets consisting of prompts, LLM responses, and corresponding human feedback (ratings, rankings, or other forms of evaluation). This feedback serves as the ground truth for training the reward model. Then, we train the reward model using supervised learning techniques on the collected data. The model learns to predict the reward associated with each LLM response given a prompt and the corresponding human feedback <d-cite key="huggingface-blog-rlhf"></d-cite>.
 
-{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/reward-model.png" class="img-fluid" %} <div class="caption">Figure 1: Reward model training process.</div>
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/reward-model.png" class="img-fluid" %} <div class="caption">Figure 1: Reward model training process (from <d-cite key="huggingface-blog-rlhf"></d-cite>).</div>
 
 **Fine-tuning with RL:** Given a reward model, we employ RL to fine-tune the policy of a LLM. First, the **policy** is a language model that takes in a prompt and returns a sequence of text (or just probability distributions over text). The **action space** of this policy is all the tokens corresponding to the vocabulary of the language model and the **observation space** is the distribution of possible input token sequences, which is also quite **large given previous uses of RL** (the dimension is approximately the size of vocabulary ^ length of the input token sequence). The **reward function** is a combination of the preference model and a constraint on policy shift. Finally, the **update rule** is the parameter update of the policy from PPO that maximizes the reward metrics in the current batch of data <d-cite key="newfacade-notes-on-reinforcement-learning"></d-cite>.
 
-{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image.png" class="img-fluid" %} <div class="caption">Figure 2: The reinforcement learning from human feedback.</div>
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image.png" class="img-fluid" %} <div class="caption">Figure 2: The reinforcement learning from human feedback (from <d-cite key="newfacade-notes-on-reinforcement-learning"></d-cite>).</div>
 
 ## Generalization Progress in Reward Model
 
@@ -71,9 +71,9 @@ OpenAI has demonstrated the generalization ability from reward model in RLHF pro
     * The losses on reward validation dataset break down by increasing preference dataset size and reward model size (Figure 3).
     * Both best of N strategy and RL benefits from the scaling of reward model size and preference dataset size (Figure 4).
       
-{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image1.png" class="img-fluid" %} <div class="caption">Figure 3: RM losses broken down by data size and RM size.</div>     
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image1.png" class="img-fluid" %} <div class="caption">Figure 3: RM losses broken down by data size and RM size (from <d-cite key="gao2023scaling"></d-cite>).</div>     
 
-{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image2.png" class="img-fluid" %} <div class="caption">Figure 4: RM data scaling experiments. RM size is held constant (12M), while RM data is varied. The x-axis has a square root scale. Note that the plots have different axes. Dotted lines indicate proxy rewards, solid lines indicate gold rewards.</div>
+{% include figure.html path="assets/img/2025-05-07-rlhf-generalization/image2.png" class="img-fluid" %} <div class="caption">Figure 4: RM data scaling experiments (from <d-cite key="gao2023scaling"></d-cite>). RM size is held constant (12M), while RM data is varied. The x-axis has a square root scale. Note that the plots have different axes. Dotted lines indicate proxy rewards, solid lines indicate gold rewards.</div>
 
 Additionally, we demonstrate the generalization ability of reward model through our experiments utilizing leetcode datasets. Specifically, we initially gathered 1200 Python prompts from the leetcode website spanning from September 2022 to September 2023 for our training set, and another 474 prompts from September 2023 to June 2024 for our test set. Subsequently, we collected five responses per prompt from various models, including GPT4, GPT4o, Deepseek, among others, for both the training and test sets. Finally, we submitted these responses to the leetcode website to ascertain the ground truth for each response, yielding 30,000 training preference pairs and 12,000 test preference pairs.
 
@@ -97,7 +97,22 @@ In this blog, we conduct several case analyses to investigate how reward models 
 
 - Despite the absence of syntactic errors in the negative samples within the training dataset, the reward model easily finds syntactic errors in the responses of the Humaneval and MBPP test datasets. This indicates that the ability to distinguish syntactic errors, which is inherited from the pre-trained model, can be effectively generalized to unseen datasets.
 - We trained the reward models utilizing both the pre-trained DeepSeek Coder and a version that had undergone fine-tuning for debug tasks. Our objective was to enable the reward model to acquire the debugging capabilities of the "debug model," thereby assisting it in identifying errors within negative samples. Nevertheless, we discovered that the performance of these two reward models was quite similar, suggesting that the reward model was unable to adequately inherit the debugging skills from the pre-trained debug tasks.
+
+| # Training Samples in Debug Tasks | # Training Samples in Preference Datasets | Precision on Leetcode Test Dataset | Precision on Humaneval Dataset | Precision on MBPP Dataset |
+| --- | --- | --- | --- | --- |
+| 0 | 12000 | 82.5% | 53.7% | 58.1% |
+| 32000 | 12000 | 82.7% | 53.1% | 58.3% |
+
 - The high attention scores observed in the final transformer layer of the LLM for both positive and negative samples do not consistently indicate the presence of "real" errors in the negative samples. This suggests that the patterns captured by the reward model are coarse and cannot reflect specific errors, unlike methods such as GenRM <d-cite key="zhang2024generative"></d-cite> or LLM as a judge <d-cite key="zheng2023judging"></d-cite>. Consequently, we hypothesize that the reward model is unable to explore the pre-trained generalization abilities in the same manner as these two methods.
+
+|  | Test Samples | Syntax Error | Logical Error | Comment Error | Hallucination Problems |
+| --- | --- | --- | --- | --- | --- |
+| Amount | 200 |  32 | 48 | 90 | 30 |
+| Precision | 50.5% | 100.0% | 50.0% | 36.6% | 40% |
+
+
+As shown in the table above, we tested 200 samples to evaluate how well high attention scores indicate the presence of actual errors in negative samples. We categorized these samples into Syntax Error samples, Logical Error samples, Comment Error samples (where the error is mentioned in the comment following the code), and Hallucination Problems (where non-existent functions are used). However, the precision with which high attention scores accurately pinpoint the presence of real errors is only 50.5%.
+
 
 ## Generalization Progress in PPO
 
