@@ -98,7 +98,7 @@ In this blog, we conduct several case analyses to investigate how reward models 
 - Despite the absence of syntactic errors in the negative samples within the training dataset, the reward model easily finds syntactic errors in the responses of the Humaneval and MBPP test datasets. This indicates that the ability to distinguish syntactic errors, which is inherited from the pre-trained model, can be effectively generalized to unseen datasets.
 - We trained the reward models utilizing both the pre-trained DeepSeek Coder and a version that had undergone fine-tuning for debug tasks. Our objective was to enable the reward model to acquire the debugging capabilities of the "debug model," thereby assisting it in identifying errors within negative samples. Nevertheless, we discovered that the performance of these two reward models was quite similar, suggesting that the reward model was unable to adequately inherit the debugging skills from the pre-trained debug tasks.
 
-| # Training Samples in Debug Tasks | # Training Samples in Preference Datasets | Precision on Leetcode Test Dataset | Precision on Humaneval Dataset | Precision on MBPP Dataset |
+| Training Samples in Debug Tasks | Training Samples in Preference Datasets | Precision on Leetcode Test Dataset | Precision on Humaneval Dataset | Precision on MBPP Dataset |
 | --- | --- | --- | --- | --- |
 | 0 | 12000 | 82.5% | 53.7% | 58.1% |
 | 32000 | 12000 | 82.7% | 53.1% | 58.3% |
