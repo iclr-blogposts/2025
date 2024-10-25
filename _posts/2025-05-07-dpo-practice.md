@@ -142,10 +142,8 @@ $$
 
 where trajectory $\tau$ corresponds to the $(s, a)$ pair in Equation 9.  Consequently, the objective of PPO, denoted as $O_p$ in Equation 12, is identical to that of DPO, denoted as $O_d$ in Equation 9. 
 
-<aside>
-💡 Although DPO treats response generation as a multi-arm bandit problem, while PPO treats it as an MDP, DPO’s objective is identical to that of PPO.
+>Although DPO treats response generation as a multi-arm bandit problem, while PPO treats it as an MDP, DPO’s objective is identical to that of PPO.
 
-</aside>
 
 ### Monte Carlo Method vs. Temporal Difference Learning
 
@@ -171,15 +169,11 @@ $$
 
 where $\gamma$ and $\lambda$ are discounting factors that manage the trade-off between bias and variance. 
 
-<aside>
-💡 Under the Monte Carlo sampling method, which involves random sampling from sufficient samples (at least exponential in size), training on these samples enables both DPO and PPO to accurately estimate the reward of each response. This ensures that both DPO and PPO achieve the optimal policy, $\pi^*$.
+>Under the Monte Carlo sampling method, which involves random sampling from sufficient samples (at least exponential in size), training on these samples enables both DPO and PPO to accurately estimate the reward of each response. This ensures that both DPO and PPO achieve the optimal policy, $\pi^*$.
 
-</aside>
 
-<aside>
-💡 In the absence of sufficient samples, PPO reduces the high variance in reward estimation for each token, providing a more stable and effective reward estimate compared to DPO. While DPO can theoretically be framed as a token-level MDP for credit assignment <d-cite key="rafailov2024from"></d-cite>, it requires more samples than PPO to achieve accurate token-level credit assignment.
+>In the absence of sufficient samples, PPO reduces the high variance in reward estimation for each token, providing a more stable and effective reward estimate compared to DPO. While DPO can theoretically be framed as a token-level MDP for credit assignment <d-cite key="rafailov2024from"></d-cite>, it requires more samples than PPO to achieve accurate token-level credit assignment.
 
-</aside>
 
 ### Bradley-Terry Model vs. Weighted Logistic Model
 
@@ -206,10 +200,8 @@ where $w_i$ represents the token-wise reshaped reward of the token $y_i$ within 
 
 If the reward model uses the BT framework to learn human preferences, both PPO and DPO may experience reduced generation diversity and overlook minority preferences. To mitigate these weaknesses, an ensemble of the reward model and various tools is commonly used in practice.
 
-<aside>
-💡  DPO easily collapses in generation diversity and overlooks minority preferences, making it difficult to continue improving LLM performance. However, PPO can continue to enhance LLM performance when supported by a robust reward model in practice.
+>DPO easily collapses in generation diversity and overlooks minority preferences, making it difficult to continue improving LLM performance. However, PPO can continue to enhance LLM performance when supported by a robust reward model in practice.
 
-</aside>
 
 ### REINFORCE vs. Actor-Critic Method
 
@@ -224,10 +216,8 @@ Due to its reliance on Monte Carlo estimation, REINFORCE exhibits high variance 
 
 To address these weaknesses, Sutton et al. <d-cite key="konda1999actor"></d-cite> proposed the Actor-Critic algorithm. By combining the policy gradient method (actor) with a value function estimate (critic), the Actor-Critic reduces variance in policy updates, leading to more stable and faster learning. PPO is a variant of the Actor-Critic algorithm that also employs a value function to estimate the token-wise reshaped rewards. 
 
-<aside>
-💡 Compared to DPO, PPO reduces variance in policy updates, resulting in more stable and faster learning by employing a value function to estimate token-wise reshaped rewards.
+>Compared to DPO, PPO reduces variance in policy updates, resulting in more stable and faster learning by employing a value function to estimate token-wise reshaped rewards.
 
-</aside>
 
 ### Off-Policy Method vs. On-Policy Method
 
@@ -237,10 +227,8 @@ In the DPO algorithm, human preference data does not need to be collected from t
 
 PPO is an on-policy, online method that begins by sampling responses from the current policy. These responses are evaluated by a reward model, and the generated responses, along with their rewards, are used to further train the current policy. While the reward model also encounters OOD issues, the impact is not as severe.
 
-<aside>
-💡 DPO is an off-policy method that learns from actions taken by various policies, offering potential flexibility and efficiency in learning. However, off-policy samples often cause state distribution shift issues, leading to model collapse. In contrast, PPO uses on-policy samples for model updates, resulting in a more time-consuming but stable training process.
+>DPO is an off-policy method that learns from actions taken by various policies, offering potential flexibility and efficiency in learning. However, off-policy samples often cause state distribution shift issues, leading to model collapse. In contrast, PPO uses on-policy samples for model updates, resulting in a more time-consuming but stable training process.
 
-</aside>
 
 ## Limitations of DPO
 
