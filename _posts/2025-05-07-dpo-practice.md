@@ -30,6 +30,7 @@ toc:
     - name: REINFORCE vs. Actor-Critic Method
     - name: Off-Policy Method vs. On-Policy Method
   - name: Limitations of DPO
+  - name: Conclusion
 
 ---
 
