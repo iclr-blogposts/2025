@@ -24,7 +24,7 @@ authors:
           name: CMU
 
 # must be the exact same name as your blogpost
-bibliography: 2025-04-28-distill-example.bib
+bibliography: 2025-04-28-scalable-mcts.bib
 
 # Add a table of contents to your post.
 #   - make sure that TOC names match the actual section names
@@ -62,19 +62,19 @@ _styles: >
 
 ## Intro
 
-Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously -- especially for complex queries -- can seem impractical. Naturally, the AI industry is shifting from simply scaling model size to optimizing test-time compute. This shift involves finding ways to harness computational resources effectively during inference. One promising approach is leveraging search algorithms, which enable models to plan, reason, and iteratively refine their outputs. If we can use search in a scalable way, we can allocate compute to tackle complex challenges such as proving the Riemann Hypothesis or discovering drugs for rare diseases. In this blog post, we will focus our discussion on one such method for leveraging test-time compute: **Monte Carlo Tree Search (MCTS)**.
+Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously -- especially for complex queries -- can seem impractical. Naturally, the AI industry is shifting from simply scaling model size to optimizing test-time compute. This shift involves finding ways to harness computational resources effectively during inference. One promising approach is leveraging search algorithms, which enable models to plan, reason, and iteratively refine their outputs. If we can use search in a scalable way, we can leverage vast compute resources to tackle complex challenges such as proving the Riemann Hypothesis or discovering drugs for rare diseases. In this blog post, we will focus our discussion on one such method for leveraging test-time compute: **Monte Carlo Tree Search (MCTS)**.
 
 Rich Sutton’s _bitter lesson_ encapsulates a key insight that is highly relevant to this shift in focus:
 
 > “One thing that should be learned from the bitter lesson is the great power of general-purpose methods, of methods that continue to scale with increased computation even as the available computation becomes very great. The two methods that seem to scale arbitrarily in this way are search and learning.”
 
-This lesson underscores the importance of scalable methods like search, which can capitalize on increased computational power to deliver more robust results. MCTS algorithms have proven successful in many domains having large state spaces (e.g. Chess, Go, protein folding, molecular design). However, it is difficult to parallelize MCTS without degrading its performance, since each iteration requires information from all previous iterations to provide an effective exploration-exploitation tradeoff (Cite: WU-MCTS). In this blogpost, we will explain and analyze different methods for effectively scaling MCTS.
+This lesson underscores the importance of scalable methods like search, which can capitalize on increased computational power to deliver more robust results. MCTS algorithms have proven successful in many domains having large state spaces (e.g. Chess, Go, protein folding, molecular design). However, it is difficult to parallelize MCTS without degrading its performance, since each iteration requires information from all previous iterations to provide an effective exploration-exploitation tradeoff <d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explain and analyze different methods for effectively scaling MCTS.
 
 ## MCTS Background
 
-Monte Carlo Tree Search (MCTS) is a powerful algorithm for decision-making in large state spaces, commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. MCTS stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before the advent of MCTS, techniques like minimax with alpha-beta pruning were the standard in game AI, but they were limited by their reliance on complete tree exploration and domain-specific heuristics.
+Monte Carlo Tree Search (MCTS) is a powerful algorithm for decision-making in large state spaces, commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. MCTS stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before MCTS became prominent, techniques like minimax with alpha-beta pruning were the standard in game AI. While alpha-beta pruning could efficiently reduce the search space, its effectiveness often depended on the quality of evaluation functions and move ordering. MCTS offered a different approach that could work without domain-specific knowledge, though both methods can benefit from incorporating heuristics <d-cite key="swiechowski2022mcts"></d-cite>.
 
-### Classic MCTS
+### Vanilla MCTS
 
 MCTS iteratively builds a search tree, collecting statistics on potential actions to make intelligent decisions. The algorithm operates in four main phases:
 
@@ -85,10 +85,10 @@ MCTS iteratively builds a search tree, collecting statistics on potential action
 
 MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space (e.g., a game tree) is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
 
-The decision-making process in MCTS can be represented mathematically. At any point during the search, MCTS recommends the best action \( a^\* \) based on the current statistics, as shown in Equation 1:
+The decision-making process in MCTS can be represented mathematically. At any point during the search, MCTS recommends the best action $a^*$ based on the current statistics:
 
 $$
-a^* = \arg \max_{a \in A(s)} Q(s, a)
+a^* = \underset{a \in A(s)}{\operatorname{argmax}} Q(s, a) \tag{1}
 $$
 
 where:
@@ -100,28 +100,30 @@ This equation implies that as more iterations are completed, the statistics for 
 
 ### The UCT Selection Policy
 
-A key component of MCTS is the **Upper Confidence Bounds for Trees (UCT)** algorithm, which determines how child nodes are selected during the selection phase. The UCT formula is given by:
+A key component of MCTS is the **Upper Confidence Bounds for Trees (UCT)** algorithm, introduced by Kocsis and Szepesvári <d-cite key="kocsis2006bandit"></d-cite>. It determines how child nodes are selected during the selection phase. There are two cases. (1) If a given node has not expanded all of its leaf nodes, then we expand them randomly. (2) Otherwise we select the node with the highest UCT value. The aim of the selection policy is to maintain a proper balance between the exploration (of not well-tested actions) and exploitation (of the best actions identifed so far) <d-cite key="swiechowski2022mcts"></d-cite>. The UCT formula is given by:
 
 $$
-UCT(v) = \frac{w(v)}{n(v)} + c \sqrt{\frac{\ln N(v_p)}{n(v)}}
+a^* = \arg \max_{a \in A(s)} \left\{ Q(s, a) + C \sqrt{\frac{\ln N(s)}{N(s, a)}} \right\} \tag{2}
 $$
 
 where:
 
--   $w(v)$ is the total reward of node $v$.
--   $n(v)$ is the number of times node $v$ has been visited.
--   $N(v_p)$ is the number of times the parent node has been visited.
--   $c$ is an exploration parameter that controls the tradeoff between exploration and exploitation.
-
-The UCT policy ensures that nodes with higher potential (even if they have been visited fewer times) are explored, balancing between revisiting promising paths and exploring new ones.
+-   $a^*$ is the action selected from state $s$.
+-   $A(s)$ is the set of actions available in state $s$.
+-   $Q(s, a)$ represents the average result of playing action $a$ in state $s$ based on simulations performed so far.
+-   $N(s)$ is the number of times state $s$ has been visited.
+-   $N(s, a)$ is the number of times action $a$ has been played from state $s$.
+-   $C$ is a constant controlling the balance between exploration and exploitation. In general, it is a domain-dependent parameter.
 
 ### Deep RL + MCTS
 
 We also wanted to emphasize a recent method in using MCTS, popularized by the AlphaGo line of work. In recent years, the selection policy has been modified to incoporate a policy evaluation that biases the node selection towards actions that the policy finds adequate. Further, the policy is continually trained through cross entropy loss against the selection probabilities at the root node.
 
-### Extensions to Classic MCTS
+### Extensions to Vanilla MCTS
 
-What we have presented here is the classic MCTS algorithm, but there are many modifications, such as using different selection policies, expansion methods, incorporating domain-specific knowledge. support for POMDP and stochastic settings. If you are curious for a more detailed overview of these extensions, please refer to X.
+While we have discussed the vanilla Monte Carlo Tree Search (MCTS) algorithm, there are numerous modifications which enhance its flexibility and applicability across different domains. These modifications adapt MCTS for a variety of complex scenarios including games with both perfect and imperfect information, and extend its utility to real-world applications such as planning, security, and chemical synthesis. The enhancements often involve sophisticated selection policies, integration of machine learning, or domain-specific adjustments that significantly improve performance.
+
+For those interested in a deeper exploration of these extensions, a detailed overview can be found in the comprehensive survey by Swiechowski et al., which organizes MCTS modifications by type and application domain, offering a rich resource for anyone looking to understand how to extend this powerful algorithm <d-cite key="swiechowski2022mcts"></d-cite>.
 
 ## Root Parallelism
 
@@ -149,7 +151,7 @@ The main challenge with tree parallelism is avoiding conflicts and ensuring data
 
 ## Scalable Distributed MCTS
 
-In 2011, Yoshizoe et al [paper reference] introduced an efficient scheme for parallelized MCTS with two core ideas: transposition-table driven scheduling (TDS) parallelism and depth-first MCTS. First, we will discuss these topics separately and then see how the combination of the two concepts leads to efficient parallelization.
+In 2011, Yoshizoe et al <d-cite key="yoshizoe2011scalable"></d-cite> introduced an efficient scheme for parallelized MCTS with two core ideas: transposition-table driven scheduling (TDS) parallelism and depth-first MCTS. First, we will discuss these topics separately and then see how the combination of the two concepts leads to efficient parallelization.
 
 First, we introduce TDS. At a high level, TDS is a mechanism for evenly distributing data across W worker nodes and efficiently distributing work to be done on said data. In TDS, each record of data is passed through a hash function that maps it to one of the worker nodes. This is the record’s “home”: the record is stored in memory on its home worker and on no other workers. With a good hash function, this scheme ensures that the data is partitioned evenly across a network of workers. The key idea behind TDS is that data doesn’t move, requests do. If worker A receives a request to run some function on a partition of data that resides on worker B, the request is forwarded to worker B and the response is computed locally before being sent back to worker A. This design is very efficient, as moving data across a network is far slower than encoding requests to process that data and sending the requests where the data resides.
 
@@ -169,11 +171,15 @@ The final system presented by the authors enables parallelized MCTS by (1) evenl
 
 ## Watch the Unobserved in UCT (WU-MCTS)
 
-Recall that in the standard MCTS procedure each node in the explored tree stores a scalar called the “value” that encapsulates how advantageous we think it is to visit that node based on our previous experience. Using these values, we can characterize our “best” possible rollout as greedily choosing the child with the highest value when we perform rollouts, which take us from the root down to a leaf node in our known tree. It is crucial to remember that always choosing the “best” possible rollout fails to adequately balance exploiting our current knowledge against the potential of acquiring novel expertise via exploring. In vanilla MCTS, this balance is struck with UCB (Upper Confidence Bound). Under UCB, each node stores a count of how many times it has been visited in previous rollouts, and these counts are used to incentivize exploration as seen in equation XX (add equation 2 from paper).
+Recall that in the standard MCTS procedure each node in the explored tree stores a scalar called the “value” that encapsulates how advantageous we think it is to visit that node based on our previous experience. Using these values, we can characterize our “best” possible rollout as greedily choosing the child with the highest value when we perform rollouts, which take us from the root down to a leaf node in our known tree. It is crucial to remember that always choosing the “best” possible rollout fails to adequately balance exploiting our current knowledge against the potential of acquiring novel expertise via exploring. In vanilla MCTS, this balance is struck with UCB (Upper Confidence Bound). Under UCB, each node stores a count of how many times it has been visited in previous rollouts, and these counts are used to incentivize exploration as we showed in the formulation of the UCB selection policy earlier (see Equation 2).
 
 Each time a rollout finishes, a recursive procedure propagates the result/reward of the rollout back up the tree. Each node visited during the rollout in the known tree increases its stored visit count by one and updates its value based on the result of the rollout. The next rollout will use the updated visit counts and values. Based on this formulation, it is impossible to efficiently parallelize MCTS with UCB: if we naively try to parallelize the rollouts by having W workers run W rollouts based on the same values and visit counts, they will all use the same path within the known tree and we will effectively have no exploration.
 
-Liu et al [paper citation] recognized this problem and proposed an elegant solution to enable parallelized approximate MCTS. Their simple fix involves tracking an additional number \( O_s \) (fix notation) at each node which counts the number of active rollouts which visited that node. Then, the update rule becomes: (equation 4)
+Liu et al [paper citation] recognized this problem and proposed an elegant solution to enable parallelized approximate MCTS. Their simple fix involves tracking an additional number $O_s$ at each node which counts the number of active rollouts which visited that node. Then, the update rule becomes:
+
+$$
+a_s = \arg \max_{s' \in C(s)} \left\{ V_{s'} + \beta \sqrt{\frac{2 \log (N_s + O_s)}{N_{s'} + O_{s'}}} \right\} \tag{3}
+$$
 
 This keeps the UCB decision rule but allows for multiple rollouts to be active at the same time by using the sum of completed rollouts and active rollouts to regulate exploration at each node.
 
