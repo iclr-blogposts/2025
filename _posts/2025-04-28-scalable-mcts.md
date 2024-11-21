@@ -68,7 +68,7 @@ Rich Sutton’s _bitter lesson_ encapsulates a key insight that is highly releva
 
 > “One thing that should be learned from the bitter lesson is the great power of general-purpose methods, of methods that continue to scale with increased computation even as the available computation becomes very great. The two methods that seem to scale arbitrarily in this way are search and learning.”
 
-This lesson underscores the importance of scalable methods like search, which can capitalize on increased computational power to deliver more robust results. MCTS algorithms have proven successful in many domains having large state spaces (e.g. Chess, Go, protein folding, molecular design). However, it is difficult to parallelize MCTS without degrading its performance, since each iteration requires information from all previous iterations to provide an effective exploration-exploitation tradeoff <d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explain and analyze different methods for effectively scaling MCTS.
+This lesson underscores the importance of scalable methods like search, which can capitalize on increased computational power to deliver more robust results. MCTS algorithms have proven successful in many domains having large state spaces (e.g. Go, chess, protein folding, molecular design). However, it is difficult to parallelize MCTS without degrading its performance, since each iteration requires information from all previous iterations to provide an effective exploration-exploitation tradeoff <d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explain and analyze different methods for effectively scaling MCTS.
 
 ## MCTS Background
 
@@ -78,8 +78,8 @@ Monte Carlo Tree Search (MCTS) is a powerful algorithm for decision-making in la
 
 MCTS iteratively builds a search tree, collecting statistics on potential actions to make intelligent decisions. The algorithm operates in four main phases:
 
-1. **Selection**: Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. This continues until a leaf node is reached, where expansion is possible.
-2. **Expansion**: If the selected node is not a terminal state, the algorithm adds one or more child nodes to the tree, representing potential future states.
+1. **Selection**: Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. This continues until either a node with unexplored children is reached (where expansion is possible) or a terminal node is reached.
+2. **Expansion**: If the selected node is not a terminal, the algorithm chooses an unexplored child node randomly and adds it to the tree.
 3. **Simulation**: From the newly expanded node, a simulation (or "rollout") is conducted. This is typically done by playing out the game or continuing through the state space until a terminal state is reached, using a default policy (often random).
 4. **Backpropagation**: Once a terminal state is reached, the result of the simulation is propagated back up the tree, updating the statistics of the visited nodes to reflect the outcome.
 
@@ -103,7 +103,7 @@ This equation implies that as more iterations are completed, the statistics for 
 A key component of MCTS is the **Upper Confidence Bounds for Trees (UCT)** algorithm, introduced by Kocsis and Szepesvári <d-cite key="kocsis2006bandit"></d-cite>. It determines how child nodes are selected during the selection phase. There are two cases. (1) If a given node has not expanded all of its leaf nodes, then we expand them randomly. (2) Otherwise we select the node with the highest UCT value. The aim of the selection policy is to maintain a proper balance between the exploration (of not well-tested actions) and exploitation (of the best actions identifed so far) <d-cite key="swiechowski2022mcts"></d-cite>. The UCT formula is given by:
 
 $$
-a^* = \arg \max_{a \in A(s)} \left\{ Q(s, a) + C \sqrt{\frac{\ln N(s)}{N(s, a)}} \right\} \tag{2}
+a^* = \underset{a \in A(s)}{\operatorname{argmax}} \left\{ Q(s, a) + C \sqrt{\frac{\ln N(s)}{N(s, a)}} \right\} \tag{2}
 $$
 
 where:
@@ -115,37 +115,51 @@ where:
 -   $N(s, a)$ is the number of times action $a$ has been played from state $s$.
 -   $C$ is a constant controlling the balance between exploration and exploitation. In general, it is a domain-dependent parameter.
 
+We will now move on to explaining an extension to vanilla MCTS and then dive in to the different ways to implement a scalable distributed MCTS solution. If you would like to learn more about Vanilla MCTS, I would highly recommend [this blogpost](https://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/ "Introduction to Monte Carlo Tree Search") on MCTS by Jeff Bradberry.
+
 ### Deep RL + MCTS
 
-We also wanted to emphasize a recent method in using MCTS, popularized by the AlphaGo line of work. In recent years, the selection policy has been modified to incoporate a policy evaluation that biases the node selection towards actions that the policy finds adequate. Further, the policy is continually trained through cross entropy loss against the selection probabilities at the root node.
+Since part of the popularity of MCTS is due to its use in the AlphaGo line of work (AlphaGo, AlphaZero, MuZero, etc.), we wanted to expand on how MCTS is incoporated into this work. We will focus on AlphaZero and MuZero, explaining what they are and how they are different. AlphaZero uses a general-purpose MCTS algorithm and directly uses the state transition function for the game of Go. AlphaZero doesn't just use the policy network to choose actions, which could cause spurious approximation errors. Instead, it combines its policy network with MCTS, effectively improving the policy and averaging over approximation errors <d-cite key="schrittwieser2020mastering"></d-cite>. After conducting search with MCTS starting from the current state, AlphaZero returns a vector representing the probability distribution over the next moves. Additionally, the policy network is trained to maximize the similarity between its policy vector and the search probabilities derived from MCTS via the cross entropy loss. A very important detail is that both methods use **virtual loss** to evaluate the N most promising positions in parallel, a form of **tree parallelism** that we will describe in more detail later.
 
-### Extensions to Vanilla MCTS
+MuZero further generalizes this approach, incorporating a learned state transition function for planning in environments with single-agent domains and intermediate rewards, such as Atari games. MuZero matched the performance of AlphaZero in games of Go, chess, and shogi even though MuZero had no knowledge of the game rules. They also show the scalability of planning in Go and Atari games:
 
-While we have discussed the vanilla Monte Carlo Tree Search (MCTS) algorithm, there are numerous modifications which enhance its flexibility and applicability across different domains. These modifications adapt MCTS for a variety of complex scenarios including games with both perfect and imperfect information, and extend its utility to real-world applications such as planning, security, and chemical synthesis. The enhancements often involve sophisticated selection policies, integration of machine learning, or domain-specific adjustments that significantly improve performance.
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mu_zero_scaling_1.png" class="img-fluid-2 rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mu_zero_scaling_2.png" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+  Evaluations of MuZero on Go (A), and all 57 Atari Games (B) <d-cite key="schrittwieser2020mastering"></d-cite>
+</div>
 
-For those interested in a deeper exploration of these extensions, a detailed overview can be found in the comprehensive survey by Swiechowski et al., which organizes MCTS modifications by type and application domain, offering a rich resource for anyone looking to understand how to extend this powerful algorithm <d-cite key="swiechowski2022mcts"></d-cite>.
+Here we see that MuZero's performance in Atari games improved as the amount of search increased, but the improvements were not as significant for Atari as they were for Go. The authors believe this is likely because of greater model inaccuracy in Atari games <d-cite key="schrittwieser2020mastering"></d-cite>, which suggests performance gains can be attained by improving the learned generative models.
 
-## Root Parallelism
+### More Extensions to Vanilla MCTS
+
+While we have discussed the vanilla Monte Carlo Tree Search (MCTS) algorithm, there are numerous modifications which enhance its flexibility and applicability across different domains. These modifications adapt MCTS for a variety of complex scenarios including games with both perfect and imperfect information, and extend its utility to real-world applications such as planning, security, and chemical synthesis. For those interested in a deeper exploration of these extensions, a detailed overview can be found in the comprehensive survey by Swiechowski et al.<d-cite key="swiechowski2022mcts"></d-cite>
+
+## How can we scale it?
+
+If we are constrained by time, we can find ways to improve our MCTS by looking at how we can distribute the four different phases of MCTS. There are 3 main ways that MCTS can be parallelized, and we will discuss each one below.
+
+### Root Parallelism
 
 Root parallelism involves creating multiple independent instances of the MCTS algorithm, each building a separate tree concurrently. This approach is straightforward and avoids the complexities associated with managing shared memory. It is somewhat akin to ensemble methods in machine learning where multiple models (trees, in this case) vote on the best action. Each tree explores different paths independently, which can provide a broader exploration of the state space but may result in redundant computations.
 
-### Practical Implications
-
 While root parallelism is easy to implement and scales linearly with the number of processors, it often lacks efficiency because the separate trees do not share insights. This can lead to a situation where all instances explore the same or similar states without leveraging the knowledge gained by others. To mitigate this, some implementations aggregate the results of different trees, selecting the most promising moves based on a majority vote or averaging method.
 
-## Leaf Parallelism
+### Leaf Parallelism
 
 Leaf parallelism focuses on the simulation phase of MCTS. By distributing the rollout simulations across multiple workers, it achieves a high degree of parallelism with minimal coordination overhead.
 
-### Efficiency and Drawbacks
-
 Although leaf parallelism increases the speed of statistical accumulation, its effectiveness can be limited by the quality of rollouts. If early simulations indicate a poor choice, continuing to explore that choice can waste computational resources. Adaptive strategies that adjust based on intermediate results can help optimize this approach.
 
-## Tree Parallelism
+### Tree Parallelism
 
 Tree parallelism, unlike root parallelism, involves multiple threads or processes working on the same tree. It aims to expand the tree more quickly by allowing concurrent operations on different parts of the tree.
-
-### Challenges and Solutions
 
 The main challenge with tree parallelism is avoiding conflicts and ensuring data integrity as multiple threads update the tree. Techniques such as lock-free programming and the use of virtual loss have been developed to manage these issues. Virtual loss temporarily penalizes nodes being explored by one thread, discouraging other threads from exploring the same nodes simultaneously.
 
@@ -178,7 +192,7 @@ Each time a rollout finishes, a recursive procedure propagates the result/reward
 Liu et al [paper citation] recognized this problem and proposed an elegant solution to enable parallelized approximate MCTS. Their simple fix involves tracking an additional number $O_s$ at each node which counts the number of active rollouts which visited that node. Then, the update rule becomes:
 
 $$
-a_s = \arg \max_{s' \in C(s)} \left\{ V_{s'} + \beta \sqrt{\frac{2 \log (N_s + O_s)}{N_{s'} + O_{s'}}} \right\} \tag{3}
+a_s = \underset{s' \in C(s)}{\operatorname{argmax}} \left\{ V_{s'} + \beta \sqrt{\frac{2 \log (N_s + O_s)}{N_{s'} + O_{s'}}} \right\} \tag{3}
 $$
 
 This keeps the UCB decision rule but allows for multiple rollouts to be active at the same time by using the sum of completed rollouts and active rollouts to regulate exploration at each node.
