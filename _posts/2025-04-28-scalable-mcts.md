@@ -39,17 +39,21 @@ toc:
           - name: MCTS Extensions
     - name: How can we scale MCTS?
       subsections:
-          - name: Root Parallelism
           - name: Leaf Parallelism
+          - name: Root Parallelism
           - name: Tree Parallelism
-    - name: Scalable Distributed MCTS
-    - name: Watch the Unobserved in UCT (WU-MCTS)
+    - name: Lock-free Distributed MCTS Approaches
+    - name: Distributing the tree
+    - name: How can we more evenly distribute?
+    - name: Virtual Loss
     - name: Conclusion
+
+## Distributing the tree
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
-# If you use this post as a template, delete this styles block.
-styles: >
+# If you use this post as a template, delete this _styles block.
+_styles: >
     .fake-img {
       background: #bbb;
       border: 1px solid rgba(0, 0, 0, 0.1);
@@ -83,7 +87,7 @@ This lesson underscores the importance of scalable methods like search, which ca
   Impact of additional search time given to MuZero on performance in Go<d-cite key="schrittwieser2020mastering"></d-cite>
 </div>
 
-The empirical results reveal a characteristic relationship between search depth and playing strength in MCTS algorithms - as the number of simulations increases, performance typically improves logarithmically, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. This pattern is clearly demonstrated in MuZero's Go performance, where increased search depth consistently yields improved results. It's worth noting that MuZero uses a form of tree parallelism called virtual loss to evaluate the N most promising positions in parallel, an approach that we will describe in more detail later.
+The empirical results reveal a characteristic relationship between search depth and playing strength typically seen in MCTS applications -- as the number of simulations increases, performance typically improves logarithmically, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. This pattern is clearly demonstrated in MuZero's Go performance, where increased search depth consistently yields improved results. It's worth noting that MuZero uses a form of tree parallelism called virtual loss to evaluate the N most promising positions in parallel, an approach that we will describe in more detail later.
 
 MCTS algorithms have proven successful in many domains having large state spaces (e.g. Go, chess, protein folding, molecular design). However, it is difficult to parallelize MCTS without degrading its performance, since each iteration requires information from all previous iterations to provide an effective exploration-exploitation tradeoff<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explain and analyze different methods for effectively scaling MCTS.
 
@@ -95,8 +99,28 @@ Monte Carlo Tree Search (MCTS) is a powerful algorithm for decision-making in la
 
 MCTS iteratively builds a search tree, collecting statistics on potential actions to make intelligent decisions. The algorithm operates in four main phases:
 
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_1.png" class="img-fluid rounded" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_2.png" class="img-fluid rounded" %}
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_3.png" class="img-fluid rounded" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_4.png" class="img-fluid rounded" %}
+    </div>
+</div>
+<div class="caption">
+    Diagram taken from Wikipedia<d-cite key="wiki:mcts"></d-cite>
+</div>
+
 1. **Selection**: Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. This continues until either a node with unexplored children is reached (where expansion is possible) or a terminal node is reached.
-2. **Expansion**: If the selected node is not a terminal, the algorithm chooses an unexplored child node randomly and adds it to the tree.
+2. **Expansion**: If the selected node is not terminal, the algorithm chooses an unexplored child node randomly and adds it to the tree.
 3. **Simulation**: From the newly expanded node, a simulation (or "rollout") is conducted. This is typically done by playing out the game or continuing through the state space until a terminal state is reached, using a default policy (often random).
 4. **Backpropagation**: Once a terminal state is reached, the result of the simulation is propagated back up the tree, updating the statistics of the visited nodes to reflect the outcome.
 
@@ -113,7 +137,7 @@ where:
 -   $A(s)$ represents the set of actions available in state $s$.
 -   $Q(s, a)$ denotes the empirical average result of selecting action $a$ in state $s$.
 
-This equation implies that as more iterations are completed, the statistics for each action become more robust, increasing confidence that the suggested action \( a\* \) approaches the optimal solution.
+This equation implies that as more iterations are completed, the statistics for each action become more robust, increasing confidence that the suggested action $a^*$ approaches the optimal solution.
 
 ### The UCT Selection Policy
 
@@ -140,17 +164,21 @@ While we have discussed the vanilla Monte Carlo Tree Search (MCTS) algorithm, th
 
 ## How can we scale MCTS?
 
-To find better solutions without increasing [wall-clock time](https://en.wikipedia.org/wiki/Elapsedreal_time) time, we can consider how the four different phases of MCTS can be distributed. There are 3 broad types of parallelism used to scale MCTS, and we will discuss each one below.
+To find better solutions without increasing [wall-clock time](https://en.wikipedia.org/wiki/Elapsed_real_time), we can consider how the four different phases of MCTS can be distributed. There are three broad types of parallelism used to scale MCTS, and we will discuss each one below.
 
 {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_parallelism.png" class="img-fluid" %}
 
-### Root Parallelism
-
-Root parallelism takes the approach of distributing all phases onto separate worker machines. Each worker uses MCTS to build a **separate** tree concurrently. This approach is straightforward and avoids the complexities associated with managing shared memory. It is analogous to ensemble methods in machine learning where multiple models (trees, in this case) vote on the best action. Each tree explores different trajectories independently, which can provide a broader exploration of the state space but may result in redundant computations. The independence of each tree allows for diverse explorations of the search space, increasing the likelihood of escaping local optima that a single search might get trapped in<d-cite key="chaslot2008parallel"></d-cite>. When the available time is spent, we aggregate the results of the different trees and select the most promising action based on a majority vote or averaging method. Workers do not share information with each other until the final aggregation step, so this method requires minimal communication. While root parallelism is easy to implement and requires little communication, it often lacks efficiency because all instances explore the same or similar states without leveraging the knowledge gained by others.
+<div class="caption">
+    Diagram taken from Chaslot et al.<d-cite key="chaslot2008parallel"></d-cite>
+</div>
 
 ### Leaf Parallelism
 
 Leaf parallelism focuses on the simulation phase of MCTS. By distributing the rollout simulations across multiple workers, it achieves a high degree of parallelism with minimal coordination overhead. Once we expand a new leaf node, we execute rollouts on multiple different workers, getting more rollout results in the same amount of wall-clock time. Leaf parallelism reduces the variance of our rollouts, giving us more precise estimates of the true value of a given node. Similar to root parallelism, leaf parallelism requires no communication between worker machines until the results of the rollouts are aggregated. Although leaf parallelism increases the speed of statistical accumulation, its effectiveness can be limited by the quality of rollouts. If early simulations indicate a low value, running more simulations can be a complete waste of compute. Chaslot et al. find that the strength of leaf parallelism is rather low, and suggest that it is not a good way to parallelize MCTS<d-cite key="chaslot2008parallel"></d-cite>.
+
+### Root Parallelism
+
+Root parallelism takes the approach of distributing all phases onto separate worker machines. Each worker uses MCTS to build a **separate** tree concurrently. This approach is straightforward and avoids the complexities associated with managing shared memory. It is analogous to ensemble methods in machine learning where multiple models (trees, in this case) vote on the best action. Each tree explores different trajectories independently, which can provide a broader exploration of the state space but may result in redundant computations. The independence of each tree allows for diverse explorations of the search space, increasing the likelihood of escaping local optima that a single search might get trapped in<d-cite key="chaslot2008parallel"></d-cite>. When the available time is spent, we aggregate the results of the different trees and select the most promising action based on a majority vote or averaging method. Workers do not share information with each other until the final aggregation step, so this method requires minimal communication. While root parallelism is easy to implement and requires little communication, it often lacks efficiency because all instances explore the same or similar states without leveraging the knowledge gained by others.
 
 ### Tree Parallelism
 
@@ -171,7 +199,7 @@ Techniques such as lock-free programming, virtual loss, and transposition-table 
 
 ## Distributing the tree
 
-In 2011, Yoshizoe et al<d-cite key="yoshizoe2011scalable"></d-cite> introduced an efficient scheme for parallelized MCTS with two core ideas: transposition-table driven scheduling (TDS) parallelism and depth-first MCTS. First, we will discuss these topics separately and then see how the combination of the two concepts combine for efficient parallelization.
+In 2011, Yoshizoe et al<d-cite key="yoshizoe2011scalable"></d-cite> introduced an efficient scheme for parallelized MCTS with two core ideas: transposition-table driven scheduling (TDS) parallelism and depth-first MCTS. First, we will discuss these topics separately and then see how the the two concepts combine for efficient parallelization.
 
 At a high level, TDS is a mechanism for evenly distributing data across W worker nodes and efficiently distributing work to be done on said data. In TDS, each record of data is passed through a hash function that maps it to one of the worker nodes. This is the record’s “home” -- the record is stored in memory on its home worker and on no other workers. With a good hash function, this scheme ensures that the data is partitioned evenly across a network of workers. The key idea behind TDS is that data doesn’t move, requests do. If worker A receives a request to run some function on a partition of data that resides on worker B, the request is forwarded to worker B and the response is computed locally on B before being sent back to worker A. This design is very efficient, as moving data across a network is generally far slower than encoding requests to process that data and sending the requests where the data resides.
 
@@ -191,7 +219,7 @@ In an attempt to mitigate the uneven distribution of job requests, the authors p
 
 The authors tested their system against standard, sequential MCTS on a 2-player benchmark game. They found that if both algorithms trained for the same amount of rollouts, sequential MCTS slightly outperforms df-MCTS. This is expected, as the delayed propagation of rewards under df-MCTS means that some exploration decisions are made based on stale UCB statistics. However, when both algorithms were allowed to train for the same amount of wall-clock time, the distributed system significantly outperformed sequential MCTS as it was able to perform substantially more rollouts in the same time period.
 
-The final system presented by the authors enables parallelized MCTS by (1) evenly distributing the search tree and its metadata across W workers under a partitioning based on TDS, (2) performing all work on the partitioned tree locally without sending data across the network, and (3) better balancing the work done on each worker node by running a depth-first version of MCTS which takes backpropagation steps less frequently and puts less strain on the worker housing the root node. The distributed MCTS system significantly outperformed sequential MCTS given the same amount of wall clock train time in the author's experiments, suggesting it is a viable approach to parallelizing MCTS.
+The final system presented by the authors enables parallelized MCTS by (1) evenly distributing the search tree and its metadata across W workers under a partitioning based on TDS, (2) performing all work on the partitioned tree locally without sending data across the network, and (3) better balancing the work done on each worker node by running a depth-first version of MCTS which takes backpropagation steps less frequently and puts less strain on the worker housing the root node. The distributed MCTS system significantly outperformed sequential MCTS given the same amount of wall-clock train time in the author's experiments, suggesting it is a viable approach to parallelizing MCTS.
 
 ## Virtual Loss
 
@@ -204,7 +232,7 @@ Each time a rollout finishes, a recursive procedure propagates the result/reward
 Liu et al recognized this problem and proposed an elegant solution to enable parallelized approximate MCTS. Their simple fix involves tracking an additional number $O_s$ at each node which counts the number of _active_ (i.e. not completed)rollouts which vistied that node. The UCB update rule becomes:
 
 $$
-a^* = \underset{s' \in C(s)}{\operatorname{argmax}} \left\{ V_{s'} + \beta \sqrt{\frac{2 \log (Ns + Os)}{N_{s'} + O_{s'}}} \right\} \tag{3}
+a^* = \underset{s' \in C(s)}{\operatorname{argmax}} \left\{ V_{s'} + \beta \sqrt{\frac{2 \log (N_s + O_s)}{N_{s'} + O_{s'}}} \right\} \tag{3}
 $$
 
 This keeps the UCB decision rule but allows for multiple rollouts to be active at the same time by using the sum of completed rollouts and active rollouts to regulate exploration at each node.
@@ -219,7 +247,7 @@ The master node finally back propagates this return and updates the visit counts
 
 {% include figure.html path="assets/img/2025-04-28-scalable-mcts/wu_mcts_diagram.png" class="img-fluid" %}
 
-While there are many rounds of communication, the authors showed that the expansion and simulation steps took longer than communication steps in their system, suggesting communication is not a bottleneck.
+While there are many rounds of communication, the authors showed that the expansion and simulation steps took longer than the communication steps in their system, suggesting communication is not a bottleneck.
 
 To test their procedure, the authors benchmarked against sequential MCTS and found only slight performance degradation on an RL benchmark suite of 15 Atari games. This method also outperformed existing parallel MCTS algorithms on the benchmark suite, beating standard leaf and root parallelization implementations on 15/15 games and standard tree parallelization on 13/15.
 
@@ -229,4 +257,4 @@ In short, Liu et al break down the MCTS process into two distinct phases (expans
 
 MCTS is a powerful algorithom for that serves as the backbone behind pivotal technologies such as AlphaZero with the potential to be applied in any domain requiring efficient tree search or sampling. MCTS in its original form cannot be parallelized as it is inherently sequential; current iterations rely on statistics aggregated over all previous iterations. Although the exact MCTS algorithm cannot be parallelized across mulitple workers, there is a wide body of existing literature presenting distrbuted schemes that approximate vanilla MCTS and empirically outperform it when controlling for wall-clock time. We hope that in reading this report our audience has become familiar with the basic techniques behind distributed MCTS in root, leaf and tree parallelization.
 
-Ultimately, no single distibuted MCTS algorithm outperforms all others. Distributed MCTS algorithms differ in how often they send messages, the size of messages sent, and the roles of nodes in the system. The choice of which distributed MCTS algorithm to use requires informed tradeoffs based on sound knowledge of your network and compute capabilities. But, emprirical evidence shows that taking the time to parallelize MCTS is well-worth the effort, as learning speed (as measured by wall clock time) greatly increases in a distributed setting.
+Ultimately, no single distibuted MCTS algorithm outperforms all others. Distributed MCTS algorithms differ in how often they send messages, the size of messages sent, and the roles of nodes in the system. The choice of which distributed MCTS algorithm to use requires informed tradeoffs based on sound knowledge of your network and compute capabilities. But, emprirical evidence shows that taking the time to parallelize MCTS is well-worth the effort, as learning speed (as measured by wall-clock time) greatly increases in a distributed setting.
