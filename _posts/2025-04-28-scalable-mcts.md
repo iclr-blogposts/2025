@@ -276,7 +276,7 @@ These enhancements enable MP-MCTS to approximate the behavior of sequential MCTS
 {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mp_mcts_depth_comparison.png" class="img-fluid" %}
 
 <div class="caption">
-  Depth of nodes in the tree achieved by MP-MCTS compared to TDS-df-UCT and traditional MCTS across different configurations. Adapted from MP-MCTS.<d-cite key="yang2021practical"></d-cite>
+  Depth of nodes in the tree achieved by MP-MCTS compared to TDS-df-UCT and traditional MCTS across different configurations. Adapted from Yang et al.<d-cite key="yang2021practical"></d-cite>
 </div>
 
 Experiments show that MP-MCTS not only achieves deeper trees but also consistently outperforms TDS-df-UCT in solution quality. In molecular design benchmarks, MP-MCTS running on 256 cores for 10 minutes found solutions comparable to non-parallel MCTS running for 42 hours<d-cite key="yang2021practical"></d-cite>.
