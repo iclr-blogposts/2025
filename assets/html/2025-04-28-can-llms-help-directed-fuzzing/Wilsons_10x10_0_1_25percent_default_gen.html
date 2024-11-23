@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML with C Code</title>
+
+    <!-- Include Prism.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+
+    <!-- Include Prism.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+</head>
+<body>
+    <pre><code class="language-c">
+            #include &lt;stdio.h&gt;
+            #include &lt;signal.h&gt;
+            #include &lt;stdlib.h&gt;
+            #include &lt;string.h&gt;
+            #include &lt;unistd.h&gt;
+            #include &lt;stdint.h&gt;
+            #define MAX_LIMIT 100
+            
+            unsigned int counter[100] = {0};
+            void func_0(signed char *input, int index, int length);
+            void func_1(signed char *input, int index, int length);
+            void func_2(signed char *input, int index, int length);
+            void func_3(signed char *input, int index, int length);
+            void func_4(signed char *input, int index, int length);
+            void func_5(signed char *input, int index, int length);
+            void func_6(signed char *input, int index, int length);
+            void func_7(signed char *input, int index, int length);
+            void func_8(signed char *input, int index, int length);
+            void func_9(signed char *input, int index, int length);
+            void func_10(signed char *input, int index, int length);
+            void func_11(signed char *input, int index, int length);
+            void func_12(signed char *input, int index, int length);
+            void func_13(signed char *input, int index, int length);
+            void func_14(signed char *input, int index, int length);
+            void func_15(signed char *input, int index, int length);
+            void func_16(signed char *input, int index, int length);
+            void func_17(signed char *input, int index, int length);
+            void func_18(signed char *input, int index, int length);
+            void func_19(signed char *input, int index, int length);
+            void func_20(signed char *input, int index, int length);
+            void func_21(signed char *input, int index, int length);
+            void func_22(signed char *input, int index, int length);
+            void func_23(signed char *input, int index, int length);
+            void func_24(signed char *input, int index, int length);
+            void func_25(signed char *input, int index, int length);
+            void func_26(signed char *input, int index, int length);
+            void func_27(signed char *input, int index, int length);
+            void func_28(signed char *input, int index, int length);
+            void func_29(signed char *input, int index, int length);
+            void func_30(signed char *input, int index, int length);
+            void func_31(signed char *input, int index, int length);
+            void func_32(signed char *input, int index, int length);
+            void func_33(signed char *input, int index, int length);
+            void func_34(signed char *input, int index, int length);
+            void func_35(signed char *input, int index, int length);
+            void func_36(signed char *input, int index, int length);
+            void func_37(signed char *input, int index, int length);
+            void func_38(signed char *input, int index, int length);
+            void func_39(signed char *input, int index, int length);
+            void func_40(signed char *input, int index, int length);
+            void func_41(signed char *input, int index, int length);
+            void func_42(signed char *input, int index, int length);
+            void func_43(signed char *input, int index, int length);
+            void func_44(signed char *input, int index, int length);
+            void func_45(signed char *input, int index, int length);
+            void func_46(signed char *input, int index, int length);
+            void func_47(signed char *input, int index, int length);
+            void func_48(signed char *input, int index, int length);
+            void func_49(signed char *input, int index, int length);
+            void func_50(signed char *input, int index, int length);
+            void func_51(signed char *input, int index, int length);
+            void func_52(signed char *input, int index, int length);
+            void func_53(signed char *input, int index, int length);
+            void func_54(signed char *input, int index, int length);
+            void func_55(signed char *input, int index, int length);
+            void func_56(signed char *input, int index, int length);
+            void func_57(signed char *input, int index, int length);
+            void func_58(signed char *input, int index, int length);
+            void func_59(signed char *input, int index, int length);
+            void func_60(signed char *input, int index, int length);
+            void func_61(signed char *input, int index, int length);
+            void func_62(signed char *input, int index, int length);
+            void func_63(signed char *input, int index, int length);
+            void func_64(signed char *input, int index, int length);
+            void func_65(signed char *input, int index, int length);
+            void func_66(signed char *input, int index, int length);
+            void func_67(signed char *input, int index, int length);
+            void func_68(signed char *input, int index, int length);
+            void func_69(signed char *input, int index, int length);
+            void func_70(signed char *input, int index, int length);
+            void func_71(signed char *input, int index, int length);
+            void func_72(signed char *input, int index, int length);
+            void func_73(signed char *input, int index, int length);
+            void func_74(signed char *input, int index, int length);
+            void func_75(signed char *input, int index, int length);
+            void func_76(signed char *input, int index, int length);
+            void func_77(signed char *input, int index, int length);
+            void func_78(signed char *input, int index, int length);
+            void func_79(signed char *input, int index, int length);
+            void func_80(signed char *input, int index, int length);
+            void func_81(signed char *input, int index, int length);
+            void func_82(signed char *input, int index, int length);
+            void func_83(signed char *input, int index, int length);
+            void func_84(signed char *input, int index, int length);
+            void func_85(signed char *input, int index, int length);
+            void func_86(signed char *input, int index, int length);
+            void func_87(signed char *input, int index, int length);
+            void func_88(signed char *input, int index, int length);
+            void func_89(signed char *input, int index, int length);
+            void func_90(signed char *input, int index, int length);
+            void func_91(signed char *input, int index, int length);
+            void func_92(signed char *input, int index, int length);
+            void func_93(signed char *input, int index, int length);
+            void func_94(signed char *input, int index, int length);
+            void func_95(signed char *input, int index, int length);
+            void func_96(signed char *input, int index, int length);
+            void func_97(signed char *input, int index, int length);
+            void func_98(signed char *input, int index, int length);
+            void func_99(signed char *input, int index, int length);
+            void func_start(signed char *input, int index, int length){}
+            void func_bug(signed char *input, int index, int length){ abort(); }
+            signed char read_input(signed char *input, int index){ return input[index]; }
+            
+            signed char* copy_input(signed char *input, int index, int bytes_to_use){
+                signed char *copy;
+                copy = (signed char*)malloc(bytes_to_use);
+                if (copy == NULL){
+                    printf("Failed memory allocation");
+                    exit(1);
+                }
+                memcpy(copy, input + index, bytes_to_use);
+                return (signed char*)copy;
+            }
+            int is_within_limit(signed char *input, int index, int bytes_to_use, int length){
+                if (index + (bytes_to_use - 1) >= MAX_LIMIT || index + (bytes_to_use - 1) >= length){
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+            void output_counter() {
+                    const char* filepath = getenv("MAZE_COV");
+                    if (filepath == NULL) {
+                        for (int i = 0; i < 100; i++) {
+                            if (counter[i] != 0) {
+                                printf("counter[%d] = %u\n", i, counter[i]);
+                            }
+                        }
+                    }
+                    else {
+                        FILE* file = fopen(filepath, "w");
+                        if (file != NULL) {
+                            for (int i = 0; i < 100; i++) {
+                                fprintf(file, "%u\n", counter[i]);
+                            }
+                            fclose(file);
+                        } else {
+                            perror("Failed to open the MAZE_COV file for writing");
+                        }
+                    }
+                }
+            void init_counter() {
+                const char* filepath = getenv("MAZE_COV");
+                if (filepath != NULL) {
+                    FILE* file = fopen(filepath, "r");
+                    if (file != NULL) {
+                        int read_entries = 0;
+                        for (int i = 0; i < 100; i++) {
+                            if (fscanf(file, "%u", &counter[i]) == 1) {
+                                read_entries++;
+                            } else {
+                                break;
+                            }
+                        }
+                        fclose(file);
+                        if (read_entries != 100) {memset(counter, 0, sizeof(counter));}
+                    }
+                }
+            }
+            void signal_handler(int sig) {
+                output_counter();
+                signal(sig, SIG_DFL);
+                raise(sig);
+                }
+            
+            void func_0(signed char *input, int index, int length){
+                counter[0] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_start(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_10(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_1(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_1(signed char *input, int index, int length){
+                counter[1] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_2(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_2(signed char *input, int index, int length){
+                counter[2] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_1(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_3(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_3(signed char *input, int index, int length){
+                counter[3] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_2(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_4(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_4(signed char *input, int index, int length){
+                counter[4] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_5(signed char *input, int index, int length){
+                counter[5] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_6(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_6(signed char *input, int index, int length){
+                counter[6] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_5(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_7(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_7(signed char *input, int index, int length){
+                counter[7] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_8(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_8(signed char *input, int index, int length){
+                counter[8] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_9(signed char *input, int index, int length){
+                counter[9] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_10(signed char *input, int index, int length){
+                counter[10] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_20(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_11(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_11(signed char *input, int index, int length){
+                counter[11] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_12(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_12(signed char *input, int index, int length){
+                counter[12] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_13(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_13(signed char *input, int index, int length){
+                counter[13] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_23(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_14(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_14(signed char *input, int index, int length){
+                counter[14] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_24(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_15(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_15(signed char *input, int index, int length){
+                counter[15] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_5(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_16(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_16(signed char *input, int index, int length){
+                counter[16] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_26(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_17(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_17(signed char *input, int index, int length){
+                counter[17] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_18(signed char *input, int index, int length){
+                counter[18] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_19(signed char *input, int index, int length){
+                counter[19] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_9(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_18(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_20(signed char *input, int index, int length){
+                counter[20] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_10(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_21(signed char *input, int index, int length){
+                counter[21] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_31(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_22(signed char *input, int index, int length){
+                counter[22] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_32(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_23(signed char *input, int index, int length){
+                counter[23] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_33(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_24(signed char *input, int index, int length){
+                counter[24] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_34(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_25(signed char *input, int index, int length){
+                counter[25] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_35(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_26(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_26(signed char *input, int index, int length){
+                counter[26] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_25(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_27(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_27(signed char *input, int index, int length){
+                counter[27] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_37(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_28(signed char *input, int index, int length){
+                counter[28] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_29(signed char *input, int index, int length){
+                counter[29] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_19(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_28(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_39(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_30(signed char *input, int index, int length){
+                counter[30] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_31(signed char *input, int index, int length){
+                counter[31] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_21(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_30(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_41(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_32(signed char *input, int index, int length){
+                counter[32] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_22(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_31(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_33(signed char *input, int index, int length){
+                counter[33] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_34(signed char *input, int index, int length){
+                counter[34] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_24(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_44(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_35(signed char *input, int index, int length){
+                counter[35] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_45(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_36(signed char *input, int index, int length){
+                counter[36] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_37(signed char *input, int index, int length){
+                counter[37] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_47(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_38(signed char *input, int index, int length){
+                counter[38] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_39(signed char *input, int index, int length){
+                counter[39] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_29(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_40(signed char *input, int index, int length){
+                counter[40] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_50(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_41(signed char *input, int index, int length){
+                counter[41] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_40(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_51(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_42(signed char *input, int index, int length){
+                counter[42] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_32(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_43(signed char *input, int index, int length){
+                counter[43] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_42(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_44(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_44(signed char *input, int index, int length){
+                counter[44] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_34(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_43(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_54(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_45(signed char *input, int index, int length){
+                counter[45] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_55(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_46(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_46(signed char *input, int index, int length){
+                counter[46] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_36(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_45(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_47(signed char *input, int index, int length){
+                counter[47] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_37(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_57(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_48(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_48(signed char *input, int index, int length){
+                counter[48] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_38(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_47(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_49(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_49(signed char *input, int index, int length){
+                counter[49] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_39(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_59(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_50(signed char *input, int index, int length){
+                counter[50] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_51(signed char *input, int index, int length){
+                counter[51] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_61(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_52(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_52(signed char *input, int index, int length){
+                counter[52] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_51(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_62(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_53(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_53(signed char *input, int index, int length){
+                counter[53] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_54(signed char *input, int index, int length){
+                counter[54] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_44(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_55(signed char *input, int index, int length){
+                counter[55] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_56(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_56(signed char *input, int index, int length){
+                counter[56] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_57(signed char *input, int index, int length){
+                counter[57] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_67(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_58(signed char *input, int index, int length){
+                counter[58] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_68(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_59(signed char *input, int index, int length){
+                counter[59] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_49(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_69(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_60(signed char *input, int index, int length){
+                counter[60] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_70(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_61(signed char *input, int index, int length){
+                counter[61] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_60(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_62(signed char *input, int index, int length){
+                counter[62] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_72(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_63(signed char *input, int index, int length){
+                counter[63] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_73(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_64(signed char *input, int index, int length){
+                counter[64] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_63(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_65(signed char *input, int index, int length){
+                counter[65] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_66(signed char *input, int index, int length){
+                counter[66] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_65(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_67(signed char *input, int index, int length){
+                counter[67] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_66(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_68(signed char *input, int index, int length){
+                counter[68] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_58(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_69(signed char *input, int index, int length){
+                counter[69] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_70(signed char *input, int index, int length){
+                counter[70] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_80(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_71(signed char *input, int index, int length){
+                counter[71] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_72(signed char *input, int index, int length){
+                counter[72] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_71(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_82(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_73(signed char *input, int index, int length){
+                counter[73] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_74(signed char *input, int index, int length){
+                counter[74] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_64(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_75(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_75(signed char *input, int index, int length){
+                counter[75] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_76(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_76(signed char *input, int index, int length){
+                counter[76] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_86(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_77(signed char *input, int index, int length){
+                counter[77] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_78(signed char *input, int index, int length){
+                counter[78] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_68(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_77(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_79(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_79(signed char *input, int index, int length){
+                counter[79] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_89(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_80(signed char *input, int index, int length){
+                counter[80] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_81(signed char *input, int index, int length){
+                counter[81] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_82(signed char *input, int index, int length){
+                counter[82] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_81(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_83(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_83(signed char *input, int index, int length){
+                counter[83] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_82(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_93(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_84(signed char *input, int index, int length){
+                counter[84] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_74(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_85(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_85(signed char *input, int index, int length){
+                counter[85] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_95(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_86(signed char *input, int index, int length){
+                counter[86] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_96(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_87(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_87(signed char *input, int index, int length){
+                counter[87] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_97(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_88(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_88(signed char *input, int index, int length){
+                counter[88] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < -43) {
+                        func_78(input, index + bytes_to_use, length);
+                    }
+                    else if (c < 42) {
+                        func_87(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 42) {
+                        func_98(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_89(signed char *input, int index, int length){
+                counter[89] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_99(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_90(signed char *input, int index, int length){
+                counter[90] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_91(signed char *input, int index, int length){
+                counter[91] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_90(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_92(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_92(signed char *input, int index, int length){
+                counter[92] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_91(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_93(signed char *input, int index, int length){
+                counter[93] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_92(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_94(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_94(signed char *input, int index, int length){
+                counter[94] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_84(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_93(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_95(signed char *input, int index, int length){
+                counter[95] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_85(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_96(signed char *input, int index, int length){
+                counter[96] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_97(signed char *input, int index, int length){
+                counter[97] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                }
+            }
+            void func_98(signed char *input, int index, int length){
+                counter[98] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (1) {
+                        func_88(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            void func_99(signed char *input, int index, int length){
+                counter[99] += 1;
+                int bytes_to_use = 1;
+                if (is_within_limit(input, index, bytes_to_use, length)){
+                    signed char *copy;
+                    copy = copy_input(input, index, bytes_to_use);
+                     signed char c = read_input(copy, 0);
+                    free(copy);
+                    copy = NULL;
+                    if (c < 0) {
+                        func_89(input, index + bytes_to_use, length);
+                    }
+                    else if (c >= 0) {
+                        func_bug(input, index + bytes_to_use, length);
+                    }
+                    else {
+                        printf("User-provided conditions were not satisfied by the input");
+                    }
+                }
+            }
+            int main(){
+                atexit(output_counter);
+                signal(SIGABRT, signal_handler);
+                init_counter();
+                signed char input[MAX_LIMIT];
+                int input_length = read(0, input, MAX_LIMIT);
+                int index = 0;
+                func_0(input, index, input_length);
+            }
+            
+    </code></pre>
+
+</body>
+</html>
