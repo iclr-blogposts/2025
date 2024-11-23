@@ -1,0 +1,1111 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dataset Card</title>
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #121212; /* 暗模式背景 */
+            color: #e0e0e0; /* 浅灰色字体 */
+        }
+
+        table {
+            background-color: #1e1e1e; /* 表格背景（较深灰色） */
+            color: #e0e0e0; /* 表格字体颜色（浅灰） */
+            border-color: #333; /* 边框颜色（更深的灰色） */
+        }
+
+        th {
+            background-color: #333; /* 表头背景（稍浅灰色） */
+            color: #e0e0e0; /* 表头字体颜色 */
+        }
+
+        td {
+            border-color: #333; /* 单元格边框颜色 */
+        }
+
+        details > summary {
+            color: #b3b3b3; /* 摘要的字体颜色 */
+        }
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .section {
+            display: none;
+        }
+        /* Show the targeted section */
+        #go-task1:target,
+        #go-task2:target,
+        #go-task3:target {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        details > summary {
+            cursor: pointer;
+        }
+        /* Default section display */
+        body:not(:has(:target)) #go-task1 {
+            display: block;
+        }
+        #go-task1,
+        #go-task2,
+        #go-task3 {
+            max-height: 300px; /* 容器最大高度 */
+            overflow-y: auto; /* 启用滚动条 */
+            border: 1px solid #ccc; /* 边框包围表格 */
+            padding: 10px; /* 内边距 */
+            box-sizing: border-box; /* 包括 padding */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <form>
+            <label for="dataset-select">Select Dataset:</label>
+            <select id="dataset-select" name="dataset-select" onchange="location.hash=this.value">
+                <option value="go-task1" selected>Go-task1</option>
+<option value="go-task2" >Go-task2</option>
+<option value="go-task3" >Go-task3</option>
+            </select>
+        </form>
+        
+        <div id="go-task1" class="section">
+            <h2>Go-task1 Dataset</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>question</th><th>answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr><td>1</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the ○ on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.For example, the first column and the second row is A18.The next player is black player. The next move is on R16.Please predict the next Go board after this move.
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . . . . . . . . . . . . . . .
+C . . . . . . . . . . . . . . . . . . .
+D . . . . . . . . . . . . . . . . . . .
+E . . . . . . . . . . . . . . . . . . .
+F . . . . . . . . . . . . . . . . . . .
+G . . . . . . . . . . . . . . . . . . .
+H . . . . . . . . . . . . . . . . . . .
+J . . . . . . . . . . . . . . . . . . .
+K . . . . . . . . . . . . . . . . . . .
+L . . . . . . . . . . . . . . . . . . .
+M . . . . . . . . . . . . . . . . . . .
+N . . . . . . . . . . . . . . . . . . .
+O . . . . . . . . . . . . . . . . . . .
+P . . . . . . . . . . . . . . . . . . .
+Q . . . . . . . . . . . . . . . . . . .
+R . . . . . . . . . . . . . . . . . . .
+S . . . . . . . . . . . . . . . . . . .
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . . . . . . . . . . . . . . . . . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . . . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Next state: 19 . . . . . . . ....</summary>
+                        Next state: 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . . . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . . . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                </tr><tr><td>2</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the ○ on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.For example, the first column and the second row is A18.The next player is white player. The next move is on R4.Please predict the next Go board after this move.
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . . . . . . . . . . . . . . .
+C . . . . . . . . . . . . . . . . . . .
+D . . . . . . . . . . . . . . . . . . .
+E . . . . . . . . . . . . . . . . . . .
+F . . . . . . . . . . . . . . . . . . .
+G . . . . . . . . . . . . . . . . . . .
+H . . . . . . . . . . . . . . . . . . .
+J . . . . . . . . . . . . . . . . . . .
+K . . . . . . . . . . . . . . . . . . .
+L . . . . . . . . . . . . . . . . . . .
+M . . . . . . . . . . . . . . . . . . .
+N . . . . . . . . . . . . . . . . . . .
+O . . . . . . . . . . . . . . . . . . .
+P . . . . . . . . . . . . . . . . . . .
+Q . . . . . . . . . . . . . . . . . . .
+R . . . # . . . . . . . . . . . . . . .
+S . . . . . . . . . . . . . . . . . . .
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . . . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . . . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Next state: 19 . . . . . . . ....</summary>
+                        Next state: 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . . . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                </tr><tr><td>3</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the ○ on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.For example, the first column and the second row is A18.The next player is black player. The next move is on C16.Please predict the next Go board after this move.
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . . . . . . . . . . . . . . .
+C . . . . . . . . . . . . . . . . . . .
+D . . . . . . . . . . . . . . . . . . .
+E . . . . . . . . . . . . . . . . . . .
+F . . . . . . . . . . . . . . . . . . .
+G . . . . . . . . . . . . . . . . . . .
+H . . . . . . . . . . . . . . . . . . .
+J . . . . . . . . . . . . . . . . . . .
+K . . . . . . . . . . . . . . . . . . .
+L . . . . . . . . . . . . . . . . . . .
+M . . . . . . . . . . . . . . . . . . .
+N . . . . . . . . . . . . . . . . . . .
+O . . . . . . . . . . . . . . . . . . .
+P . . . . . . . . . . . . . . . . . . .
+Q . . . . . . . . . . . . . . . . . . .
+R . . . # . . . . . . . . . . . o . . .
+S . . . . . . . . . . . . . . . . . . .
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . . . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Next state: 19 . . . . . . . ....</summary>
+                        Next state: 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . # . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                </tr><tr><td>4</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the ○ on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.For example, the first column and the second row is A18.The next player is white player. The next move is on E16.Please predict the next Go board after this move.
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . . . . . . . . . . . . . . .
+C . . . # . . . . . . . . . . . . . . .
+D . . . . . . . . . . . . . . . . . . .
+E . . . . . . . . . . . . . . . . . . .
+F . . . . . . . . . . . . . . . . . . .
+G . . . . . . . . . . . . . . . . . . .
+H . . . . . . . . . . . . . . . . . . .
+J . . . . . . . . . . . . . . . . . . .
+K . . . . . . . . . . . . . . . . . . .
+L . . . . . . . . . . . . . . . . . . .
+M . . . . . . . . . . . . . . . . . . .
+N . . . . . . . . . . . . . . . . . . .
+O . . . . . . . . . . . . . . . . . . .
+P . . . . . . . . . . . . . . . . . . .
+Q . . . . . . . . . . . . . . . . . . .
+R . . . # . . . . . . . . . . . o . . .
+S . . . . . . . . . . . . . . . . . . .
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . # . . . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Next state: 19 . . . . . . . ....</summary>
+                        Next state: 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . # . o . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                </tr><tr><td>5</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the ○ on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.For example, the first column and the second row is A18.The next player is black player. The next move is on E3.Please predict the next Go board after this move.
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . . . . . . . . . . . . . . .
+C . . . # . . . . . . . . . . . . . . .
+D . . . . . . . . . . . . . . . . . . .
+E . . . o . . . . . . . . . . . . . . .
+F . . . . . . . . . . . . . . . . . . .
+G . . . . . . . . . . . . . . . . . . .
+H . . . . . . . . . . . . . . . . . . .
+J . . . . . . . . . . . . . . . . . . .
+K . . . . . . . . . . . . . . . . . . .
+L . . . . . . . . . . . . . . . . . . .
+M . . . . . . . . . . . . . . . . . . .
+N . . . . . . . . . . . . . . . . . . .
+O . . . . . . . . . . . . . . . . . . .
+P . . . . . . . . . . . . . . . . . . .
+Q . . . . . . . . . . . . . . . . . . .
+R . . . # . . . . . . . . . . . o . . .
+S . . . . . . . . . . . . . . . . . . .
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . # . o . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . . . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Next state: 19 . . . . . . . ....</summary>
+                        Next state: 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . .
+17 . . . . . . . . . . . . . . . . . . .
+16 . . # . o . . . . . . . . . . . # . .
+15 . . . . . . . . . . . . . . . . . . .
+14 . . . . . . . . . . . . . . . . . . .
+13 . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . .
+11 . . . . . . . . . . . . . . . . . . .
+10 . . . . . . . . . . . . . . . . . . .
+ 9 . . . . . . . . . . . . . . . . . . .
+ 8 . . . . . . . . . . . . . . . . . . .
+ 7 . . . . . . . . . . . . . . . . . . .
+ 6 . . . . . . . . . . . . . . . . . . .
+ 5 . . . . . . . . . . . . . . . . . . .
+ 4 . . . . . . . . . . . . . . . . o . .
+ 3 . . . . # . . . . . . . . . . . . . .
+ 2 . . . . . . . . . . . . . . . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+                    </details>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div id="go-task2" class="section">
+            <h2>Go-task2 Dataset</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>sentence</th><th>answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr><td>1</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the o on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.The row number is from 19 to 1. The column character range is ABCDEFGHJKLMNOPQRST.For example, the first column and the second row is A18,the 10th column and 8th row is K12,The current board is:
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A # # . . . # . . # o o o o o # o . . .
+B o # # . # . # # # # o . o # # . # . .
+C . o # # o # o o o o # . o # # # . # .
+D o o # o o # o # . o o o . o # o # # .
+E . o o . o # # # # # . o o o . o o # .
+F . # # o o # . # o # # # # o o o # # .
+G . # o . o o # # o o o # o o # # o . .
+H . o o o o # # # # # o o # # # . # . .
+J . . # o # # . o o o o o o # . # . . .
+K . . # o o # # o o # # # o # . # . . .
+L . . . . . o # o o # # o o o # # . . .
+M . . # # . o # o o o # . o # o . . . .
+N . . # o # # o . o # # o o # # # # . .
+O . o o o o o o o o # o o # # o . # # .
+P . # o o . o # # # # o o o o # # o # #
+Q . o # # # o o o # . # # o o o # o o #
+R . o o o # # # # . # . # . # # # o . o
+S . . . o # # # . . . # . # . # o o . o
+T . . . o o # . # # # . . . # o o . . .
+[Original board] 19 # o . o . . . . . . . . . . . . . . .
+18 # # o o o # # o . . . . . o # o o . .
+17 . # # # o # o o # # . # # o o # o . .
+16 . . # o . o . o o o . # o o o # o o o
+15 . # o o o o o o # o . . # o . # # # o
+14 # . # # # # o # # # o o # o o o # # #
+13 . # o o # . # # . # # # o o # o # # .
+12 . # o # # # # # o o o o . o # o # . #
+11 # # o . # o o # o o o o o o # # . . #
+10 o # o o # # o # o # # o # # # . # . #
+ 9 o o # o . # o o o # # # # o o # . # .
+ 8 o . . o o # # o o # o . o o o # # . .
+ 7 o o o . o # o # o o o o o # o o . # .
+ 6 o # # o o o o # # # o # # # o o # . #
+ 5 # # # # . o # # . . # o # o # o # # o
+ 4 o . # o o o # . # # # . # . # # # o o
+ 3 . # . # o # o # . . . . # # o o o o .
+ 2 . . # # # # . . . . . . . # # o . . .
+ 1 . . . . . . . . . . . . . . # # o o .
+   A B C D E F G H J K L M N O P Q R S T
+Note that, the next player is white. For move E16,please predict the ownership map after this move of white first.In this map, # represents that this position is more likely to belong to black, o represents that this position is more likely to belong to white, and . represents that this position is difficult to determine ownership. Next, predict the leading score of black according to the ownership map. Finally, predict the win rate of black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>The ownership map:
+19 # . . o ...</summary>
+                        The ownership map:
+19 # . . o o o o o o o o o o o o o o o o
+18 # # o o o o o o o o o o o o o o o o o
+17 # # # # o o o o o o o o o o o # o o o
+16 # # # o o o o o o o o o o o o # o o o
+15 # # o o o o o o # o o o o o . # # # o
+14 # # # # # # o # # # o o o o o o # # #
+13 # # o o # # # # . # # # o o # o # # #
+12 # # o # # # # # o o o o o o # o # # #
+11 # # o . # o o # o o o o o o # # # # #
+10 o # o o # # o # o # # o # # # # # # #
+ 9 o o o o . # o o o # # # # o o # # # #
+ 8 o o o o o # # o o # o o o o o # # # #
+ 7 o o o o o # o # o o o o o # o o # # #
+ 6 o # # o o o o # # # o # # # o o # # #
+ 5 # # # # o o # # # # # # # # # o # # o
+ 4 # # # o o o # # # # # # # # # # # o o
+ 3 # # # # o # # # # # # # # # o o o o o
+ 2 # # # # # # # # # # # # # # # o o o o
+ 1 # # # # # # # # # # # # # # # # o o o
+   A B C D E F G H J K L M N O P Q R S T
+In this map, the score of black is [Count("#")->182], the score of white is [Count("o")->173]. So the direct leading score of black is: 182-173=9. Considering other facts, the final leading score of black is: 2.5. Based on the analysis above, the win rate of black is: 99.9%
+                    </details>
+                </td>
+                </tr><tr><td>2</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the o on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.The row number is from 19 to 1. The column character range is ABCDEFGHJKLMNOPQRST.For example, the first column and the second row is A18,the 10th column and 8th row is K12,The current board is:
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . . # . . . . . . . # # . . . .
+C . . . # . # o . o # # . # . o # # # .
+D . . . . . . o # # # o # # # o o o o #
+E . . # # # o o # o # o o # o o o . o .
+F . . # . . # o # o o o o o # o # o o o
+G . o o # # # # o o . # o # # . # # # o
+H . o . o # # . # # o . o # . . # o o o
+J . . o . o # . # . # o o # . # # # o o
+K . . . . o . # # # o # o . # o # o # #
+L . . . . . o # o o o # # # . o # o . .
+M . o . . . . o . . o # . . . o o o o .
+N . o # . . . . o o . . # # # . . # . .
+O o # . # . . o # . . o # o # # # # # .
+P o o o # . . # o # . o o o # o # o o .
+Q o o # o o o . . . . . o # # o # o . o
+R o # # # # o o o # # . o # o o o # o .
+S o # o # # # # # . o o . o # . o # o .
+T . o . o . . . . . . . o . . . . # o .
+[Original board] 19 . . . . . . . . . . . . . o o o o o .
+18 . . . . . . o o . . . o o # o o # # o
+17 . . . . # # o . o . . . # . o # # o .
+16 . . # . # . # o . . . . . # # o # # o
+15 . . . . # . # # o o . . . . . o # # .
+14 . # # . o # # # # . o . . . . o o # .
+13 . . o o o o # . . # # o . o # . o # .
+12 . . . # # # o # # # o . o # o . o # .
+11 . . o # o o o # . # o . o . # . # . .
+10 . . # # # o . o # o o o . . . . # o .
+ 9 . . # o o o # . o # # # . o o . . o .
+ 8 . . . # o o o o o o # . # # o o o . o
+ 7 . . # # # o # # # . # . # o o # # o .
+ 6 . # . # o # # . . # . . # # # # o # .
+ 5 . # o o o o . . # o o o . # o o o . .
+ 4 . . # o o # # # # # # o . # # # o o .
+ 3 . . # o . o # o # o o o # # o o # # #
+ 2 . . # o o o # o o # . o . # o . o o o
+ 1 . . . # . o o o o # . . . . . o . . .
+   A B C D E F G H J K L M N O P Q R S T
+Note that, the next player is white. For move P14,please predict the ownership map after this move of white first.In this map, # represents that this position is more likely to belong to black, o represents that this position is more likely to belong to white, and . represents that this position is difficult to determine ownership. Next, predict the leading score of black according to the ownership map. Finally, predict the win rate of black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>The ownership map:
+19 # # # . ...</summary>
+                        The ownership map:
+19 # # # . . o o o o o o o o o o o o o o
+18 # # # # # # o o o o o o o o o o # # o
+17 # # # # # # o o o o o o o o o # # # #
+16 # # # # # # # o o o o o o o o o # # #
+15 # # # # # # # # o o o o o o o o # # #
+14 # # # # # # # # # . o o o o o o o # #
+13 # # # # # # # # # # # o o o o o o # #
+12 # # # # # # o # # # o o o . . . o # .
+11 # # # # o o o # o # o o o o . . . . .
+10 # # # # # o o o o o o o o o o o . o o
+ 9 # # # o o o o o o # # # . o o o o o o
+ 8 # # # # o o o o o o # # # # o o o o o
+ 7 # # # # # o # # # . # # # o o # # o o
+ 6 # # . # o # # # # # # o # # # # o o o
+ 5 # # o o o o . . # o o o . # o o o o o
+ 4 # # # o o # # # # # # o . # # # o o o
+ 3 # # # o o o # o # o o o # # o o o o o
+ 2 # # # o o o # o o o o o . # o o o o o
+ 1 # # # # o o o o o o o o . . . o o o o
+   A B C D E F G H J K L M N O P Q R S T
+In this map, the score of black is [Count("#")->159], the score of white is [Count("o")->178]. So the direct leading score of black is: 159-178=-19. Considering other facts, the final leading score of black is: -9.5. Based on the analysis above, the win rate of black is: 7.4%
+                    </details>
+                </td>
+                </tr><tr><td>3</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the o on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.The row number is from 19 to 1. The column character range is ABCDEFGHJKLMNOPQRST.For example, the first column and the second row is A18,the 10th column and 8th row is K12,The current board is:
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . # o . . . . . . # o . o . . .
+B . o # o # . # . o . o # # o . o # # .
+C . # o # # # o . o # o o # # o o . . .
+D . # o o # o # # o . . o # . # o o o .
+E . # . # o o . o o . # # o . # # # # .
+F . . # . . . . . . . o o o . . . . . .
+G . . . o o o o o # # . # # # # . . . .
+H . # # . # o # # # . . # o o . . . . .
+J . . o # # # o o # # o o o # o . . . .
+K . . # . # . . o . o # # # . . # o . .
+L . . o # o . # o o . . . . . . . o . .
+M . . # # o . . # o . . o o o o o . . .
+N . . . . o . . . . . . . # . # o . # .
+O . . . . . . . . . . . . . . o . o # .
+P . . o o . o o . # . # # . . . o # . .
+Q . . o # . o . o . . . o # # # # # . .
+R . . # # . # o . o # # o o # o o o . .
+S . . . . . # # . . o # o # o . o . . .
+T . . . . . . . . . . . . . . o . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . o # # # . . # . . . . . . . . . . .
+17 . # o o . # . # o # o # . . o o # . .
+16 . o # o # . o . # . # # . . o # # . .
+15 # # # # o . o # # # o o o . . . . . .
+14 o . # o o . o o # . . . . . o o # # .
+13 . # o # . . o # o . # . . . o . o # .
+12 . . . # o . o # o o o # . . . o . . .
+11 . o o o o . # # # . o o . . # . o . .
+10 . . # . . . # . # o . . . . . . # o .
+ 9 . o o . # o . . o # . . . . # . # # .
+ 8 . # o o # o # # o # . o . . # o o o .
+ 7 # # # # o o # o o # . o # . . # o # .
+ 6 o o # . . . # o # . . o . . . # # o .
+ 5 . . o # # . # . o . . o # o . # o . o
+ 4 o o o o # . . . . # . o o . o # o o .
+ 3 . # . o # . . . . o o . . o # # o . .
+ 2 . # . o # . . . . . . . # # . . . . .
+ 1 . . . . . . . . . . . . . . . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+Note that, the next player is black. For move A5,please predict the ownership map after this move of black first.In this map, # represents that this position is more likely to belong to black, o represents that this position is more likely to belong to white, and . represents that this position is difficult to determine ownership. Next, predict the leading score of black according to the ownership map. Finally, predict the win rate of black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>The ownership map:
+19 # # # # ...</summary>
+                        The ownership map:
+19 # # # # # # # # # # # # . o o o . . #
+18 # # # # # # # # # # # # . . o . . # #
+17 # # # # # # o # # # # # # . o o # # #
+16 # # # # # . o o # # # # . o o # # # #
+15 # # # # o o o # # # o o o o o . # # #
+14 # # # o o o o o # # . o o o o o # # #
+13 # # o o o o o # o . . . . o o o o # #
+12 o o o o o o o # o o o . o . . o o o .
+11 o o o o o # # # # . o o . . # . o . .
+10 o o o o o . # # # o o o . . # # # . #
+ 9 o o o o o o # . o o o o . . # # # # #
+ 8 . # o o o o # # o o o o o . # o o o .
+ 7 # # # # o o # o o o o o . . # # o o o
+ 6 o o # # . . # o o o o o o . . # # o o
+ 5 o o o # # # # . o . o o o o . # o o o
+ 4 o o o o # # # # # # o o o o o # o o o
+ 3 o # o o # # # # # o o . . o # # o o o
+ 2 . # o o # # # # . o o . # # # . o o o
+ 1 . # o o . # # # . . . . # # # . . o o
+   A B C D E F G H J K L M N O P Q R S T
+In this map, the score of black is [Count("#")->148], the score of white is [Count("o")->154]. So the direct leading score of black is: 148-154=-6. Considering other facts, the final leading score of black is: -3.0. Based on the analysis above, the win rate of black is: 19.4%
+                    </details>
+                </td>
+                </tr><tr><td>4</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the o on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.The row number is from 19 to 1. The column character range is ABCDEFGHJKLMNOPQRST.For example, the first column and the second row is A18,the 10th column and 8th row is K12,The current board is:
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . . . . . .
+B . . . . # o . # . . . . . . . . . . .
+C . . # # . # o . . o . . o # # # . . .
+D . . . o . # o . . . . o . o . o # # .
+E . o o . . . # o # . . . o o . o o # .
+F . # # o o # . # . . . . . . . o # . .
+G . # o . o . . . . . . . o o # # . . .
+H . o o o . . . . . . . o # # # . . . .
+J . . # . . . . . . . o . o # . . . . .
+K . . # o . . # . . . . . o # o . . . .
+L . . . . . o # o o # . . o o # # . . .
+M . . # # . o # o # . . . . # o . . . .
+N . . # o # # o # o # . o . # # . # . .
+O . o o o o o o . o # . . . # o . # # .
+P . # o . . . . . . # . o . o . # o # .
+Q . o # # # . . . # . # . o . . # o o .
+R . o o o # . # . o . o # . # . # o . .
+S . . . . . . . . . . . . # . # o o . o
+T . . . . . . . . . . . . . . . . . . .
+[Original board] 19 . . . . . . . . . . . . . . . . . . .
+18 . . . . o # # o . . . . . o # o o . .
+17 . . # . o # o o # # . # # o o # o . .
+16 . . # o . o . o . o . # o o . # o . .
+15 . # . . . o o . . . . . # o . # # . .
+14 . o # # . # . . . . o o # o . . . . .
+13 . . o o # . . . . # # # o o . . # . .
+12 . # . . o # . . . . o o # . . . . . .
+11 . . . . # . . . . . o # o o . # o . .
+10 . . o . . . . . . . # . # # # . . . .
+ 9 . . . . . . . . o . . . . . . # o . .
+ 8 . . . o . . . o . . . . o . o . # . .
+ 7 . . o . o . o # o o o . . . . o . # .
+ 6 . . # o o . o # # # o # # # o . # . .
+ 5 . . # . . . # # . o # o # o . . . # .
+ 4 . . # o o o # . . . # . . . # # # o .
+ 3 . . . # o # . . . . . . # # o o o o .
+ 2 . . . # # . . . . . . . . # # o . . .
+ 1 . . . . . . . . . . . . . . . . . o .
+   A B C D E F G H J K L M N O P Q R S T
+Note that, the next player is white. For move R12,please predict the ownership map after this move of white first.In this map, # represents that this position is more likely to belong to black, o represents that this position is more likely to belong to white, and . represents that this position is difficult to determine ownership. Next, predict the leading score of black according to the ownership map. Finally, predict the win rate of black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>The ownership map:
+19 # . . . ...</summary>
+                        The ownership map:
+19 # . . . o o o o o o o o o o o o o o o
+18 # # # . o o o o o o o o o o o o o o o
+17 # # # . o o o o o o o o o o o # o o o
+16 # # # o o o o o o o o o o o . # o . o
+15 # # # o o o o o o o o o o o . # # # #
+14 # # # # # # . . . o o o o o o . # # #
+13 # # . . # # . . . # # . o o . . # # #
+12 # # . # # # . . . . o o o o . # # # #
+11 . . . . # # . . . . o . o o . # # # #
+10 . . o . . . . . . . # . # # # # # # #
+ 9 o o o o . . . o o . . # . . . # # # #
+ 8 o o o o o o o o o o o o o o o . # # #
+ 7 . o o o o o o # o o o o . . . o # # #
+ 6 . # # o o o o # # # o # # # o . # # #
+ 5 # # # . o o # # # # # # # . . # # # .
+ 4 # # # o o o # # # # # # # # # # # o .
+ 3 # # # # o # # # # # # # # # o o o o o
+ 2 # # # # # # # # # # # # # # # o o o o
+ 1 # # # # # # # # # # # # # # . o o o o
+   A B C D E F G H J K L M N O P Q R S T
+In this map, the score of black is [Count("#")->152], the score of white is [Count("o")->142]. So the direct leading score of black is: 152-142=10. Considering other facts, the final leading score of black is: 3.5. Based on the analysis above, the win rate of black is: 80.3%
+                    </details>
+                </td>
+                </tr><tr><td>5</td>
+                <td>
+                    <details>
+                        <summary>The following is a game record...</summary>
+                        The following is a game record of 19x19 Go. The # on the board is black stone, the o on the board is white stone, the . on the board means that there is no stone on this place. A move is specified by a character and a number, which represent its column and row respectively.The row number is from 19 to 1. The column character range is ABCDEFGHJKLMNOPQRST.For example, the first column and the second row is A18,the 10th column and 8th row is K12,The current board is:
+[Transposed board]   19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+A . . . . . . . . . . . . . . # . . . .
+B . # o o # # # . # o . # o # . # . # #
+C . # o . o o # . # o # # # o # # # o .
+D o o o o o . . o o # o # o o o o o o .
+E . # o # . # . # # # o o . o . . . # .
+F . # # # . # # # . o . . o # # . . # .
+G # o # . o o o # # o o o # . # # # . o
+H # o o o o o o o o # # o # # # o . . .
+J # o # # # # o # # # o o # . # o # # o
+K # # # . # # # # # o o # # # o . o o .
+L o o o # o # # o # o o o o . o . o o o
+M . . o o o o o o o # # # o o o . . . o
+N . o o . . o o o # # . # # # o o . o .
+O o o # o o # o # # . o . . o . o o . o
+P . # # o # # # . # . o # # o o # . o .
+Q . . # o o . o # # o o # o o # o . . .
+R . o # # o o o # # # o # # # # o # . .
+S . o # # o # # # . . o . # . # o . . .
+T . . # o o o # . o . . . . # o o o . .
+[Original board] 19 . . . o . . # # # # o . . o . . . . .
+18 . # # o # # o o o # o . o o # . o o .
+17 . o o o o # # o # # o o o # # # # # #
+16 . o . o # # . o # . # o . o o o # # o
+15 . # o o . . o o # # o o . o # o o o o
+14 . # o . # # o o # # # o o # # . o # o
+13 . # # . . # o o o # # o o o # o o # #
+12 . . . o # # # o # # o o o # . # # # .
+11 . # # o # . # o # # # o # # # # # . o
+10 . o o # # o o # # o o # # . . o # . .
+ 9 . . # o o . o # o o o # . o o o o o .
+ 8 . # # # o . o o o # o # # . # # # . .
+ 7 . o # o . o # # # # o o # . # o # # .
+ 6 . # o o o # . # . # . o # o o o # . #
+ 5 # . # o . # # # # o o o o . o # # # o
+ 4 . # # o . . # o o . . . o o # o o o o
+ 3 . . # o . . # . # o o . . o . . # . o
+ 2 . # o o # # . . # o o . o . o . . . .
+ 1 . # . . . . o . o . o o . o . . . . .
+   A B C D E F G H J K L M N O P Q R S T
+Note that, the next player is black. For move N16,please predict the ownership map after this move of black first.In this map, # represents that this position is more likely to belong to black, o represents that this position is more likely to belong to white, and . represents that this position is difficult to determine ownership. Next, predict the leading score of black according to the ownership map. Finally, predict the win rate of black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>The ownership map:
+19 o o o o ...</summary>
+                        The ownership map:
+19 o o o o . # # # # # o o o o o o o o o
+18 o o o o # # # # # # o o o o o o o o o
+17 o o o o o # # # # # o o o o o o o o o
+16 . o o o # # # # # . . o o o o o o o o
+15 . # o o . # # # # # o o o o # o o o o
+14 # # o o # # # # # # # o o # # . o # o
+13 # # # # # # # # # # # o o o # o o # #
+12 # # # # # # # # # # o o o # # # # # #
+11 # # # # # . # # # # # o # # # # # # #
+10 # # # # # o o # # o o # # # # # # # #
+ 9 # # # o o o o # o o o # # # # # # # #
+ 8 # # # # o o o o o # o # # # # # # # #
+ 7 # # # o o o # # # # o o # . # o # # #
+ 6 # # o o o # # # # # . o # o o o # # #
+ 5 # # # o . # # # # o o o o o o # # # o
+ 4 # # # o o # # o o o o o o o o o o o o
+ 3 # # # o . # # # # o o o o o o o o o o
+ 2 # # o o # # # # # o o o o o o o o o o
+ 1 # # . o # # o o o o o o o o o o o o o
+   A B C D E F G H J K L M N O P Q R S T
+In this map, the score of black is [Count("#")->183], the score of white is [Count("o")->165]. So the direct leading score of black is: 183-165=18. Considering other facts, the final leading score of black is: 8.5. Based on the analysis above, the win rate of black is: 99.5%
+                    </details>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div id="go-task3" class="section">
+            <h2>Go-task3 Dataset</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>sentence</th><th>answer</th><th>expl</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr><td>1</td>
+                <td>
+                    <details>
+                        <summary>The following is a game board ...</summary>
+                        The following is a game board of Go. The # on the board is black stone, the o on the board is white stone and the . on the board means that there is no stone. Tokens between two parenthesis is related to the explanations about this board state. Here is the board state: 
+ <\board> . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . # . . . . . . . . . . . . #(9) o(13) .
+. . . . . . . . . . . #(2) . #(14) o(1) o(7) # . .
+. . . . . . . . . . . . . o(5) #(4) . #(10) . .
+. . # . . . . . . . . . . o(11) #(6) . #(8) . .
+. . . . . . . . . . . . . . #(12) o(3) . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+
+
+
+
+
+
+ 
+ <\board>. Please generate the corresponding explanations about this board state.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Explanation: When White 1 hang...</summary>
+                        Explanation: When White 1 hangs high on the upper right, the preparations for Black 2's attack are taken into account beforehand. When White 3 comes over, Black 4's move to 12 is followed by White 13's move, and Black 14's break is related to the introduction.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>白1在右上高挂时事先考虑了黑2夹攻的准备工作。白3罩过来时，...</summary>
+                        白1在右上高挂时事先考虑了黑2夹攻的准备工作。白3罩过来时，黑4至12的进行之后，白13立下时，黑14断和引征有关。
+                    </details>
+                </td>
+                </tr><tr><td>2</td>
+                <td>
+                    <details>
+                        <summary>The following is a game board ...</summary>
+                        The following is a game board of Go. The # on the board is black stone, the o on the board is white stone and the . on the board means that there is no stone. Tokens between two parenthesis is related to the explanations about this board state. Here is the board state: 
+ <\board> . . . . . . . . . . . o(33) #(32) o(31) . . . #(30) .
+. . . . . . . . . . o(25) o(27) o(21) #(20) #(18) #(22) #(28) o(29) .
+. . . # . . . . . . #(26) . o(17) #(16) o(19) o(23) o o .
+. . . . . . . . . . . # o(15) # o o # . .
+. . . . . . . . . . . . #(24) o # . # . .
+. . # . . . . . . . . . .(A) o # . # . .
+. . . . . . . . . . . . . . # o . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . #(△) . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . o .(B) . . . . . . . . . . o . . .
+. . . . .(C) o(△) . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . 
+ <\board>. Please generate the corresponding explanations about this board state.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Explanation: When White 15 and...</summary>
+                        Explanation: When White 15 and following to 33, he aims at Black A's sign, intending to use B's sign to pass through C. In this way, Black and White △ are exchanged. The result of this exchange between black and white △ is more favorable to black.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>白15以下至33的进行，瞄看黑A的征子，意在利用B的引征从C...</summary>
+                        白15以下至33的进行，瞄看黑A的征子，意在利用B的引征从C穿下去。这样黑和白△交换的结果对黑棋更有利。
+                    </details>
+                </td>
+                </tr><tr><td>3</td>
+                <td>
+                    <details>
+                        <summary>The following is a game board ...</summary>
+                        The following is a game board of Go. The # on the board is black stone, the o on the board is white stone and the . on the board means that there is no stone. Tokens between two parenthesis is related to the explanations about this board state. Here is the board state: 
+ <\board> . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . # . . . . . . . . . . . . . . .
+. . . . . . . . . . . # . . o . # . .
+. . . . . . . . . . . . . . . . . . .
+. . # . . . . . . . . . . . .(A) .(B) . . .
+. . . . . . . . . . . . . . . .(C) . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . # . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . o . . . . . . . . . . . o . . .
+. . . . . o . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . 
+ <\board>. Please generate the corresponding explanations about this board state.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Explanation: Although there we...</summary>
+                        Explanation: Although there were various countermeasures for white against the attack of black △, this part of the game was not studied enough at that time. Against the attack of black 1, white's responses are roughly A~C, and in particular the combat variations associated with white C's big flying shield are not very plentiful.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>对黑△的夹攻，作为白棋虽有多种多样的对策，但在当时对此部分的...</summary>
+                        对黑△的夹攻，作为白棋虽有多种多样的对策，但在当时对此部分的研究不够。对黑一的夹攻，白棋的应对大致有A~C的手法，特别是和白C大飞罩相关的作战变化不很丰富。
+                    </details>
+                </td>
+                </tr><tr><td>4</td>
+                <td>
+                    <details>
+                        <summary>The following is a game board ...</summary>
+                        The following is a game board of Go. The # on the board is black stone, the o on the board is white stone and the . on the board means that there is no stone. Tokens between two parenthesis is related to the explanations about this board state. Here is the board state: 
+ <\board> . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . # . . . . . .(B) . . . . . . o(5) #(6) .
+. . . . . . . . . . . # . . o . # . .
+. . . . . . . . . . . . . . . . . . .
+. . # . . . . . . . . . . . o . #(2) . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . o(3) . #(4) . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . .(A) . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . # . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . o . . . . . . . . . . . o . . .
+. . . . . o . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+ 
+ <\board>. Please generate the corresponding explanations about this board state.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Explanation: If white wants to...</summary>
+                        Explanation: If white wants to play concisely, he can take a tempo from 1 down to 5, and then turn and play A or B. The exchange of white 13 with black 2 and 4 is not affordable for white, and I personally don't like it.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>白棋如果要下的简明可走1以下至5取先手后转手走A或B。只是白...</summary>
+                        白棋如果要下的简明可走1以下至5取先手后转手走A或B。只是白13和黑2、4的交换，白棋不实惠，就我个人来看不大喜欢。
+                    </details>
+                </td>
+                </tr><tr><td>5</td>
+                <td>
+                    <details>
+                        <summary>The following is a game board ...</summary>
+                        The following is a game board of Go. The # on the board is black stone, the o on the board is white stone and the . on the board means that there is no stone. Tokens between two parenthesis is related to the explanations about this board state. Here is the board state: 
+ <\board> . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . # . . . . . . . . . #(8) #(6) . . . .
+. . . . . . . . . . . # . . o #(4) # . .
+. . . . . . . . . . . . . o(5) #(2) o(3) . . .
+. . # . . . . . . . . . . . o(7) o(1) . . .
+. . . . . . . . . . . . . . . .(A) . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . # . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . o . . . . . . . . . . . o . . .
+. . . . . o . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . 
+ <\board>. Please generate the corresponding explanations about this board state.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>Explanation: After white 1's s...</summary>
+                        Explanation: After white 1's small flyguard, white is not satisfied with black 2's move to 8. In the beginning the shape of white A's big flying shield would have been playable for white, but now white 1's disc is in the shape of a fool, which is very heavy, and white's shape is very inefficient.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>白1小飞罩之后黑2以下至8的进行白棋不满。当初如果是白A大飞...</summary>
+                        白1小飞罩之后黑2以下至8的进行白棋不满。当初如果是白A大飞罩的形状白棋还可下，但如今白1的子呈愚形，很凝重，白棋棋形的效率很低下。
+                    </details>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+    </html>
+    
