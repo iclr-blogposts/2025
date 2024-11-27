@@ -89,16 +89,60 @@ MCTS is a powerful algorithm for decision-making in large state spaces, commonly
 
 MCTS operates within an environment, which defines the possible states and actions, along with the rules for transitioning between states and assigning rewards. The algorithm iteratively builds a search tree, collecting statistics for each node, including how many times it has been visited and the average reward obtained from simulations passing through it. These statistics guide the decision-making process, enabling the algorithm to balance exploration and exploitation intelligently. The algorithm operates in four main phases:
 
-{% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_new.svg" class="img-fluid rounded" %}
-
-<div class="caption">
-    Diagram illustrating the four main phases of MCTS. From Wikipedia<d-cite key="wiki:mcts"></d-cite>
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h4>1. Selection</h4>
+    <p>
+      Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. 
+      This continues until either a node with unexplored children is reached (where expansion is possible) or a terminal node is reached.
+    </p>
+  </div>
+  <div class="col-md-6">
+    {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_selection.svg" class="img-fluid rounded" %}
+  </div>
 </div>
 
-1. **Selection**: Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. This continues until either a node with unexplored children is reached (where expansion is possible) or a terminal node is reached.
-2. **Expansion**: If the selected node is not terminal, the algorithm chooses an unexplored child node randomly and adds it to the tree.
-3. **Simulation**: From the newly expanded node, a simulation (or "rollout") is conducted by sampling actions within the environment until a terminal state is reached, using a default policy (often random). The cumulative reward obtained during this phase serves as feedback for evaluating the node.
-4. **Backpropagation**: Once a terminal state is reached, the simulation's result is propagated back up the tree. At each node along the path, visit counts are incremented, and average rewards are updated to reflect the outcomes.
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h4>2. Expansion</h4>
+    <p>
+      If the selected node is not terminal, the algorithm chooses an unexplored child node randomly and adds it to the tree.
+    </p>
+  </div>
+  <div class="col-md-6">
+    {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_expansion.svg" class="img-fluid rounded" %}
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h4>3. Simulation</h4>
+    <p>
+      From the newly expanded node, a simulation (or "rollout") is conducted by sampling actions within the environment until a terminal state is reached, using a default policy (often random). 
+      The cumulative reward obtained during this phase serves as feedback for evaluating the node.
+    </p>
+  </div>
+  <div class="col-md-6">
+    {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_simulation.svg" class="img-fluid rounded" %}
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h4>4. Backpropagation</h4>
+    <p>
+      Once a terminal state is reached, the simulation's result is propagated back up the tree. 
+      At each node along the path, visit counts are incremented, and average rewards are updated to reflect the outcomes.
+    </p>
+  </div>
+  <div class="col-md-6">
+    {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_phases_backpropagation.svg" class="img-fluid rounded" %}
+  </div>
+</div>
+
+<div class="caption mt-3">
+  These diagrams and their descriptions summarize the four main phases of MCTS: Selection, Expansion, Simulation, and Backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
+</div>
 
 MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space (e.g., a game tree) is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
 
@@ -110,14 +154,14 @@ $$
 
 where:
 
--   $A(s_0)$ represents the set of actions available in state $s_0$.
+-   $A(s_0)$ represents the set of actions available in the root state $s_0$.
 -   $Q(s_0, a)$ represents the average reward from playing action $a$ in state $s_0$ from simulations performed so far.
 
-As the number of iterations grows to infinity, the average reward estimates $Q(s_0, a)$ for each of the root actions converge in prbability to the minimax action value. This iterative refinement allows the action $a_{final}$ chosen by MCTS to converge toward the optimal action $a^*$, improving its decision quality over time.
+As the number of iterations grows to infinity, the average reward estimates $Q(s_0, a)$ for each of the actions from the root state converge in probability to their minimax action values. This iterative refinement allows the action $a_{final}$ chosen by MCTS to converge toward the optimal action $a^*$, improving its decision quality over time.
 
 ### The UCT Selection Policy
 
-A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far). UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase<d-cite key="swiechowski2022mcts"></d-cite>.
+A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far) while building the search tree. UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase<d-cite key="swiechowski2022mcts"></d-cite>.
 
 During selection, the algorithm operates within the current state of the search tree as it has been constructed so far. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown in the brackets below:
 
@@ -175,7 +219,7 @@ Finally, we describe tree parallelism, which will be the focus for the remainder
 -   Evaluating actions that are far away from the optimal trajectory may actively hurt us, as approximation errors and variability in rollouts can make bad moves seem promising in the short term<d-cite key="schrittwieser2024questions"></d-cite>.
 -   Managing concurrent access to the tree and ensuring data integrity introduces complexity. For instance, race conditions or data overwrites could corrupt the search process<d-cite key="steinmetz2020more"></d-cite>.
 
-To address these challenges, techniques such as lock-free programming, virtual loss, and transposition driven scheduling have been developed to manage these issues. Below, we will expand on these different techniques and explain how they are used to implement tree parallelism effectively.
+To address these challenges, techniques such as lock-free programming, virtual loss, and transposition driven scheduling have been proposed to manage these issues. Below, we will expand on these different techniques and explain how they are used to implement tree parallelism effectively.
 
 ## Lock-Based Tree Parallelism
 
@@ -188,8 +232,6 @@ Local mutex methods make locking much more fine-grained, allowing for multiple w
 Since lock-based methods add additional overhead and require a complex implementation, there are also lock-free methods that rely on atomic operations and memory models to enable concurrent access without using traditional locks<d-cite key="steinmetz2020more"></d-cite>. While lock-free algorithms can be challenging to implement correctly, they can provide better performance than lock-based approaches while still ensuring thread safety.
 
 One technique often used in lock-free implementations is **virtual loss**, which reduces redundant exploration by dynamically adjusting UCT scores. If naive parallel rollouts are performed with multiple workers, all workers may redundantly select the same promising path in the search tree. Virtual loss mitigates this by temporarily reducing the UCT score of nodes currently being explored, encouraging workers to diversify their trajectories. Specifically, it temporarily assumes that ongoing rollouts at a given node will result in zero reward, reducing the likelihood of other threads selecting the same node until its rollouts are completed and backpropagated.
-
-To illustrate how virtual loss improves parallel rollouts in MCTS, consider the following diagram from Yang et al. It contrasts two scenarios: (a) naive parallelization without virtual loss, where multiple workers redundantly explore the same paths, and (b) parallelization with virtual loss, where workers are guided to explore distinct trajectories. The diagram highlights how virtual loss alters the UCT score to promote diverse exploration and mitigate redundant computation.
 
 To illustrate how virtual loss promotes exploration of diverse trajectories in MCTS, consider the following diagram from Yang et al., which compares naive parallelization without virtual loss and parallelization with virtual loss. Virtual loss dynamically reduces UCT scores for nodes being explored, encouraging workers to take distinct search paths and avoid redundant computation.
 
@@ -216,7 +258,7 @@ where:
 -   $T(s, a)$ is the number of workers currently exploring action $a$ in state $s$.
 -   $C$ is a constant controlling the balance between exploration and exploitation. In general, it is set differently depending on the domain.
 
-Virtual loss encourages exploration by diversifying worker trajectories, but its fixed penalty can lead to inefficiencies. For example, promising nodes may be overly penalized, hindering exploitation<d-cite key="mirsoleimani2017parallel"></d-cite>.
+Virtual loss encourages exploration by diversifying worker trajectories, but its fixed penalty can lead to inefficiencies. For example, promising nodes may be overly penalized, hindering exploitation<d-cite key="mirsoleimani2015parallel"></d-cite>.
 
 To overcome the challenges of fixed penalties in virtual loss, Liu et al. proposed an alternative approach called _Watch the Unobserved in UCT (WU-UCT)_. WU-UCT modifies the standard virtual loss formula by maintaining the original average reward, rather than reducing it as in virtual loss. However, it applies the same penalty adjustment to the exploration term, encouraging workers to prioritize less-visited actions. Thus, the action $a_{selection}$ to play in a given state $s$ is selected by maximizing the WU-UCT score shown below:
 
@@ -264,7 +306,7 @@ While TDS minimizes communication overhead through its asynchronous design, this
 
 To address the uneven distribution of workload in parallel MCTS, Yoshizoe et al.<d-cite key="yoshizoe2011scalable"></d-cite> proposed a depth-first version of MCTS (TDS-df-UCT). The core idea is to reduce the frequency of backpropagation steps, limiting contention around heavily visited nodes, particularly the root. TDS-df-UCT operates similarly to traditional MCTS but delays backpropagation until a node is sufficiently explored. This reduces the number of messages sent between workers and alleviates bottlenecks caused by frequent updates to high-traffic nodes.
 
-In TDS-df-UCT, the tree is distributed across workers using Transposition-Driven Scheduling (TDS), where each worker stores a subset of the tree based on a hash function. While this approach minimizes communication overhead and allows for asynchronous computation, the reduction in backpropagation frequency introduces certain drawbacks. Key challenges include:
+In TDS-df-UCT, the tree is distributed across workers using Transposition-Driven Scheduling (TDS), where each worker stores a subset of the tree based on a hash function. While this approach minimizes communication overhead and allows for asynchronous computation, the reduction in backpropagation frequency introduces the following drawbacks:
 
 -   **Shallow Trees**: By skipping frequent backpropagations, TDS-df-UCT may overlook discoveries from other workers, leading to trees that are wider and shallower than sequential MCTS.
 -   **Delayed Information Sharing**: Since history is carried only in the messages exchanged between workers, new findings take longer to propagate through the tree.
