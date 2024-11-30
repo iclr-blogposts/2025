@@ -1,0 +1,526 @@
+% YOLO models and other object detectors
+% YOLOv1-YOLOv10, YOLOR, YOLOX, PP-YOLO
+% SSD, Faster R-CNN, FCOS, ...
+@article{yolov1,
+  author       = {Joseph Redmon and
+                  Santosh Kumar Divvala and
+                  Ross B. Girshick and
+                  Ali Farhadi},
+  title        = {You Only Look Once: Unified, Real-Time Object Detection},
+  journal      = {CoRR},
+  volume       = {abs/1506.02640},
+  year         = {2015},
+  url          = {http://arxiv.org/abs/1506.02640},
+  eprinttype    = {arXiv},
+  eprint       = {1506.02640},
+  timestamp    = {Mon, 13 Aug 2018 16:48:08 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/RedmonDGF15.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{yolov2,
+  author       = {Joseph Redmon and
+                  Ali Farhadi},
+  title        = {{YOLO9000:} Better, Faster, Stronger},
+  journal      = {CoRR},
+  volume       = {abs/1612.08242},
+  year         = {2016},
+  url          = {http://arxiv.org/abs/1612.08242},
+  eprinttype    = {arXiv},
+  eprint       = {1612.08242},
+  timestamp    = {Mon, 13 Aug 2018 16:48:25 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/RedmonF16.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{yolov3,
+  author       = {Joseph Redmon and
+                  Ali Farhadi},
+  title        = {YOLOv3: An Incremental Improvement},
+  journal      = {CoRR},
+  volume       = {abs/1804.02767},
+  year         = {2018},
+  url          = {http://arxiv.org/abs/1804.02767},
+  eprinttype    = {arXiv},
+  eprint       = {1804.02767},
+  timestamp    = {Mon, 13 Aug 2018 16:48:24 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1804-02767.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{yolov4,
+  author       = {Alexey Bochkovskiy and
+                  Chien{-}Yao Wang and
+                  Hong{-}Yuan Mark Liao},
+  title        = {YOLOv4: Optimal Speed and Accuracy of Object Detection},
+  journal      = {CoRR},
+  volume       = {abs/2004.10934},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2004.10934},
+  eprinttype    = {arXiv},
+  eprint       = {2004.10934},
+  timestamp    = {Tue, 28 Apr 2020 16:10:02 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2004-10934.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{scaled-yolov4,
+  author       = {Chien{-}Yao Wang and
+                  Alexey Bochkovskiy and
+                  Hong{-}Yuan Mark Liao},
+  title        = {Scaled-YOLOv4: Scaling Cross Stage Partial Network},
+  journal      = {CoRR},
+  volume       = {abs/2011.08036},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2011.08036},
+  eprinttype    = {arXiv},
+  eprint       = {2011.08036},
+  timestamp    = {Wed, 18 Nov 2020 16:48:35 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2011-08036.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{yolor,
+  author       = {Chien{-}Yao Wang and
+                  I{-}Hau Yeh and
+                  Hong{-}Yuan Mark Liao},
+  title        = {You Only Learn One Representation: Unified Network for Multiple Tasks},
+  journal      = {CoRR},
+  volume       = {abs/2105.04206},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2105.04206},
+  eprinttype    = {arXiv},
+  eprint       = {2105.04206},
+  timestamp    = {Fri, 14 May 2021 12:13:30 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2105-04206.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{yolox,
+      title={YOLOX: Exceeding YOLO Series in 2021},
+      author={Zheng Ge and Songtao Liu and Feng Wang and Zeming Li and Jian Sun},
+      year={2021},
+      eprint={2107.08430},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2107.08430},
+}
+
+@misc{yolov6,
+  title={YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications},
+  author={Chuyi Li and Lulu Li and Hongliang Jiang and Kaiheng Weng and Yifei Geng and Liang Li and Zaidan Ke and Qingyuan Li and Meng Cheng and Weiqiang Nie and Yiduo Li and Bo Zhang and Yufei Liang and Linyuan Zhou and Xiaoming Xu and Xiangxiang Chu and Xiaoming Wei and Xiaolin Wei},
+  year={2022},
+  eprint={2209.02976},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2209.02976},
+}
+
+@misc{yolov7,
+  title={YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors},
+  author={Chien-Yao Wang and Alexey Bochkovskiy and Hong-Yuan Mark Liao},
+  year={2022},
+  eprint={2207.02696},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2207.02696},
+}
+
+@misc{yolov9,
+  title={YOLOv9: Learning What You Want to Learn Using Programmable Gradient Information},
+  author={Chien-Yao Wang and I-Hau Yeh and Hong-Yuan Mark Liao},
+  year={2024},
+  eprint={2402.13616},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2402.13616},
+}
+
+@misc{yolov10,
+  title={YOLOv10: Real-Time End-to-End Object Detection},
+  author={Ao Wang and Hui Chen and Lihao Liu and Kai Chen and Zijia Lin and Jungong Han and Guiguang Ding},
+  year={2024},
+  eprint={2405.14458},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2405.14458},
+}
+
+@misc{ppyoloe,
+  title={PP-YOLOE: An evolved version of YOLO},
+  author={Shangliang Xu and Xinxin Wang and Wenyu Lv and Qinyao Chang and Cheng Cui and Kaipeng Deng and Guanzhong Wang and Qingqing Dang and Shengyu Wei and Yuning Du and Baohua Lai},
+  year={2022},
+  eprint={2203.16250},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2203.16250},
+}
+
+@article{SSD,
+  author       = {Wei Liu and
+                  Dragomir Anguelov and
+                  Dumitru Erhan and
+                  Christian Szegedy and
+                  Scott E. Reed and
+                  Cheng{-}Yang Fu and
+                  Alexander C. Berg},
+  title        = {{SSD:} Single Shot MultiBox Detector},
+  journal      = {CoRR},
+  volume       = {abs/1512.02325},
+  year         = {2015},
+  url          = {http://arxiv.org/abs/1512.02325},
+  eprinttype    = {arXiv},
+  eprint       = {1512.02325},
+  timestamp    = {Wed, 12 Feb 2020 08:32:49 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/LiuAESR15.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{FCOS,
+  title={FCOS: Fully Convolutional One-Stage Object Detection},
+  author={Zhi Tian and Chunhua Shen and Hao Chen and Tong He},
+  year={2019},
+  eprint={1904.01355},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/1904.01355},
+}
+
+@misc{e2eFCOS,
+  title={Object Detection Made Simpler by Eliminating Heuristic NMS},
+  author={Qiang Zhou and Chaohui Yu and Chunhua Shen and Zhibin Wang and Hao Li},
+  year={2021},
+  eprint={2101.11782},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2101.11782},
+}
+
+
+% Loss functions for Object Detection.
+% Focal, DFL, etc.
+@misc{Focal,
+  title={Focal Loss for Dense Object Detection},
+  author={Tsung-Yi Lin and Priya Goyal and Ross Girshick and Kaiming He and Piotr Dollár},
+  year={2018},
+  eprint={1708.02002},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/1708.02002},
+}
+
+@misc{VeriFocal,
+      title={VarifocalNet: An IoU-aware Dense Object Detector},
+      author={Haoyang Zhang and Ying Wang and Feras Dayoub and Niko Sünderhauf},
+      year={2021},
+      eprint={2008.13367},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2008.13367},
+}
+
+@misc{DIoU,
+  title={Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression},
+  author={Zhaohui Zheng and Ping Wang and Wei Liu and Jinze Li and Rongguang Ye and Dongwei Ren},
+  year={2019},
+  eprint={1911.08287},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/1911.08287},
+}
+
+@misc{DFL,
+  title={Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes for Dense Object Detection},
+  author={Xiang Li and Wenhai Wang and Lijun Wu and Shuo Chen and Xiaolin Hu and Jun Li and Jinhui Tang and Jian Yang},
+  year={2020},
+  eprint={2006.04388},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2006.04388},
+}
+
+
+% Network architectures for Object detectors.
+% CSPNet, FPN, PANet, ELAN, SPP
+@article{CSPNet,
+  author       = {Chien{-}Yao Wang and
+                  Hong{-}Yuan Mark Liao and
+                  I{-}Hau Yeh and
+                  Yueh{-}Hua Wu and
+                  Ping{-}Yang Chen and
+                  Jun{-}Wei Hsieh},
+  title        = {CSPNet: {A} New Backbone that can Enhance Learning Capability of {CNN}},
+  journal      = {CoRR},
+  volume       = {abs/1911.11929},
+  year         = {2019},
+  url          = {http://arxiv.org/abs/1911.11929},
+  eprinttype    = {arXiv},
+  eprint       = {1911.11929},
+  timestamp    = {Tue, 03 Dec 2019 20:41:07 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1911-11929.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{FPN,
+  author       = {Tsung{-}Yi Lin and
+                  Piotr Doll{\'{a}}r and
+                  Ross B. Girshick and
+                  Kaiming He and
+                  Bharath Hariharan and
+                  Serge J. Belongie},
+  title        = {Feature Pyramid Networks for Object Detection},
+  journal      = {CoRR},
+  volume       = {abs/1612.03144},
+  year         = {2016},
+  url          = {http://arxiv.org/abs/1612.03144},
+  eprinttype    = {arXiv},
+  eprint       = {1612.03144},
+  timestamp    = {Mon, 13 Aug 2018 16:48:50 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/LinDGHHB16.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{PANet,
+  author       = {Shu Liu and
+                  Lu Qi and
+                  Haifang Qin and
+                  Jianping Shi and
+                  Jiaya Jia},
+  title        = {Path Aggregation Network for Instance Segmentation},
+  journal      = {CoRR},
+  volume       = {abs/1803.01534},
+  year         = {2018},
+  url          = {http://arxiv.org/abs/1803.01534},
+  eprinttype    = {arXiv},
+  eprint       = {1803.01534},
+  timestamp    = {Wed, 11 Sep 2019 15:40:23 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1803-01534.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{SPP,
+  author       = {Kaiming He and
+                  Xiangyu Zhang and
+                  Shaoqing Ren and
+                  Jian Sun},
+  title        = {Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition},
+  journal      = {CoRR},
+  volume       = {abs/1406.4729},
+  year         = {2014},
+  url          = {http://arxiv.org/abs/1406.4729},
+  eprinttype    = {arXiv},
+  eprint       = {1406.4729},
+  timestamp    = {Wed, 25 Jan 2023 11:01:16 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/HeZR014.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+% Convolutional Networks for Image Classification
+% ResNet, Densenet, ResNeXt, VoVNet, ...
+@article{ResNet,
+  author       = {Kaiming He and
+                  Xiangyu Zhang and
+                  Shaoqing Ren and
+                  Jian Sun},
+  title        = {Deep Residual Learning for Image Recognition},
+  journal      = {CoRR},
+  volume       = {abs/1512.03385},
+  year         = {2015},
+  url          = {http://arxiv.org/abs/1512.03385},
+  eprinttype    = {arXiv},
+  eprint       = {1512.03385},
+  timestamp    = {Wed, 25 Jan 2023 11:01:16 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/HeZRS15.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DenseNet,
+  author       = {Gao Huang and
+                  Zhuang Liu and
+                  Kilian Q. Weinberger},
+  title        = {Densely Connected Convolutional Networks},
+  journal      = {CoRR},
+  volume       = {abs/1608.06993},
+  year         = {2016},
+  url          = {http://arxiv.org/abs/1608.06993},
+  eprinttype    = {arXiv},
+  eprint       = {1608.06993},
+  timestamp    = {Tue, 20 Aug 2024 16:54:06 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/HuangLW16a.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{InceptionNet,
+  author       = {Christian Szegedy and
+                  Wei Liu and
+                  Yangqing Jia and
+                  Pierre Sermanet and
+                  Scott E. Reed and
+                  Dragomir Anguelov and
+                  Dumitru Erhan and
+                  Vincent Vanhoucke and
+                  Andrew Rabinovich},
+  title        = {Going Deeper with Convolutions},
+  journal      = {CoRR},
+  volume       = {abs/1409.4842},
+  year         = {2014},
+  url          = {http://arxiv.org/abs/1409.4842},
+  eprinttype    = {arXiv},
+  eprint       = {1409.4842},
+  timestamp    = {Mon, 13 Aug 2018 16:48:52 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/SzegedyLJSRAEVR14.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{VoVNet,
+  author       = {Youngwan Lee and
+                  Joong{-}won Hwang and
+                  Sangrok Lee and
+                  Yuseok Bae and
+                  Jongyoul Park},
+  title        = {An Energy and GPU-Computation Efficient Backbone Network for Real-Time Object Detection},
+  journal      = {CoRR},
+  volume       = {abs/1904.09730},
+  year         = {2019},
+  url          = {http://arxiv.org/abs/1904.09730},
+  eprinttype    = {arXiv},
+  eprint       = {1904.09730},
+  timestamp    = {Fri, 26 Apr 2019 13:18:53 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1904-09730.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{RepVGG,
+  author       = {Xiaohan Ding and
+                  Xiangyu Zhang and
+                  Ningning Ma and
+                  Jungong Han and
+                  Guiguang Ding and
+                  Jian Sun},
+  title        = {RepVGG: Making VGG-style ConvNets Great Again},
+  journal      = {CoRR},
+  volume       = {abs/2101.03697},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2101.03697},
+  eprinttype    = {arXiv},
+  eprint       = {2101.03697},
+  timestamp    = {Mon, 26 Sep 2022 12:21:57 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2101-03697.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{Unet,
+  title={U-Net: Convolutional Networks for Biomedical Image Segmentation},
+  author={Olaf Ronneberger and Philipp Fischer and Thomas Brox},
+  year={2015},
+  eprint={1505.04597},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/1505.04597},
+}
+
+@misc{RegNet,
+  title={Designing Network Design Spaces},
+  author={Ilija Radosavovic and Raj Prateek Kosaraju and Ross Girshick and Kaiming He and Piotr Dollár},
+  year={2020},
+  eprint={2003.13678},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2003.13678},
+}
+
+% Misc
+@misc{DarkNet,
+  author =   {Joseph Redmon},
+  title =    {Darknet: Open Source Neural Networks in C},
+  howpublished = {\url{http://pjreddie.com/darknet/}},
+  year = {2013--2016}
+}
+
+@misc{PreTraining,
+      title={Rethinking ImageNet Pre-training},
+      author={Kaiming He and Ross Girshick and Piotr Dollár},
+      year={2018},
+      eprint={1811.08883},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/1811.08883},
+}
+
+@article{silu,
+  author       = {Prajit Ramachandran and
+                  Barret Zoph and
+                  Quoc V. Le},
+  title        = {Searching for Activation Functions},
+  journal      = {CoRR},
+  volume       = {abs/1710.05941},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1710.05941},
+  eprinttype    = {arXiv},
+  eprint       = {1710.05941},
+  timestamp    = {Mon, 13 Aug 2018 16:48:44 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1710-05941.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{TOOD,
+  title={TOOD: Task-aligned One-stage Object Detection},
+  author={Chengjian Feng and Yujie Zhong and Yu Gao and Matthew R. Scott and Weilin Huang},
+  year={2021},
+  eprint={2108.07755},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2108.07755},
+}
+
+@misc{RethinkingHead,
+  title={Rethinking Classification and Localization for Object Detection},
+  author={Yue Wu and Yinpeng Chen and Lu Yuan and Zicheng Liu and Lijuan Wang and Hongzhi Li and Yun Fu},
+  year={2020},
+  eprint={1904.06493},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/1904.06493},
+}
+
+@article{RevisitingHead,
+  author       = {Guanglu Song and
+                  Yu Liu and
+                  Xiaogang Wang},
+  title        = {Revisiting the Sibling Head in Object Detector},
+  journal      = {CoRR},
+  volume       = {abs/2003.07540},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2003.07540},
+  eprinttype    = {arXiv},
+  eprint       = {2003.07540},
+  timestamp    = {Tue, 11 Aug 2020 14:01:11 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2003-07540.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{ema,
+  title={Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results},
+  author={Antti Tarvainen and Harri Valpola},
+  year={2018},
+  eprint={1703.01780},
+  archivePrefix={arXiv},
+  primaryClass={cs.NE},
+  url={https://arxiv.org/abs/1703.01780},
+}
+
+% Manually added
+@misc{ImagePyramid,
+  title = {Pyramid methods in image processing},
+  author = {
+	  E. H. Adelson and
+      C. H. Anderson and
+	  J. R. Bergen and
+	  P. J. Burt and
+	  J. M. Ogden
+  },
+  year = {1984},
+  journal = {RCA engineer},
+  url = {https://persci.mit.edu/pub_pdfs/RCA84.pdf},
+}
+
