@@ -1,0 +1,738 @@
+@misc{cai2024medusasimplellminference,
+      title={Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads}, 
+      author={Tianle Cai and Yuhong Li and Zhengyang Geng and Hongwu Peng and Jason D. Lee and Deming Chen and Tri Dao},
+      year={2024},
+      eprint={2401.10774},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2401.10774}, 
+}
+
+@misc{leviathan2023fastinferencetransformersspeculative,
+      title={Fast Inference from Transformers via Speculative Decoding}, 
+      author={Yaniv Leviathan and Matan Kalman and Yossi Matias},
+      year={2023},
+      eprint={2211.17192},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2211.17192}, 
+}
+
+@misc{agrawal2024tamingthroughputlatencytradeoffllm,
+      title={Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve}, 
+      author={Amey Agrawal and Nitin Kedia and Ashish Panwar and Jayashree Mohan and Nipun Kwatra and Bhargav S. Gulavani and Alexey Tumanov and Ramachandran Ramjee},
+      year={2024},
+      eprint={2403.02310},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2403.02310}, 
+}
+
+@misc{kwon2023efficientmemorymanagementlarge,
+      title={Efficient Memory Management for Large Language Model Serving with PagedAttention}, 
+      author={Woosuk Kwon and Zhuohan Li and Siyuan Zhuang and Ying Sheng and Lianmin Zheng and Cody Hao Yu and Joseph E. Gonzalez and Hao Zhang and Ion Stoica},
+      year={2023},
+      eprint={2309.06180},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2309.06180}, 
+}
+
+@inproceedings {280922,
+author = {Gyeong-In Yu and Joo Seong Jeong and Geon-Woo Kim and Soojeong Kim and Byung-Gon Chun},
+title = {Orca: A Distributed Serving System for {Transformer-Based} Generative Models},
+booktitle = {16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22)},
+year = {2022},
+isbn = {978-1-939133-28-1},
+address = {Carlsbad, CA},
+pages = {521--538},
+url = {https://www.usenix.org/conference/osdi22/presentation/yu},
+publisher = {USENIX Association},
+}
+
+@InProceedings{pmlr-v162-dao22a,
+  title = 	 {Monarch: Expressive Structured Matrices for Efficient and Accurate Training},
+  author =       {Dao, Tri and Chen, Beidi and Sohoni, Nimit S and Desai, Arjun and Poli, Michael and Grogan, Jessica and Liu, Alexander and Rao, Aniruddh and Rudra, Atri and Re, Christopher},
+  booktitle = 	 {Proceedings of the 39th International Conference on Machine Learning},
+  pages = 	 {4690--4721},
+  year = 	 {2022},
+  editor = 	 {Chaudhuri, Kamalika and Jegelka, Stefanie and Song, Le and Szepesvari, Csaba and Niu, Gang and Sabato, Sivan},
+  volume = 	 {162},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {17--23 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v162/dao22a/dao22a.pdf},
+  url = 	 {https://proceedings.mlr.press/v162/dao22a.html},
+  abstract = 	 {Large neural networks excel in many domains, but they are expensive to train and fine-tune. A popular approach to reduce their compute or memory requirements is to replace dense weight matrices with structured ones (e.g., sparse, low-rank, Fourier transform). These methods have not seen widespread adoption (1) in end-to-end training due to unfavorable efficiency–quality tradeoffs, and (2) in dense-to-sparse fine-tuning due to lack of tractable algorithms to approximate a given dense weight matrix. To address these issues, we propose a class of matrices (Monarch) that is hardware-efficient (they are parameterized as products of two block-diagonal matrices for better hardware utilization) and expressive (they can represent many commonly used transforms). Surprisingly, the problem of approximating a dense weight matrix with a Monarch matrix, though nonconvex, has an analytical optimal solution. These properties of Monarch matrices unlock new ways to train and fine-tune sparse and dense models. We empirically validate that Monarch can achieve favorable accuracy-efficiency tradeoffs in several end-to-end sparse training applications: speeding up ViT and GPT-2 training on ImageNet classification and Wikitext-103 language modeling by 2x with comparable model quality, and reducing the error on PDE solving and MRI reconstruction tasks by 40%. In sparse-to-dense training, with a simple technique called "reverse sparsification," Monarch matrices serve as a useful intermediate representation to speed up GPT-2 pretraining on OpenWebText by 2x without quality drop. The same technique brings 23% faster BERT pretraining than even the very optimized implementation from Nvidia that set the MLPerf 1.1 record. In dense-to-sparse fine-tuning, as a proof-of-concept, our Monarch approximation algorithm speeds up BERT fine-tuning on GLUE by 1.7x with comparable accuracy.}
+}
+
+
+@misc{dao2020learningfastalgorithmslinear,
+      title={Learning Fast Algorithms for Linear Transforms Using Butterfly Factorizations}, 
+      author={Tri Dao and Albert Gu and Matthew Eichhorn and Atri Rudra and Christopher Ré},
+      year={2020},
+      eprint={1903.05895},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1903.05895}, 
+}
+
+@misc{xiao2024efficientstreaminglanguagemodels,
+      title={Efficient Streaming Language Models with Attention Sinks}, 
+      author={Guangxuan Xiao and Yuandong Tian and Beidi Chen and Song Han and Mike Lewis},
+      year={2024},
+      eprint={2309.17453},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2309.17453}, 
+}
+
+@misc{xiao2024smoothquantaccurateefficientposttraining,
+      title={SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models}, 
+      author={Guangxuan Xiao and Ji Lin and Mickael Seznec and Hao Wu and Julien Demouth and Song Han},
+      year={2024},
+      eprint={2211.10438},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2211.10438}, 
+}
+
+@misc{ma2024era1bitllmslarge,
+      title={The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits}, 
+      author={Shuming Ma and Hongyu Wang and Lingxiao Ma and Lei Wang and Wenhui Wang and Shaohan Huang and Li Dong and Ruiping Wang and Jilong Xue and Furu Wei},
+      year={2024},
+      eprint={2402.17764},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2402.17764}, 
+}
+
+@misc{wang2023bitnetscaling1bittransformers,
+      title={BitNet: Scaling 1-bit Transformers for Large Language Models}, 
+      author={Hongyu Wang and Shuming Ma and Li Dong and Shaohan Huang and Huaijie Wang and Lingxiao Ma and Fan Yang and Ruiping Wang and Yi Wu and Furu Wei},
+      year={2023},
+      eprint={2310.11453},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2310.11453}, 
+}
+
+@misc{lin2024awqactivationawareweightquantization,
+      title={AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration}, 
+      author={Ji Lin and Jiaming Tang and Haotian Tang and Shang Yang and Wei-Ming Chen and Wei-Chen Wang and Guangxuan Xiao and Xingyu Dang and Chuang Gan and Song Han},
+      year={2024},
+      eprint={2306.00978},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2306.00978}, 
+}
+
+@misc{frantar2023gptqaccurateposttrainingquantization,
+      title={GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers}, 
+      author={Elias Frantar and Saleh Ashkboos and Torsten Hoefler and Dan Alistarh},
+      year={2023},
+      eprint={2210.17323},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2210.17323}, 
+}
+
+@misc{dettmers2022llmint88bitmatrixmultiplication,
+      title={LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale}, 
+      author={Tim Dettmers and Mike Lewis and Younes Belkada and Luke Zettlemoyer},
+      year={2022},
+      eprint={2208.07339},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2208.07339}, 
+}
+
+@misc{xia2024shearedllamaacceleratinglanguage,
+      title={Sheared LLaMA: Accelerating Language Model Pre-training via Structured Pruning}, 
+      author={Mengzhou Xia and Tianyu Gao and Zhiyuan Zeng and Danqi Chen},
+      year={2024},
+      eprint={2310.06694},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2310.06694}, 
+}
+
+@misc{abdin2024phi3technicalreporthighly,
+      title={Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone}, 
+      author={Marah Abdin and Jyoti Aneja and Hany Awadalla and Ahmed Awadallah and Ammar Ahmad Awan and Nguyen Bach and Amit Bahree and Arash Bakhtiari and Jianmin Bao and Harkirat Behl and Alon Benhaim and Misha Bilenko and Johan Bjorck and Sébastien Bubeck and Martin Cai and Qin Cai and Vishrav Chaudhary and Dong Chen and Dongdong Chen and Weizhu Chen and Yen-Chun Chen and Yi-Ling Chen and Hao Cheng and Parul Chopra and Xiyang Dai and Matthew Dixon and Ronen Eldan and Victor Fragoso and Jianfeng Gao and Mei Gao and Min Gao and Amit Garg and Allie Del Giorno and Abhishek Goswami and Suriya Gunasekar and Emman Haider and Junheng Hao and Russell J. Hewett and Wenxiang Hu and Jamie Huynh and Dan Iter and Sam Ade Jacobs and Mojan Javaheripi and Xin Jin and Nikos Karampatziakis and Piero Kauffmann and Mahoud Khademi and Dongwoo Kim and Young Jin Kim and Lev Kurilenko and James R. Lee and Yin Tat Lee and Yuanzhi Li and Yunsheng Li and Chen Liang and Lars Liden and Xihui Lin and Zeqi Lin and Ce Liu and Liyuan Liu and Mengchen Liu and Weishung Liu and Xiaodong Liu and Chong Luo and Piyush Madan and Ali Mahmoudzadeh and David Majercak and Matt Mazzola and Caio César Teodoro Mendes and Arindam Mitra and Hardik Modi and Anh Nguyen and Brandon Norick and Barun Patra and Daniel Perez-Becker and Thomas Portet and Reid Pryzant and Heyang Qin and Marko Radmilac and Liliang Ren and Gustavo de Rosa and Corby Rosset and Sambudha Roy and Olatunji Ruwase and Olli Saarikivi and Amin Saied and Adil Salim and Michael Santacroce and Shital Shah and Ning Shang and Hiteshi Sharma and Yelong Shen and Swadheen Shukla and Xia Song and Masahiro Tanaka and Andrea Tupini and Praneetha Vaddamanu and Chunyu Wang and Guanhua Wang and Lijuan Wang and Shuohang Wang and Xin Wang and Yu Wang and Rachel Ward and Wen Wen and Philipp Witte and Haiping Wu and Xiaoxia Wu and Michael Wyatt and Bin Xiao and Can Xu and Jiahang Xu and Weijian Xu and Jilong Xue and Sonali Yadav and Fan Yang and Jianwei Yang and Yifan Yang and Ziyi Yang and Donghan Yu and Lu Yuan and Chenruidong Zhang and Cyril Zhang and Jianwen Zhang and Li Lyna Zhang and Yi Zhang and Yue Zhang and Yunan Zhang and Xiren Zhou},
+      year={2024},
+      eprint={2404.14219},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2404.14219}, 
+}
+
+@misc{li2023textbooksneediiphi15,
+      title={Textbooks Are All You Need II: phi-1.5 technical report}, 
+      author={Yuanzhi Li and Sébastien Bubeck and Ronen Eldan and Allie Del Giorno and Suriya Gunasekar and Yin Tat Lee},
+      year={2023},
+      eprint={2309.05463},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2309.05463}, 
+}
+
+@misc{gunasekar2023textbooksneed,
+      title={Textbooks Are All You Need}, 
+      author={Suriya Gunasekar and Yi Zhang and Jyoti Aneja and Caio César Teodoro Mendes and Allie Del Giorno and Sivakanth Gopi and Mojan Javaheripi and Piero Kauffmann and Gustavo de Rosa and Olli Saarikivi and Adil Salim and Shital Shah and Harkirat Singh Behl and Xin Wang and Sébastien Bubeck and Ronen Eldan and Adam Tauman Kalai and Yin Tat Lee and Yuanzhi Li},
+      year={2023},
+      eprint={2306.11644},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2306.11644}, 
+}
+
+@misc{hoffmann2022trainingcomputeoptimallargelanguage,
+      title={Training Compute-Optimal Large Language Models}, 
+      author={Jordan Hoffmann and Sebastian Borgeaud and Arthur Mensch and Elena Buchatskaya and Trevor Cai and Eliza Rutherford and Diego de Las Casas and Lisa Anne Hendricks and Johannes Welbl and Aidan Clark and Tom Hennigan and Eric Noland and Katie Millican and George van den Driessche and Bogdan Damoc and Aurelia Guy and Simon Osindero and Karen Simonyan and Erich Elsen and Jack W. Rae and Oriol Vinyals and Laurent Sifre},
+      year={2022},
+      eprint={2203.15556},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2203.15556}, 
+}
+
+@misc{kaplan2020scalinglawsneurallanguage,
+      title={Scaling Laws for Neural Language Models}, 
+      author={Jared Kaplan and Sam McCandlish and Tom Henighan and Tom B. Brown and Benjamin Chess and Rewon Child and Scott Gray and Alec Radford and Jeffrey Wu and Dario Amodei},
+      year={2020},
+      eprint={2001.08361},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2001.08361}, 
+}
+
+@misc{hestness2017deeplearningscalingpredictable,
+      title={Deep Learning Scaling is Predictable, Empirically}, 
+      author={Joel Hestness and Sharan Narang and Newsha Ardalani and Gregory Diamos and Heewoo Jun and Hassan Kianinejad and Md. Mostofa Ali Patwary and Yang Yang and Yanqi Zhou},
+      year={2017},
+      eprint={1712.00409},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1712.00409}, 
+}
+
+@misc{liu2023ringattentionblockwisetransformers,
+      title={Ring Attention with Blockwise Transformers for Near-Infinite Context}, 
+      author={Hao Liu and Matei Zaharia and Pieter Abbeel},
+      year={2023},
+      eprint={2310.01889},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2310.01889}, 
+}
+
+@misc{brandon2023stripedattentionfasterring,
+      title={Striped Attention: Faster Ring Attention for Causal Transformers}, 
+      author={William Brandon and Aniruddha Nrusimha and Kevin Qian and Zachary Ankner and Tian Jin and Zhiye Song and Jonathan Ragan-Kelley},
+      year={2023},
+      eprint={2311.09431},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2311.09431}, 
+}
+
+@inproceedings{10.1145/3341301.3359646,
+author = {Narayanan, Deepak and Harlap, Aaron and Phanishayee, Amar and Seshadri, Vivek and Devanur, Nikhil R. and Ganger, Gregory R. and Gibbons, Phillip B. and Zaharia, Matei},
+title = {PipeDream: generalized pipeline parallelism for DNN training},
+year = {2019},
+isbn = {9781450368735},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3341301.3359646},
+doi = {10.1145/3341301.3359646},
+abstract = {DNN training is extremely time-consuming, necessitating efficient multi-accelerator parallelization. Current approaches to parallelizing training primarily use intra-batch parallelization, where a single iteration of training is split over the available workers, but suffer from diminishing returns at higher worker counts. We present PipeDream, a system that adds inter-batch pipelining to intra-batch parallelism to further improve parallel training throughput, helping to better overlap computation with communication and reduce the amount of communication when possible. Unlike traditional pipelining, DNN training is bi-directional, where a forward pass through the computation graph is followed by a backward pass that uses state and intermediate data computed during the forward pass. Na\"{\i}ve pipelining can thus result in mismatches in state versions used in the forward and backward passes, or excessive pipeline flushes and lower hardware efficiency. To address these challenges, PipeDream versions model parameters for numerically correct gradient computations, and schedules forward and backward passes of different minibatches concurrently on different workers with minimal pipeline stalls. PipeDream also automatically partitions DNN layers among workers to balance work and minimize communication. Extensive experimentation with a range of DNN tasks, models, and hardware configurations shows that PipeDream trains models to high accuracy up to 5.3X faster than commonly used intra-batch parallelism techniques.},
+booktitle = {Proceedings of the 27th ACM Symposium on Operating Systems Principles},
+pages = {1–15},
+numpages = {15},
+location = {Huntsville, Ontario, Canada},
+series = {SOSP '19}
+}
+
+
+@misc{shoeybi2020megatronlmtrainingmultibillionparameter,
+      title={Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism}, 
+      author={Mohammad Shoeybi and Mostofa Patwary and Raul Puri and Patrick LeGresley and Jared Casper and Bryan Catanzaro},
+      year={2020},
+      eprint={1909.08053},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/1909.08053}, 
+}
+
+@misc{huang2019gpipeefficienttraininggiant,
+      title={GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism}, 
+      author={Yanping Huang and Youlong Cheng and Ankur Bapna and Orhan Firat and Mia Xu Chen and Dehao Chen and HyoukJoong Lee and Jiquan Ngiam and Quoc V. Le and Yonghui Wu and Zhifeng Chen},
+      year={2019},
+      eprint={1811.06965},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/1811.06965}, 
+}
+
+@misc{shazeer2018meshtensorflowdeeplearningsupercomputers,
+      title={Mesh-TensorFlow: Deep Learning for Supercomputers}, 
+      author={Noam Shazeer and Youlong Cheng and Niki Parmar and Dustin Tran and Ashish Vaswani and Penporn Koanantakool and Peter Hawkins and HyoukJoong Lee and Mingsheng Hong and Cliff Young and Ryan Sepassi and Blake Hechtman},
+      year={2018},
+      eprint={1811.02084},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1811.02084}, 
+}
+
+@misc{keskar2017largebatchtrainingdeeplearning,
+      title={On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima}, 
+      author={Nitish Shirish Keskar and Dheevatsa Mudigere and Jorge Nocedal and Mikhail Smelyanskiy and Ping Tak Peter Tang},
+      year={2017},
+      eprint={1609.04836},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1609.04836}, 
+}
+
+@misc{chen2018tvmautomatedendtoendoptimizing,
+      title={TVM: An Automated End-to-End Optimizing Compiler for Deep Learning}, 
+      author={Tianqi Chen and Thierry Moreau and Ziheng Jiang and Lianmin Zheng and Eddie Yan and Meghan Cowan and Haichen Shen and Leyuan Wang and Yuwei Hu and Luis Ceze and Carlos Guestrin and Arvind Krishnamurthy},
+      year={2018},
+      eprint={1802.04799},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1802.04799}, 
+}
+
+@article{M_ller_2022,
+   title={Instant neural graphics primitives with a multiresolution hash encoding},
+   volume={41},
+   ISSN={1557-7368},
+   url={http://dx.doi.org/10.1145/3528223.3530127},
+   DOI={10.1145/3528223.3530127},
+   number={4},
+   journal={ACM Transactions on Graphics},
+   publisher={Association for Computing Machinery (ACM)},
+   author={Müller, Thomas and Evans, Alex and Schied, Christoph and Keller, Alexander},
+   year={2022},
+   month=jul, pages={1–15} }
+
+
+@misc{gu2024mambalineartimesequencemodeling,
+      title={Mamba: Linear-Time Sequence Modeling with Selective State Spaces}, 
+      author={Albert Gu and Tri Dao},
+      year={2024},
+      eprint={2312.00752},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2312.00752}, 
+}
+
+@misc{fu2023flashfftconvefficientconvolutionslong,
+      title={FlashFFTConv: Efficient Convolutions for Long Sequences with Tensor Cores}, 
+      author={Daniel Y. Fu and Hermann Kumbong and Eric Nguyen and Christopher Ré},
+      year={2023},
+      eprint={2311.05908},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2311.05908}, 
+}
+
+@misc{hsu2024ligerkernelefficienttriton,
+      title={Liger Kernel: Efficient Triton Kernels for LLM Training}, 
+      author={Pin-Lun Hsu and Yun Dai and Vignesh Kothapalli and Qingquan Song and Shao Tang and Siyu Zhu and Steven Shimizu and Shivam Sahni and Haowen Ning and Yanning Chen},
+      year={2024},
+      eprint={2410.10989},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2410.10989}, 
+}
+
+@misc{shah2024flashattention3fastaccurateattention,
+      title={FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision}, 
+      author={Jay Shah and Ganesh Bikshandi and Ying Zhang and Vijay Thakkar and Pradeep Ramani and Tri Dao},
+      year={2024},
+      eprint={2407.08608},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2407.08608}, 
+}
+
+@misc{dao2023flashattention2fasterattentionbetter,
+      title={FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning}, 
+      author={Tri Dao},
+      year={2023},
+      eprint={2307.08691},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2307.08691}, 
+}
+
+@misc{dao2022flashattentionfastmemoryefficientexact,
+      title={FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness}, 
+      author={Tri Dao and Daniel Y. Fu and Stefano Ermon and Atri Rudra and Christopher Ré},
+      year={2022},
+      eprint={2205.14135},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2205.14135}, 
+}
+
+@misc{dettmers2023qloraefficientfinetuningquantized,
+      title={QLoRA: Efficient Finetuning of Quantized LLMs}, 
+      author={Tim Dettmers and Artidoro Pagnoni and Ari Holtzman and Luke Zettlemoyer},
+      year={2023},
+      eprint={2305.14314},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2305.14314}, 
+}
+
+@misc{hu2021loralowrankadaptationlarge,
+      title={LoRA: Low-Rank Adaptation of Large Language Models}, 
+      author={Edward J. Hu and Yelong Shen and Phillip Wallis and Zeyuan Allen-Zhu and Yuanzhi Li and Shean Wang and Lu Wang and Weizhu Chen},
+      year={2021},
+      eprint={2106.09685},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2106.09685}, 
+}
+
+@misc{houlsby2019parameterefficienttransferlearningnlp,
+      title={Parameter-Efficient Transfer Learning for NLP}, 
+      author={Neil Houlsby and Andrei Giurgiu and Stanislaw Jastrzebski and Bruna Morrone and Quentin de Laroussilhe and Andrea Gesmundo and Mona Attariyan and Sylvain Gelly},
+      year={2019},
+      eprint={1902.00751},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1902.00751}, 
+}
+
+@misc{fedus2022switchtransformersscalingtrillion,
+      title={Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity}, 
+      author={William Fedus and Barret Zoph and Noam Shazeer},
+      year={2022},
+      eprint={2101.03961},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2101.03961}, 
+}
+
+@misc{so2022primersearchingefficienttransformers,
+      title={Primer: Searching for Efficient Transformers for Language Modeling}, 
+      author={David R. So and Wojciech Mańke and Hanxiao Liu and Zihang Dai and Noam Shazeer and Quoc V. Le},
+      year={2022},
+      eprint={2109.08668},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2109.08668}, 
+}
+
+@misc{shazeer2017outrageouslylargeneuralnetworks,
+      title={Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer}, 
+      author={Noam Shazeer and Azalia Mirhoseini and Krzysztof Maziarz and Andy Davis and Quoc Le and Geoffrey Hinton and Jeff Dean},
+      year={2017},
+      eprint={1701.06538},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1701.06538}, 
+}
+
+@misc{ainslie2023gqatraininggeneralizedmultiquery,
+      title={GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints}, 
+      author={Joshua Ainslie and James Lee-Thorp and Michiel de Jong and Yury Zemlyanskiy and Federico Lebrón and Sumit Sanghai},
+      year={2023},
+      eprint={2305.13245},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2305.13245}, 
+}
+
+@misc{munkhdalai2024leavecontextbehindefficient,
+      title={Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention}, 
+      author={Tsendsuren Munkhdalai and Manaal Faruqui and Siddharth Gopal},
+      year={2024},
+      eprint={2404.07143},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2404.07143}, 
+}
+
+@misc{choromanski2022rethinkingattentionperformers,
+      title={Rethinking Attention with Performers}, 
+      author={Krzysztof Choromanski and Valerii Likhosherstov and David Dohan and Xingyou Song and Andreea Gane and Tamas Sarlos and Peter Hawkins and Jared Davis and Afroz Mohiuddin and Lukasz Kaiser and David Belanger and Lucy Colwell and Adrian Weller},
+      year={2022},
+      eprint={2009.14794},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2009.14794}, 
+}
+
+@misc{beltagy2020longformerlongdocumenttransformer,
+      title={Longformer: The Long-Document Transformer}, 
+      author={Iz Beltagy and Matthew E. Peters and Arman Cohan},
+      year={2020},
+      eprint={2004.05150},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2004.05150}, 
+}
+
+@misc{wang2020linformerselfattentionlinearcomplexity,
+      title={Linformer: Self-Attention with Linear Complexity}, 
+      author={Sinong Wang and Belinda Z. Li and Madian Khabsa and Han Fang and Hao Ma},
+      year={2020},
+      eprint={2006.04768},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2006.04768}, 
+}
+
+@misc{kitaev2020reformerefficienttransformer,
+      title={Reformer: The Efficient Transformer}, 
+      author={Nikita Kitaev and Łukasz Kaiser and Anselm Levskaya},
+      year={2020},
+      eprint={2001.04451},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2001.04451}, 
+}
+
+@misc{child2019generatinglongsequencessparse,
+      title={Generating Long Sequences with Sparse Transformers}, 
+      author={Rewon Child and Scott Gray and Alec Radford and Ilya Sutskever},
+      year={2019},
+      eprint={1904.10509},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1904.10509}, 
+}
+
+@misc{rajbhandari2020zeromemoryoptimizationstraining,
+      title={ZeRO: Memory Optimizations Toward Training Trillion Parameter Models}, 
+      author={Samyam Rajbhandari and Jeff Rasley and Olatunji Ruwase and Yuxiong He},
+      year={2020},
+      eprint={1910.02054},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1910.02054}, 
+}
+
+@misc{chen2016trainingdeepnetssublinear,
+      title={Training Deep Nets with Sublinear Memory Cost}, 
+      author={Tianqi Chen and Bing Xu and Chiyuan Zhang and Carlos Guestrin},
+      year={2016},
+      eprint={1604.06174},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1604.06174}, 
+}
+
+@misc{brown2020languagemodelsfewshotlearners,
+      title={Language Models are Few-Shot Learners}, 
+      author={Tom B. Brown and Benjamin Mann and Nick Ryder and Melanie Subbiah and Jared Kaplan and Prafulla Dhariwal and Arvind Neelakantan and Pranav Shyam and Girish Sastry and Amanda Askell and Sandhini Agarwal and Ariel Herbert-Voss and Gretchen Krueger and Tom Henighan and Rewon Child and Aditya Ramesh and Daniel M. Ziegler and Jeffrey Wu and Clemens Winter and Christopher Hesse and Mark Chen and Eric Sigler and Mateusz Litwin and Scott Gray and Benjamin Chess and Jack Clark and Christopher Berner and Sam McCandlish and Alec Radford and Ilya Sutskever and Dario Amodei},
+      year={2020},
+      eprint={2005.14165},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2005.14165}, 
+}
+
+@misc{han2016deepcompressioncompressingdeep,
+      title={Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding}, 
+      author={Song Han and Huizi Mao and William J. Dally},
+      year={2016},
+      eprint={1510.00149},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/1510.00149}, 
+}
+
+@misc{kang2021learningembedcategoricalfeatures,
+      title={Learning to Embed Categorical Features without Embedding Tables for Recommendation}, 
+      author={Wang-Cheng Kang and Derek Zhiyuan Cheng and Tiansheng Yao and Xinyang Yi and Ting Chen and Lichan Hong and Ed H. Chi},
+      year={2021},
+      eprint={2010.10784},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2010.10784}, 
+}
+
+@misc{tanaka2020pruningneuralnetworksdata,
+      title={Pruning neural networks without any data by iteratively conserving synaptic flow}, 
+      author={Hidenori Tanaka and Daniel Kunin and Daniel L. K. Yamins and Surya Ganguli},
+      year={2020},
+      eprint={2006.05467},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2006.05467}, 
+}
+
+@misc{lee2019snipsingleshotnetworkpruning,
+      title={SNIP: Single-shot Network Pruning based on Connection Sensitivity}, 
+      author={Namhoon Lee and Thalaiyasingam Ajanthan and Philip H. S. Torr},
+      year={2019},
+      eprint={1810.02340},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/1810.02340}, 
+}
+
+@misc{frankle2019lotterytickethypothesisfinding,
+      title={The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks}, 
+      author={Jonathan Frankle and Michael Carbin},
+      year={2019},
+      eprint={1803.03635},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1803.03635}, 
+}
+
+@misc{han2015learningweightsconnectionsefficient,
+      title={Learning both Weights and Connections for Efficient Neural Networks}, 
+      author={Song Han and Jeff Pool and John Tran and William J. Dally},
+      year={2015},
+      eprint={1506.02626},
+      archivePrefix={arXiv},
+      primaryClass={cs.NE},
+      url={https://arxiv.org/abs/1506.02626}, 
+}
+
+@misc{kingma2017adammethodstochasticoptimization,
+      title={Adam: A Method for Stochastic Optimization}, 
+      author={Diederik P. Kingma and Jimmy Ba},
+      year={2017},
+      eprint={1412.6980},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1412.6980}, 
+}
+
+@misc{gu2024mambalineartimesequencemodeling,
+      title={Mamba: Linear-Time Sequence Modeling with Selective State Spaces}, 
+      author={Albert Gu and Tri Dao},
+      year={2024},
+      eprint={2312.00752},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2312.00752}, 
+}
+
+@misc{gu2022efficientlymodelinglongsequences,
+      title={Efficiently Modeling Long Sequences with Structured State Spaces}, 
+      author={Albert Gu and Karan Goel and Christopher Ré},
+      year={2022},
+      eprint={2111.00396},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2111.00396}, 
+}
+
+@misc{cireşan2012multicolumndeepneuralnetworks,
+      title={Multi-column Deep Neural Networks for Image Classification}, 
+      author={Dan Cireşan and Ueli Meier and Juergen Schmidhuber},
+      year={2012},
+      eprint={1202.2745},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/1202.2745}, 
+}
+
+@inproceedings{10.5555/2999134.2999257,
+author = {Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E.},
+title = {ImageNet classification with deep convolutional neural networks},
+year = {2012},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+abstract = {We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5\% and 17.0\% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overriding in the fully-connected layers we employed a recently-developed regularization method called "dropout" that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3\%, compared to 26.2\% achieved by the second-best entry.},
+booktitle = {Proceedings of the 25th International Conference on Neural Information Processing Systems - Volume 1},
+pages = {1097–1105},
+numpages = {9},
+location = {Lake Tahoe, Nevada},
+series = {NIPS'12}
+}
+
+@article{doi:10.1142/S0218488598000094,
+author = {Hochreiter, Sepp},
+title = {The Vanishing Gradient Problem During Learning Recurrent Neural Nets  and Problem Solutions},
+journal = {International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems},
+volume = {06},
+number = {02},
+pages = {107-116},
+year = {1998},
+doi = {10.1142/S0218488598000094},
+URL = {https://doi.org/10.1142/S0218488598000094},
+eprint = {https://doi.org/10.1142/S0218488598000094},
+abstract = { Recurrent nets are in principle capable to store past inputs to produce the currently desired output. Because of this property recurrent nets are used in time series prediction and process control. Practical applications involve temporal dependencies spanning many time steps, e.g. between relevant inputs and desired outputs. In this case, however, gradient based learning methods take too much time. The extremely increased learning time arises because the error vanishes as it gets propagated back. In this article the de-caying error flow is theoretically analyzed. Then methods trying to overcome vanishing gradients are briefly discussed. Finally, experiments comparing conventional algorithms and alternative methods are presented. With advanced methods long time lag problems can be solved in reasonable time. }
+}
+
+
+@inproceedings{10.1145/1273496.1273596,
+author = {Salakhutdinov, Ruslan and Mnih, Andriy and Hinton, Geoffrey},
+title = {Restricted Boltzmann machines for collaborative filtering},
+year = {2007},
+isbn = {9781595937933},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1273496.1273596},
+doi = {10.1145/1273496.1273596},
+abstract = {Most of the existing approaches to collaborative filtering cannot handle very large data sets. In this paper we show how a class of two-layer undirected graphical models, called Restricted Boltzmann Machines (RBM's), can be used to model tabular data, such as user's ratings of movies. We present efficient learning and inference procedures for this class of models and demonstrate that RBM's can be successfully applied to the Netflix data set, containing over 100 million user/movie ratings. We also show that RBM's slightly outperform carefully-tuned SVD models. When the predictions of multiple RBM models and multiple SVD models are linearly combined, we achieve an error rate that is well over 6\% better than the score of Netflix's own system.},
+booktitle = {Proceedings of the 24th International Conference on Machine Learning},
+pages = {791–798},
+numpages = {8},
+location = {Corvalis, Oregon, USA},
+series = {ICML '07}
+}
+
+@article{10.1162/neco.2006.18.7.1527,
+author = {Hinton, Geoffrey E. and Osindero, Simon and Teh, Yee-Whye},
+title = {A fast learning algorithm for deep belief nets},
+year = {2006},
+issue_date = {July 2006},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+volume = {18},
+number = {7},
+issn = {0899-7667},
+url = {https://doi.org/10.1162/neco.2006.18.7.1527},
+doi = {10.1162/neco.2006.18.7.1527},
+abstract = {We show how to use "complementary priors" to eliminate the explaining-away effects that make inference difficult in densely connected belief nets that have many hidden layers. Using complementary priors, we derive a fast, greedy algorithm that can learn deep, directed belief networks one layer at a time, provided the top two layers form an undirected associative memory. The fast, greedy algorithm is used to initialize a slower learning procedure that fine-tunes the weights using a contrastive version of the wake-sleep algorithm. After fine-tuning, a network with three hidden layers forms a very good generative model of the joint distribution of handwritten digit images and their labels. This generative model gives better digit classification than the best discriminative learning algorithms. The low-dimensional manifolds on which the digits lie are modeled by long ravines in the free-energy landscape of the top-level associative memory, and it is easy to explore these ravines by using the directed connections to display what the associative memory has in mind.},
+journal = {Neural Comput.},
+month = jul,
+pages = {1527–1554},
+numpages = {28}
+}
+
+@article{6795724,
+  author={LeCun, Y. and Boser, B. and Denker, J. S. and Henderson, D. and Howard, R. E. and Hubbard, W. and Jackel, L. D.},
+  journal={Neural Computation}, 
+  title={Backpropagation Applied to Handwritten Zip Code Recognition}, 
+  year={1989},
+  volume={1},
+  number={4},
+  pages={541-551},
+  keywords={},
+  doi={10.1162/neco.1989.1.4.541}
+}
+
+@article{10.1162/neco.1997.9.8.1735,
+author = {Hochreiter, Sepp and Schmidhuber, J\"{u}rgen},
+title = {Long Short-Term Memory},
+year = {1997},
+issue_date = {November 15, 1997},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+volume = {9},
+number = {8},
+issn = {0899-7667},
+url = {https://doi.org/10.1162/neco.1997.9.8.1735},
+doi = {10.1162/neco.1997.9.8.1735},
+abstract = {Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.},
+journal = {Neural Comput.},
+month = nov,
+pages = {1735–1780},
+numpages = {46}
+}
+
+
