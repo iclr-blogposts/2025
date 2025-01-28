@@ -8,22 +8,14 @@ htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
-authors:
-  - name: Anonymous
-
 # authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+#   - name: Anonymous
+
+authors:
+- name: Maja Pavlovic
+url: "https://majapavlo.github.io"
+affiliations:
+name: Queen Mary University London
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-calibration.bib
@@ -85,15 +77,13 @@ __Calibration__ makes sure that a model's estimated probabilities match real-wor
 Now, what __calibration__ means more precisely depends on the specific definition being considered. 
 We will have a look at the most common notion in machine learning (ML) formalised in <d-cite key="guo2017calibration"></d-cite> and 
 termed __*confidence calibration*__ in <d-cite key="kull2019beyond"></d-cite>. But first, let's define a bit of formal notation for this blog. 
-In this blogpost we consider a classification task with $$K$$ possible classes and a 
-classification model $$\hat{p} : \mathscr{X} \rightarrow \Delta^K $$, that takes inputs in $$\mathscr{X}$$ (e.g. an image or text) and 
-returns a probability vector as its output. $$\Delta^K $$ refers to the *K*-simplex, which just means that the elements of the output vector must sum to 1 
+In this blogpost we consider a classification task with $$K$$ possible classes, with labels $$Y \in \{1, ..., K\}$$ and a classification model $$\hat{p} : \mathscr{X} \rightarrow \Delta^K $$, that takes inputs in $$\mathscr{X}$$ (e.g. an image or text) and returns a probability vector as its output. $$\Delta^K $$ refers to the *K*-simplex, which just means that the elements of the output vector must sum to 1 
 and that each estimated probability in the vector is between 0 & 1. These individual probabilities (_or confidences_) indicate how likely 
 an input belongs to each of the $$K$$ classes.
 
 <div class="row mt-2">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-calibration/f2_notation.png" class="img-fluid rounded" %}
+        {% include figure.html path="assets/img/2025-04-28-calibration/f2_notation_updated.png" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">
@@ -103,9 +93,14 @@ an input belongs to each of the $$K$$ classes.
 ### (Confidence) Calibration
 A model is considered confidence-calibrated if, for all confidences $$c,$$ the model is correct $$c$$ proportion of the time:
 
-$$  \mathbb{P} (Y  = \text{arg max}(\hat{p}(X)) \; | \; \text{max}(\hat{p}(X))=c ) = c \;\;\:\:  \forall c \in [0, 1] $$
+$$  \mathbb{P} (Y  = \text{arg max}(\hat{p}(X)) \; | \; \text{max}(\hat{p}(X))=c ) = c \;\;\:\:  \forall c \in [0, 1] \; ,$$
 
-This definition of calibration, ensures that the model's most  confident predictions align with their observed accuracy at that 
+<div class="caption">
+where $(X,Y)$ is a datapoint and $\hat{p} : \mathscr{X} \rightarrow \Delta^K$ returns a probability vector as its output
+</div>
+
+
+This definition of calibration, ensures that the model's final predictions align with their observed accuracy at that 
 confidence level <d-cite key="guo2017calibration"></d-cite>. The left chart below visualises the perfectly calibrated outcome (green diagonal line) for all confidences using  a binned reliability diagram <d-cite key="guo2017calibration"></d-cite>. On the right hand side it shows two examples for a specific confidence level across 10 samples.
 
 <div class="row mt-2">
@@ -117,10 +112,10 @@ confidence level <d-cite key="guo2017calibration"></d-cite>. The left chart belo
     Image 3 | Confidence Calibration
 </div>
 
-For simplification, we assume that we only have 3 classes as in image 1 and we zoom into confidence $$c=0.7$$, see image above. Let's assume we have 10 inputs here whose most confident prediction (*max*) equals $$0.7$$. If the model correctly classifies 7 out of 10 predictions (*true*), it is considered calibrated at confidence level $$0.7$$. For the model to be fully calibrated this has to hold across all confidence levels from 0 to 1. At the same level $$c=0.7$$, a model would be considered miscalibrated if it makes only 4 correct predictions.
+For simplification, we assume that we only have 3 classes as in image 2 and we zoom into confidence $$c=0.7$$, see image above. Let's assume we have 10 inputs here whose most confident prediction (*max*) equals $$0.7$$. If the model correctly classifies 7 out of 10 predictions (*true*), it is considered calibrated at confidence level $$0.7$$. For the model to be fully calibrated this has to hold across all confidence levels from 0 to 1. At the same level $$c=0.7$$, a model would be considered miscalibrated if it makes only 4 correct predictions.
 
 ## Evaluating Calibration - Expected Calibration Error (ECE)
-One widely used evaluation measure for confidence calibration is the Expected Calibration Error (ECE) <d-cite key="naeini2015obtaining, guo2017calibration"></d-cite>. ECE measures how well a model's estimated probabilities match the observed probabilities by taking a weighted average over the absolute difference between average accuracy (*acc*) and average confidence (*conf*). The measure involves splitting the data into M equally spaced bins:
+One widely used evaluation measure for confidence calibration is the Expected Calibration Error (ECE) <d-cite key="naeini2015obtaining, guo2017calibration"></d-cite>. ECE measures how well a model's estimated probabilities match the observed probabilities by taking a weighted average over the absolute difference between average accuracy (*acc*) and average confidence (*conf*). The measure involves splitting all $$n$$ datapoints into M equally spaced bins:
 
 $$  ECE = \sum_{m=1}^M \frac{\mathopen| B_m \mathclose|}{n} \mathopen| acc(B_m) - conf(B_m) \mathclose| , $$
 
@@ -174,13 +169,13 @@ We now have visualised all the information needed for ECE and will briefly run t
 We can get the empirical probability of a sample falling into $$B_5$$ , by assessing how many out of all $$9$$ samples fall into $$B_5$$, see $$\mathbf{(\;1\;)}$$. We then get the average accuracy for $$B_5$$, see $$\mathbf{(\;2\;)}$$ and lastly the average estimated probability for $$B_5$$, see $$\mathbf{(\;3\;)}$$. Repeat this for all bins and in our small example of $$9$$ samples we end up with an ECE of $$0.10445$$. A perfectly calibrated model would have an ECE of 0.
 
 #### Expected Calibration Error Drawbacks
-The images of binning above provide a visual guide of how ECE could result in very different values if we used more bins or perhaps binned the same number of items instead of using equal bin widths. Such and more drawbacks of ECE have been highlighted by several works early on <d-cite key="kumar2018trainable, nixon2019measuring, gupta2020calibration, zhang2020mix, roelofs2022mitigating, vaicenavicius2019evaluating, widmann2019calibration"></d-cite>. However, despite the known weaknesses ECE is still widely used to evaluate confidence calibration in ML <d-cite key="xiong2023can, yuan2024does, collins2023human, si2023prompting, mukhoti2023deep, gao2024spuq"></d-cite>. This motivated this blogpost, with the idea to highlight the most frequently mentioned drawbacks of ECE visually and to provide a simple clarification on the development of different notions of calibration.
+The images of binning above provide a visual guide of how ECE could result in very different values if we used more bins or perhaps binned the same number of items instead of using equal bin widths. Such and more drawbacks of ECE have been highlighted by several works early on <d-cite key="kumar2018trainable, nixon2019measuring, gupta2020calibration, zhang2020mix, roelofs2022mitigating, vaicenavicius2019evaluating, widmann2019calibration, futami2024informationtheoretic"></d-cite>. However, despite the known weaknesses ECE is still widely used to evaluate confidence calibration in ML <d-cite key="xiong2023can, yuan2024does, collins2023human, si2023prompting, mukhoti2023deep, gao2024spuq"></d-cite>. This motivated this blogpost, with the idea to highlight the most frequently mentioned drawbacks of ECE visually and to provide a simple clarification on the development of different notions of calibration.
 
 ## Most frequently mentioned Drawbacks of ECE
 
 ### Pathologies - Low ECE ≠ high accuracy
 A model which minimises ECE, does not necessarily have a high accuracy <d-cite key="kumar2018trainable, kull2019beyond, si2022re"></d-cite>. 
-For instance, if a model always predicts the majority class with that class's average prevalence as the probabiliy, 
+For instance, if a model always predicts the majority class with that class's average prevalence as the probability, 
 it will have an ECE of 0. This is visualised in the image above, where we have a dataset with 10 samples, 7 of those are cat, 2 dog and only one is a toad. Now if the model always predicts cat with on average 0.7 confidence it would have an ECE of 0. 
 There are more of such pathologies <d-cite key="nixon2019measuring"></d-cite>. To not only rely on ECE, some researchers use additional measures such as the Brier score or LogLoss alongside ECE <d-cite key="kumar2018trainable, kull2019beyond"></d-cite>.
 
@@ -195,7 +190,7 @@ There are more of such pathologies <d-cite key="nixon2019measuring"></d-cite>. T
 
 ### Binning Approach
 
-One of the most frequently mentioned issues with ECE is its sensitivity to the change in binning <d-cite key="kumar2018trainable, nixon2019measuring, gupta2020calibration, zhang2020mix, roelofs2022mitigating"></d-cite>. 
+One of the most frequently mentioned issues with ECE is its sensitivity to the change in binning <d-cite key="kumar2018trainable, nixon2019measuring, gupta2020calibration, zhang2020mix, roelofs2022mitigating, famiglini2023towards"></d-cite>. 
 This is sometimes referred to as the __*Bias-Variance trade-off*__ <d-cite key="nixon2019measuring, zhang2020mix"></d-cite>: 
 Fewer bins reduce variance but increase bias, while more bins lead to sparsely populated bins increasing variance. 
 If we look back to our ECE example with 9 samples and change the bins from 5 to 10 here too, 
@@ -210,7 +205,7 @@ we end up with the following:
     Image 5 | More Bins
 </div>
 
-We can see that bin *8* and *9* each contain only a single sample and also that that half the bins now contain 
+We can see that bin *8* and *9* each contain only a single sample and also that half the bins now contain 
 no samples. The above is only a toy example, however since modern models tend to have higher confidence values 
 samples often end up in the last few bins <d-cite key="naeini2015obtaining, zhang2020mix"></d-cite>, which 
 means they get all the weight in ECE, while the average error for the empty bins contributes 0 to ECE.
@@ -260,12 +255,16 @@ The existing concept of calibration as "confidence calibration" (coined in <d-ci
 <br />
 
 #### Multi-class Calibration
-A model is considered multi-class calibrated if, for any prediction vector $$q=(q_1,...,q_k) \in \Delta_k $$​, the class proportions among 
+A model is considered multi-class calibrated if, for any prediction vector $$q=(q_1,...,q_K) \in \Delta^K $$​, the class proportions among 
 all values of $$X$$ for which a model outputs the same prediction $$\hat{p}(X)=q$$ match the values in the prediction vector $$q$$.
 
-$$  \mathbb{P} (Y  = k \; | \; \hat{p}(X)=q  ) = q_k \;\;\;\:\:\:\:  \forall k \in \{1,...,K\}, \; \forall q \in \Delta^k $$
+$$  \mathbb{P} (Y  = k \; | \; \hat{p}(X)=q  ) = q_k \;\;\;\:\:\:\:  \forall k \in \{1,...,K\}, \; \forall q \in \Delta^K $$
 
-What does this mean in simple terms? Instead of $$c$$ we now calibrate against a vector $$q$$, with k classes. Let's look at an example below:
+<div class="caption">
+where $(X,Y)$ is a datapoint and $\hat{p} : \mathscr{X} \rightarrow \Delta^K$ returns a probability vector as its output
+</div>
+
+What does this mean in simple terms? Instead of $$c$$ we now calibrate against a vector $$q$$, with K classes. Let's look at an example below:
 
 <div class="row mt-2">
     <div class="col-sm mt-3 mt-md-0">
@@ -288,6 +287,10 @@ align with the true frequency of class k when considered on its own:
 
 $$ \mathbb{P} (Y  = k \; | \; \hat{p}_k(X)= q_k  ) = q_k \;\;\;\;\;\;  \forall k \in \{1,...,K\}$$
 
+<div class="caption">
+where $(X,Y)$ is a datapoint; $q \in \Delta^K $ and $\hat{p} : \mathscr{X} \rightarrow \Delta^K$ returns a probability vector as its output
+</div>
+
 Class-wise calibration is a __*weaker*__ definition than __multi-class__ calibration as it considers each class probability in __*isolation*__ rather than needing the full vector to align. The image below illustrates this by zooming into a probability estimate for class 1 specifically: $$q_1=0.1$$. Yet again, we assume we have 10 instances for which the model predicted a probability estimate of 0.1 for class 1. We then look at the true class frequency amongst all classes with $$q_1=0.1$$. If the empirical frequency matches $$q_1$$ it is calibrated.
 
 <div class="row mt-2">
@@ -300,12 +303,13 @@ Class-wise calibration is a __*weaker*__ definition than __multi-class__ calibra
 </div>
 
 To evaluate such different notions of calibration, 
-some updates are made to ECE to calculate a class-wise error. One idea is to calculate the ECE for each class and then take the average <d-cite key="nixon2019measuring, kull2019beyond"></d-cite>. 
+some updates are made to ECE to calculate a class-wise error. One idea is to calculate the ECE for each class and then take the average <d-cite key="nixon2019measuring, kull2019beyond"></d-cite>. Another idea is to swap the L1-distance used in ECE with the L2 and use several ECE metrics to more effectively assess the overall level of calibration <d-cite key="famiglini2023towards"></d-cite>. 
 Others, introduce the use of the KS-test for class-wise calibration <d-cite key="gupta2020calibration"></d-cite> and <d-cite key="vaicenavicius2019evaluating"></d-cite> also 
 suggest using statistical hypothesis tests instead of ECE based approaches.
 <!-- by separately binning predictions for each class probability and then calculating the error and averaging across bins -->
+And other researchers develop a hypothesis test framework \[TCal\] to detect whether a model is significantly mis-calibrated <d-cite key="donghwan2023tcal"></d-cite> and <d-cite key="sun2024confidenceintervalell2expected"></d-cite> build on this by developing confidence intervals for the L2-ECE.
 
-All the approaches mentioned above __share a key assumption: ground-truth labels are available__. Within this gold-standard mindset a prediction is either true or false. However, annotators  might unresolvably and justifyably disagree on the real label <d-cite key="aroyo2015truth, uma2021learning"></d-cite>. Let's look at a simple example below:
+All the approaches mentioned above __share a key assumption: ground-truth labels are available__. Within this gold-standard mindset a prediction is either true or false. However, annotators  might unresolvably and justifiably disagree on the real label <d-cite key="aroyo2015truth, uma2021learning"></d-cite>. Let's look at a simple example below:
 
 <div class="row mt-2">
     <div class="col-sm mt-3 mt-md-0">
@@ -336,6 +340,10 @@ A model is considered human-uncertainty calibrated if, for each specific sample 
 
 $$ \mathbb{P}_{vote} (Y  = k \; | \; X = x ) = \hat{p}_k(x) \;\;\;\;\; \forall k \in \{1,...,K\}$$
 
+<div class="caption">
+where $(X,Y)$ is a datapoint and $\hat{p} : \mathscr{X} \rightarrow \Delta^K$ returns a probability vector as its output
+</div>
+
 This interpretation of calibration aligns the model's prediction with human uncertainty, which means each prediction made by the model is individually reliable and matches human-level uncertainty for that instance. Let's have a look at an example below:
 
 <div class="row mt-2">
@@ -358,11 +366,11 @@ of samples. It also relies heavily on having  an accurate estimate of the human 
 which requires a large number of annotations per item. Datasets with such properties of annotations are 
 gradually becoming more available <d-cite key="aroyo2024dices, nie2020learn"></d-cite>.
 
-To evaluate human uncertainty calibration <d-cite key="baan2022stop"></d-cite> introduce three new measures: __the Human Entropy Calibration Error *(EntCE)*, the Human Ranking Calibration Score *(RankCS)* and the Human Distribution Calibration Error *(DistCE)*__.
+To evaluate human uncertainty calibration three new measures are introduced in <d-cite key="baan2022stop"></d-cite> : __the Human Entropy Calibration Error *(EntCE)*, the Human Ranking Calibration Score *(RankCS)* and the Human Distribution Calibration Error *(DistCE)*__.
 
 $$EntCE(x_i)= H(y_i) - H(\hat{p}_i), $$
 
-where $$H(.)$$ signifes entropy.
+where $$H(.)$$ signifies entropy.
 
 __EntCE__ aims to capture the agreement between the model's uncertainty $$H(\hat{p}_i)$$ and the human uncertainty $$H(y_i)$$
 for a sample $$i$$. However, entropy is invariant to the permutations of the probability values; in other words it doesn't change when you rearrange the probability values. This is visualised in the image below:
