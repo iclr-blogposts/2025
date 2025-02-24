@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Flaws of ImageNet, Computer Vision's Favorite Dataset
-description: Since its release, ImageNet-1k dataset has become a gold standard for evaluating model performance. It has served as the foundation for numerous other datasets and training tasks in computer vision. <br/> As models have improved in accuracy, issues related to label correctness have become increasingly apparent. In this blog post, we analyze the issues in the ImageNet-1k dataset, including incorrect labels, overlapping or ambiguous class definitions, training-evaluation domain shifts, and image duplicates. The solutions for some problems are straightforward. For others, we hope to start a broader conversation about refining this influential dataset to better serve future research.
+description: Since its release, ImageNet-1k has been a gold standard for evaluating model performance. It has served as the foundation of numerous other datasets and it has been widely used for pretraining. <br/> As models have improved, issues related to label correctness have become increasingly apparent. In this blog post, we analyze the issues, including incorrect labels, overlapping or ambiguous class definitions, training-evaluation domain shifts, and image duplicates. The solutions for some problems are straightforward. For others, we hope to start a broader conversation about how to improve this influential dataset to better serve future research.
 date: 2025-04-28
 future: true
 htmlwidgets: true
@@ -218,7 +218,7 @@ By undertaking this work, we have no intention to diminish the significant contr
   </div>
 </div>
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 1. Examples of ImageNet issues. The top label is the ground truth;  colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels.  When the ground truth is wrong, the correct label is below. Labels of objects from other ImageNet classes that are present in the image are marked "+". (a), (f) <em style="color:grey;">Correctly labeled images</em>. (b), (c), (e), (g) <em style="color:grey;">Incorrectly labeled images</em>. (d) <em style="color:grey;">Images with multiple objects</em>. (e) <em style="color:grey;">Ambiguous images</em>. (f), (g) <em style="color:grey;">Pixel-wise duplicates</em> (the top image is from the training, the bottom from the validation set). </div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 1. Examples of ImageNet issues. The top label is the ground truth;  colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels.  When the ground truth is wrong, the correct label is below. Labels of objects from other ImageNet classes present in the image are marked "+". (a), (f) <em style="color:grey;">Correctly labeled images</em>. (b), (c), (e), (g) <em style="color:grey;">Incorrectly labeled images</em>. (d) <em style="color:grey;">Images with multiple objects</em>. (e) <em style="color:grey;">Ambiguous images</em>. (f), (g) <em style="color:grey;">Pixel-wise duplicates</em> (the top image is from the training, the bottom from the validation set). </div>
 
 #### Brief History
 The concept of **ImageNet**<d-cite key="2"/> was introduced in 2009. It was to become the first large-scale labeled image dataset, marking a transformative moment in computer vision. In its construction, the authors followed the structure of WordNet<d-cite key="3"/> — a lexical database that organizes words into a semantic hierarchy. 
@@ -226,36 +226,36 @@ With over 3 million labeled images from more than 5,000 categories in 2009, it f
 This unprecedented scale allowed ImageNet to capture a diverse range of real-world objects and scenes. As of November 2024, the ImageNet<d-cite key="2"/> paper has since been cited over 76,000 times according to Google Scholar, and more than 34,000 times in IEEE Xplore, underscoring its profound impact on computer vision. Its influence is so significant that even in other fields of machine learning, the expression
 "ImageNet moment" is used to describe groundbreaking developments.
 
-Introduced in 2012, **ImageNet-1k**<d-cite key="1"/> was created specifically for the ImageNet Large Scale Visual Recognition Challenge (ILSVRC). It contains 1,000 diverse classes of animals, plants, foods, tools, and environments (e.g., lakesides, valleys). It includes a training set of over 1 million images from the original ImageNet, along with validation and test sets of 50,000 and 100,000 images, respectively. The evaluation subsets were formed by a process closely following the original dataset creation. It is important to note that, since the test set labels are not publicly available, the validation set is typically used for model evaluation.
+Introduced in 2012, **ImageNet-1k**<d-cite key="1"/> was created specifically for the ImageNet Large Scale Visual Recognition Challenge (ILSVRC). It contains 1,000 diverse classes of animals, plants, foods, tools, and environments (e.g., lakesides, valleys). It includes a training set of over 1 million images from the original ImageNet, along with validation and test sets of 50,000 and 100,000 images, respectively. The evaluation subsets were formed by a process following the original dataset creation. It is important to note that, since the test set labels are not publicly available, the validation set is typically used for model evaluation.
 
 #### Problems
-We were aware that ImageNet-1k had issues, which is common in real-world datasets. However, while analyzing model errors for another project, we were surprised by the size of the effects of the problems related to the ground truth. We decided to investigate them in greater detail. Our initial goal was simple: fix the labels to reduce noise — a task we assumed would be straightforward. However, upon further examination, we discovered that the issues were complex and far more deeply rooted than expected.
+We were aware that ImageNet-1k had issues, which is common in real-world datasets. However, while analyzing model errors for another project, we were surprised by the size of the effects of the problems related to the ground truth. We decided to investigate them in greater detail. The initial goal looked simple: correct the labels to reduce noise — a task we assumed would be straightforward. However, upon further examination, we discovered that the issues were complex and far more deeply rooted.
 
-Some of the issues are easier to solve, such as incorrect image labels, overlapping classes, and duplicate images. These can be addressed by relabeling the images where possible, removing irrelevant or dependent classes, and cleaning up duplicates. However, there are other issues, such as a distribution shift between the training and evaluation subsets, where we see no efficient solution; it could be even seen as a feature rather than a bug since in real deployment, test and training data are never i.i.d. (independent and identically distributed).
-The inclusion of multilabel images depicting multiple objects from different ImageNet classes poses another problem with no obvious, backward-compatible solution. The removal of such images is a possibility when ImageNet-1k is used for training. However, their prevalence, which we estimate to be in the range from 15% to 21% in the validation set, probably rules out adopting this solution for standard ImageNet-1k evaluation. Modifications of the evaluation protocol might be preferrable, e.g. considering any predicted label from the multilabel ground-truth set as a correct output, referred to as ReaL accuracy <d-cite key="5"/> and already adopted by some works alongside standard accuracy. 
+The easy-to-solve issues, such as incorrect image labels, redundant classes, and duplicate images, can be addressed by relabeling, merging classes, and cleaning up duplicates. However, there are other issues, such as a distribution shift between the training and evaluation subsets, where we see no fully backward-compatible solution. The domain shift could even be seen as a feature rather than a bug since in real deployment, test and training data are never i.i.d. (independent and identically distributed).
+The inclusion of images depicting objects from multiple ImageNet classes, called multilabel images, poses another problem with no straightforward solution. Their removal is a possibility when ImageNet-1k is used for training. However, their prevalence, which we estimate to be in the 15 to 21% range in the validation set, probably rules out adopting this solution. Other modifications of the evaluation protocol might be preferable, e.g. considering any predicted label from the multilabel ground-truth set as correct. Referred to as ReaL accuracy <d-cite key="5"/>, it has already been reported alongside the standard accuracy. 
 
 
 ##  Known ImageNet-1k Issues
 
-Prior studies identified and analyzed issues related to the ImageNet dataset, but they each deal only with a specific concern and usually focus on the validation set. The topic that received the most attention is annotation errors, which distort the evaluation of model accuracy<d-cite key="4,6,5,7,9"/>. 
-Overlapping class definitions were reported in Vasudevan et al.<d-cite key="8"/>. Duplicate images, which cause overestimation of model performance for certain classes, were mentioned in several papers <d-cite key="8, 11, 16"/>.
+Prior studies identified and analyzed many ImageNet issues, but they each deal only with a specific concern and usually focus on the validation set. The topic that received the most attention is annotation errors, which distort the evaluation of model accuracy <d-cite key="4,6,5,7,9"/>. 
+Overlapping class definitions were reported in Vasudevan et al.<d-cite key="8"/>. Duplicate images were mentioned in several papers <d-cite key="8, 11, 16"/>.
 
 <details>
-    <summary style="font-weight:800">Previous Work in Detail</summary>
+    <summary style="font-weight:800">Prior Work in Detail</summary>
 
 <div style="margin:15px 0px 15px 0;">
-<span style="font-weight:800">Imagenet Multilabel<d-cite key="4"/></span>
-The authors reannotated a class-balanced subset of images, covering 40% of the validation set. The main focus was on assigning multiple labels to capture the presence of several objects from different ImageNet classes. The work highlighted the extent of the multilabel problem.
+<span style="font-weight:800">Imagenet Multilabel<d-cite key="4"/>:</span>
+the authors reannotated a class-balanced subset of images, covering 40% of the validation set. The main focus was on assigning multiple labels to capture the presence of several objects from different ImageNet classes. The work highlighted the extent of the multilabel problem.
 </div>
 
 <div style="margin:15px 0px 15px 0;">
-<span style="font-weight:800">Contextualizing Progress on Benchmarks<d-cite key="6"/></span> 
-The authors reannotated 20% of validation images from each class with predictions from an ensemble of deep models, which were verified by non-expert annotators.
+<span style="font-weight:800">Contextualizing Progress on Benchmarks<d-cite key="6"/>:</span> 
+the authors reannotated 20% of validation images from each class with predictions from an ensemble of deep models, which were verified by non-expert annotators.
 Their analysis revealed over 21% of images were multilabel. The work also lists groups of most commonly co-occurring classes, like "race car" and "car wheel" (see Figure 9).
 </div>
     
 <div style="margin:15px 0px 15px 0;">
-<span style="font-weight:800">Imagenet Real<d-cite key="5"/></span> aimed at correcting all labels in the validation set. The original label was deemed correct if it agreed with the predictions of all 6 deep models selected by the authors. This was the case for approximately 50% of images. For the remaining images, labels were manually reviewed by five human annotators. 
+<span style="font-weight:800">Imagenet Real<d-cite key="5"/>:</span> aimed at correcting all labels in the validation set. The original label was deemed correct if it agreed with the predictions of all 6 deep models selected by the authors. This was the case for approximately 50% of images. For the remaining images, labels were manually reviewed by five human annotators. 
 About 15% of the images are reported as multilabel and about 6% as ambiguous (which were left unlabeled).
 <div style="margin-top: 15px">
 The training set was checked using BiT-L<d-cite key="16"/> model predictions, without human involvement. In 10-fold cross-validation, approximately 90% of the training images had labels consistent with model predictions.
@@ -263,13 +263,13 @@ The training set was checked using BiT-L<d-cite key="16"/> model predictions, wi
 </div>
     
 <div style="margin:15px 0px 15px 0;">
-<span style="font-weight:800">Label Errors<d-cite key="7"/></span> used
+<span style="font-weight:800">Label Errors<d-cite key="7"/>:</span> used
 Confident Learning framework<d-cite key="18"/> and five Amazon Mechanical Turk (MTurk) workers for re-annotation. Images lacking workers' consensus — about 11% — were marked as "unclear".
  The label error on the validation set is estimated to be about 20%.
 </div>
     
 <div style="margin:15px 0px 15px 0;">
-<span style="font-weight:800">Re-labelling ImageNet<d-cite key="9"/></span>
+<span style="font-weight:800">Re-labelling ImageNet<d-cite key="9"/>:</span>
 authors used the EfficientNet-L2<d-cite key="12"/> model trained on the JFT-300M dataset to reannotate the training set and to convert ImageNet’s single-label annotations into multilabel annotations with localized information.
 </div>
     
@@ -287,10 +287,10 @@ Interestingly, each image in a group of duplicates is found to have a different 
 
 <div class="related-papers-image"></div>
     
-<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 2. Error analyses <d-cite key="4,5,6,7"/> for the ImageNet validation set. <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> Single label image, original label is correct. <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span> Single label image, original label is incorrect, full agreement on correction. <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span>  Multilabel images. <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span> Single label image, inconsistent label corrections. <span style="display:inline-block;width:10px;height:10px;background-color:#E55353;"></span> Ambiguous, no agreement on the label.</div> 
+<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 2. Error analyses <d-cite key="4,5,6,7"/> of the ImageNet validation set labels. <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> Single label image, original label is correct. <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span> Single label image, original label is incorrect, full agreement on correction. <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span>  Multilabel images. <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span> Single label image, inconsistent label corrections. <span style="display:inline-block;width:10px;height:10px;background-color:#E55353;"></span> Ambiguous, no agreement on the label.</div> 
 
 <div>
-The significant differences in the estimates for the percentages of some types of errors have multiple reasons, the two major ones are the percentage of images seen, and methodology used by human annotators, and the models used for label error prediction.
+The significant differences in the estimates for the percentages of some types of errors have multiple reasons, the major ones are the percentage of images seen, methodology used by human annotators, and the models used for label error prediction.
 </div>
     
 </details>  
@@ -299,13 +299,13 @@ The significant differences in the estimates for the percentages of some types o
 ### Bringing the Errors Together
 
 After downloading the available corrected labels from prior studies and analyzing them, we discovered that approximately 57.2% of the images in the validation set had been reviewed by multiple studies.
-Further examination revealed that only 33% of the entire validation set had identical labels across all the studies that reviewed the images. This finding reminds us that error-correction processes are not error-free. We analyzed the images with consistent labels, and for nearly 94% of them, the original labels were correct. The remaining 6% consisted of images where the original label was incorrect but had full agreement on the corrected label, as well as images that were either multi-labeled or ambiguous.
+Further examination revealed that only 33% of the entire validation set has identical labels across all the studies. This finding reminds us that error-correction processes are not error-free. We analyzed the images with consistent labels, and for nearly 94% of them, the original labels were correct. The remaining 6% consists of ambiguous and multilabel images, as well as images where annotators fully agreed on a label different from the original.
 
 <details>
     <summary style="font-weight:800">Results Evaluation Note</summary>
     
 <div style="margin:15px 0px 0px 0;">
-It should be noted that for the <span style="font-weight:800">Label Errors<d-cite key="7"/></span> paper (see Previous Work in Detail), the .json file containing MTurk decisions was used and evaluated with a modification from the original methodology. Instead of using the majority consensus (3+ out of 5 workers), only decisions unanimously agreed upon by all 5 workers were considered.
+It should be noted that for the <span style="font-weight:800">Label Errors<d-cite key="7"/></span> paper (see Prior Work in Detail), the .json file containing MTurk decisions was used and evaluated with a modification from the original methodology. Instead of using the majority consensus (3+ out of 5 workers), only unanimous decisions of all 5 workers were considered.
 </div>
 </details>
 
@@ -318,26 +318,24 @@ It should be noted that for the <span style="font-weight:800">Label Errors<d-cit
 <div class="multiple-papers-image"></div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 3. Top: Number of images checked by one <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span>, two <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span>, three <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span> and four <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> papers. <br> Bottom: Images checked by more than one paper where the annotators agreed <span style="display:inline-block;width:10px;height:10px;background-color:#F2A477;"></span> and disagreed <span style="display:inline-block;width:10px;height:10px;background-color:#B784C6;"></span>.
+    Figure 3. Top: The number of images checked by one <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span>, two <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span>, three <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span> and four <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> papers. <br> Bottom: Images checked by more than one paper where the annotators agreed <span style="display:inline-block;width:10px;height:10px;background-color:#F2A477;"></span> and disagreed <span style="display:inline-block;width:10px;height:10px;background-color:#B784C6;"></span>.
 </div>
 
-This analysis highlights significant inconsistencies in the labeling of reannotated images across different studies. These discrepancies arise because each study followed its own methodology, leading to varying interpretations of the class definitions and different approaches to resolving issues encountered during annotation. 
-
-How can one accurately annotate images for an ambiguous class without first conducting a thorough analysis of the class definitions? Is crowdsourcing a good solution, or is it better to employ an expert? We will explore these questions in greater detail in the [case study section](#fixing-imagenet-labels-a-case-study).
+This analysis highlights significant inconsistencies in the labeling of reannotated images. The discrepancies between the studies arise from each following its own methodology, leading to varying interpretations of the class definitions and different approaches to resolving issues encountered during annotation.
 
 ## Dataset Construction Issues
 
 Let us first examine the two-step process used to construct ImageNet: 
 
-1. **Image collection.** Images were scraped from the web and organized according to the WordNet hierarchy, which will be revisited later. Both automated and manual methods were involved: automated tools initially assigned labels based on information available (textual description, category) at the image source, often [flickr](https://flickr.com) or general web search. 
+1. **Image collection.** Images were scraped from the web and organized according to the WordNet hierarchy, which will be revisited later. Both automated and manual methods were involved: automated tools initially assigned labels based on metadata available (textual description, category) at the image source, often [flickr](https://flickr.com). 
 2. **Annotation process**. The preliminary labels were then reviewed by MTurk workers, who were only asked to confirm whether the object with the given label was present in the image. Notably, no alternative labels were suggested, such as other similar classes. The MTurkers were shown the target synset definition and a link to Wikipedia.
 
 
-**ImageNet-1k** was constructed later. It consists of three sets: a *training set* with over 1 million images, a *validation set* with 50,000 images, and a *test set* with 100,000 images. The training set is drawn from ImageNet. Images for the evaluation subsets were obtained through a process that tried to replicate the one used for the ImageNet. The new data were collected up to three years later than training data and then they were randomly split between the validation and test sets.
+**ImageNet-1k** consists of three sets: a *training set* with over 1 million images, a *validation set* with 50,000 images, and a *test set* with 100,000 images. The training set is drawn from ImageNet. Images for the evaluation subsets were obtained through a process that tried to replicate the one used for the ImageNet. The new data were collected up to three years later than training data and then they were randomly split between the validation and test sets.
 
- ImageNet links each image category to a specific noun **WordNet** synset. WordNet is a comprehensive lexical database of English. It organizes nouns, verbs, adjectives, and adverbs into cognitive synonym sets, or synsets, each representing a unique concept (see the official [website](https://wordnet.princeton.edu/)).
+ ImageNet links each image category to a **WordNet** noun synset. WordNet is a comprehensive lexical database of English. It organizes nouns, verbs, adjectives, and adverbs into synonym sets, or synsets, each representing a unique concept (see the official [website](https://wordnet.princeton.edu/)).
 
-Each **synset** consists of one or more terms referred to as synonyms, for example *"church, church building"*. However, this is not true in all cases. For example, consider the synset *"diaper, nappy, napkin"*. Even though the first terms are synonyms, the third one is not. Moreover, there are cases where the same term belongs to more than one synset, e.g. there are two synsets named *"crane"* — one defining a bird and the second a machine. In ImageNet-1k they are separate classes. Think about the consequences for zero-shot classification with vision-language models (VLMs) like CLIP<d-cite key="15"/>.
+Each **synset** should consist of one or more terms referred to as "synonyms", for example, *"church, church building"*. However, they are not synonyms in all cases. For example, consider the synset *"diaper, nappy, napkin"*. The first two terms are synonyms, the third one is not. Moreover, there are cases where the same term is in more than one synset, e.g. there are two synsets named *"crane"* — one defining a bird and the second a machine. In ImageNet-1k, they are separate classes. Think about the consequences for zero-shot classification with vision-language models (VLMs) like CLIP<d-cite key="15"/>.
 
 We will demonstrate some issues related to dataset construction with a few examples.
 
@@ -369,7 +367,7 @@ We will demonstrate some issues related to dataset construction with a few examp
 
 Looking at the ***"tiger cat"*** images above, you might think "This seems to be a really diverse dataset...". Let us have a closer look. The *"tiger cat"* class is defined in WordNet as **"a cat having a striped coat"**, which aligns precisely with (a).
 
-To understand the issue with (b), we must know that ImageNet-1k also includes a ***"tabby, tabby cat"*** class, defined as **"a cat with a grey or tawny coat mottled with black"**. In common usage, tabby cat refers broadly to any domestic cat with a striped, spotted, or swirled coat pattern, all of which must include an "M" marking on their forehead (which can clearly be seen in this image). Most dictionaries agree that all tiger cats are tabbies, but not all tabby cats have the tiger pattern. However, even if we look at image (b) through the lens of WordNet definitions, it shows a grey cat, but its coat isn't clearly visible. Moreover, the term "mottled coat" in the tabby cat definition can be somewhat confusing, as some dictionaries consider stripes to be a type of mottling. So, how do we determine which type of cat this is? 
+To understand the issue with (b), we must know that ImageNet-1k also includes a ***"tabby, tabby cat"*** class, defined as **"a cat with a grey or tawny coat mottled with black"**. In common usage, tabby cat refers broadly to any domestic cat with a striped, spotted, or swirled coat pattern, all of which must include an "M" marking on their forehead (which can be seen in this image). Most dictionaries agree that all tiger cats are tabbies, but not all tabby cats have the tiger pattern. However, even if we look at image (b) through the lens of WordNet definitions, it shows a grey cat, but its coat is not clearly visible. Moreover, the term "mottled coat" in the tabby cat definition can be somewhat confusing, as some dictionaries consider stripes to be a type of mottling. So, how do we determine which type of cat this is? 
 
 We find modern large language models (LLMs) to be more accurate when handling such questions, so we asked them whether these two definitions overlap:
 
@@ -390,15 +388,15 @@ We find modern large language models (LLMs) to be more accurate when handling su
 
 This raises the question: *If WordNet definitions are not precise enough, what is the ultimate source for correct image labels? ChatGPT, Wikipedia, GBIF?*
 
-We are not wildlife experts, but we can say that either an oncilla, ocelot, or margay may be seen in \(c). While this might seem like harmless noise, common in such large datasets, these animals do appear more than once in the training set. In everyday language, *"tiger cat"* is even more commonly used to refer to these wild cats than to striped domestic ones; however, these usages coexist simultaneously. 
+We are not wildlife experts, but we may say that either an oncilla, ocelot, or margay is in \(c). While this might seem like harmless noise, common in such large datasets, these animals do appear more than once in the training set. In everyday language, *"tiger cat"* is more commonly used to refer to these wild cats than to striped domestic ones; however, these usages coexist simultaneously. 
 
 
-We have already mentioned the WordNet definition of the *"tiger cat"* synset; WordNet also contains  ***"tiger cat, Felis tigrina"*** synset, defined as **"a medium-sized wildcat of Central America and South America having a dark-striped coat"**.
-All three of the possible species of cats we’ve mentioned as possible labels for \(c) fall under this definition. Consistently annotating *"tiger cat"* images given such a confusing background is difficult for experts, and probably impossible for MTurkers.
+We have already mentioned the WordNet definition of the *"tiger cat"* synset; WordNet also contains a ***"tiger cat, Felis tigrina"*** synset, defined as **"a medium-sized wildcat of Central America and South America having a dark-striped coat"**.
+All three of the possible species of cats we have mentioned as possible labels for \(c) fall under this definition. Consistently annotating *"tiger cat"* images given such a confusing background is difficult for experts, and probably impossible for MTurkers.
 
 
-Obviously, (d) is a tiger, which has its own synset, ***"tiger, Panthera tigris"***, in ImageNet-1k. Such tigers make up a significant portion of the "tiger cat" class in both the training and validation sets.
-Distinguishing between a tabby and a tiger isn't even a particularly challenging fine-grained recognition task. While using non-expert annotators can be cost-effective and quick, this example highlights the need to think carefully about the expertise and motivation of those labeling the data.
+Obviously, (d) is a tiger, which has its own synset, ***"tiger, Panthera tigris"***, in ImageNet-1k. Tigers make up a significant portion of the "tiger cat" class in both the training and validation sets.
+Distinguishing between a tabby and a tiger is not a particularly challenging fine-grained recognition task. While using non-expert annotators can be cost-effective and quick, this example highlights the need to think carefully about the expertise and motivation of those labeling the data.
 
 
 ### The Laptop Problem
@@ -416,7 +414,7 @@ Distinguishing between a tabby and a tiger isn't even a particularly challenging
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 5. The terms laptop and notebook are now used interchangeably. Black cat, unlike <em style="color:grey;">"tabby cat"</em> and <em style="color:grey;">"tiger cat"</em>, is not an ImageNet-1k class.</div>
 
-Consider two synsets: *"laptop, laptop computer"* and *"notebook, notebook computer"*. Their respective WordNet definitions are "a portable computer small enough to use in your lap" and "a small compact portable computer". In this case, the definitions clearly overlap, with the first being a subset of the second. We again asked modern LLMs about the difference between laptops and notebooks: 
+Consider two synsets: *"laptop, laptop computer"* and *"notebook, notebook computer"*. Their respective WordNet definitions are "a portable computer small enough to use in your lap" and "a small compact portable computer". In this case, the definitions overlap, with the former being a subset of the latter. We again asked modern LLMs about the difference between laptop and notebook: 
 
 <div class="llm-cite">Previously, "laptops" referred to portable computers with larger screens and more powerful hardware, while "notebooks" were slimmer, lighter, and less powerful. Today, the terms are used interchangeably, as advancements in technology have blurred the distinctions.</div>
 
