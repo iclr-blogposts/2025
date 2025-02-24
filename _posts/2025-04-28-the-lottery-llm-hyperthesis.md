@@ -284,7 +284,9 @@ This blog aims to elucidate the potential of the lottery LLM and to summarize th
 
 
 
+**Acknowledgements**
 
+This work was partially supported by National Natural Science Foundation of China under Grant No. 62272122, the Guangzhou Municipal Joint Funding Project with Universities and Enterprises under Grant No. 2024A03J0616, Guangzhou Municipality Big Data Intelligence Key Lab (2023A03J0012), and Hong Kong CRF grants under Grant No. C7004-22G and C6015-23G, contract R6021-20, and RGC GRF grants under the contracts 16200221, 16207922 and 16207423, the MOE Academic Research Fund (AcRF) Tier 1 Grant in Singapore (Grant No. T1 251RES2315).
 
 
 
