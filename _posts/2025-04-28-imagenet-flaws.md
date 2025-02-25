@@ -497,15 +497,15 @@ Note that the differences can be both due to OpenCLIP's errors and wrong ground 
 OpenCLIP predictions for classes related to <a style="color:grey;" href="#the-laptop-problem">'The Laptop Problem'</a>. </div>
 
 
-Approximately 80% of the images in both classes were predicted to be either a notebook or a laptop, with an error not far from random guessing. The remaining 20% were assigned to other labels. This interesting observation will be discussed in the [section on multilabels](#images-deserving-multiple-labels).
+Approximately 80% of the images in these classes were predicted as either a notebook or a laptop, with an error not far from random guessing. The remaining 20% were assigned to other labels. This will be discussed in the [section on multilabels](#images-deserving-multiple-labels).
 
 ### Key Takeaways 
 
-The examples demonstrate that the incorrect labels are not just random noise, but are also an outcome of the dataset's construction process. WordNet might not have been the most suitable foundation to build on, as its definitions are not precise enough. Also, some meanings shift over time, which is a problem in the era of VLMs. Perhaps WordNet and ImageNet should co-evolve.
+The examples demonstrate that the incorrect labels are not caused just by random noise, but they are also a consequence of the dataset's construction process. WordNet is not error-free and fully consistent; the issues propagate to ImageNet. Also, some meanings shift over time, which is a problem in the era of VLMs. Perhaps WordNet and ImageNet should co-evolve.
 
 
-Relying solely on MTurkers and using Wikipedia (a source that may be edited by non-experts, updated in real-time, or lack precise definitions) not only led to the inclusion of noisy labels but also sometimes distorted the very concepts that the classes were intended to represent. For example, the *"sunglasses, dark glasses, shades"* and *"sunglass"* classes represent the same object — sunglasses. While this is accurate for the former class, the latter class is defined in WordNet as "a convex lens that focuses the rays of the sun; used to start a fire".
-This definition was lost during the dataset's construction process, resulting in two classes representing the same concept.
+Relying solely on MTurkers and using Wikipedia (a source that may be continuously edited by non-experts and may lack precise definitions) not only led to the inclusion of noisy labels but also sometimes distorted the very concepts that the classes were intended to represent. For example, the *"sunglasses, dark glasses, shades"* and *"sunglass"* classes represent the same object — sunglasses. While this is accurate for the "sunglasses", the "sunglass" class is defined in WordNet as "a convex lens that focuses the rays of the sun; used to start a fire".
+This definition was lost during the dataset construction process, resulting in two classes representing the same concept.
 
 
 ## Distribution Shift Between Training and Validation Sets
@@ -532,7 +532,7 @@ This definition was lost during the dataset's construction process, resulting in
 
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 6. Distribution shift between training and validation sets. (a) <em style="color:grey;">"canoe"</em> in the training set (actual canoe). (b) <em style="color:grey;">"canoe"</em> in the validation set (a kayak). (c) <em style="color:grey;">"paddle, boat paddle"</em> with the presence of a canoe. (d) <em style="color:grey;">"paddle, boat paddle"</em> with the presence of a kayak.
+    Figure 6. A distribution shift between the training and validation sets. (a) <em style="color:grey;">"canoe"</em> in the training set (actual canoe). (b) <em style="color:grey;">"canoe"</em> in the validation set (a kayak). (c) <em style="color:grey;">"paddle, boat paddle"</em> depicting a canoe. (d) <em style="color:grey;">"paddle, boat paddle"</em> depicting a kayak.
 </div>
 
 
@@ -540,7 +540,7 @@ As mentioned earlier, for ImageNet-1k, additional images were collected using th
 
 For example, in the training set, the *"canoe"* class mainly consists of images of canoes, but it also includes many images of kayaks and other types of boats. In contrast, **the *"canoe"* class in the validation set only contains images of kayaks, with no canoes at all**.
 
-To clarify, the difference is not only in the boat shapes, with a kayak being more flat, but also in how they are paddled. A canoe is typically paddled in a kneeling position (though seated paddling is common) with a short single-bladed paddle, while a kayak is paddled from a seated position with a long double-bladed paddle. Interestingly, "paddle, boat paddle" is also a separate class in ImageNet-1k.
+To clarify, the difference is not only in the boat shapes, with a kayak being flatter, but also in how they are paddled. A canoe is typically paddled in a kneeling position (though seated paddling is common) with a short single-bladed paddle, while a kayak is paddled from a seated position with a long double-bladed paddle. Interestingly, "paddle, boat paddle" is a separate class in ImageNet-1k.
 
 <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center;">
     <div style="text-align: center; flex: 0 0 30%;">
@@ -564,14 +564,14 @@ To clarify, the difference is not only in the boat shapes, with a kayak being mo
     Figure 7. Images from the <em style="color:grey;">"planetarium"</em> class in the ImageNet validation set. 68% of validation images in this class depict this particular building.
 </div>
 
-The *"planetarium"* class exhibits another issue. In the validation set, 68% of the images (34 out of 50) feature the same planetarium in Buenos Aires. The building appears many times in the training set too, but there the range of planetaria is much broader. Perhaps it is a beautiful location, and the authors enjoyed featuring it, but it is clear not i.i.d. to have this one appear so frequently in the validation set.
+The *"planetarium"* class exhibits another issue. In the validation set, 68% of the images (34 out of 50) feature the same planetarium in Buenos Aires. The building appears many times in the training set too, but the range of planetaria is much broader. Perhaps it is a beautiful location, and the authors enjoyed featuring it, but it is not i.i.d.
 
-Here, the solution is fairly straightforward - a more representative set of images can be collected.
+Here, the solution is fairly straightforward - collecting a more representative set of images.
 Nevertheless, this breaks backward compatibility, rendering old and new results incomparable.  
 
-## Images Deserving Multiple Labels
+## Images Requiring Multiple Labels
 
-We will illustrate the problem with multilabel images with an extreme example. What do you think should be the correct label for the following image?
+We illustrate the problem of multilabel images with an extreme example. What do you think is the correct label for the following image?
 
 <div style="display: flex; justify-content: center; align-items: center;">
     <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/computer_mouse.png' | relative_url }}" style="height: 400px; margin: 30px 30px 5px 30px;" />
@@ -581,7 +581,7 @@ We will illustrate the problem with multilabel images with an extreme example. W
     Figure 8. An image from the <em style="color:grey;">"mouse, computer mouse"</em> class. Objects from at least 11 other ImageNet-1k classes are visible.  
 </div>
 
-All of the following objects in the image have their own class in ImageNet-1k:
+The following objects in the image have a class in ImageNet-1k:
 
 <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="flex: 1; min-width: 33.33%; padding-right: 20px;">
@@ -603,14 +603,15 @@ All of the following objects in the image have their own class in ImageNet-1k:
   </div>
 </div>
 
-One could argue that in the presence of multiple objects from distinct classes, the dominant should be labeled. This image shows it is often not clear what the dominant object is.
+One could argue that in the presence of multiple objects from distinct classes, the dominant should be labeled, but here and elsewhere, it is not clear what the dominant object is.
 
-As with the *"canoe"* and *"paddle"* classes in the [section about domain shift](#distribution-shift-between-training-and-validation-sets), some objects naturally appear together in photos. In everyday usage, desktop computers are accompanied by a computer keyboard and a monitor (all of which are ImageNet-1k classes). The difference between a monitor and a screen, yet another set of questionable ImageNet-1k classes, is an interesting question in its own right. Additionally, desktop computers are generally placed on desks (also a class), so these two objects often appear together in images. Many such cases of multilabel issues stemming from frequently co-occurring classes exist.
+As with the *"canoe"* and *"paddle"* classes in the [section about domain shift](#distribution-shift-between-training-and-validation-sets), some objects naturally appear together in photos. In everyday usage, desktop computers are accompanied by a computer keyboard and a monitor (all of which are ImageNet-1k classes). The difference between a monitor and a screen, another pair of questionable ImageNet-1k classes, is an issue in its own right. Additionally, desktop computers are generally placed on desks (also a class), so these two objects often appear together in images.
+Many cases of multilabel image issues stemming from frequently co-occurring classes exist.
 
-After careful examination, the issue runs deeper, and the authors' claim that there is no overlap and no parent-child relationship between classes appears to be incorrect. 
-Consider the example of a spacebar and a computer keyboard. The space bar may not always be part of a computer keyboard, but most keyboards do have a space bar.
+The issue runs deeper, and the authors' claim that there is no overlap and no parent-child relationship between classes appears to be incorrect. 
+Consider the example of a "spacebar" and a "computer keyboard". The "space bar" may not always be part of a "computer keyboard", but most "keyboards" do have a "space bar".
 
-Let us look at another example to further explore the topic.
+Let us look at another example.
     
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="text-align: center;">
