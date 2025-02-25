@@ -36,7 +36,7 @@ toc:
     - name: Exploring VLM Results
     - name: Key Takeaways
   - name: Distribution Shift Between Training and Validation Sets
-  - name: Images Deserving Multiple Labels
+  - name: Images Requiring Multiple Labels
   - name: ILSVRC Class Selection
     subsections:
     - name: Problematic Groups
@@ -508,7 +508,7 @@ Relying solely on MTurkers and using Wikipedia (a source that may be continuousl
 This definition was lost during the dataset construction process, resulting in two classes representing the same concept.
 
 
-## Distribution Shift Between Training and Validation Sets
+## Distribution Shift Between Training and Validation Sets 
 
 <div style="display: flex; align-items: center; justify-content: center; row-gap: 15px; column-gap: 15px; justify-items: center;">
     <div style="text-align: center;">
@@ -625,16 +625,17 @@ Let us look at another example.
 </div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 9. <em style="color:grey;">"car wheel"</em> and<em style="color:grey;">"sports car, sport car"</em>. There are not many cars without a wheel.
+    Figure 9. Classes <em style="color:grey;">"car wheel"</em> and<em style="color:grey;">"sports car, sport car"</em>. There are not many cars without a wheel.
 </div>
 
-A wheel can exist without a car, but a car — except for some rare cases, say in a scrapyard — cannot exist without a wheel. When an image contains both (and many do), it becomes unclear which label should take priority. Even if MTurkers were familiar with all 1000 ImageNet-1k classes, assigning a single accurate label would still be challenging.
+A wheel can exist without a car, but a car — except for some rare cases, say in a scrapyard — cannot exist without a wheel. When an image contains both, and many do, it is unclear which label should take priority. Even if MTurkers were familiar with all 1000 ImageNet-1k classes, assigning a single accurate label would still be challenging.
 
 As mentioned in the section about dataset construction, MTurkers were asked to determine whether an image contains an object that matches a given definition. Such a process of annotation may not be inherently problematic. However, when paired with the problematic class selection, our next topic, it is.
 
 ## ILSVRC Class Selection
 
-The ImageNet-1k classes were chosen as a subset of the larger ImageNet dataset. One reason the dataset is so widely used is that it is perceived to reflect the diversity of the real world. The class distribution is distorted; does having more than 10% of the dataset represent dog breeds truly capture the human experience as a whole, or is it more reflective of dog owners' perspective? Similarly, is having a separate class for *"iPod"* — rather than a broader category like *"music player"* — a durable representation of the world?
+The ImageNet-1k classes were chosen as a subset of the larger ImageNet dataset. One reason the dataset is so widely used is that it is perceived to reflect the diversity of the real world. 
+Yet, the class distribution is distorted. Does having more than 10% of the dataset represent dog breeds truly capture the human experience as a whole, or is it more reflective of dog owners' perspective? Similarly, is having a separate class for *"iPod"* — rather than a broader category like *"music player"* — a durable representation of the world?
 
 ### Problematic Groups
 
@@ -661,7 +662,7 @@ We categorize the problems with class selection into the following groups:
 
 **Class Is a Part of Another Class Object**  
    - *"space bar"* is a part of *"computer keyboard, keypad"*  
-   - *"car wheel"* wheel is a part of any vehicle class (*"racer, race car, racing car"*, *"sports car, sport car"*, *"minivan"*, etc.)
+   - *"car wheel"* is a part of any vehicle class (*"racer, race car, racing car"*, *"sports car, sport car"*, *"minivan"*, etc.)
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="text-align: center;">
@@ -718,7 +719,7 @@ We categorize the problems with class selection into the following groups:
 
 To identify such groups within the dataset, we conducted an analysis using the updated ImageNet training labels from the Re-labeling ImageNet paper<d-cite key="9"/>, where an EfficientNet-L2 model was applied. 
 
-We performed hierarchical clustering on the classes with high EfficientNet-L2 error rates. Next, we manually reviewed the clusters, defined the mentioned categories, and organized the images accordingly. Each cluster consists of between 2 and 10 classes. Ultimately, this process led to the identification of 151 classes, which we organized into 48 groups. Each group contains a list of classes alongside their corresponding category. In some cases, multiple predefined relationships apply to the same classes, so a single group may span several categories.
+We ran hierarchical clustering on the classes with high EfficientNet-L2 confusion rates. Next, we manually reviewed the clusters, defined the mentioned categories, and organized the images accordingly. Each cluster consists of between 2 and 10 classes. Ultimately, this process led to the identification of 151 classes, which we organized into 48 groups. In some cases, classes are part of multiple discovered relationships, which are of different category.
 
 <div class="l-page">
   <iframe class="iframe-light" src="{{ 'assets/html/2025-04-28-imagenet-flaws/confusion_matrix.html' | relative_url }}" frameborder='0' scrolling='no' height="550px" width="100%"></iframe>
