@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: Understanding the Impacts of GenAI Requires Understanding the Impact of Anthropomorphic AI
+title: '"I Am the One and Only, Your Cyber BFF": Understanding the Impacts of GenAI Requires Understanding the Impact of Anthropomorphic AI'
 description: Many state-of-the-art generative AI (GenAI) systems are increasingly prone to anthropomorphic behaviors, i.e., to generating outputs that are perceived to be human-like. While this has led to scholars increasingly raising concerns about possible negative impacts such anthropomorphic AI systems can give rise to, anthropomorphism in AI development, deployment, and use remains vastly overlooked, understudied, and underspecified. In this blog post, we argue that we cannot thoroughly map the social impacts of generative AI without mapping the social impacts of anthropomorphic AI, and outline a call to action.
 
 
@@ -9,7 +9,22 @@ future: true
 htmlwidgets: true
 
 authors:
-  - name: Anonymous 
+  - name: Myra Cheng
+    url: myracheng.github.io
+    affiliations:
+      name: Stanford University
+  - name: Alicia DeVrio
+    affiliations:
+      name: Carnegie Mellon University
+  - name: Lisa Egede
+    affiliations:
+      name: Carnegie Mellon University
+  - name: Su Lin Blodgett*
+    affiliations:
+      name: Microsoft Research
+  - name: Alexandra Olteanu*
+    affiliations:
+      name: Microsoft Research
 
 bibliography: 2025-04-28-anthropomorphic-ai.bib  
 
