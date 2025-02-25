@@ -392,11 +392,10 @@ We are not wildlife experts, but we may say that either an oncilla, ocelot, or m
 
 
 We have already mentioned the WordNet definition of the *"tiger cat"* synset; WordNet also contains a ***"tiger cat, Felis tigrina"*** synset, defined as **"a medium-sized wildcat of Central America and South America having a dark-striped coat"**.
-All three of the possible species of cats we have mentioned as possible labels for \(c) fall under this definition. Consistently annotating *"tiger cat"* images given such a confusing background is difficult for experts, and probably impossible for MTurkers.
+All three cat species we have mentioned as possible labels for \(c) fit the definition. Consistently annotating *"tiger cat"* images given such confusing background information is difficult for experts, and probably impossible for MTurkers.
 
-
-Obviously, (d) is a tiger, which has its own synset, ***"tiger, Panthera tigris"***, in ImageNet-1k. Tigers make up a significant portion of the "tiger cat" class in both the training and validation sets.
-Distinguishing between a tabby and a tiger is not a particularly challenging fine-grained recognition task. While using non-expert annotators can be cost-effective and quick, this example highlights the need to think carefully about the expertise and motivation of those labeling the data.
+Obviously, (d) is a tiger, which has a class, ***"tiger, Panthera tigris"***. Tigers make up a significant portion of the "tiger cat" class in both the training and validation sets.
+Distinguishing between a tabby and a tiger is not a challenging recognition task and yet the non-expert annotators made many mistakes. This highlights the need to think carefully about the expertise of and guidelines for the annotators.
 
 
 ### The Laptop Problem
@@ -412,7 +411,7 @@ Distinguishing between a tabby and a tiger is not a particularly challenging fin
     </div>
 </div>
 
-<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 5. The terms laptop and notebook are now used interchangeably. Black cat, unlike <em style="color:grey;">"tabby cat"</em> and <em style="color:grey;">"tiger cat"</em>, is not an ImageNet-1k class.</div>
+<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 5. The terms laptop and notebook are now used interchangeably. Black cat, unlike <em style="color:grey;">"tabby cat"</em> and <em style="color:grey;">"tiger cat"</em>, is not an ImageNet-1k class, which makes it a single-label image.</div>
 
 Consider two synsets: *"laptop, laptop computer"* and *"notebook, notebook computer"*. Their respective WordNet definitions are "a portable computer small enough to use in your lap" and "a small compact portable computer". In this case, the definitions overlap, with the former being a subset of the latter. We again asked modern LLMs about the difference between laptop and notebook: 
 
@@ -424,7 +423,7 @@ This raises a question whether there is any other solution besides merging these
 
 ### Exploring VLM Results
 
-We expected the issues described above to have a clear impact on the results of Vision Language Models. To test this hypothesis, we selected a zero-shot open-source model, OpenCLIP (ViT-H-14-378), and examined its predictions on the training set for the classes discussed above. The confusion matrices below show the discrepancies between the original and predicted labels.
+We expected the issues described above to have an impact on the results of Vision Language Models. To test the hypothesis, we selected a zero-shot open-source model, OpenCLIP (ViT-H-14-378), and examined its predictions on the training set for the classes discussed above. The confusion matrices below show the discrepancies between the original and predicted labels.
 
 <div style="display:flex; align-items:center; justify-content: center; margin:20px; font-size:14px;">
     <table style="border-collapse: collapse; text-align: center; border: 0px;">
@@ -465,7 +464,7 @@ We expected the issues described above to have a clear impact on the results of 
 
 <div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 1. OpenCLIP predictions for classes related to '<a style="color:grey;" href="#the-cat-problem">The Cat Problem</a>'.</div>
 
-Note that the differences can be both due to OpenCLIP's errors and wrong ground truth labels. Nearly a quarter of the images in *"tiger cat"* class are predicted to be tigers, which we trust to be an estimate of the percentage of tigers in the training data of the class. Only 6.9% of images are predicted as *"tiger cat"*, highlighting the conceptual overlap with *"tabby, tabby cat"*.
+Note that the differences can be both due to OpenCLIP's errors and wrong ground truth labels. Nearly a quarter of the images in *"tiger cat"* class are predicted to be tigers, which we trust to be an estimate of the percentage of tigers in the training data of the class. Only 6.9% of the images are predicted as *"tiger cat"*, highlighting the conceptual overlap with *"tabby, tabby cat"*.
 
 <div style="display:flex; align-items:center; justify-content: center; margin:20px; font-size:14px;">
     <table style="border-collapse: collapse; text-align: center; border: 0px;">
