@@ -12,34 +12,24 @@ authors:
     url:
     affiliations:
       name: Visual Recognition Group, Czech Technical University in Prague
-authors:
   - name: Illia Volkov
     url:
     affiliations:
       name: Visual Recognition Group, Czech Technical University in Prague
-authors:
   - name: Kateřina Hanzelková
     url:
     affiliations:
       name: Faculty of Science, Charles University
-authors:
   - name: Klara Janouskova
     url:
     affiliations:
       name: Visual Recognition Group, Czech Technical University in Prague
-authors:
   - name: Jiri Matas
     url:
     affiliations:
       name: Visual Recognition Group, Czech Technical University in Prague
 
-# must be the exact same name as your blogpost
 bibliography: 2025-04-28-imagenet-flaws.bib  
-
-# Add a table of contents to your post.
-#   - make sure that TOC names match the actual section names
-#     for hyperlinks within the post to work correctly. 
-#   - please use this format rather than manually creating a markdown table of contents.
 
 toc:
   - name: Introduction to ImageNet
@@ -68,10 +58,6 @@ toc:
     - name: The Ferret Problem
     - name: Results of Relabeling
   - name: Conclusion
-
-# Below is an example of injecting additional post-specific styles.
-# This is used in the 'Layouts' section of this post.
-# If you use this post as a template, delete this _styles block.
 
 ---
 
@@ -296,12 +282,6 @@ The study identifies duplicate images in the validation and training sets.
 Interestingly, each image in a group of duplicates is found to have a different label. This indicates duplicates were removed only within the same class, incorrectly assuming that duplicate images cannot have different labels. The work emphasizes the importance of addressing not only duplicates but also near-duplicate images, e.g., similar photos from the same photoshoot.
 </div>
 
-<!--
-<div style="display: flex; justify-content: center; align-items: center;">
-    <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/prev_work_in_detail.png' | relative_url }}" style="width: 100%; margin: 25px;" />
-</div>
--->
-
 <div class="related-papers-image"></div>
     
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 2. Error analyses <d-cite key="4,5,6,7"/> of the ImageNet validation set labels. <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> Single label image, original label is correct. <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span> Single label image, original label is incorrect, full agreement on correction. <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span>  Multilabel images. <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span> Single label image, inconsistent label corrections. <span style="display:inline-block;width:10px;height:10px;background-color:#E55353;"></span> Ambiguous, no agreement on the label.</div> 
@@ -326,12 +306,6 @@ It should be noted that for the <span style="font-weight:800">Label Errors<d-cit
 </div>
 </details>
 
-<!--
-<div style="display: flex; justify-content: center; align-items: center; flex-wrap:wrap; margin: 20px;">
-    <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/multiple_papers.png' | relative_url }}" style="width: 100%;" />
-        <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/consistent_images.png' | relative_url }}" style="width: 100%;" />
-</div>
--->
 <div class="multiple-papers-image"></div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
@@ -770,10 +744,7 @@ The classes from the problematic groups significantly lower OpenCLIP accuracy.
             <p style="font-size: 13px;"> <span style="color:red; font-weight:bold;">"lynx, ..." ×</span></p>
         </div>
     </div>
-    
-    <!-- Right column - containing the other 5 wolves in two rows -->
     <div style="display: flex; flex-direction: column; gap: 15px;">
-        <!-- Top row with 3 wolves -->
         <div style="display: flex; gap: 15px; text-align: center;">
             <div>
                 <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/timber_wolf.png' | relative_url }}" style="height: 107px;" />
@@ -788,8 +759,6 @@ The classes from the problematic groups significantly lower OpenCLIP accuracy.
                 <p style="font-size: 13px;"> <span style="color:red; font-weight:bold;">"white wolf, ..." ×</span></p>
             </div>
         </div>
-        
-        <!-- Bottom row with 2 centered wolves -->
         <div style="display: flex; gap: 15px; text-align: center; justify-content: center;">
             <div>
                 <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/red_wolf.png' | relative_url }}" style="height: 107px;" />
@@ -1095,12 +1064,6 @@ Let us look at *"weasel"* class definitions:
 - **[Webster](https://www.merriam-webster.com/dictionary/weasel)** (broader): 'any of various small slender active carnivorous mammals (genus *Mustela* of the family *Mustelidae*, the weasel family) that can prey on animals (such as rabbits) larger than themselves, are mostly brown with white or yellowish underparts, and in northern forms turn white in winter'.
 
 The definition of the *"weasel"* synset in WordNet is too broad - it potentially encompasses all the other mentioned classes. Moreover, the interpretation of the term weasel varies, between UK and US English, further complicating its consistent application. In US English, the term weasel often refers to the whole *Mustelidae*, also called 'the weasel family'. All of the following - weasel, mink, European polecat, and black-footed ferret - belong to the weasel family, as understood by US English.
-
-<!--
-<div style="display: flex; justify-content: center; align-items: center;">
-    <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/mustelidae.svg' | relative_url }}" style="width: 100%; margin: 25px;" />
-</div>
--->
 
 <div class="theme-image"></div>
 
