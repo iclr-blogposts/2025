@@ -6,15 +6,32 @@ date: 2025-04-28
 future: true
 htmlwidgets: true
 hidden: false
-# Anonymize when submitting
-# authors:
-#   - name: Anonymous
 
 authors:
-  - name: Anonymous
+  - name: Nikita Kisel
     url:
     affiliations:
-      name:
+      name: Visual Recognition Group, Czech Technical University in Prague
+authors:
+  - name: Illia Volkov
+    url:
+    affiliations:
+      name: Visual Recognition Group, Czech Technical University in Prague
+authors:
+  - name: Kateřina Hanzelková
+    url:
+    affiliations:
+      name: Faculty of Science, Charles University
+authors:
+  - name: Klara Janouskova
+    url:
+    affiliations:
+      name: Visual Recognition Group, Czech Technical University in Prague
+authors:
+  - name: Jiri Matas
+    url:
+    affiliations:
+      name: Visual Recognition Group, Czech Technical University in Prague
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-imagenet-flaws.bib  
