@@ -21,15 +21,18 @@ hidden: false
 
 # Anonymize when submitting
 authors:
-   - name: Arthur Aubret
-     url: "https://aubret.github.io/"
-     affiliations:
-       name: Frankfurt Institute for Advanced Studies
-   - name: Jochen Triesch
-     url: "https://www.fias.science/en/life-and-neurosciences/research-groups/jochen-triesch/"
-     affiliations:
-       name: Frankfurt Institute for Advanced Studies
-
+  - name: Arthur Aubret
+    url: "https://aubret.github.io/"
+    affiliations:
+      name: Frankfurt Institute for Advanced Studies
+  - name: Jochen Triesch
+    url: "https://www.fias.science/en/life-and-neurosciences/research-groups/jochen-triesch/"
+    affiliations:
+      name: Frankfurt Institute for Advanced Studies
+#  - name: Nathan Rosen
+#    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
+#    affiliations:
+#      name: IAS, Princeton
 #authors:
 #  - name: Albert Einstein
 #    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
@@ -39,10 +42,10 @@ authors:
 #    url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
 #    affiliations:
 #      name: IAS, Princeton
-#  - name: Nathan Rosen
-#    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#    affiliations:
-#      name: IAS, Princeton
+  - name: Nathan Rosen
+    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
+    affiliations:
+      name: IAS, Princeton
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-toddlers-vs-vismodels.bib
