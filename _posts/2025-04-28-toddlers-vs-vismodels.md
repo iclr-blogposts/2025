@@ -25,10 +25,10 @@ authors:
      url: "https://aubret.github.io/"
      affiliations:
        name: Frankfurt Institute for Advanced Studies
-    - name: Jochen Triesch
-      url: "https://www.fias.science/en/life-and-neurosciences/research-groups/jochen-triesch/"
-      affiliations:
-        name: Frankfurt Institute for Advanced Studies
+   - name: Jochen Triesch
+     url: "https://www.fias.science/en/life-and-neurosciences/research-groups/jochen-triesch/"
+     affiliations:
+       name: Frankfurt Institute for Advanced Studies
 
 #authors:
 #  - name: Albert Einstein
