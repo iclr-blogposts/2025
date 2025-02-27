@@ -29,10 +29,7 @@ authors:
     url: "https://www.fias.science/en/life-and-neurosciences/research-groups/jochen-triesch/"
     affiliations:
       name: Frankfurt Institute for Advanced Studies
-#  - name: Nathan Rosen
-#    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#    affiliations:
-#      name: IAS, Princeton
+
 #authors:
 #  - name: Albert Einstein
 #    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
@@ -628,9 +625,9 @@ research aimed at addressing the gap between models and toddlers.
 # Acknowledgments
 
 This work was funded by the Deutsche Forschungsgemeinschaft 
-(DFG project ``Abstract REpresentations in Neural Architectures (ARENA)''), 
-as well as the projects ``The Adaptive Mind'' and ``The Third Wave of 
-Artificial Intelligence'' funded by the Excellence Program of the 
+(DFG project Abstract REpresentations in Neural Architectures (ARENA)), 
+as well as the projects The Adaptive Mind and The Third Wave of 
+Artificial Intelligence funded by the Excellence Program of the 
 Hessian Ministry of Higher Education, Science, Research and Art (HMWK). 
 JT was supported by the Johanna Quandt foundation. We gratefully acknowledge 
 support from the Goethe-University (NHR Center NHR@SW) and Marburg University (MaRC3a) 
