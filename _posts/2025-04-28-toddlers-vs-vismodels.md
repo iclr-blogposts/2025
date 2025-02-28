@@ -13,7 +13,9 @@ description: Despite recent advances in artificial vision systems, humans are st
   whether these four visual properties also emerge in off-the-shelf machine learning (ML) 
   vision models. We reproduce and complement previous studies by 
   comparing toddlers and a large set of diverse pre-trained vision models for each visual property. This way, we 
-  unveil the interplay between these visual properties and highlight the main differences between ML models and toddlers.
+  unveil the interplay between these visual properties and highlight the main 
+  differences between ML models and toddlers. Code is available at (https://github.
+  com/Aubret/BabyML).
 date: 2025-04-28
 future: true
 htmlwidgets: true
