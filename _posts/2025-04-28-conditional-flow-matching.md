@@ -1,9 +1,7 @@
 ---
 layout: distill
 title: A Visual Dive into Conditional Flow Matching
-description: Conditional flow matching was introduced by three simultaneous papers at ICLR 2023, through different approaches (conditional matching, rectifying flows and stochastic interpolants).
-  In this blog post, we provide self-contained explanations and visualizations to understand standard flow techniques (Part 1) and conditional flow matching (Part 2).
-  In addition we provide insights to grab new intuition on conditional flow matching (Part 3)  .
+description: "Conditional flow matching (CFM) was introduced by three simultaneous papers at ICLR 2023, through different approaches (conditional matching, rectifying flows and stochastic interpolants). <br/> The main part of this post, Section 2, explains CFM by using both visual intuitions and insights on its probabilistic formulations. Section 1 introduces nomalizing flows; it can be skipped by reader familiar with the topic, or that wants to cover them later. Section 3 opens on the links between CFM and other approaches, and ends with a 'CFM playground'."
 date: 2025-04-28
 future: true
 htmlwidgets: true
@@ -340,7 +338,7 @@ Once the map $$T$$ is learned, one can simply sample $$x$$ from $$p_0$$ and use 
 
 Two intertwined questions arise: what kind of map $$T$$ to use, and how to learn it?
 A natural idea is to define $$T$$ as a parametric map $$T_\theta$$, typically a neural network, and to learn the optimal parameters $$\theta^*$$ by
-maximizing the log likelihood of the available samples<d-footnote>Note there also exist generative methods based on other principles, e.g. GANs, that are not covered in this blogpost.</d-footnote>:
+maximizing the log-likelihood of the available samples<d-footnote>Note there also exist generative methods based on other principles, e.g. GANs, that are not covered in this blogpost.</d-footnote>:
 
 $$
 \begin{equation}\label{eq:log_lik}
@@ -365,7 +363,7 @@ When minimizing with respect to $$\theta$$ the first term of the right hand side
 
 ### Normalizing Flows
 
-In order to compute the log likelihood objective function in \eqref{eq:log_lik}, if $$T_\theta$$ is a diffeomorphism (and thus has a differentiable inverse $$T_\theta^{-1}$$), one can rely on the so-called *change-of-variable formula*
+In order to compute the log-likelihood objective function in \eqref{eq:log_lik}, if $$T_\theta$$ is a diffeomorphism (and thus has a differentiable inverse $$T_\theta^{-1}$$), one can rely on the so-called *change-of-variable formula*
 
 $$
 \begin{equation}\label{eq:change_variable}
@@ -379,14 +377,14 @@ Relying on this formula to evaluate the likelihood imposes two constraints on th
 - $$T_\theta^{-1}$$ must be differentiable, and the (log) determinant of the Jacobian of $$T_\theta^{-1}$$ must not be too costly to compute in order to evaluate the second  right-hand side term in \eqref{eq:change_variable}<d-footnote><span markdown="1">Equivalently, both $$T^{-1}_\theta$$ and the determinant of $$J_{T_\theta}$$ must be easy to compute, since $$J_{T_\theta^{-1}}(x) = (J_{T_\theta}(T_\theta^{-1}(x)))^{-1}$$ and $$\log|\det J_{T_\theta^{-1}}(x) | = - \log | \det J_{T_\theta}(T_\theta^{-1}(x))|$$.</span></d-footnote>.
 
 The philosophy of Normalizing Flows (NFs) <d-cite key="tabak2013family,rezende2015variational,papamakarios2021normalizing"/> is to design special neural architectures satisfying these two requirements.
-Normalizing flows are maps $$T_\theta = \phi_1 \circ \ldots \phi_K$$, where each $$\phi_k$$ is a simple transformation satisfying the two constraints -- and hence so does $$T_\theta$$.
-Defining recursively $$x_0 = x$$
-and $$x_{k} = \phi_k(x_{k-1})$$ for $$k\in\{1, \ldots, K\}$$, through the chain rule, the likelihood is given by
+Normalizing flows are maps $$T_\theta = \phi_K \circ \ldots \phi_1$$, where each $$\phi_k$$ is a simple transformation satisfying the two constraints -- and hence so does $$T_\theta$$.
+Let $$x_0 \sim p_0 $$ and $$x_{k} = \phi_k(x_{k-1})$$ for $$k\in\{1, \ldots, K\}$$, the chain rule yields the following formula for the log-likelihood
+<!-- through the chain rule, the likelihood is given by -->
 
 $$
 \begin{align*}
-\log p_1(x) &= \log p_0(\phi_1^{-1} \circ \ldots \circ \phi_K^{-1} (x)) + \log |\det J_{\phi_1^{-1} \circ \ldots \circ \phi_K^{-1}}(x)| \\
-&= \log p_0(\phi_1^{-1} \circ \ldots \circ \phi_K^{-1} (x)) + \sum_{k=1}^{K} \log | \det J_{\phi^{-1}_k}(x_{k}) |
+\log p_1(x_K) &= \log p_0(\phi_1^{-1} \circ \ldots \circ \phi_K^{-1} (x_K)) + \log |\det J_{\phi_1^{-1} \circ \ldots \circ \phi_K^{-1}}(x_K)| \\
+&= \log p_0(\phi_1^{-1} \circ \ldots \circ \phi_K^{-1} (x_K)) + \sum_{k=1}^{K} \log | \det J_{\phi^{-1}_k}(x_{k}) |
 \end{align*}
 $$
 
@@ -585,7 +583,7 @@ x(0) = x^{(i)} + \int_1^0 u_\theta(x(t), t) \mathrm{dt}
 $$
 
 (i.e., solving \eqref{eq:initial_value_pb} in reverse),
-and then<d-footnote><span markdown="1">Actually, both $$x_0$$ and $$\log p_1(x^{(i)})$$ can be computed in one go, by introducing the unknown $$F(t) = \begin{pmatrix} x(t) \\ \log p_t(x(t)) - \log p_1(x(1)) \end{pmatrix}$$ and solving the augmented ODE
+and then<d-footnote><span markdown="1">Actually, both $$x(0)$$ and $$\log p_1(x^{(i)})$$ can be computed in one go, by introducing the unknown $$F(t) = \begin{pmatrix} x(t) \\ \log p_t(x(t)) - \log p_1(x(1)) \end{pmatrix}$$ and solving the augmented ODE
 </span>
 $$
 \frac{\mathrm{d}}{\mathrm{d} t} F(t) =
@@ -600,11 +598,11 @@ Evaluating the solution $$F$$ at $$t=0$$ gives both $$x(0)$$ and $$\log p_0(x(0)
 integrating \eqref{eq:ce_logptxt}:
 
 $$
-\log p_1(x^{(i)}) = \log p_0(x_0) - \int_0^1 \nabla \cdot u_\theta(\cdot, t)(x(t)) \mathrm{dt}
+\log p_1(x^{(i)}) = \log p_0(x(0)) - \int_0^1 \nabla \cdot u_\theta(\cdot, t)(x(t)) \mathrm{dt}
 $$
 
 
-Finally, computing the gradient of the log likelihood with respect to the parameters $$\theta$$ in $$u_\theta$$ is done by solving a reversed and augmented ODE, relying on the adjoint method as in the general Neural ODE framework <d-cite key="grathwohl2018ffjord"/>.
+Finally, computing the gradient of the log-likelihood with respect to the parameters $$\theta$$ in $$u_\theta$$ is done by solving a reversed and augmented ODE, relying on the adjoint method as in the general Neural ODE framework <d-cite key="grathwohl2018ffjord"/>.
 
 
 The main benefits of continuous NF are:
@@ -684,9 +682,10 @@ The distribution of these samples corresponds to $$\p$$.
   Generation of samples from \(p_1\) can be done by sampling from \(p_0\) and then following the velocity field \(\utheta\).
   </figcaption>
 </figure>
-**Goal**. Similarly to continuous normalizing flows, the goal of conditional flow matching is to find a velocity field $$\utheta$$ that, when followed/integrated, transforms $$p_0$$ into $$\pdata$$.
+**Goal**. *Similarly* to continuous normalizing flows, the goal of conditional flow matching is to find a velocity field $$\utheta$$ that, when followed/integrated, transforms $$p_0$$ into $$\pdata$$.
 Once the velocity field is estimated, the data generation process of conditional flow matching and continuous normalizing flows are the same.
 It is illustrated in <span class="ref-lastfig">Figure </span>.
+The *particularity of CFM* is how the velocity field is learned, as we will detail below.
 
 
 <figure class="sidebar" style="--w: 200; --h: 320;" >
@@ -921,7 +920,7 @@ The marginalization of $$ \pcond $$ directly yields a (intractable) closed-form 
     $$  p(x, t | z^{(i)}) = \mathcal{N}((1 - t) \cdot x_0 + t \cdot x_1, \sigma^2)  $$.
   **(bottom)** Illustration of the associated conditional velocity fields $$ \ucond = x_1 - x_0 $$ for three different values of $$ z =(x_0, x_1) $$.
   **(top right)** By marginalization over $$ z $$, the conditional probability paths directy yield an expression for the probability path.
-  **(top left)**  Expressing the velocity field $$ \u $$ as a function of the conditional velocity field $$ \ucond $$ is not trivial.
+  **(bottom right)**  Expressing the velocity field $$ \u $$ as a function of the conditional velocity field $$ \ucond $$ is not trivial.
   </figcaption>
 </figure>
 
@@ -952,6 +951,8 @@ $$\begin{align}
 \end{align}
 $$
 
+
+
 <!-- The dependency between these conditional/unconditional velocity fields and probability paths is illustrated in <span class="ref-lastfig">Figure </span>. -->
 
 </div>
@@ -961,6 +962,57 @@ $$
   <iframe style="--h: 200;" class="invert" src="{{ 'assets/html/2025-04-28-conditional-flow-matching/cfm-1d.html#inter1' | relative_url }}" frameborder="0" scrolling="no"></iframe>
   <figcaption class="caption">Move your mouse at any location \((t, x)\) to see a sampling of \(z | t, x\) (i.e., trajectories between \(x_0\) and \(x_1\) that pass close to \((t,x)\)) and the associated velocity (average of the directions of trajectories)</figcaption>
 </figure>
+
+
+
+<details>
+  <summary>Click here to unroll the proof</summary>
+  We first prove an intermediate result, which is the form most often found in the literature, but not the most interpretable in our opinion:
+  $$
+  \begin{align}\label{eq:cond2uncond}
+    \forall \, t, \, x, \, \u = \Ebracket{z}{\frac{\ucond \pcond } {\p}}
+    \enspace.
+  \end{align}
+  $$
+  <details markdown="1">
+  <summary>Click here to unroll the proof of \eqref{eq:cond2uncond}</summary>
+
+  $$\begin{aligned}
+    \forall \, t, \, x, \, p(x|t)
+    &= \int_z p(x, z|t) \mathrm{d} z \\ %= \int_z p(x | z, t) p(z | t) \mathrm{d} z \\
+    \forall \, t, \, x, \, \partialt{p(x|t)}
+    &= \partialt{} \Ebracket{z}{p(x|t,z)} \\
+    &= \Ebracket{z}{\partialt{} p(x|t,z)} \quad \small{\text{(under technical conditions)}} \\
+    &= -\Ebracket{z}{\nabla \cdot \left( \ucond p(x|t,z) \right)} \quad\small{\text{continuity equation for } p(x|t,z)}\\
+    &= -\nabla \cdot \Ebracket{z}{\ucond p(x|t,z)} \quad \small{\text{(under technical conditions)}} \\
+    &= -\nabla \cdot \Ebracket{z}{\ucond p(x|t,z) \frac{p(x|t)}{p(x|t)}} \\
+    &= -\nabla \cdot \left(\Ebracket{z}{\frac{\ucond p(x|t,z)}{p(x|t)}}p(x|t)\right) \quad \small{(p(x|t) \text{ is independent of } z)}
+    \end{aligned}
+    $$
+
+  Hence
+  $$\forall \, t, \, x, \, \u = \Ebracket{z}{\frac{\ucond \pcond } {\p}}$$
+
+  satisfies the continuity equation with $$ p(x|t) $$.
+  </details>
+
+  Then, we rewrite this intermediate formulation:
+  $$\begin{align}
+  \forall \, t, \, x, \, \u &=
+  \Ebracket{z}{\frac{\ucond \pcond } {\p}} \\
+  &= \int_z {\frac{\ucond \pcond}{\p}} p(z) \mathrm{d} z \nonumber\\
+   &= \int_z
+  {\ucond \underbrace{\pcond}_{= \frac{p(z|x, t) \cdot p(x, t)}{p(t, z)}}
+  \cdot p(z)
+  \cdot \underbrace{\frac{1}{\p}}_{= \frac{p(t)}{p(x, t)}} }  \mathrm{d} z \nonumber \\
+   &= \int_z {\ucond \frac{p(z|x, t) \cdot p(x, t)}{p(t, z)} \cdot  p(z)  \cdot \frac{p(t)}{p(x, t)}}   \mathrm{d} z \nonumber \\
+  &= \int_z {\ucond p(z|x, t) \underbrace{\frac{p(z)  \cdot p(t)}{p(t, z)}}_{=1}}   \mathrm{d} z \nonumber \\
+   &= \int_z {\ucond p(z|x, t) }   \mathrm{d} z \nonumber \\
+  &= \Ebracket{z|x, t} {\ucond }
+  \end{align}
+  $$
+</details>
+
 
 <br>
 **Illustration of Theorem 1** (<span class="ref-lastfig">Figure </span>).
@@ -1083,7 +1135,7 @@ Finally, computing the CFM loss  requires the values of the conditional velocity
   <tr>
     <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;"><strong>3. Compute an associated velocity field \(\ucond\)</strong></td>
     <td style="padding: 10px; border-bottom: 1px solid #ddd; background-color: #d8e2dc; text-align: center;">\(x_1 - x_0\)</td>
-    <td style="padding: 10px; border-bottom: 1px solid #ddd; background-color: #f0e1f5; text-align: center;">\(\frac{x-x_1}{1-t}\)</td>
+    <td style="padding: 10px; border-bottom: 1px solid #ddd; background-color: #f0e1f5; text-align: center;">\(\frac{x_1-x}{1-t}\)</td>
   </tr>
 
   <!-- Row 5 (Merged Columns) -->
@@ -1132,7 +1184,7 @@ Finally, computing the CFM loss  requires the values of the conditional velocity
 
 <!-- As additional content, we develop two topics: improving CFM with optimal transport, and the links between CFM and diffusion models. -->
 
-As additional content, we develop two topics: accelerating sampling with CFM, and the links between CFM and diffusion models.
+As additional content, we develop two topics: accelerating sampling with CFM, and the links between CFM and diffusion models <d-cite key="peluchetti2023non,shi2024diffusion"/>.
 
 <!-- ### Straight Flows and Optimal Transport -->
 
@@ -1189,8 +1241,8 @@ Another strategy is to directly start from a different coupling than the indepen
 Consider the coupling $$\pi^* \in \Pi(p_0, p_\mathrm{target})$$ given by Optimal Transport <d-footnote> $$\pi^* = \mathrm{argmin}_{\pi \in \Pi(p_0, p_\mathrm{target})} \int_{x_0, x_1} ||x_0 -x_1||^2 \pi(x_0, x_1) dx_0 dx_1$$ </d-footnote>, then one property of OT is that the lines between $$x_0$$ and $$x_1$$ **cannot cross**.
 
 In practice, the optimal transport is costly to compute for big datasets (and possible mainly with discrete distributions) so minibatch optimal transport is used instead.
-As shown in <span class="ref-lastfig">Figure </span>, using minibatches of 10 points for each distribution, trajectories are still crossing but much less often.
-This approach can be formalized by setting the conditioning $$z$$ as a minibatch of $$M$$ source samples et one of $$M$$ (for simplicity) target samples, i.e., $$z \sim (p_0^M, \pdata^M)$$.
+As shown in <span class="ref-lastfig">Figure </span> (using minibatches of 10 points for each distribution) trajectories are still crossing but much less often.
+This approach can be formalized by setting the conditioning variable $$z$$ as a pair of two minibatches, one of $$M$$ source samples and one of $$M$$ (for simplicity) target samples, i.e., $$z \sim (p_0^M, \pdata^M)$$.
 
 
 
@@ -1284,7 +1336,7 @@ $$\begin{equation}
 
 where $$v_\theta: [0,1]\times \mathbb{R}^d \longrightarrow \mathbb{R}^d$$ is the velocity field to be learned.
 Let $$\pi$$ denote the independent coupling between $$p_0$$ and $$p_1$$, and let $$(X_0, X_1) \sim \pi$$.
-The target probability path is the Conditional Flow Matching loss corresponds to the distribution of the random variable $$X_t$$ defined by
+The target probability path in the Conditional Flow Matching loss corresponds to the distribution of the random variable $$X_t$$ defined by
 
 $$\begin{equation}
     X_t := a_tX_1 + b_tX_0,
@@ -1317,7 +1369,7 @@ According to the Proposition 1 in <d-cite key="zhang2024flow"/>, the optimal vel
 
 $$
 \begin{align*}
-    v_\theta(x(t), 1-t) &= \mathbb{E}[\dot{a}_{1-t} x_1 + \dot{b}_{1-t} x_0 | x(t)] \nonumber \\
+    v_\theta(x(t), 1-t) &= \mathbb{E}[\dot{a}_{1-t} X_1 + \dot{b}_{1-t} X_0 | X_t = x(t)] \nonumber \\
     &= \frac{\dot{a}_{1-t}}{a_{1-t}} \left[x(t) + b_{1-t}^2 \nabla \log p_t(x(t))\right] - \dot{b}_{1-t}  b_{1-t} \nabla \log p_t(x(t)).
 \end{align*}
 $$
