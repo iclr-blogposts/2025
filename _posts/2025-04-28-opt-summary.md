@@ -25,6 +25,9 @@ authors:
 #     affiliations:
 #       name: IAS, Princeton
 
+
+
+
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-opt-summary.bib  
 
@@ -309,6 +312,11 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 | SC-SC, Stoc, NS      | Duality Gap | $\Omega(\epsilon^{-1})$                    | $\checkmark$                  | /                                            | [<d-cite key="yan2020optimal"></d-cite>]       |
 | PL-PL, Stoc      | Duality Gap | Unknown                    | $\mathcal{O}(\kappa^5\epsilon^{-1})$                  | /                                            | [<d-cite key="yang2020global"></d-cite>]       |
 
+
+**Remark:**
+
+1. Here
+
 ### Case 2-3: NC-SC/NC-C Deterministic Minimax Optimization
 
 | Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
@@ -331,6 +339,11 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 | NC-SC, Stoc, SS  | Primal Stationarity        | $\Omega\left(\kappa^{1/3}\Delta L\epsilon^{-4}\right)$ | $\mathcal{O}\left(\kappa\Delta L\epsilon^{-4}\right)$ | [<d-cite key="zhang2022sapd+"></d-cite>, <d-cite key="li2021complexity"></d-cite>]                                                 |
 | NC-SC, Stoc, IS  | Primal Stationarity        | Unknown | $\mathcal{O}\left(\kappa^2\Delta L\epsilon^{-3}\right)$ | [<d-cite key="zhang2022sapd+"></d-cite>] |
 | NC-C, Stoc, SS   | Near-stationarity        | Unknown | $\mathcal{O}\left(L^3\epsilon^{-6}\right)$              | [<d-cite key="zhang2022sapd+"></d-cite>]            |
+
+
+**Remark:**
+
+1. Here
 
 ---
 
@@ -375,7 +388,7 @@ $$
 \min_{x\in\mathcal{X}}\ f(x)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}(x)}[f(x;\xi)].
 $$
 
-* Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite>
+* Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite> (or Decision-Focused Learning)
 
 $$
 \min_{x\in\mathcal{X}}\ f(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z]
@@ -404,11 +417,7 @@ $$
 ### Unified Lower Bounds
 For lower bounds, we adapt the so-called optimization-based lower bounds proved via *zero-chain arguments* <d-cite key="nesterov2013introductory"></d-cite>. The narrative of such lower bounds admits the following form: For any given accuracy $\epsilon>0$, there exists a hard instance $f:\mathbb{R}^{d_\epsilon}\rightarrow\mathbb{R}$ in the function class $\mathcal{F}$, where the dimension $d_\epsilon$ depends on the accuracy $\epsilon>0$, such that it takes at least $\mathrm{poly}(\epsilon^{-1})$ number of oracles to find an $\epsilon$-optimal solution or $\epsilon$-stationary point. Note that the dimension $d_\epsilon$ depends on the accuracy, particularly $d_\epsilon$ increases as $\epsilon$ decreases. For a function class with a given dimension $d$, which is independent of the accuracy, the dependence on $\epsilon$ becomes loose especially when $d$ is small. In other words, for a $d$-dimension function classes and a given accuracy $\epsilon>0$, the upper bounds on the complexity of first-order methods given in the tables still hold, yet the lower bounds becomes loose, which could lead to a mismatch between upper and lower bounds. This leads to a fundamental question: how to prove lower bounds of first-order methods for any given $d$-dimensional function classes. 
 
-Such a question has been partially addressed for stochastic optimization using *information theoretic-based lower bounds*<d-cite key="agarwal2009information"></d-cite> and for deterministic one-dimensional optimization<d-cite key="chewi2023complexity"></d-cite>. For stochastic convex optimization, <d-cite key="agarwal2009information"></d-cite> shows that  for any given $d$-dimensional Lipschitz continuous convex function class and any $\epsilon>0$, it takes at least $\mathcal{O}(\sqrt{d} \epsilon^{-2})$ number of gradient oracles to find an $\epsilon$-optimal solution. Such information-theoretic lower bounds admits explicit dependence on the problem dimension. In addition, even ignoring dimension dependence, the dependence on the accuracy matches the upper bounds of stochastic gradient descent.  Thus such a lower bound addresses the aforementioned question for stochastic convex optimization. Yet, it raises another interesting observation, i.e., the obtained lower bounds  $\mathcal{O}(d\epsilon^{-2})$<d-cite key="agarwal2009information"></d-cite> is larger than the upper bounds $\mathcal{O}(\epsilon^{-2})$<d-cite key="nemirovski2009robust"></d-cite>. This is of course not a conflict as the two papers make different assumptions. Yet, it would be interesting to ask, if first-order methods such as mirror descent are really dimension independent or is it the case that existing optimization literature is treating some parameters that could be dimension dependent as dimension independent ones. 
-
-
-test test
-  
+Such a question has been partially addressed for stochastic optimization using *information theoretic-based lower bounds*<d-cite key="agarwal2009information"></d-cite> and for deterministic one-dimensional optimization<d-cite key="chewi2023complexity"></d-cite>. For stochastic convex optimization, <d-cite key="agarwal2009information"></d-cite> shows that  for any given $d$-dimensional Lipschitz continuous convex function class and any $\epsilon>0$, it takes at least $\mathcal{O}(\sqrt{d} \epsilon^{-2})$ number of gradient oracles to find an $\epsilon$-optimal solution. Such information-theoretic lower bounds admits explicit dependence on the problem dimension. In addition, even ignoring dimension dependence, the dependence on the accuracy matches the upper bounds of stochastic gradient descent.  Thus such a lower bound addresses the aforementioned question for stochastic convex optimization. Yet, it raises another interesting observation, i.e., the obtained lower bounds  $\mathcal{O}(d\epsilon^{-2})$<d-cite key="agarwal2009information"></d-cite> is larger than the upper bounds $\mathcal{O}(\epsilon^{-2})$<d-cite key="nemirovski2009robust"></d-cite>. This is of course not a conflict as the two papers make different assumptions. Yet, it would be interesting to ask, if first-order methods such as mirror descent are really dimension independent or is it the case that existing optimization literature is treating some parameters that could be dimension dependent as dimension independent ones.   
 
 ### Beyond Classical Oracle Model
   Regarding the oracle complexity model, because it mainly focuses on *worst-case instances* in the function class which may be far from *practical instances*, possibly the derived complexities can be such conservative and vacuous that they may not match the practice well, as the figure below illustrated.
