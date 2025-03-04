@@ -8,7 +8,26 @@ htmlwidgets: true
 
 #Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Anne Gagneux
+    url: https://annegnx.github.io
+    affiliations:
+      name: INRIA, ENS de Lyon
+  - name: Ségolène Martin
+    url: https://segolenemartin.github.io/
+    affiliations:
+      name: Technische Universität Berlin
+  - name: Rémi Emonet
+    url: https://home.heeere.com/
+    affiliations: 
+      name: Inria, Université Jean Monnet
+  - name: Quentin Bertrand
+    url: https://qb3.github.io/
+    affiliations: 
+      name: Inria, Université Jean Monnet
+  - name: Mathurin Massias
+    affiliations:
+      name: Inria, ENS de Lyon
+  - name: (all contributions equal)
 
 #authors:
 #  - name: Albert Einstein
