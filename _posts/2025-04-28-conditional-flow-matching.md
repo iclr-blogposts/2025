@@ -27,7 +27,6 @@ authors:
   - name: Mathurin Massias
     affiliations:
       name: Inria, ENS de Lyon
-  - name: (all contributions equal)
 
 #authors:
 #  - name: Albert Einstein
@@ -336,7 +335,9 @@ $$
 $$
 </div>
 
-The first part of this blog post is an introduction to generative modelling, normalizing flows and continuous normalizing flows.
+All authors contributed equally to this work.
+
+The first part of the blog post is an introduction to generative modelling, normalizing flows and continuous normalizing flows.
 The reader already familiar with these topics, or that wants to cover them later, can directly jump to the <a href="#conditional-flow-matching">second part</a>, devoted to **conditional flow matching**.
 
 ## Introduction to Generative Modelling with Normalizing Flows
