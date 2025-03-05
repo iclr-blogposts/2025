@@ -13,11 +13,13 @@ hidden: false
 # Anonymize when submitting
 authors:
   - name: Linh The Nguyen
+    url: https://scholar.google.com/citations?user=dGrDyKwAAAAJ&hl
     affiliations:
-      name: Movian AI, Vietnam (toank45sphn@gmail.com)
+      name: Movian AI, Vietnam
   - name: Dat Quoc Nguyen
+    url: https://datquocnguyen.github.io
     affiliations:
-      name: Movian AI, Vietnam (datquocnguyen@gmail.com)
+      name: Movian AI, Vietnam
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-foundation-adapter.bib  
