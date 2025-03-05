@@ -46,6 +46,7 @@ toc:
     - name: Hessian-vector products
     - name: Second order pattern detection
     - name: Symmetric coloring
+  - name: Applications
   - name: Demonstration
     subsections:
     - name: Necessary packages
@@ -56,7 +57,6 @@ toc:
     - name: Coloring visualization
     - name: Performance benefits
   - name: Conclusion
-
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -230,13 +230,13 @@ and we waste memory storing those zero coefficients.
 
 In modern neural network architectures, which can contain over one trillion parameters,
 computing intermediate Jacobian matrices is not only inefficient: it exceeds available memory.
+
 AD circumvents this limitation by using **Jacobian operators** that act exactly like Jacobian matrices 
 but without explicitly storing every coefficient in memory.
-On the other hand, Jacobian matrices are the representation of Jacobian operators in the standard basis.
-
 The Jacobian operator $Df: \mathbf{x} \longmapsto Df(\mathbf{x})$ is a linear map which provides the best linear approximation of $f$ around a given point $\mathbf{x}$.
+Jacobian matrices are the representation of Jacobian operators in the standard basis.
 
-We can rephrase  the chain rule as a **composition of operators** instead of a product of matrices:
+We can now rephrase the chain rule as a **composition of operators** instead of a product of matrices:
 
 $$ \Dfc = \colorf{\D{(h \circ g)}{\vx}} = \Dhc \circ \Dgc \, .$$
 
@@ -714,7 +714,7 @@ $$ \nabla^2 f (\mathbf{x}) = J_{\nabla f}(\mathbf{x}) \, .$$
 
 An HVP computes the product of the Hessian matrix with a vector, which can be viewed as the JVP of the gradient function.
 
-$$ \nabla^2 f(\mathbf{x}) (\mathbf{v}) = D[\nabla f](\mathbf{x})(\mathbf{v}) $$
+$$ \nabla^2 f(\mathbf{x}) \cdot \mathbf{v} = D[\nabla f](\mathbf{x})(\mathbf{v}) $$
 
 Note that the gradient function is itself computed via a VJP of $f$.
 Thus, the HVP approach we described computes the JVP of a VJP, giving it the name "forward over reverse".
@@ -749,14 +749,34 @@ This backup storage enables the use of **fewer distinct colors**, reducing the c
 Powell and Toint <d-cite key="powellEstimationSparseHessian1979"></d-cite> were the first to notice symmetry-related optimizations, before Coleman and Moré <d-cite key="colemanEstimationSparseHessian1984"></d-cite> made the connection to graph coloring explicit.
 While symmetric coloring and decompression are more computationally expensive than their nonsymmetric counterparts, this cost is typically negligible compared to the savings we get from fewer HVPs.
 
+## Applications
+
+ASD is useful in applications which involve the computation of full Jacobian or Hessian matrices with sparsity.
+Let us discuss one of the examples given in the 2024 ICLR blog post *How to compute Hessian-vector products?* <d-cite key="dagreouHowComputeHessianvector2024"></d-cite>: Newton's method.
+This canonical algorithm for nonlinear optimization uses Hessians within local steps of the form $[\nabla^2 f(\mathbf{x})]^{-1} \nabla f(\mathbf{x})$.
+The inverse $[\nabla^2f(\mathbf{x})]^{-1}$ is never created explicitly, since it suffices to solve a linear system $\nabla^2f(\mathbf{x}) \cdot \mathbf{v} = \nabla f(\mathbf{x})$.
+As the blog post argues, for such systems, matrix-free iterative solvers combine well with Hessian operators because they only require successive evaluations of HVPs.
+The main advantage of iterative solvers is their small memory footprint and their ease of implementation.
+
+However, when it is possible to materialize the whole Hessian matrix, direct linear solvers can be used (e.g. based on matrix factorization).
+As we have seen, ASD unlocks this option whenever the Hessian matrix is sparse enough.
+In terms of performance, computing a sparse Hessian matrix might require fewer HVPs overall than applying an iterative solver like the conjugate gradient method.
+The exact performance depends on the number of colors in the sparsity pattern of the Hessian, as well as the numerical precision expected from the iterative solver (which influences the number of iterations, hence the number of HVPs).
+In terms of numerical accuracy, direct solvers are more robust than their iterative counterparts.
+Finally, in terms of compatibility, some prominent nonlinear optimization libraries only support Hessian matrices, and not Hessian operators.
+
 ## Demonstration
 
 We complement this tutorial with a demonstration of automatic sparse differentiation in a high-level programming language, namely the [Julia language](https://julialang.org/) <d-cite key="bezansonJuliaFreshApproach2017"></d-cite>.
 While still at an early stage of development, we hope that such an example of unified pipeline for sparse Jacobians and Hessians can inspire developers in other languages to revisit ASD.
 
 <aside class="l-body box-note" markdown="1">
-The authors of this blog post are all developers of the ASD ecosystem in Julia. We are not aware of a similar ecosystem in Python or R, which is why we chose Julia to present it.
-The closest counterpart we know is coded in C, namely the combination of ADOL-C <d-cite key="waltherGettingStartedADOLC2009"></d-cite> and ColPack <d-cite key="gebremedhinColPackSoftwareGraph2013"></d-cite>.
+The authors of this blog post are all developers of the ASD ecosystem in Julia.
+We use Julia for our demonstration since we are not aware of a similar ecosystem in Python or R.
+At the time of writing, PyTorch, TensorFlow, and JAX lack comparable sparsity detection and coloring capabilities.
+We are only aware of one JAX library for sparse differentiation, [`sparsejac`](https://github.com/mfschubert/sparsejac), which does not support sparsity detection, uses less efficient graph encodings and has no functionality for symmetric (Hessian) matrices. 
+The closest counterpart we know is coded in C, namely the combination of ADOL-C <d-cite key="waltherGettingStartedADOLC2009"></d-cite>
+and ColPack <d-cite key="gebremedhinColPackSoftwareGraph2013"></d-cite>.
 </aside>
 
 ### Necessary packages
