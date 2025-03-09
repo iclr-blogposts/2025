@@ -25,8 +25,15 @@ authors:
 #     affiliations:
 #       name: IAS, Princeton
 
-
-
+# To-do:
+# 1. https://arxiv.org/pdf/2412.02175
+# 2. advice from others (RG, GB,...) 
+# 3. format
+# 4. https://arxiv.org/abs/2501.05677
+# 5. Shuffling 2309.07879, also one paper reviewed
+# 6. https://arxiv.org/pdf/2502.14060
+# 7. https://proceedings.mlr.press/v139/yoon21d.html
+# 8. ddl: 3.15
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-opt-summary.bib  
