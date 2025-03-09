@@ -206,3 +206,7 @@ This case study provides several insights about LLM simulations:
 
 ## Conclusion
 This blog highlights the limitations of LLM simulations in aligning with human behavior, encouraging deeper reflection on their ability to model the complexity of human societies. At present, LLM-based simulations offer significant potential for research, combining cost efficiency, flexibility, and the capacity to model intricate societal dynamics in innovative ways. However, addressing ethical concerns, such as bias and representation, is essential to ensure these simulations contribute **positively and equitably to our understanding of human behavior**. To better align LLM simulations with human societies, future research should focus on mitigating inherent biases, enhancing personalization, creating realistic environments, and developing reliable metrics to produce more authentic and impactful simulations.
+
+### Acknowledgements
+This project is supported by the MOE Academic Research Fund (AcRF) Tier 1 Grant in Singapore (Grant No. T1 251RES2315).
+
