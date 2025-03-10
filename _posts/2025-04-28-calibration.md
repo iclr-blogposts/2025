@@ -242,7 +242,7 @@ Another frequently mentioned drawback of ECE is that it only considers the maxim
 
 <div class="row mt-2">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-calibration/f11_max_probs_only.png" class="img-fluid rounded" %}
+        {% include figure.html path="assets/img/2025-04-28-calibration/f11_max_probs_only_updated.png" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">
