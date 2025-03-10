@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Steering LLMs' Behavior with Concept Activation Vectors
-description: Concept activation vectors have been shown to take effects in safety concepts, efficiently and effectively guiding a considerable number of open-source large language models (LLMs) to respond positively to malicious instructions. In this blog, we aim to explore the capability boundaries of concept activation vectors in guiding various behaviors of LLMs through more extensive experiments. Our experiments demonstrate that this reasoning technique can low-costly transfer text styles and improve performance on specific tasks such as code generation. 
+description: Concept activation vectors have been shown to take effects in safety concepts, efficiently and effectively guiding a considerable number of open-source large language models (LLMs) to respond positively to malicious instructions. In this blog, we aim to explore the capability boundaries of concept activation vectors in guiding various behaviors of LLMs through more extensive experiments. Our experiments show that this technique can transfer the text style at a low cost, but it is powerless to deal with short factual knowledge.
 date: 2025-05-07
 future: true
 htmlwidgets: true
@@ -75,6 +75,10 @@ As a classic interpretation method, concept activation vectors (CAVs) describe t
 
 ## Preliminaries
 
+Behavior steering is a technique of changing the behavior of LLMs when inferencing, such as changing the likes and dislikes of its output, or the degree of relevance to something. This method does not require pre-training or fine-tuning. It only needs to be adjusted according to the interpretability features of its embedding or attention during inferencing. Therefore, it is a promising method for the downstream application of interpretation techniques.
+
+In this blog, the behavior steering we discuss is by concept, which means that the behavior we want to change is aligned with human ideas, and then we try to extract the corresponding features from LLMs; instead of extracting relevant neural activities from LLM first, and then summarizing what their behaviors are in the eyes of human beings. Therefore, when human beings have a single idea, there is a single concept to steer.
+
 For single behavior steering, we use the pipeline outlined in <d-cite key="Xu2024uncovering"></d-cite>. The main difference between using CAV for steering and methods like ActAdd  <d-cite key="turner2023activation"></d-cite> is that the linear classifiers relied upon by CAV can utilize the embedding distribution features of LLMs to the maximum extent, enabling behavior steering at minimal cost of performance damage.
 
 ### Overview of CAV Perturbation Algorithm 
@@ -125,7 +129,7 @@ After building the datasets, we perform the CAV perturbation in text generation 
 
 ## Experiments
 
-Before training classifiers, we apply PCA reduction to evaluate the separability of the embeddings of these instructions. We train the PCA on the dataset and observe good linear separability. We want to clarify that the intuitive results of PCA are not completely consistent with the actual test accuracy. In cases where positive and negative examples appear to overlap in the PCA results, the classifier's test accuracy may still be very high, even as high as those layers that do not seem to overlap.
+Before training classifiers, we apply PCA reduction to evaluate the separability of the embeddings of these instructions. We train the PCA on the dataset and observe good linear separability. We want to clarify that **the intuitive results of PCA are not completely consistent with the actual test accuracy**. In cases where positive and negative examples appear to overlap in the PCA results, the classifier's test accuracy may still be very high, even as high as those layers that do not seem to overlap. In the next experiments, if there is such an inconsistency, we will provide data of both for reference.
 
 By default, we use `Llama-3-8B-Instruct` for experiments. Other LLMs may be involved for some concepts, and we will clearly indicate.
 
@@ -234,7 +238,7 @@ In addition to these concepts, we also try many other concepts, but fail to demo
 5. "Your answer should include a special symbol ^_^"
 6. "Act as if you forget anything about *the Bible*"
 
-However, some interesting phenomena can also be found from these failures:
+Therefore, this technique seems to be more conducive to long-context text style transformation, and is powerless in short, intellectual modifications. This implies that CAV may not be well applied to knowledge editing tasks, perhaps because the concept here is too high-level to accurately locate the knowledge at the entity level. However, some interesting phenomena can also be found from these failures:
 
 1. Since Llama-3.1 itself cannot provide consistent responses to comparison instructions like x.11 and x.8 when x varies, it is impossible to determine whether the results of our steering are reasonable. We find that $$P_0=1\%$$ and $$P_0=99\%$$ let the model to give completely opposite results, which somewhat aligns with our expectations. Additionally, if $$P_0$$ is not set to such extreme values, it appears to have no steering effect.
 2. The two requirements "Every word in your response must be repeated twice" and "Your answer should include a special symbol ^_^" failed when we set the CAVs in the desired direction without explicitly asking for them in the instructions. But this doesn't mean that the extracted CAVs are useless. If we explicitly add these two requirements in the instructions and set the CAVs in the direction of not doing so, we can indeed disable the effect of the added prompts. To prove that this is not caused by other reasons, we conduct an ablation study using CAVs trained on other concepts, and the results confirm that the effect of disabling is indeed caused by the CAV trained on corresponding concept.
