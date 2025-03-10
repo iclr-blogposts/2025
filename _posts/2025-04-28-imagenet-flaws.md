@@ -626,13 +626,13 @@ As mentioned in the section about dataset construction, MTurkers were asked to d
 ## ILSVRC Class Selection
 
 The ImageNet-1k classes were chosen as a subset of the larger ImageNet dataset. One reason the dataset is so widely used is that it is perceived to reflect the diversity of the real world. 
-Yet, the class distribution is distorted. Does having more than 10% of the dataset represent dog breeds truly capture the human experience as a whole, or is it more reflective of dog owners' perspective? Similarly, is having a separate class for *"iPod"* — rather than a broader category like *"music player"* — a durable representation of the world?
+Yet, the class distribution is skewed. Does having more than 10% of the dataset represent dog breeds truly capture the human experience as a whole, or is it more reflective of dog owners' perspective? Similarly, is having a separate class for *"iPod"* — rather than a broader category like *"music player"* — a durable representation of the world?
 
-### Problematic Groups
+### Taxonomy of class selection problems
 
-We categorize the problems with class selection into the following groups:
+We categorize the problems with class selection as follows:
 
-**Class Is a Subset/Special Case of Another Class**  
+**Class Is a Subset or a Special Case of Another Class**  
  - *"Indian elephant, Elephas maximus"* & *"African elephant, Loxodonta africana"* are also *"tusker"*  
  - *"bathtub, bathing tub, bath, tub"* is also a *"tub, vat"*  
 
@@ -708,9 +708,7 @@ We categorize the problems with class selection into the following groups:
     Figure 13. An example of <em style="color:grey;">"sea anemone"</em> and <em style="color:grey;">"anemone fish"</em>.
 </div>
 
-To identify such groups within the dataset, we conducted an analysis using the updated ImageNet training labels from the Re-labeling ImageNet paper<d-cite key="9"/>, where an EfficientNet-L2 model was applied. 
-
-We ran hierarchical clustering on the classes with high EfficientNet-L2 confusion rates. Next, we manually reviewed the clusters, defined the mentioned categories, and organized the images accordingly. Each cluster consists of between 2 and 10 classes. Ultimately, this process led to the identification of 151 classes, which we organized into 48 groups. In some cases, classes are part of multiple discovered relationships, which are of different category.
+We ran hierarchical clustering on the confusion matrix of EfficientNet-L2 <d-cite key="9"/>. Next, we manually reviewed the clusters and selected those that fit the definition of one of the categories above. Ultimately, 48 clusters were selected, containing 151 classes in total (2-10 per cluster). In some cases, clusters belong to more than one of the problematic categories.
 
 <div class="l-page">
   <iframe class="iframe-light" src="{{ 'assets/html/2025-04-28-imagenet-flaws/confusion_matrix.html' | relative_url }}" frameborder='0' scrolling='no' height="550px" width="100%"></iframe>
@@ -718,12 +716,12 @@ We ran hierarchical clustering on the classes with high EfficientNet-L2 confusio
 </div>
 
 <div style="margin: 0px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 14. The interactive confusion matrix generated for all ImageNet-1k classes, based on predictions made by the EfficientNet-L2 model following the clustering process. The top-1 predicted classes match the ground truth for all classes except <em style="color:grey;">'projectile, missile,'</em> which is predicted as <em style="color:grey;">'missile'</em> for 56.85% of its images.
+    Figure 14.  An interactive confusion matrix for all ImageNet-1k classes, based on predictions made by the EfficientNet-L2 model, organized by clusters. The top-1 predicted classes match the ground truth for all classes except <em style="color:grey;">'projectile, missile,'</em> which is predicted as <em style="color:grey;">'missile'</em> for 56.85% of its images.
 </div>
 
 
-The full list of problematic categories can be found [here](https://gist.github.com/lasickaKolcava/a737806028aaa66e226c27e00f5e35f1). 
-The OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in **Table 3**.
+The full list of problematic categories is [here](https://gist.github.com/lasickaKolcava/a737806028aaa66e226c27e00f5e35f1). 
+OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in **Table 3**.
 
 | Dataset    | Overall Accuracy | Problematic Classes Accuracy | Non-problematic Classes Accuracy |
 |------------|------------------|------------------------------|----------------------------------|
@@ -732,7 +730,7 @@ The OpenCLIP accuracies for both problematic and non-problematic groups of class
 
 <div style="margin: 0px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 3. OpenCLIP accuracy on ImageNet-1k.  </div>
 
-The classes from the problematic groups significantly lower OpenCLIP accuracy.
+The classes from problematic groups have a significantly lower OpenCLIP accuracy.
 
 ## Addressing Duplicates
 
@@ -773,12 +771,13 @@ The classes from the problematic groups significantly lower OpenCLIP accuracy.
 </div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 15. An extreme example of duplicate images in ImageNet. The leftmost image is from the validation set, while the others are from the training set. Caption colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels. 
+    Figure 15. An extreme example of duplicate images in ImageNet-1k. The leftmost image is from the validation set, while the others are from the training set. Caption colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels. 
 </div>
 
-Of all prior studies, **When Does Dough Become a Bagel?<d-cite key="8"/>** examined the issue of duplicates most extensively. The paper identified 797 validation images that also appear in the training set, with some images occurring multiple times. They also highlighted the broader problem of near duplicates in ImageNet-1k (e.g. images from the same photoshoot). However, no statistics were provided since near duplicates are significantly more difficult to detect than identical images.
+Of all prior studies, **When Does Dough Become a Bagel?<d-cite key="8"/>** examined the issue of duplicates most extensively. The paper identified 797 validation images that also appear in the training set, with some images occurring multiple times. They also highlighted the broader problem of near duplicates in ImageNet-1k (e.g. images from the same photoshoot). 
+However, no statistics were provided since near duplicates are significantly more difficult to detect than identical images.
 
-The *"planetarium"* class mentioned earlier is a great example. It contains many near-duplicate images, as was noted in the [section focused on distribution shift](#distribution-shift-between-training-and-validation-sets). Specifically, 68% of the validation images featured the same building in Buenos Aires. This observation naturally led us to investigate the issue of image duplicates more comprehensively.
+The *"planetarium"* class mentioned earlier is a great example. It contains many near-duplicate images, as was noted in the [section focused on distribution shift](#distribution-shift-between-training-and-validation-sets). Specifically, 68% of the validation images feature the same building in Buenos Aires. This observation naturally led us to investigate the issue of image duplicates more comprehensively.
 
 Our analysis focuses on three types of duplicate sets:  
 1. **Cross-duplicates** between the validation and training sets (identified in earlier research).  
@@ -827,35 +826,34 @@ $$ d(\mathbf{e}(I_i), \mathbf{e}(I_j)) \leq \tau $$
 
 ### Exact Duplicate Search: Pixel-Level Comparisons
 
-Once duplicate candidates were identified, we conducted a pixel-wise comparison to classify exact duplicates. If two images had no pixel differences, they were marked as exact duplicates.
-
 #### Key Findings
 
 - In the **validation set**, 29 duplicate pairs were found. Each image in a pair belonged to a different ImageNet class.
-- In the **training set**, 5,836 images were grouped into duplicates, with 2 to 4 images per group. Although most of these groups (5,724) contained images assigned to different classes, this highlights that class-based deduplication was not performed during the dataset’s creation.
-- For the **cross-validation-training search**, we discovered that 797 images in the validation set had duplicates in the training set. All these duplicate groups also consisted of images assigned to different ImageNet classes which is in agreement with previous studies<d-cite key="8"/>.
+- In the **training set**, 5,836 distinct images fall into duplicate groups, with 2 to 4 images per group. Most of these groups (with 5,782 distinct images) contained images assigned to different classes.
+This highlights that cross-class deduplication was not performed during the dataset creation.
+- For the **cross-validation-training search**, we confirm that 797 images in the validation set had duplicates in the training set. All these duplicate groups also consisted of images assigned to different ImageNet classes which is in agreement with previous studies<d-cite key="8"/>.
 
 #### Bonus
 - In the **test set**, 89 duplicate pairs were found. 
     
-    Since labels for the test set are not publicly available, we cannot determine whether the images in each pair have the same label or not. However, given that the test and validation sets were created simultaneously by splitting the collected evaluation data, we can infer that the situation is likely similar to the validation set. This suggests that each image in a pair belongs to a different class.
+    Since labels for the test set are not publicly available, we cannot determine whether the images in each pair have the same label or not. However, given that the test and validation sets were created simultaneously by splitting the collected evaluation data, we can infer that the situation is likely similar to the validation set. This suggests that each image in a pair belongs to a different class, which sets a lower bound on accuracy on the test set.
    
-After finding exact duplicates, we removed them and recalculated accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set. Next, we removed all duplicate images in the validation set that were also present in the training set (referred to as cross-duplicates). Finally, we combined these two methods to remove all exact duplicates. In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
+After finding exact duplicates, we removed them and recalculated the accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set (Table 4, x Val). Next, we removed all duplicate images in the validation set that were also present in the training set (Table 4, x Cross). Finally, we combined these two methods to remove all exact duplicates (Table 4, x Val+Cross). In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
 <div style="margin-top: 20px;"></div>
     
-| Model | Overall | × Val | × Cross | × Val+Cross  |
+| Model | Standard | × Val | × Cross | × Val+Cross  |
 | --- | --- | --- | --- | --- |
 | OpenCLIP | 84.61 | 84.67 | 85.27 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.62 | 86.51 | 86.57 |
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (overall) and without different kinds of <em style="color:grey;">exact duplicates</em>.</div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (standard) and without (×) different kinds of <em style="color:grey;">exact duplicates</em>.</div>
 
 
 ### Near Duplicate Detection Method
 
 The initial automatic search for duplicates was followed by a careful manual review of duplicate candidate images. After the review, each image was classified into one of the following near-duplicate groups.
 
-**Image Augmentations**: images that result from various transformations applied to an original image, such as cropping, resizing, blurring, adding text, rotating, mirroring, or changing colors. An example is shown below.
+**Image Augmentations**: images that result from various transformations applied to the original image, such as cropping, resizing, blurring, adding text, rotating, mirroring, or changing colors. An example is shown below.
     
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: auto auto; grid-template-areas: 'left right' 'center center'; row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="grid-area: left; text-align: center;">
@@ -868,7 +866,7 @@ The initial automatic search for duplicates was followed by a careful manual rev
     </div>
     <div style="grid-area: center; text-align: center;">
         <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/difference.png' | relative_url }}" style="height: 160px; margin-top: 30px;" style="height: 160px; margin-top: 30px;" />
-        <p>(c) the difference of (a) and (b)</p>
+        <p>(c) pixels that differ in (a) and (b)</p>
     </div>
 </div>
 
@@ -895,17 +893,17 @@ The initial automatic search for duplicates was followed by a careful manual rev
 
 #### Key Findings
 
-- In the **validation set**, 26 near-duplicate groups were found, involving 69 images in total. All duplicates in a group had consistent labels, which helps maintain label reliability for model evaluation.
-- For the **cross-validation-training search**, we discovered that 269 images from the validation set matched 400 training images.
+- In the **validation set**, 26 near-duplicate groups were found, involving 69 images in total. All duplicates in a group had consistent labels.
+- For the **cross validation-training search**, we discovered that 269 images from the validation set matched 400 training images.
     
-We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set. Next, we removed validation images that appeared in the training set (referred to as near cross-duplicates), and then we removed both. Lastly, we removed all exact duplicates and near duplicates from the validation set. As shown in **Table 5**, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
+We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set (x Val, Table 5). Next, we removed validation images that appeared in the training set (x Cross, Table 5), and then we removed both  (x Val + Cross, Table 5). Lastly, we removed all exact duplicates and near duplicates from the validation set (x All, Table 5). As shown in **Table 5**, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
     
-| Model | Overall | × Val | × Cross | × Val+Cross | × All |
+| Model | Standard | × Val | × Cross | × Val+Cross | × All |
 | --- | --- | --- | --- | --- | --- |
 | OpenCLIP | 84.61 | 84.60 | 84.63 | 84.62 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.54 | 85.59 | 85.59 | 86.59 |
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (overall) and without different kinds of duplicates. </div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (Standard) and without (x) different kinds of duplicates. </div>
 
 
 ## Prompting Vision-Language Models
