@@ -8,7 +8,18 @@ htmlwidgets: true
 hidden: false
 
 authors:
-  - name: Anonymous
+  - name: Adrian Hill
+    url: "https://adrianhill.de"
+    affiliations:
+      name: BIFOLD – Berlin Institute for the Foundations of Learning and Data, Machine Learning Group, Technical University of Berlin
+  - name: Guillaume Dalle
+    url: "https://gdalle.github.io/"
+    affiliations:
+      name: LVMT, ENPC, Institut Polytechnique de Paris, Univ Gustave Eiffel, Marne-la-Vallée, France
+  - name: Alexis Montoison
+    url: "https://www.linkedin.com/in/alexis-montoison/"
+    affiliations:
+      name: Argonne National Laboratory
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-sparse-autodiff.bib  
