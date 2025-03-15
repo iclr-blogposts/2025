@@ -62,24 +62,24 @@ _styles: >
 
 ## Intro
 
-Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously -- especially for complex queries -- seems unrealistic. The AI industry is now shifting its focus to optimizing inference-time compute, seeking ways to harness computational resources more effectively. One promising approach is leveraging scalable search algorithms, which enable models to plan, reason, and iteratively refine their outputs. These methods have the potential to solve grand challenges like proving the Riemann Hypothesis or discovering drugs for rare diseases.
+Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously -- especially for complex queries -- is unrealistic. The AI industry is now shifting its focus to optimizing inference-time compute, seeking ways to harness computational resources more effectively. One promising approach is leveraging scalable search algorithms, which enable models to plan, reason, and refine their outputs. With enough compute, these methods have the potential to solve many of humanity's grand challenges.
 
 Rich Sutton’s [_bitter lesson_](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) highlights why scalability is key:
 
 > “One thing that should be learned from the bitter lesson is the great power of general-purpose methods, of methods that continue to scale with increased computation even as the available computation becomes very great. The two methods that seem to scale arbitrarily in this way are **search** and **learning**.”
 
-Scalable methods like Monte Carlo Tree Search (MCTS) exemplify this principle, demonstrating remarkable results with increased computational resources. This is evident in MuZero’s performance in the game of Go, where MCTS-based planning achieves significant improvements as the number of simulations grows:
+One method that exemplifies this principle is Monte Carlo Tree Search (MCTS), demonstrating remarkable results with increased computation. This is evident in the performance of DeepMind's MuZero in the game of Go, where MCTS-based planning achieves significant improvements as the number of simulations grows:
 
 <div class="col-sm mt-3 mt-md-0">
     {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mu_zero_scaling.png" class="img-fluid rounded z-depth-1" %}
 </div>
 <div class="caption">
-  Impact of additional search time given to MuZero on its performance in Go. Adapted from Schrittwieser et al.<d-cite key="schrittwieser2020mastering"></d-cite>
+Additional search time improves MuZero's performance in Go (for both real and learned simulators). Adapted from Schrittwieser et al.<d-cite key="schrittwieser2020mastering"></d-cite>
 </div>
 
-MuZero’s use of MCTS showcases a characteristic relationship between search depth and performance: as the amount of search time doubles, performance typically improves **logarithmically**, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. This scalability, driven by techniques like tree parallelism and virtual loss, unlocks powerful decision-making across many domains.
+MuZero’s reveals a characteristic relationship between search time and performance for the MCTS algorithm: performance typically improves **logarithmically**, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. The scalability of MuZero is driven by techniques like tree parallelism and virtual loss, which we will cover in more detail below.
 
-MCTS has been successfully applied in domains with large state spaces (e.g., Go, chess, protein folding, molecular design). However, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore the scalability of MCTS and analyze methods for effectively parallelizing and distributing its computation.
+An algorithm that improves with time is great, but what if we have an urgent problem that must be solved within a short amount of time (e.g. real-time decision making or low-latency conversations)? In this case, we need to adapt the vanilla MCTS algorithm to leverage parallel computation in order to find a good solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
 
 ## MCTS Background
 
