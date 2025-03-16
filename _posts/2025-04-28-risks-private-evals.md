@@ -6,7 +6,15 @@ date: 2024-11-22
 
 
 authors:
- - name: Anonymous
+# hritik and pratyush
+ - name: Hritik Bansal
+   url: https://twitter.com/hbxnov
+   affiliation: University of California, Los Angeles
+
+  - name: Pratyush Maini
+    url: https://twitter.com/pratyushmaini
+    affiliation: University of California, Los Angeles
+
 
 
 bibliography: 2025-04-28-risks-private-evals.bib
