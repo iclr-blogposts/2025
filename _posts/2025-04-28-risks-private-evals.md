@@ -3,23 +3,16 @@ layout: distill
 title: "Peeking Behind Closed Doors: Risks of LLM Evaluation by Private Data Curators"
 description: A critical examination of the risks and challenges posed by private evaluations in the LLM landscape, highlighting financial incentives, conflicts of interest, and evaluation biases.
 date: 2024-11-22
-
-
 authors:
-# hritik and pratyush
- - name: Hritik Bansal
-   url: https://twitter.com/hbxnov
-   affiliation: University of California, Los Angeles
-
-  - name: Pratyush Maini
-    url: https://twitter.com/pratyushmaini
-    affiliation: University of California, Los Angeles
-
-
-
+  - name: Hritik Bansal*
+    url: "https://sites.google.com/view/hbansal"
+    affiliations:
+      name: UCLA
+  - name: Pratyush Maini*
+    url: "http://pratyushmaini.github.io/"
+    affiliations:
+      name: CMU & DatologyAI
 bibliography: 2025-04-28-risks-private-evals.bib
-
-
 toc:
  - name: 0. Abstract
  - name: 1. Model Evaluation
@@ -39,11 +32,7 @@ toc:
    - name: 3-2 Results and Analysis
    - name: 3-3 ELO Simulation
  - name: 4. Conclusion
-
-
 ---
-
-
 
 
 ## 0. Abstract
