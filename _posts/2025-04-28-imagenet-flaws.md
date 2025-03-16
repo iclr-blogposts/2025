@@ -1178,7 +1178,9 @@ Finally, the *"black-footed ferret"* class contains only one image of this speci
 
 Luccioni and Rolnick (2022)<d-cite key="19"/> analyzed the classes representing wildlife species and the misrepresentation of biodiversity within the ImageNet-1k dataset. Their findings reveal a substantial proportion of incorrect labels across these classes. Notably, they examined the class *"black-footed ferret"* and reported results consistent with those observed in our relabeling process.
 
+<!--
 ## New Contribution to ImageNet Dataset Knowledge
+
 1. **Detailed Dataset Construction Issues**  
    - Explained the problem with using MTurkers in dataset construction, and showing the WordNet definitions issues with the tiger cat example.  
 
@@ -1204,9 +1206,33 @@ Luccioni and Rolnick (2022)<d-cite key="19"/> analyzed the classes representing 
 
 7. **Weasel-Like Family Case Study by an Expert**  
    - Performed an extensive analysis of fine-grained classes within the weasel-like family, with all validation images manually reviewed and labeled by a wildlife expert.
+-->
 
+## Novel insights - summary
+**Comprehensive Overview**: 
+Many of the issues discussed in this work have been known for some time. However, this blog post offers an unprecedentedly comprehensive overview, unifying a wide range of dataset problems and delving deeper than prior work.  
 
-## Conclusion
+**Unified Label Error Corrections**:
+We consolidate all prior ImageNet-1K label error corrections, enabling a clearer assessment of inconsistencies and reproducibility challenges in data annotation.  
+
+**Critique of Dataset Construction**:
+We provide a detailed critique of ImageNet’s dataset creation process, particularly the reliance on untrained Mechanical Turk workers and ambiguous WordNet definitions, exemplified by the *tiger cat* class.  
+
+**Analysis of Distribution Shifts**: 
+We identify significant distribution shifts between training and validation sets, notably in classes such as *canoe & kayak* and *planetaria*, exposing inconsistencies that affect model performance.  
+
+**Expanded Catalog of Problematic Classes**:
+Our work refines existing categories of problematic classes—such as hierarchical and duplicate classes—while introducing new ones, including part-of and co-occurrence relationships.  
+
+**Extended Duplicate Analysis**: We go beyond prior studies by investigating intra-set duplicates and near-duplicate instances within both training and validation sets.  
+
+**Impact of Class Names on Vision-Language Models**: We further explore how ImageNet class names influence vision-language model evaluations, identifying biases and proposing an improved variant.  
+
+**Fine-Grained Case Study on Weasel-Like Species**: Our expert-led case study of closely related *weasel family* species highlights the complexity of fine-grained classification, revealing deeper dataset inconsistencies.  
+These insights contribute to a more critical assessment of ImageNet’s reliability and its implications for computer vision research.
+
+## Concluding remarks
+ 
 <!--
 Some ideas about solutions to the problems.
 
@@ -1242,4 +1268,5 @@ In prior work<d-cite key="7"/>, MTurkers have been used to find incorrect labels
 Some of the issues, like the presence of image duplicates and near duplicates, may create an opportunity for performing meta-experiments. For instance, what if two methods with identical overall performance on ImageNet-1k differ significantly in accuracy on duplicates? What is the interpretation of a situation where a method performs well on classes with many incorrectly labeled images?
 
 In many areas of computer vision, models reached accuracy comparable to the so-called ground truth, losing the compass pointing to better performance. As we have seen, improving ground truth quality is not a simple task of checking and re-checking, but touches on some core issues of both vision and language modeling. This blog is a small step towards resetting the compass for ImageNet-1k.
- 
+
+
