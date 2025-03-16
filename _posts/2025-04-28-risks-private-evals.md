@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: "Peeking Behind Closed Doors: Risks of LLM Evaluation by Private Data Curators"
-description: A critical examination of the risks and challenges posed by private evaluations in the LLM landscape, highlighting financial incentives, conflicts of interest, and evaluation biases.
+description: A critical examination of the risks and challenges posed by private evaluators (for example ScaleAI) in the LLM landscape, highlighting financial incentives, conflicts of interest, and prevalence of evaluation biases even when acting in good faith.
 date: 2024-11-22
 authors:
   - name: Hritik Bansal*
@@ -220,7 +220,7 @@ To calculate self-bias, we use the formula:
 
 
 $$
-\text{Self Bias}_A = \frac{\text{(Judge A Prefers } M_A - \text{Judge B Prefers } M_A\text{)}}{\text{Average # of Preferences by Judges A and B for } M_A} \times 100
+\text{Self Bias}_A = \frac{\text{(Judge A Prefers } M_A - \text{Judge B Prefers } M_A\text{)}}{\text{Sum of Preferences by Judges A and B for } M_A} \times 100
 $$
 
 
@@ -229,7 +229,7 @@ $$
 
 
 $$
-\text{Self Bias (Claude)} = \frac{(489 - 396)}{\frac{489 + 396}{2}} \times 100 \approx 21.02\%
+\text{Self Bias (Claude)} = \frac{(489 - 396)}{(489 + 396)} \times 100 \approx 10.51\%
 $$
 
 
@@ -237,7 +237,7 @@ $$
 
 
 $$
-\text{Self Bias (GPT-4)} = \frac{(407 - 314)}{\frac{407 + 314}{2}} \times 100 \approx 25.80\%
+\text{Self Bias (GPT-4)} = \frac{(407 - 314)}{(407 + 314)} \times 100 \approx 12.90\%
 $$
 
 
@@ -304,3 +304,13 @@ Our experiments underscore the critical impact of evaluator bias in private lang
 
 - **Need for Independent Evaluation**: To ensure fair assessments, it's crucial to separate the entities involved in model training from those conducting evaluations.
 - **Transparency and Disclosure**: Organizations should disclose potential conflicts of interest and the methodologies used in evaluations to maintain credibility.
+
+---
+
+## Acknowledgements
+
+We would like to thank [Zack Lipton](https://www.zacharylipton.com/), [Zico Kolter](https://zicokolter.com/), [Aditya Grover](https://aditya-grover.github.io/), [Kai-Wei Chang](https://web.cs.ucla.edu/~kwchang/), and [Ashima Suvarna](https://asuvarna31.github.io/) for their valuable feedback and discussions that helped shape this blog post.
+
+Fun fact: This blog was born in a car somewhere in the North Cascades, post-CVPR 2024. Thank [Gantavya Bhatt](https://sites.google.com/view/gbhatt/) for keeping his eyes on the road while we vented about LLM evaluation bias. The view wasn't bad either:
+
+{% include figure.html path="assets/img/2025-04-28-risks-private-evals/pnw.png" class="img-fluid" %}
