@@ -1,0 +1,261 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #121212; /* 暗模式背景 */
+            color: #e0e0e0; /* 浅灰色字体 */
+        }
+
+        table {
+            background-color: #1e1e1e; /* 表格背景（较深灰色） */
+            color: #e0e0e0; /* 表格字体颜色（浅灰） */
+            border-color: #333; /* 边框颜色（更深的灰色） */
+        }
+
+        th {
+            background-color: #333; /* 表头背景（稍浅灰色） */
+            color: #e0e0e0; /* 表头字体颜色 */
+        }
+
+        td {
+            border-color: #333; /* 单元格边框颜色 */
+        }
+
+        details > summary {
+            color: #b3b3b3; /* 摘要的字体颜色 */
+        }
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .section {
+            display: none;
+        }
+        /* Show the targeted section */
+        #doudizhu {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        details > summary {
+            cursor: pointer;
+        }
+        /* Default section display */
+        body:not(:has(:target)) #doudizhu {
+            display: block;
+        }
+        #doudizhu {
+            max-height: 300px; /* 容器最大高度 */
+            overflow-y: auto; /* 启用滚动条 */
+            border: 1px solid #ccc; /* 边框包围表格 */
+            padding: 10px; /* 内边距 */
+            box-sizing: border-box; /* 包括 padding */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <form>
+            <label for="dataset-select">Select Dataset:</label>
+            <select id="dataset-select" name="dataset-select" onchange="location.hash=this.value">
+                <option value="doudizhu" selected>Doudizhu</option>
+            </select>
+        </form>
+        
+        <div id="doudizhu" class="section">
+            <h2>Doudizhu Dataset</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>sentence</th><th>legal actions</th><th>CoT</th><th>final</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr><td>1</td>
+                <td>
+                    <details>
+                        <summary>Here is a Peasants vs Landlord...</summary>
+                        Here is a Peasants vs Landlord card game. Assume you are the landlord. The current cards for the landlord are: [3, 3, 4, 5, 9, 9, 10, 11, 11, 12, 12, 12, 13, 13, 20, 30]. The current cards for the peasant that plays before landlord are: [5, 6, 6, 6, 7, 7, 7, 11, 14, 17]. The current cards for the peasant that plays after landlord are: [4, 4, 8, 8, 10, 10, 12, 13, 14, 14]. The last two moves by other players are [[4], []]. The legal actions for the landlord are: [[5], [9], [10], [11], [12], [13], [20], [30], [20, 30], []]. First, you need to select several possible actions from all the legal actions. Then, predict the corresponding responses your opponent might adopt. Finally, based on the prediction results, provide the best action.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>[[5], [10]]</summary>
+                        [[5], [10]]
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>If I play [5]...</summary>
+                        If I play [5], the next two players will play [8] and [11]. If I play [10], the next two players will play [12] and [14].
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>[5]</summary>
+                        [5]
+                    </details>
+                </td>
+
+                </tr><tr><td>2</td>
+                <td>
+                    <details>
+                        <summary>Here is a Peasants vs Landlord...</summary>
+                        Here is a Peasants vs Landlord card game. Assume you are the landlord. The current cards for the landlord are: [5, 8, 9, 9, 10, 10, 10, 11, 12, 12, 14, 17, 20, 30]. The current cards for the peasant that plays before landlord are: [4, 4, 6, 6, 8, 9, 10, 11, 13, 14]. The current cards for the peasant that plays after landlord are: [3, 5, 5, 5, 7, 7, 9, 11, 11, 13, 17]. The last two moves by other players are [[3], []]. The legal actions for the landlord are: [[5], [8], [9], [10], [11], [12], [14], [17], [20], [30], [20, 30], []]. First, you need to select several possible actions from all the legal actions. Then, predict the corresponding responses your opponent might adopt. Finally, based on the prediction results, provide the best action.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>[[5], [8], [11]]</summary>
+                        [[5], [8], [11]]
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>If I play [5]...</summary>
+                        If I play [5], the next two players will play [7] and [8]. If I play [8], the next two players will play [9] and [10]. If I play [11], the next two players will play [13] and [14].
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>[11]</summary>
+                        [11]
+                    </details>
+                </td>
+
+                </tr><tr><td>3</td>
+                <td>
+                    <details>
+                        <summary>Here is a Peasants vs Landlord...</summary>
+                        Here is a Peasants vs Landlord card game. Assume you are the landlord. The current cards for the landlord are: [3, 3, 3, 4, 4, 4, 6, 9, 11, 13, 13, 17]. The current cards for the peasant that plays before landlord are: [17]. The current cards for the peasant that plays after landlord are: [3, 4, 7, 7, 9, 9, 10, 10, 12, 12, 13, 14]. The last two moves by other players are [[11], [8]]. The legal actions for the landlord are: [[13], [17], []]. First, you need to select several possible actions from all the legal actions. Then, predict the corresponding responses your opponent might adopt. Finally, based on the prediction results, provide the best action.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>[[17]]</summary>
+                        [[17]]
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>If I play [17]...</summary>
+                        If I play [17], the next two players will play [] and [].
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>[17]</summary>
+                        [17]
+                    </details>
+                </td>
+
+                </tr><tr><td>4</td>
+                <td>
+                    <details>
+                        <summary>Here is a Peasants vs Landlord...</summary>
+                        Here is a Peasants vs Landlord card game. Assume you are the landlord. The current cards for the landlord are: [10, 10, 10, 11, 11, 11, 14, 14]. The current cards for the peasant that plays before landlord are: [4, 6, 7, 12, 13, 13, 14, 17, 17]. The current cards for the peasant that plays after landlord are: [10, 12, 12]. The last two moves by other players are [[3, 3], []]. The legal actions for the landlord are: [[10, 10], [11, 11], [14, 14], []]. First, you need to select several possible actions from all the legal actions. Then, predict the corresponding responses your opponent might adopt. Finally, based on the prediction results, provide the best action.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>[[11, 11]]</summary>
+                        [[11, 11]]
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>If I play [11, 11]...</summary>
+                        If I play [11, 11], the next two players will play [12, 12] and [13, 13].
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>[11, 11]</summary>
+                        [11, 11]
+                    </details>
+                </td>
+
+                </tr><tr><td>5</td>
+                <td>
+                    <details>
+                        <summary>Here is a Peasants vs Landlord...</summary>
+                        Here is a Peasants vs Landlord card game. Assume you are the landlord. The current cards for the landlord are: [3, 6, 7, 11, 11, 11, 12, 13, 13, 13, 20, 30]. The current cards for the peasant that plays before landlord are: [4, 5, 5, 7, 8, 8, 8, 10, 12, 14, 14, 17]. The current cards for the peasant that plays after landlord are: [6, 9, 12, 13, 14, 14, 17]. The last two moves by other players are [[12], [11]]. The legal actions for the landlord are: [[13], [20], [30], [20, 30], []]. First, you need to select several possible actions from all the legal actions. Then, predict the corresponding responses your opponent might adopt. Finally, based on the prediction results, provide the best action.
+                    </details>
+                </td>
+                
+                <td>
+                    <details>
+                        <summary>[[30]]...</summary>
+                        [[30]]
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>If I play [30]...</summary>
+                        If I play [30], the next two players will play [] and [].
+                    </details>
+                </td>
+
+                <td>
+                    <details>
+                        <summary>[30]</summary>
+                        [30]
+                    </details>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+    </html>
+    
