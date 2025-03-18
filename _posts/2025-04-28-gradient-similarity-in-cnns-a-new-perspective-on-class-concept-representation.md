@@ -9,21 +9,18 @@ hidden: false
 
 # Anonymize when submitting
 authors:
-  - name: Anonymous
-
-# authors:
-#   - name: Emadeldeen Hamdan
-#     affiliations:
-#       name: University of Illinois Chicago, Chicago
-#   - name: Marouane Tliba
-#     affiliations:
-#       Orleans University, Orleans, France
-#   - name: Aladine Chetouani
-#     affiliations:
-#       L2TI Laboratory, University Sorbonne Paris Nord, Villetaneuse, 93430, France
-#   - name: Ahmet Enis Cetin
-#     affiliations:
-#       name: University of Illinois Chicago, Chicago
+  - name: Emadeldeen Hamdan
+    affiliations:
+      name: University of Illinois Chicago, Chicago
+  - name: Marouane Tliba
+    affiliations:
+      Orleans University, Orleans, France
+  - name: Aladine Chetouani
+    affiliations:
+      L2TI Laboratory, University Sorbonne Paris Nord, Villetaneuse, 93430, France
+  - name: Ahmet Enis Cetin
+    affiliations:
+      name: University of Illinois Chicago, Chicago
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation.bib  
 
