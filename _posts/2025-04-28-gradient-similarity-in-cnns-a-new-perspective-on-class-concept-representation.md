@@ -8,6 +8,9 @@ htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
+# authors:
+#   - name: Anonymous
+
 authors:
   - name: Emadeldeen Hamdan
     affiliations:
