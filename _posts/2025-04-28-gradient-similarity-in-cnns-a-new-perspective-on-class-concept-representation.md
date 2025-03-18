@@ -12,19 +12,18 @@ authors:
   - name: Anonymous
 
 # authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+#   - name: Emadeldeen Hamdan
 #     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
+#       name: University of Illinois Chicago, Chicago
+#   - name: Marouane Tliba
 #     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
+#       Orleans University, Orleans, France
+#   - name: Aladine Chetouani
 #     affiliations:
-#       name: IAS, Princeton
-
+#       L2TI Laboratory, University Sorbonne Paris Nord, Villetaneuse, 93430, France
+#   - name: Ahmet Enis Cetin
+#     affiliations:
+#       name: University of Illinois Chicago, Chicago
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation.bib  
 
