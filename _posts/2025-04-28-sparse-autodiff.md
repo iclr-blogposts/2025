@@ -181,7 +181,7 @@ covering the computation of Jacobians in both forward and reverse mode.
 We then dive into the two primary components of ASD:
 **sparsity pattern detection** and **matrix coloring**.
 Having described the computation of sparse Jacobians, we move on to sparse Hessians.  
-We conclude with a practical demonstration of ASD,
+After discussing applications in machine learning, we conclude with a practical demonstration of ASD,
 providing performance benchmarks and guidance on when to use ASD over AD.
 
 ## Automatic differentiation
@@ -775,6 +775,8 @@ In terms of performance, computing a sparse Hessian matrix might require fewer H
 The exact performance depends on the number of colors in the sparsity pattern of the Hessian, as well as the numerical precision expected from the iterative solver (which influences the number of iterations, hence the number of HVPs).
 In terms of numerical accuracy, direct solvers are more robust than their iterative counterparts.
 Finally, in terms of compatibility, some prominent nonlinear optimization libraries only support Hessian matrices, and not Hessian operators.
+
+The same reasoning also applies to Jacobian matrices, which can appear in settings like Newton's method for root-finding, implicit differentiation <d-cite key="blondel_efficient_2022"></d-cite>, or solvers for differential equations <d-cite key="sapienza_differentiable_2024"></d-cite>.
 
 ## Demonstration
 

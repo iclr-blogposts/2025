@@ -546,3 +546,32 @@
   keywords = {done,sparse_ad_blog,tracer},
   file = {/home/guillaume/Zotero/storage/MAV7WCRX/Walther - 2009 - Getting Started with ADOL-C.pdf}
 }
+
+@misc{blondel_efficient_2022,
+	title = {Efficient and {Modular} {Implicit} {Differentiation}},
+	url = {http://arxiv.org/abs/2105.15183},
+	doi = {10.48550/arXiv.2105.15183},
+	abstract = {Automatic differentiation (autodiff) has revolutionized machine learning. It allows to express complex computations by composing elementary ones in creative ways and removes the burden of computing their derivatives by hand. More recently, differentiation of optimization problem solutions has attracted widespread attention with applications such as optimization layers, and in bi-level problems such as hyper-parameter optimization and meta-learning. However, so far, implicit differentiation remained difficult to use for practitioners, as it often required case-by-case tedious mathematical derivations and implementations. In this paper, we propose automatic implicit differentiation, an efficient and modular approach for implicit differentiation of optimization problems. In our approach, the user defines directly in Python a function \$F\$ capturing the optimality conditions of the problem to be differentiated. Once this is done, we leverage autodiff of \$F\$ and the implicit function theorem to automatically differentiate the optimization problem. Our approach thus combines the benefits of implicit differentiation and autodiff. It is efficient as it can be added on top of any state-of-the-art solver and modular as the optimality condition specification is decoupled from the implicit differentiation mechanism. We show that seemingly simple principles allow to recover many existing implicit differentiation methods and create new ones easily. We demonstrate the ease of formulating and solving bi-level optimization problems using our framework. We also showcase an application to the sensitivity analysis of molecular dynamics.},
+	urldate = {2025-03-14},
+	publisher = {arXiv},
+	author = {Blondel, Mathieu and Berthet, Quentin and Cuturi, Marco and Frostig, Roy and Hoyer, Stephan and Llinares-López, Felipe and Pedregosa, Fabian and Vert, Jean-Philippe},
+	month = oct,
+	year = {2022},
+	note = {arXiv:2105.15183},
+	keywords = {Computer Science - Machine Learning, Computer Science - Numerical Analysis, Mathematics - Numerical Analysis, Statistics - Machine Learning},
+}
+
+@misc{sapienza_differentiable_2024,
+	title = {Differentiable {Programming} for {Differential} {Equations}: {A} {Review}},
+	shorttitle = {Differentiable {Programming} for {Differential} {Equations}},
+	url = {http://arxiv.org/abs/2406.09699},
+	doi = {10.48550/arXiv.2406.09699},
+	abstract = {The differentiable programming paradigm is a cornerstone of modern scientific computing. It refers to numerical methods for computing the gradient of a numerical model's output. Many scientific models are based on differential equations, where differentiable programming plays a crucial role in calculating model sensitivities, inverting model parameters, and training hybrid models that combine differential equations with data-driven approaches. Furthermore, recognizing the strong synergies between inverse methods and machine learning offers the opportunity to establish a coherent framework applicable to both fields. Differentiating functions based on the numerical solution of differential equations is non-trivial. Numerous methods based on a wide variety of paradigms have been proposed in the literature, each with pros and cons specific to the type of problem investigated. Here, we provide a comprehensive review of existing techniques to compute derivatives of numerical solutions of differential equations. We first discuss the importance of gradients of solutions of differential equations in a variety of scientific domains. Second, we lay out the mathematical foundations of the various approaches and compare them with each other. Third, we cover the computational considerations and explore the solutions available in modern scientific software. Last but not least, we provide best-practices and recommendations for practitioners. We hope that this work accelerates the fusion of scientific models and data, and fosters a modern approach to scientific modelling.},
+	urldate = {2025-03-14},
+	publisher = {arXiv},
+	author = {Sapienza, Facundo and Bolibar, Jordi and Schäfer, Frank and Groenke, Brian and Pal, Avik and Boussange, Victor and Heimbach, Patrick and Hooker, Giles and Pérez, Fernando and Persson, Per-Olof and Rackauckas, Christopher},
+	month = jun,
+	year = {2024},
+	note = {arXiv:2406.09699},
+	keywords = {Mathematics - Numerical Analysis, Computer Science - Numerical Analysis, Mathematics - Dynamical Systems, Physics - Computational Physics, Statistics - Machine Learning},
+}
