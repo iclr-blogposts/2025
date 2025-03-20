@@ -125,6 +125,18 @@ toc:
     background-image: url("{{ 'assets/img/2025-04-28-imagenet-flaws/multiple_papers.svg' | relative_url }}");
   }
 
+  @media (min-width: 800px) {
+     .weasel-image {
+        height: 22rem;
+        }
+     }
+
+  @media (min-width: 1200px) {
+     .weasel-image {
+        height: 30rem;
+        }
+    }
+
   .iframe-dark {
     display: none;
   }
