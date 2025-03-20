@@ -29,14 +29,14 @@ authors:
     affiliations:
       name: Visual Recognition Group, Czech Technical University in Prague
 
-bibliography: 2025-04-28-imagenet-flaws.bib  
+bibliography: 2025-04-28-imagenet-flaws.bib
 
 toc:
   - name: Introduction to ImageNet
-  - name: Known ImageNet Issues
+  - name: Known ImageNet-1k Issues
     subsections:
     - name: Bringing the Errors Together
-  - name: Dataset Construction
+  - name: Dataset Construction Issues
     subsections:
     - name: The Cat Problem
     - name: The Laptop Problem
@@ -46,7 +46,7 @@ toc:
   - name: Images Requiring Multiple Labels
   - name: ILSVRC Class Selection
     subsections:
-    - name: Problematic Groups
+    - name: Taxonomy of class selection problems
   - name: Addressing Duplicates
     subsections:
     - name: "Exact Duplicate Search: Pixel-Level Comparisons"
@@ -57,7 +57,8 @@ toc:
     - name: The Weasel Problem
     - name: The Ferret Problem
     - name: Results of Relabeling
-  - name: Conclusion
+  - name: Conclusions
+  - name: Outlook
 
 ---
 
@@ -221,7 +222,7 @@ By undertaking this work, we have no intention to diminish the significant contr
   </div>
 </div>
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 1. Examples of ImageNet issues. The top label is the ground truth;  colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels.  When the ground truth is wrong, the correct label is below. Labels of objects from other ImageNet classes present in the image are marked "+". (a), (f) <em style="color:grey;">Correctly labeled images</em>. (b), (c), (e), (g) <em style="color:grey;">Incorrectly labeled images</em>. (d) <em style="color:grey;">Images with multiple objects</em>. (e) <em style="color:grey;">Ambiguous images</em>. (f), (g) <em style="color:grey;">Pixel-wise duplicates</em> (the top image is from the training, the bottom from the validation set). </div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 1. Examples of ImageNet issues. The top label is the ground truth; colors indicate <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels. When the ground truth is wrong, the correct label is below. Labels of objects from other ImageNet classes present in the image are marked "+". (a), (f) <em style="color:grey;">Correctly labeled images</em>. (b), (c), (e), (g) <em style="color:grey;">Incorrectly labeled images</em>. (d) <em style="color:grey;">Images with multiple objects</em>. (e) <em style="color:grey;">Ambiguous images</em>. (f), (g) <em style="color:grey;">Pixel-wise duplicates</em> (the top image is from the training, the bottom from the validation set). </div>
 
 #### Brief History
 The concept of **ImageNet**<d-cite key="2"/> was introduced in 2009. It was to become the first large-scale labeled image dataset, marking a transformative moment in computer vision. In its construction, the authors followed the structure of WordNet<d-cite key="3"/> — a lexical database that organizes words into a semantic hierarchy. 
@@ -238,7 +239,7 @@ The easy-to-solve issues, such as incorrect image labels, redundant classes, and
 The inclusion of images depicting objects from multiple ImageNet classes, called multilabel images, poses another problem with no straightforward solution. Their removal is a possibility when ImageNet-1k is used for training. However, their prevalence, which we estimate to be in the 15 to 21% range in the validation set, probably rules out adopting this solution. Other modifications of the evaluation protocol might be preferable, e.g. considering any predicted label from the multilabel ground-truth set as correct. Referred to as ReaL accuracy <d-cite key="5"/>, it has already been reported alongside the standard accuracy. 
 
 
-##  Known ImageNet-1k Issues
+## Known ImageNet-1k Issues
 
 Prior studies identified and analyzed many ImageNet issues, but they each deal only with a specific concern and usually focus on the validation set. The topic that received the most attention is annotation errors, which distort the evaluation of model accuracy <d-cite key="4,6,5,7,9"/>. 
 Overlapping class definitions were reported in Vasudevan et al.<d-cite key="8"/>. Duplicate images were mentioned in several papers <d-cite key="8, 11, 16"/>.
@@ -284,13 +285,13 @@ Interestingly, each image in a group of duplicates is found to have a different 
 
 <div class="related-papers-image"></div>
     
-<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 2. Error analyses <d-cite key="4,5,6,7"/> of the ImageNet validation set labels. <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> Single label image, original label is correct. <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span> Single label image, original label is incorrect, full agreement on correction. <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span>  Multilabel images. <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span> Single label image, inconsistent label corrections. <span style="display:inline-block;width:10px;height:10px;background-color:#E55353;"></span> Ambiguous, no agreement on the label.</div> 
+<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Figure 2. Error analyses <d-cite key="4,5,6,7"/> of the ImageNet validation set labels. <span style="display:inline-block;width:10px;height:10px;background-color:#A3D8A0;"></span> Single label image, original label is correct. <span style="display:inline-block;width:10px;height:10px;background-color:#4C8C99;"></span> Single label image, original label is incorrect, full agreement on correction. <span style="display:inline-block;width:10px;height:10px;background-color:#8BBEE8;"></span> Multilabel images. <span style="display:inline-block;width:10px;height:10px;background-color:#F8D76E;"></span> Single label image, inconsistent label corrections. <span style="display:inline-block;width:10px;height:10px;background-color:#E55353;"></span> Ambiguous, no agreement on the label.</div> 
 
 <div>
 The significant differences in the estimates for the percentages of some types of errors have multiple reasons, the major ones are the percentage of images seen, methodology used by human annotators, and the models used for label error prediction.
 </div>
     
-</details>  
+</details>
 
 
 ### Bringing the Errors Together
@@ -558,7 +559,7 @@ To clarify, the difference is not only in the boat shapes, with a kayak being fl
 The *"planetarium"* class exhibits another issue. In the validation set, 68% of the images (34 out of 50) feature the same planetarium in Buenos Aires. The building appears many times in the training set too, but the range of planetaria is much broader. Perhaps it is a beautiful location, and the authors enjoyed featuring it, but it is not i.i.d.
 
 Here, the solution is fairly straightforward - collecting a more representative set of images.
-Nevertheless, this breaks backward compatibility, rendering old and new results incomparable.  
+Nevertheless, this breaks backward compatibility, rendering old and new results incomparable.
 
 ## Images Requiring Multiple Labels
 
@@ -569,7 +570,7 @@ We illustrate the problem of multilabel images with an extreme example. What do 
 </div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 8. An image from the <em style="color:grey;">"mouse, computer mouse"</em> class. Objects from at least 11 other ImageNet-1k classes are visible.  
+    Figure 8. An image from the <em style="color:grey;">"mouse, computer mouse"</em> class. Objects from at least 11 other ImageNet-1k classes are visible.
 </div>
 
 The following objects in the image have a class in ImageNet-1k:
@@ -632,9 +633,9 @@ Yet, the class distribution is skewed. Does having more than 10% of the dataset 
 
 We categorize the problems with class selection as follows:
 
-**Class Is a Subset or a Special Case of Another Class**  
- - *"Indian elephant, Elephas maximus"* & *"African elephant, Loxodonta africana"* are also *"tusker"*  
- - *"bathtub, bathing tub, bath, tub"* is also a *"tub, vat"*  
+**Class Is a Subset or a Special Case of Another Class**
+ - *"Indian elephant, Elephas maximus"* & *"African elephant, Loxodonta africana"* are also *"tusker"*
+ - *"bathtub, bathing tub, bath, tub"* is also a *"tub, vat"*
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="text-align: center;">
@@ -651,8 +652,8 @@ We categorize the problems with class selection as follows:
     Figure 10. An example of <em style="color:grey;">"bathtub, bathing tub, bath, tub”</em> and <em style="color:grey;">"tub, vat”</em>.
 </div>
 
-**Class Is a Part of Another Class Object**  
-   - *"space bar"* is a part of *"computer keyboard, keypad"*  
+**Class Is a Part of Another Class Object**
+   - *"space bar"* is a part of *"computer keyboard, keypad"*
    - *"car wheel"* is a part of any vehicle class (*"racer, race car, racing car"*, *"sports car, sport car"*, *"minivan"*, etc.)
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
@@ -670,9 +671,9 @@ We categorize the problems with class selection as follows:
     Figure 11. An example of <em style="color:grey;">"space bar"</em> and <em style="color:grey;">"computer keyboard, keypad"</em>.
 </div>
 
-**Near Synonyms as Understood by Non-experts**  
-   - *"laptop, laptop computer"* & *"notebook, notebook computer"*  
-   - *"sunglasses, dark glasses, shades"* & *"sunglass"*  
+**Near Synonyms as Understood by Non-experts**
+   - *"laptop, laptop computer"* & *"notebook, notebook computer"*
+   - *"sunglasses, dark glasses, shades"* & *"sunglass"*
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="text-align: center;">
@@ -689,9 +690,9 @@ We categorize the problems with class selection as follows:
     Figure 12. An example of <em style="color:grey;">"sunglasses, dark glasses, shades"</em> and <em style="color:grey;">"sunglass"</em>.
 </div>
 
-**Mostly Occur Together**  
-   - *"sea anemone"* & *"anemone fish"*  
-   - *"microphone, mike"* & *"stage"*  
+**Mostly Occur Together**
+   - *"sea anemone"* & *"anemone fish"*
+   - *"microphone, mike"* & *"stage"*
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 15px; column-gap: 35px; justify-items: center;">
     <div style="text-align: center;">
@@ -716,19 +717,19 @@ We ran hierarchical clustering on the confusion matrix of EfficientNet-L2 <d-cit
 </div>
 
 <div style="margin: 0px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 14.  An interactive confusion matrix for all ImageNet-1k classes, based on predictions made by the EfficientNet-L2 model, organized by clusters. The top-1 predicted classes match the ground truth for all classes except <em style="color:grey;">'projectile, missile,'</em> which is predicted as <em style="color:grey;">'missile'</em> for 56.85% of its images.
+    Figure 14. An interactive confusion matrix for all ImageNet-1k classes, based on predictions made by the EfficientNet-L2 model, organized by clusters. The top-1 predicted classes match the ground truth for all classes except <em style="color:grey;">'projectile, missile,'</em> which is predicted as <em style="color:grey;">'missile'</em> for 56.85% of its images.
 </div>
 
 
 The full list of problematic categories is [here](https://github.com/klarajanouskova/ImageNet/tree/main/classes/problem_groups). 
-OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in <a href="#table3">**Table 3**</a>.
+OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in **Table 3**.
 
 | Dataset    | Overall Accuracy | Problematic Classes Accuracy | Non-problematic Classes Accuracy |
 |------------|------------------|------------------------------|----------------------------------|
 | Validation | 84.61%          | 73.47%                       | 86.59%                           |
 | Training   | 86.11%          | 75.44%                       | 88.02%                          |
 
-<div id="table3" style="margin: 0px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 3. OpenCLIP accuracy on ImageNet-1k.  </div>
+<div style="margin: 0px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 3. OpenCLIP accuracy on ImageNet-1k. </div>
 
 The classes from problematic groups have a significantly lower OpenCLIP accuracy.
 
@@ -771,7 +772,7 @@ The classes from problematic groups have a significantly lower OpenCLIP accuracy
 </div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 15. An extreme example of duplicate images in ImageNet-1k. The leftmost image is from the validation set, while the others are from the training set. Caption colors indicate  <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels. 
+    Figure 15. An extreme example of duplicate images in ImageNet-1k. The leftmost image is from the validation set, while the others are from the training set. Caption colors indicate <span style="color:green"> correct ✓</span>; and <span style="color:red">incorrect × </span> labels. 
 </div>
 
 Of all prior studies, **When Does Dough Become a Bagel?<d-cite key="8"/>** examined the issue of duplicates most extensively. The paper identified 797 validation images that also appear in the training set, with some images occurring multiple times. They also highlighted the broader problem of near duplicates in ImageNet-1k (e.g. images from the same photoshoot). 
@@ -779,10 +780,10 @@ However, no statistics were provided since near duplicates are significantly mor
 
 The *"planetarium"* class mentioned earlier is a great example. It contains many near-duplicate images, as was noted in the [section focused on distribution shift](#distribution-shift-between-training-and-validation-sets). Specifically, 68% of the validation images feature the same building in Buenos Aires. This observation naturally led us to investigate the issue of image duplicates more comprehensively.
 
-Our analysis focuses on three types of duplicate sets:  
-1. **Cross-duplicates** between the validation and training sets (identified in earlier research).  
-2. **Duplicates within the validation set** (new findings).  
-3. **Duplicates within the training set** (new findings).  
+Our analysis focuses on three types of duplicate sets:
+1. **Cross-duplicates** between the validation and training sets (identified in earlier research).
+2. **Duplicates within the validation set** (new findings).
+3. **Duplicates within the training set** (new findings).
 
 The search began with the duplicate candidate detection process. We then categorized duplicates into 2 groups: **exact duplicates** and **near duplicates**, and the results are surprising...
 
@@ -810,7 +811,7 @@ Let us break it down:
 </div>
     
 <ol>
-<li>Each image $I_i$  has an embedding, $\mathbf{e}(I_i)$, in the feature space.</li>
+<li>Each image $I_i$ has an embedding, $\mathbf{e}(I_i)$, in the feature space.</li>
 <li>The K-NN algorithm finds the 5 closest neighbors for each image.</li>
 <li>$d(\mathbf{e}(I_i), \mathbf{e}(I_j))$ represents the cosine distance between the embeddings of two images.</li>
 <li>$\tau$ is a predefined confidence threshold chosen high enough to ensure that no true positives are lost.</li>
@@ -838,15 +839,15 @@ This highlights that cross-class deduplication was not performed during the data
     
     Since labels for the test set are not publicly available, we cannot determine whether the images in each pair have the same label or not. However, given that the test and validation sets were created simultaneously by splitting the collected evaluation data, we can infer that the situation is likely similar to the validation set. This suggests that each image in a pair belongs to a different class, which sets a lower bound on accuracy on the test set.
    
-After finding exact duplicates, we removed them and recalculated the accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set (<a href="#table4">Table 4</a>, x Val). Next, we removed all duplicate images in the validation set that were also present in the training set (<a href="#table4">Table 4</a>, x Cross). Finally, we combined these two methods to remove all exact duplicates (<a href="#table4">Table 4</a>, x Val+Cross). In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
+After finding exact duplicates, we removed them and recalculated the accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set (Table 4, x Val). Next, we removed all duplicate images in the validation set that were also present in the training set (Table 4, x Cross). Finally, we combined these two methods to remove all exact duplicates (Table 4, x Val+Cross). In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
 <div style="margin-top: 20px;"></div>
     
-| Model | Standard | × Val | × Cross | × Val+Cross  |
+| Model | Standard | × Val | × Cross | × Val+Cross |
 | --- | --- | --- | --- | --- |
 | OpenCLIP | 84.61 | 84.67 | 85.27 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.62 | 86.51 | 86.57 |
 
-<div id="table4" style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (standard) and without (×) different kinds of <em style="color:grey;">exact duplicates</em>.</div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (standard) and without (×) different kinds of <em style="color:grey;">exact duplicates</em>.</div>
 
 
 ### Near Duplicate Detection Method
@@ -896,14 +897,14 @@ The initial automatic search for duplicates was followed by a careful manual rev
 - In the **validation set**, 26 near-duplicate groups were found, involving 69 images in total. All duplicates in a group had consistent labels.
 - For the **cross validation-training search**, we discovered that 269 images from the validation set matched 400 training images.
     
-We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set (<a href="#table5">Table 5</a>, x Val). Next, we removed validation images that appeared in the training set (<a href="#table5">Table 5</a>, x Cross), and then we removed both  (<a href="#table5">Table 5</a>, x Val + Cross). Lastly, we removed all exact duplicates and near duplicates from the validation set (<a href="#table5">Table 5</a>, x All). As shown in <a href="#table5">**Table 5**</a>, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
+We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set (Table 5, x Val). Next, we removed validation images that appeared in the training set (Table 5, x Cross), and then we removed both (Table 5, x Val + Cross). Lastly, we removed all exact duplicates and near duplicates from the validation set (Table 5, x All). As shown in **Table 5**, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
     
 | Model | Standard | × Val | × Cross | × Val+Cross | × All |
 | --- | --- | --- | --- | --- | --- |
 | OpenCLIP | 84.61 | 84.60 | 84.63 | 84.62 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.54 | 85.59 | 85.59 | 86.59 |
 
-<div id="table5" style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (Standard) and without (x) different kinds of duplicates. </div>
+<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (Standard) and without (x) different kinds of duplicates. </div>
 
 
 ## Prompting Vision-Language Models
@@ -915,7 +916,7 @@ CLIP zero-shot classification is based on the distance of the image embeddings t
 To illustrate the impact of class names in zero-shot recognition, we developed a new set of ["modified" class names](https://github.com/klarajanouskova/ImageNet/blob/main/classes/modified_classnames.txt), building on [OpenAI’s version](https://github.com/openai/CLIP/blob/dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1/notebooks/Prompt_Engineering_for_ImageNet.ipynb) of the ImageNet-1k class names. In the notebook, the authors suggest further work with class names is necessary. 
 In the experiments, we decided to use OpenCLIP, an open-source implementation that outperforms the original CLIP model.
 
-<a href="#table6">**Table 6**</a> shows recognition accuracy for the five classes with the most significant gain when using OpenAI class names vs. the original ImageNet names. The changes primarily address CLIP's need for a broader context. For instance, in ImageNet, *"sorrel"* refers to a horse coloring, while in common usage, we’re used to hearing it refer to a [plant](https://en.wikipedia.org/wiki/Sorrel). This can be a problem for VLMs due to the lack of context, which in turn the new class name *"common sorrel horse"* provides.
+**Table 6** shows recognition accuracy for the five classes with the most significant gain when using OpenAI class names vs. the original ImageNet names. The changes primarily address CLIP's need for a broader context. For instance, in ImageNet, *"sorrel"* refers to a horse coloring, while in common usage, we’re used to hearing it refer to a [plant](https://en.wikipedia.org/wiki/Sorrel). This can be a problem for VLMs due to the lack of context, which in turn the new class name *"common sorrel horse"* provides.
 
 <table style="margin-top: 20px;">
   <thead>
@@ -958,11 +959,11 @@ In the experiments, we decided to use OpenCLIP, an open-source implementation th
   </tbody>
 </table>
 
-<div id="table6" style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Table 6. OpenCLIP zero-shot recognition accuracy with  ImageNet (left) and OpenAI text prompts (right).
+<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
+    Table 6. OpenCLIP zero-shot recognition accuracy with ImageNet (left) and OpenAI text prompts (right).
 </div>
 
-<a href="#table7">**Table 7**</a> demonstrates the improvement of our modifications w.r.t. OpenAI's class names. Notably, renaming *"coffee maker"* to *"coffeepot"* not only increased accuracy within this class but also positively impacted the class *"espresso machine"*, where no changes were made. 
+**Table 7** demonstrates the improvement of our modifications w.r.t. OpenAI's class names. Notably, renaming *"coffee maker"* to *"coffeepot"* not only increased accuracy within this class but also positively impacted the class *"espresso machine"*, where no changes were made. 
 
 <table style="margin-top: 20px;">
   <thead>
@@ -1005,7 +1006,7 @@ In the experiments, we decided to use OpenCLIP, an open-source implementation th
   </tbody>
 </table>
 
-<div id="table7" style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
+<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
     Table 7. OpenCLIP zero-shot recognition accuracy with OpenAI (left) and text prompts "modified" by us (right). The "canoe" ImageNet-1k class achieves 100% accuracy if prompted by 'kayak'. This is not surprising, given that <em style="color:grey;">all images in the "canoe" validation set depict kayaks</em>. There is no 'kayak' class in ImageNet-1k.
 </div>
 
@@ -1017,10 +1018,10 @@ Do you know the precise difference between a weasel, mink, polecat, black-footed
 
 With the help of an expert, images from the following 4 classes are considered for re-annotation:
 <ol style="margin-top: 0;">
-  <li>*"weasel"*</li>
-  <li>*"mink"*</li>
-  <li>*"polecat, fitch, foulmart, foumart, Mustela putorius"*</li>
-  <li>*"black-footed ferret, ferret, Mustela nigripes"*</li>
+  <li style="margin-bottom: 5px;"><i>"weasel"</i></li>
+  <li style="margin-bottom: 5px;"><i>"mink"</i></li>
+  <li style="margin-bottom: 5px;"><i>"polecat, fitch, foulmart, foumart, Mustela putorius"</i></li>
+  <li style="margin-bottom: 5px;"><i>"black-footed ferret, ferret, Mustela nigripes"</i></li>
 </ol>
 
 <div style="display: flex; flex-wrap:wrap; gap: 10px; align-items: center; justify-content;center; ">
@@ -1044,13 +1045,13 @@ With the help of an expert, images from the following 4 classes are considered f
 </div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
-    Figure 18.  Correctly labeled ImageNet-1k images from the <em>"weasel"</em>, <em>"mink"</em>, <em>"polecat"</em>, and <em>"black-footed ferret"</em>  classes.       
+    Figure 18. Correctly labeled ImageNet-1k images from the <em>"weasel"</em>, <em>"mink"</em>, <em>"polecat"</em>, and <em>"black-footed ferret"</em> classes.       
 The ground truth labels for these categories are often wrong, mainly confusing these species. 
 </div>
 
 These classes have a high percentage of incorrect ground truth labels, both in the training and validation sets. Most of the errors are caused by confusion between the four classes but the sets also contain images depicting animals from other ImageNet-1k classes, such as otter or badger, as well as images from classes not in ImageNet-1k, e.g. vole or tayra. But that is not the sole issue.
 
-### The Weasel  Problem
+### The Weasel Problem
 
 Let us look at the *"weasel"* class definitions:
 - **WordNet**: small carnivorous mammal with short legs and elongated body and neck. 
@@ -1111,9 +1112,7 @@ The term polecat presents a similar ambiguity w.r.t. the term ferret, as it is c
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;"> Figure 21. European polecat and skunk. These species share the term 'polecat' in their synsets but belong to different families (see Figure 19).
 </div>
 
-#### Solution
-
-To solve the 'ferret' issues, redefinition  of classes might be needed, e.g.: 
+To solve the 'ferret' issues, redefinition of classes might be needed, e.g.: 
 1. Introduction of a distinct class for ferret, specifically denoting the domesticated form of the European polecat.
 2. Reclassification of the term polecat so that it no longer appears in the synset for skunk; instead, this term should be used to represent a broader category encompassing both the European polecat and American polecat (also referred to as the black-footed ferret), as well as other species, such as the marbled, steppe, and striped polecats.
 3. Create a class that encompasses both polecats and ferrets.
@@ -1157,7 +1156,6 @@ The 'ambiguous' label is used for images that are blurry, have the characteristi
 Let us take a closer look at the four examined classes.
 
 <div class="weasel-image"></div>
-
 <div style="margin: 0px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
     Figure 23. Validation set relabeling results for the <em style="color:grey;">"weasel"</em>, <em style="color:grey;">"mink"</em>, <em style="color:grey;">"polecat, fitch, foulmart, foumart, Mustela putorius"</em>, and <em style="color:grey;">"black-footed ferret, ferret, Mustela nigripes"</em> classes.
 </div>
@@ -1177,9 +1175,9 @@ The blogpost deals with the problems of the ImageNet-1k dataset, both pertaining
 
 The analysis here is more in-depth provides new quantitative information about the phenomena and presents new findings, e.g. about the distribution shift between the training and validation sets, intra-set duplicates, and near-duplicate instances within both training and validation sets. We also introduce new, improved class names for zero-shot recognition with VLMs, as well as a refined taxonomy of problematic classes—such as hierarchical and duplicate classes—while introducing new ones, e.g. “part-of” and co-occurrence relationships.
 
-For many problems, we provide exemplars, such as the expert-led case study of closely related *weasel family* species, which highlights the complexity of fine-grained classification. The training-validation domain shift is demonstrated on the *canoe & kayak* and *planetaria* classes. We discuss the causes of the problems, some rooted in ImageNet’s dataset collection process, particularly the reliance on untrained Mechanical Turk workers, and some originating from ambiguous WordNet definitions, exemplified by the *tiger cat* class.  
+For many problems, we provide exemplars, such as the expert-led case study of closely related *weasel family* species, which highlights the complexity of fine-grained classification. The training-validation domain shift is demonstrated on the *canoe & kayak* and *planetaria* classes. We discuss the causes of the problems, some rooted in ImageNet’s dataset collection process, particularly the reliance on untrained Mechanical Turk workers, and some originating from ambiguous WordNet definitions, exemplified by the *tiger cat* class.
 
-At a technical level, we consolidate and [publish](https://github.com/klarajanouskova/ImageNet/blob/main/eval_corrections/verify_images/results/clean_validation.csv) prior ImageNet-1k label error corrections, resulting in the “clean validation set” with consistent image labels from previous studies, and provide the improved VLM zero-shot prompts for all ImageNet classes.
+At a technical level, we consolidate and publish prior ImageNet-1k label error corrections, resulting in the [“clean validation set”](https://github.com/klarajanouskova/ImageNet/blob/main/eval_corrections/verify_images/results/clean_validation.csv) with consistent image labels from previous studies, and provide the improved VLM zero-shot prompts for all ImageNet classes.
 
 ## Outlook
 The blog mainly focuses on a precise description of the issues and their scale, i.e., what fraction of the image-label pairs it affects. We hope that one of the outcomes of publishing this analysis will be a broader exchange of ideas on what is and what is not worth fixing. Every solution will involve trade-offs, at least between correctness and backward compatibility. The wide use of ImageNet-1k makes it difficult to assess the full impact of any change; possibly we are heading towards multiple evaluation protocols and ground-truth versions.
