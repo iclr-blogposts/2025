@@ -720,15 +720,15 @@ We ran hierarchical clustering on the confusion matrix of EfficientNet-L2 <d-cit
 </div>
 
 
-The full list of problematic categories is [here](https://gist.github.com/lasickaKolcava/a737806028aaa66e226c27e00f5e35f1). 
-OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in **Table 3**.
+The full list of problematic categories is [here](https://github.com/klarajanouskova/ImageNet/tree/main/classes/problem_groups). 
+OpenCLIP accuracies for both problematic and non-problematic groups of classes are given in <a href="#table3">**Table 3**</a>.
 
 | Dataset    | Overall Accuracy | Problematic Classes Accuracy | Non-problematic Classes Accuracy |
 |------------|------------------|------------------------------|----------------------------------|
 | Validation | 84.61%          | 73.47%                       | 86.59%                           |
 | Training   | 86.11%          | 75.44%                       | 88.02%                          |
 
-<div style="margin: 0px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 3. OpenCLIP accuracy on ImageNet-1k.  </div>
+<div id="table3" style="margin: 0px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 3. OpenCLIP accuracy on ImageNet-1k.  </div>
 
 The classes from problematic groups have a significantly lower OpenCLIP accuracy.
 
@@ -838,7 +838,7 @@ This highlights that cross-class deduplication was not performed during the data
     
     Since labels for the test set are not publicly available, we cannot determine whether the images in each pair have the same label or not. However, given that the test and validation sets were created simultaneously by splitting the collected evaluation data, we can infer that the situation is likely similar to the validation set. This suggests that each image in a pair belongs to a different class, which sets a lower bound on accuracy on the test set.
    
-After finding exact duplicates, we removed them and recalculated the accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set (Table 4, x Val). Next, we removed all duplicate images in the validation set that were also present in the training set (Table 4, x Cross). Finally, we combined these two methods to remove all exact duplicates (Table 4, x Val+Cross). In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
+After finding exact duplicates, we removed them and recalculated the accuracies of two models: OpenCLIP and an ImageNet-pretrained CNN EfficientNetV2. We conducted three experiments. First, we removed all duplicate pairs in the validation set (<a href="#table4">Table 4</a>, x Val). Next, we removed all duplicate images in the validation set that were also present in the training set (<a href="#table4">Table 4</a>, x Cross). Finally, we combined these two methods to remove all exact duplicates (<a href="#table4">Table 4</a>, x Val+Cross). In summary, our approach led to a 0.7% accuracy increase for the zero-shot model and a 1% accuracy increase for the pretrained CNN. We remind the reader that all exact duplicates have different labels and their erroneous classification is very likely; the improvement is thus expected.
 <div style="margin-top: 20px;"></div>
     
 | Model | Standard | × Val | × Cross | × Val+Cross  |
@@ -846,7 +846,7 @@ After finding exact duplicates, we removed them and recalculated the accuracies 
 | OpenCLIP | 84.61 | 84.67 | 85.27 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.62 | 86.51 | 86.57 |
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (standard) and without (×) different kinds of <em style="color:grey;">exact duplicates</em>.</div>
+<div id="table4" style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 4. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (standard) and without (×) different kinds of <em style="color:grey;">exact duplicates</em>.</div>
 
 
 ### Near Duplicate Detection Method
@@ -896,32 +896,26 @@ The initial automatic search for duplicates was followed by a careful manual rev
 - In the **validation set**, 26 near-duplicate groups were found, involving 69 images in total. All duplicates in a group had consistent labels.
 - For the **cross validation-training search**, we discovered that 269 images from the validation set matched 400 training images.
     
-We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set (x Val, Table 5). Next, we removed validation images that appeared in the training set (x Cross, Table 5), and then we removed both  (x Val + Cross, Table 5). Lastly, we removed all exact duplicates and near duplicates from the validation set (x All, Table 5). As shown in **Table 5**, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
+We continued evaluating models with near duplicates removed. First, we removed all near duplicate groups in the validation set (<a href="#table5">Table 5</a>, x Val). Next, we removed validation images that appeared in the training set (<a href="#table5">Table 5</a>, x Cross), and then we removed both  (<a href="#table5">Table 5</a>, x Val + Cross). Lastly, we removed all exact duplicates and near duplicates from the validation set (<a href="#table5">Table 5</a>, x All). As shown in <a href="#table5">**Table 5**</a>, removing near duplicates had minimal impact on accuracy, as these images were mostly consistently assigned the same label within each duplicate group.
     
 | Model | Standard | × Val | × Cross | × Val+Cross | × All |
 | --- | --- | --- | --- | --- | --- |
 | OpenCLIP | 84.61 | 84.60 | 84.63 | 84.62 | 85.32 |
 | EfficientNetV2 | 85.56 | 85.54 | 85.59 | 85.59 | 86.59 |
 
-<div style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (Standard) and without (x) different kinds of duplicates. </div>
+<div id="table5" style="margin: 20px 0px 20px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">Table 5. OpenCLIP and EfficientNet accuracies on the whole ImageNet-1k (Standard) and without (x) different kinds of duplicates. </div>
 
 
 ## Prompting Vision-Language Models
+CLIP zero-shot classification is based on the distance of the image embeddings to the text embeddings representing each class. A natural approach is to create class embeddings based on the WordNet synset names. However, there are problems, such as overlapping synsets or WordNet synsets whose meanings evolve over time. For example, the term maillot appears in both *"maillot"* and *"maillot, tank suit"*. The first synset definition is "tights for dancers or gymnasts", while the second one is "a woman's one-piece bathing suit". 
 
-Issues with dataset construction, such as overlapping or imprecise WordNet synsets that may evolve over time, raise questions about their impact on the evaluation of vision-language models like CLIP<d-cite key="15"/>. 
-CLIP zero-shot classification is based on the distance of the image embeddings to the text embeddings representing each class. A natural approach is to create class embeddings based on the WordNet synset names. However, there are issues.
-
-As mentioned in the [section about dataset construction](#dataset-construction-issues), WordNet synset names typically consist of multiple terms. For example, the term maillot appears in both *"maillot"* and *"maillot, tank suit"*. The first synset definition is "tights for dancers or gymnasts", while the second one is "a woman's one-piece bathing suit". This can create significant difficulties for any VLM.
-
-An investigation of the CLIP codebase reveals the authors, created a [customized OpenAI version](https://github.com/openai/CLIP/blob/dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1/notebooks/Prompt_Engineering_for_ImageNet.ipynb) of the ImageNet-1k class names.
-Despite not being explicitly stated in the original work, it seems the authors were aware of many of the issues in the original class names. 
-In the notebook, the authors suggest further work with class names is necessary, a sentiment we agree with. 
 
 #### Class Text Prompt Modifications: An Empirical Study
 
-To illustrate the impact of class names in zero-shot recognition, we developed a new set of ["modified" class names](https://gist.github.com/lasickaKolcava/dd86fc8ed496735e2a57c46ccf67996d), building on OpenAI’s version. In the experiments, we decided to use OpenCLIP, an open-source implementation that outperforms the original CLIP model.
+To illustrate the impact of class names in zero-shot recognition, we developed a new set of ["modified" class names](https://github.com/klarajanouskova/ImageNet/blob/main/classes/modified_classnames.txt), building on [OpenAI’s version](https://github.com/openai/CLIP/blob/dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1/notebooks/Prompt_Engineering_for_ImageNet.ipynb) of the ImageNet-1k class names. In the notebook, the authors suggest further work with class names is necessary. 
+In the experiments, we decided to use OpenCLIP, an open-source implementation that outperforms the original CLIP model.
 
-**Table 6** shows recognition accuracy for the five classes with the most significant gain when using OpenAI class names vs. the original ImageNet names. The changes of the text whose embedding is used primarily address CLIP's need for a broader context. For instance, in ImageNet, *"sorrel"* refers to a horse coloring, while in common usage, we’re used to hearing it refer to a [plant](https://en.wikipedia.org/wiki/Sorrel). This can be a problem for VLMs due to the lack of context, which in turn the new class name *"common sorrel horse"* provides.
+<a href="#table6">**Table 6**</a> shows recognition accuracy for the five classes with the most significant gain when using OpenAI class names vs. the original ImageNet names. The changes primarily address CLIP's need for a broader context. For instance, in ImageNet, *"sorrel"* refers to a horse coloring, while in common usage, we’re used to hearing it refer to a [plant](https://en.wikipedia.org/wiki/Sorrel). This can be a problem for VLMs due to the lack of context, which in turn the new class name *"common sorrel horse"* provides.
 
 <table style="margin-top: 20px;">
   <thead>
@@ -964,11 +958,11 @@ To illustrate the impact of class names in zero-shot recognition, we developed a
   </tbody>
 </table>
 
-<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
+<div id="table6" style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
     Table 6. OpenCLIP zero-shot recognition accuracy with  ImageNet (left) and OpenAI text prompts (right).
 </div>
 
-**Table 7** demonstrates the improvement of our modifications w.r.t. OpenAI's class names. Notably, renaming *"coffee maker"* to *"coffeepot"* not only increased accuracy within this class but also positively impacted the class *"espresso machine"*, where no changes were made. 
+<a href="#table7">**Table 7**</a> demonstrates the improvement of our modifications w.r.t. OpenAI's class names. Notably, renaming *"coffee maker"* to *"coffeepot"* not only increased accuracy within this class but also positively impacted the class *"espresso machine"*, where no changes were made. 
 
 <table style="margin-top: 20px;">
   <thead>
@@ -1011,7 +1005,7 @@ To illustrate the impact of class names in zero-shot recognition, we developed a
   </tbody>
 </table>
 
-<div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
+<div id="table7" style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
     Table 7. OpenCLIP zero-shot recognition accuracy with OpenAI (left) and text prompts "modified" by us (right). The "canoe" ImageNet-1k class achieves 100% accuracy if prompted by 'kayak'. This is not surprising, given that <em style="color:grey;">all images in the "canoe" validation set depict kayaks</em>. There is no 'kayak' class in ImageNet-1k.
 </div>
 
@@ -1019,13 +1013,15 @@ Our modifications were found by trial and error, which suggests that there is a 
 
 ## Fixing ImageNet Labels: A Case Study
 
-Do you know the precise difference between a weasel, mink, polecat, black-footed ferret, domestic ferret, otter, badger, tayra, and marten? Most likely not. We use these animal species to illustrate the complexity of image labeling in ImageNet-1k. We enlisted an expert to help.
+Do you know the precise difference between a weasel, mink, polecat, black-footed ferret, domestic ferret, otter, badger, tayra, and marten? Most likely not. We use these animal species to illustrate the complexity of image labeling in ImageNet-1k.
 
-We consider images from the following classes:
-- *"weasel"*
-- *"mink"*
-- *"polecat, fitch, foulmart, foumart, Mustela putorius"*
-- *"black-footed ferret, ferret, Mustela nigripes"*
+With the help of an expert, images from the following 4 classes are considered for re-annotation:
+<ol style="margin-top: 0;">
+  <li>*"weasel"*</li>
+  <li>*"mink"*</li>
+  <li>*"polecat, fitch, foulmart, foumart, Mustela putorius"*</li>
+  <li>*"black-footed ferret, ferret, Mustela nigripes"*</li>
+</ol>
 
 <div style="display: flex; flex-wrap:wrap; gap: 10px; align-items: center; justify-content;center; ">
     <div style="text-align: center; flex: 1 1 48%; box-sizing: border-box;">
@@ -1056,21 +1052,19 @@ These classes have a high percentage of incorrect ground truth labels, both in t
 
 ### The Weasel  Problem
 
-Let us look at *"weasel"* class definitions:
-- **WordNet**: 'small carnivorous mammal with short legs and elongated body and neck'. 
-- **[Wikipedia](https://en.wikipedia.org/wiki/Weasel)**: 'The English word weasel was originally applied to one species of the genus, the European form of the least weasel (*Mustela nivalis*). This usage is retained in British English, where the name is also extended to cover several other small species of the genus. However, in technical discourse and in American usage, the term weasel can refer to any member of the genus, the genus as a whole, and even to members of the related genus *Neogale*''. 
-- **[Webster](https://www.merriam-webster.com/dictionary/weasel)** (broader): 'any of various small slender active carnivorous mammals (genus *Mustela* of the family *Mustelidae*, the weasel family) that can prey on animals (such as rabbits) larger than themselves, are mostly brown with white or yellowish underparts, and in northern forms turn white in winter'.
+Let us look at the *"weasel"* class definitions:
+- **WordNet**: small carnivorous mammal with short legs and elongated body and neck. 
+- **[Wikipedia](https://en.wikipedia.org/wiki/Weasel)**: the English word weasel was originally applied to one species of the genus, the European form of the least weasel (*Mustela nivalis*). This usage is retained in British English, where the name is also extended to cover several other small species of the genus. However, in technical discourse and in American usage, the term weasel can refer to any member of the genus, the genus as a whole, and even to members of the related genus *Neogale*. 
+- **[Webster](https://www.merriam-webster.com/dictionary/weasel)**: any of various small slender active carnivorous mammals (genus *Mustela* of the family *Mustelidae*, the weasel family) that can prey on animals (such as rabbits) larger than themselves, are mostly brown with white or yellowish underparts, and in northern forms turn white in winter.
 
-The definition of the *"weasel"* synset in WordNet is too broad - it potentially encompasses all the other mentioned classes. Moreover, the interpretation of the term weasel varies, between UK and US English, further complicating its consistent application. In US English, the term weasel often refers to the whole *Mustelidae*, also called 'the weasel family'. All of the following - weasel, mink, European polecat, and black-footed ferret - belong to the weasel family, as understood by US English.
+The definition of the *"weasel"* synset in WordNet is broad - it potentially encompasses all the other mentioned classes. Moreover, the interpretation of the term weasel varies, between UK and US English, further complicating its consistent application. In US English, the term weasel often refers to the whole *Mustelidae*, also called 'the weasel family'. All of the following - weasel, mink, European polecat, and black-footed ferret - belong to the weasel family, as understood by US English.
+One possible solution is to define the *"weasel"* class more precisely as the subgenus *Mustela*, which contains the 'least weasel' and other very similar species, which would lead only to the removal of a few images.
 
 <div class="theme-image"></div>
 
 <div style="margin: 15px 0px 25px 0px; color:grey; font-size:14px; font-weight:600; line-height: 1.3;">
     Figure 19. A simplified branching diagram showing the <em style="color:grey;">Mustelidae</em> family, also referred to as 'the weasel family', or simply 'weasels' in US English. Some of ImageNet classes are: <em style="color:grey;">"weasel"</em>, <em style="color:grey;">"polecat"</em>, <em style="color:grey;">"black-footed ferret"</em> and <em style="color:grey;">"mink"</em>. All of these belong to the weasel family, pointing at yet another issue with class names. Images of these classes also depict species outside of ImageNet, such as tayras or voles, or even different ImageNet classes, such as otter or badger. The diagram shows evolutionary relationships between selected species from the ImageNet dataset; the circles mark higher taxonomic units.
 </div>
-
-#### Solution
-One possible solution is to define the *"weasel"* class more precisely as the subgenus *Mustela*, which contains the 'least weasel' and other very similar species, which would lead only to the removal of a few images.
 
 
 ### The Ferret Problem
@@ -1127,7 +1121,7 @@ To solve the 'ferret' issues, redefinition  of classes might be needed, e.g.:
 
 ### Results of Relabeling
 
-After relabeling the weasel family classes, we found that only the *"mink"* class had more than 50% of labels correct.
+After relabeling the weasel family classes, we found that only the *"mink"* class had more than 50% of the original labels correct.
 The percentage of the **correctly** labeled images in ImageNet-1k was: 
 
 
@@ -1149,7 +1143,7 @@ Images of animals that do not belong to any ImageNet class are assigned to the '
     </div>
 <div style="text-align: center;">
         <img src="{{ 'assets/img/2025-04-28-imagenet-flaws/distance.png' | relative_url }}" style="height: 190px; width: 300px; margin-top: 30px;" />
-        <p>too great a distance for identification</p>
+        <p>too far for identification</p>
     </div>
 </div>
 
@@ -1178,95 +1172,22 @@ Finally, the *"black-footed ferret"* class contains only one image of this speci
 
 Luccioni and Rolnick (2022)<d-cite key="19"/> analyzed the classes representing wildlife species and the misrepresentation of biodiversity within the ImageNet-1k dataset. Their findings reveal a substantial proportion of incorrect labels across these classes. Notably, they examined the class *"black-footed ferret"* and reported results consistent with those observed in our relabeling process.
 
-<!--
-## New Contribution to ImageNet Dataset Knowledge
+## Conclusions
+The blogpost deals with the problems of the ImageNet-1k dataset, both pertaining to image data selection and the ground truth labels. Most of the issues have been known to exist, like the presence of: incorrectly labeled images, multilabel images with no obvious correct label, overlapping class definitions, and the presence of intra-set duplicates and near-duplicate instances.
 
-1. **Detailed Dataset Construction Issues**  
-   - Explained the problem with using MTurkers in dataset construction, and showing the WordNet definitions issues with the tiger cat example.  
+The analysis here is more in-depth provides new quantitative information about the phenomena and presents new findings, e.g. about the distribution shift between the training and validation sets, intra-set duplicates, and near-duplicate instances within both training and validation sets. We also introduce new, improved class names for zero-shot recognition with VLMs, as well as a refined taxonomy of problematic classes—such as hierarchical and duplicate classes—while introducing new ones, e.g. “part-of” and co-occurrence relationships.
 
-2. **Analysis of Distribution Shift**  
-   - Investigated the distribution shift between training and validation sets in detail. Being the first to demonstrate the issues with canoe & kayak and the planetaria class.  
+For many problems, we provide exemplars, such as the expert-led case study of closely related *weasel family* species, which highlights the complexity of fine-grained classification. The training-validation domain shift is demonstrated on the *canoe & kayak* and *planetaria* classes. We discuss the causes of the problems, some rooted in ImageNet’s dataset collection process, particularly the reliance on untrained Mechanical Turk workers, and some originating from ambiguous WordNet definitions, exemplified by the *tiger cat* class.  
 
-3. **Extended Analysis of Problematic Classes**
-   - Expanding the number of problematic classes within the groups:
-     - Hierarchical relationships 
-     - Duplicate classes 
-   - Identifying additional groups of problematic classes and incorporating the relevant classes into them, including:
-     - Part-of relationships 
-     - Co-occurrence relationships
+At a technical level, we consolidate and [publish](https://github.com/klarajanouskova/ImageNet/blob/main/eval_corrections/verify_images/results/clean_validation.csv) prior ImageNet-1k label error corrections, resulting in the “clean validation set” with consistent image labels from previous studies, and provide the improved VLM zero-shot prompts for all ImageNet classes.
 
-4. **Comprehensive Duplicate Analysis**  
-   - Studied dataset duplicates across the entire training and validation sets (previous studies focused only on cross-duplicates).  
+## Outlook
+The blog mainly focuses on a precise description of the issues and their scale, i.e., what fraction of the image-label pairs it affects. We hope that one of the outcomes of publishing this analysis will be a broader exchange of ideas on what is and what is not worth fixing. Every solution will involve trade-offs, at least between correctness and backward compatibility. The wide use of ImageNet-1k makes it difficult to assess the full impact of any change; possibly we are heading towards multiple evaluation protocols and ground-truth versions.
 
-5. **Near-Duplicate Investigation**  
-   - Conducted an in-depth study of near-duplicates within the validation set and across training-validation sets.  
+The activity opened many questions. First and foremost: "Is this worth it?" and "Will the community benefit from (much) more accurate ImageNet-1k re-labeling and class definitions?". For the validation set, which is used for performance evaluation of a wide range of models, the answer seems a clear "yes". For the training set, we see benefits too. For instance, it seems that learning a fine-grained model from very noisy data is very challenging. The answers to the questions above depend on the effort needed to re-label the images and to clean the class definitions. Our experience is that current tools, both state-of-the-art classifiers and zero-shot VLM models, reduce the need for manual effort significantly. 
 
-6. **Impact of Class Names on Vision-Language Models**  
-   - Demonstrated how class names affect the evaluation of vision-language models on ImageNet.  
+The effort to find precise, unambiguous definitions of the ImageNet-1k classes lead us to the use of VLMs and LLMs. The LLM responses were accurate and informative if prompted properly, even warning about common causes of confusion. Our experience suggests that LLMs are very suitable for both annotator training and decision support.
 
-7. **Weasel-Like Family Case Study by an Expert**  
-   - Performed an extensive analysis of fine-grained classes within the weasel-like family, with all validation images manually reviewed and labeled by a wildlife expert.
--->
-
-## Novel insights - summary
-**Comprehensive Overview**: 
-Many of the issues discussed in this work have been known for some time. However, this blog post offers an unprecedentedly comprehensive overview, unifying a wide range of dataset problems and delving deeper than prior work.  
-
-**Unified Label Error Corrections**:
-We consolidate all prior ImageNet-1K label error corrections, enabling a clearer assessment of inconsistencies and reproducibility challenges in data annotation.  
-
-**Critique of Dataset Construction**:
-We provide a detailed critique of ImageNet’s dataset creation process, particularly the reliance on untrained Mechanical Turk workers and ambiguous WordNet definitions, exemplified by the *tiger cat* class.  
-
-**Analysis of Distribution Shifts**: 
-We identify significant distribution shifts between training and validation sets, notably in classes such as *canoe & kayak* and *planetaria*, exposing inconsistencies that affect model performance.  
-
-**Expanded Catalog of Problematic Classes**:
-Our work refines existing categories of problematic classes—such as hierarchical and duplicate classes—while introducing new ones, including part-of and co-occurrence relationships.  
-
-**Extended Duplicate Analysis**: We go beyond prior studies by investigating intra-set duplicates and near-duplicate instances within both training and validation sets.  
-
-**Impact of Class Names on Vision-Language Models**: We further explore how ImageNet class names influence vision-language model evaluations, identifying biases and proposing an improved variant.  
-
-**Fine-Grained Case Study on Weasel-Like Species**: Our expert-led case study of closely related *weasel family* species highlights the complexity of fine-grained classification, revealing deeper dataset inconsistencies.  
-These insights contribute to a more critical assessment of ImageNet’s reliability and its implications for computer vision research.
-
-## Concluding remarks
- 
-<!--
-Some ideas about solutions to the problems.
-
-Visual dictionary.
-
-We are left with an important question: Do we need something like ImageNet, but designed to avoid the issues prevalent today? Should it serve as a dataset for both training and testing? Alternatively, given the modern shift toward vision-language models and the abundance of massive unsupervised datasets, should it instead take the form of a "visual dictionary"? Such a dictionary could aim to capture the diversity of the world, serving primarily as a comprehensive and robust evaluation benchmark.
-
-Mechanical Turk x expert. - should images be labeled as understood by non-experts, or general public?
-
-Should the task involve a group of experts dedicating many hours to performing annotations? Or could it be managed by a team of minimally trained annotators, improving on the approach initially used with MTurkers? This would help reduce the overall cost of the process.
-
-Impact on model evaluation, which is still very common, especially for zero-shot and derived datasets.
-
-FGVC without finegrained labels. https://arxiv.org/abs/1511.06789
--->
-We presented a number of problems, some known and some new, of the ImageNet-1k dataset. The blog mainly focuses on a precise description of the issues and their "size", i.e., what fraction of the image-label pairs it affects. In some cases, we discuss solutions. We hope that one of the outcomes of publishing this analysis is that it will open a broader exchange of ideas on what is and what is not worth fixing. Every solution will involve trade-offs, at least between correctness and backward compatibility. The wide use of the dataset makes it difficult to assess the impact of any change; possibly we are heading towards multiple evaluation protocols and ground-truth versions.
-
-The activity opened many questions. First and foremost: "Is this worth it?" and "Will the community benefit from (much) more accurate ImageNet-1k (and other commonly used sets) re-labeling and class definitions?". For the validation set, which is used for performance evaluation of a wide range of models, the answer seems a clear "yes". For the training set, we see benefits too. For instance, it seems that learning a fine-grained model from very noisy data is very challenging. 
-
-The answers to the questions above depend on the effort needed to re-label the images and to clean the class definitions. Our experience is that current tools, both state-of-the-art classifiers and zero-shot VLM models reduce the need for manual effort significantly. 
-
-
-The effort to find precise, unambiguous definitions of the ImageNet-1k classes lead us to the use of VLMs and LLMs. The LLM responses were accurate and informative if prompted properly, even warning about common causes of confusion. It seems that LLMs are very suitable for annotator training. 
-
-
-In fact, VLMs might not only be a useful tool in this context, but their performance might improve if a large accurately labeled dataset is available. A joint development of ImageNet and WordNet is desirable, as the problems with class definitions attest.
-
-We hired an expert annotator in order to obtain precise annotation of the weasel-like animal classes analyzed in the case study. 
-Expert annotators help identify subtle nuances and complexities within the dataset that might be easily overlooked by non-specialists. On the other hand, their understanding of certain terms might not coincide with common usage. We might need parameterizable VLM models, e.g., for professional and technical use as well as for the vernacular. 
-In prior work<d-cite key="7"/>, MTurkers have been used to find incorrect labels. However, we found that they missed many problems. These errors are correlated, and attempts to remove them, by e.g. majority voting, cannot detect them. When it comes to highly accurate labels, an expert is worth not a thousand, but any number of MTurkers.
-
-
-Some of the issues, like the presence of image duplicates and near duplicates, may create an opportunity for performing meta-experiments. For instance, what if two methods with identical overall performance on ImageNet-1k differ significantly in accuracy on duplicates? What is the interpretation of a situation where a method performs well on classes with many incorrectly labeled images?
+We hired an expert annotator in order to obtain precise annotation of the weasel-like animal classes analyzed in the case study. Expert annotators help identify subtle nuances and complexities within the dataset that might be easily overlooked by non-specialists. On the other hand, their understanding of certain terms might not coincide with common usage. We might need parameterizable VLM models, e.g., for professional and technical use as well as for the vernacular. Prior work<d-cite key="7"/> used MTurkers to find incorrect labels. However, we found that they missed many problems. Their errors are not independent, and attempts to remove them by e.g. majority voting or consensus, failed to detect them. When it comes to highly accurate labels, an expert is worth not a thousand, but any number of MTurkers.
 
 In many areas of computer vision, models reached accuracy comparable to the so-called ground truth, losing the compass pointing to better performance. As we have seen, improving ground truth quality is not a simple task of checking and re-checking, but touches on some core issues of both vision and language modeling. This blog is a small step towards resetting the compass for ImageNet-1k.
-
-
