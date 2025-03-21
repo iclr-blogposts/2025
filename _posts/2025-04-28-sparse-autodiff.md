@@ -11,7 +11,7 @@ authors:
   - name: Adrian Hill
     url: "https://adrianhill.de"
     affiliations:
-      name: BIFOLD – Berlin Institute for the Foundations of Learning and Data, Machine Learning Group, Technical University of Berlin
+      name: BIFOLD – Berlin Institute for the Foundations of Learning and Data, Machine Learning Group, Technical University of Berlin, Berlin, Germany
   - name: Guillaume Dalle
     url: "https://gdalle.github.io/"
     affiliations:
