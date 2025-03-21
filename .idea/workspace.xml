@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c02b9564-9d47-4b6c-9a7e-d3bf51e9cac7" name="Changes" comment="Add dark mode support for plots">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2025-04-28-imagenet-flaws.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2025-04-28-imagenet-flaws.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +46,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-PY-243.24978.54" />
-        <option value="bundled-python-sdk-91e3b7efe1d4-466328ff949b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.24978.54" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -69,6 +69,10 @@
       <workItem from="1739977167428" duration="7858000" />
       <workItem from="1740055565555" duration="1355000" />
       <workItem from="1740589007447" duration="530000" />
+      <workItem from="1742500840106" duration="87000" />
+      <workItem from="1742501998947" duration="505000" />
+      <workItem from="1742502548714" duration="3000" />
+      <workItem from="1742567403821" duration="290000" />
     </task>
     <task id="LOCAL-00001" summary="Add dark mode support for plots">
       <option name="closed" value="true" />
