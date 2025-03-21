@@ -19,7 +19,7 @@ authors:
   - name: Alexis Montoison
     url: "https://www.linkedin.com/in/alexis-montoison/"
     affiliations:
-      name: Argonne National Laboratory
+      name: Argonne National Laboratory, Lemont, USA
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-sparse-autodiff.bib  
