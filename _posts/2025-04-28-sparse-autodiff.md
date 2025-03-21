@@ -394,7 +394,7 @@ a given output does not always depend on every single input.
 This endows the corresponding Jacobian matrix with a **sparsity pattern**,
 where **zero coefficients denote an absence of (first-order) dependency**.
 The previous case of a convolutional layer is a simple example.
-An even simpler example is an activation function applied elementwise,
+An even simpler example is an activation function applied element-wise,
 for which the Jacobian matrix is the identity matrix.
 
 ### Leveraging sparsity
