@@ -77,24 +77,23 @@ One method that exemplifies this principle is Monte Carlo Tree Search (MCTS), de
 Additional search time improves MuZero's performance in Go (for both real and learned simulators). Adapted from Schrittwieser et al.<d-cite key="schrittwieser2020mastering"></d-cite>
 </div>
 
-MuZero’s reveals a characteristic relationship between search time and performance for the MCTS algorithm: performance typically improves **logarithmically**, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. The scalability of MuZero is driven by techniques like tree parallelism and virtual loss, which we will cover in more detail below.
+MuZero's success reveals a characteristic relationship between search time and performance for the MCTS algorithm: performance typically improves **logarithmically**, where each doubling of computational resources adds a relatively constant increment to playing strength<d-cite key="camacho2017mcts"></d-cite>. The scalability of MuZero is driven by techniques like tree parallelism and virtual loss, which we will cover in more detail below.
 
-An algorithm that improves with time is great, but what if we have an urgent problem that must be solved within a short amount of time (e.g. real-time decision making or low-latency conversations)? In this case, we need to adapt the vanilla MCTS algorithm to leverage parallel computation in order to find a good solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
+Its great that MCTS improves its solution quality with time, but what if we have an urgent problem that must be solved within a short amount of time (e.g. for real-time decision making)? In this case, MCTS can be adapted to leverage parallel computation, enabling us to find a better solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
 
 ## MCTS Background
 
-MCTS is a powerful algorithm for decision-making in large state spaces, commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. MCTS stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before MCTS became prominent, techniques like minimax with alpha-beta pruning were the standard in game AI. While alpha-beta pruning could efficiently reduce the search space, its effectiveness often depended on the quality of evaluation functions and move ordering. MCTS offered a different approach that could work without domain-specific knowledge, though both methods can benefit from incorporating heuristics<d-cite key="swiechowski2022mcts"></d-cite>.
+MCTS is a powerful algorithm for decision making in large state spaces, commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. MCTS stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before MCTS became prominent, techniques like minimax with alpha-beta pruning were the standard in game AI. While alpha-beta pruning could efficiently reduce the search space, its effectiveness often depended on the quality of evaluation functions and move ordering. MCTS offered a different approach that could work without domain-specific knowledge, though both methods can benefit from incorporating heuristics<d-cite key="swiechowski2022mcts"></d-cite>.
 
 ### Vanilla MCTS
 
-MCTS operates within an environment, which defines the possible states and actions, along with the rules for transitioning between states and assigning rewards. The algorithm iteratively builds a search tree, collecting statistics for each node, including how many times it has been visited and the average reward obtained from simulations passing through it. These statistics guide the decision-making process, enabling the algorithm to balance exploration and exploitation intelligently. The algorithm operates in four main phases:
+MCTS operates in an environment that defines the states, actions, transition rules, and reward assignments. The algorithm iteratively builds a search tree, collecting statistics for each node, such as visit counts and the average reward from simulations that pass through it. These statistics guide the decision-making process, enabling the algorithm to balance exploration and exploitation. The algorithm operates in four main phases:
 
 <div class="row mt-4">
   <div class="col-md-6">
     <h4>1. Selection</h4>
     <p>
-      Starting from the root node, MCTS selects child nodes according to a policy that balances exploration and exploitation. 
-      This continues until either a node with unexplored children is reached (where expansion is possible) or a terminal node is reached.
+      Starting from the root, MCTS traverses child nodes using a policy that balances exploration and exploitation until it reaches a node with unexplored children (allowing for expansion) or a terminal node. 
     </p>
   </div>
   <div class="col-md-6">
@@ -118,8 +117,7 @@ MCTS operates within an environment, which defines the possible states and actio
   <div class="col-md-6">
     <h4>3. Simulation</h4>
     <p>
-      From the newly expanded node, a simulation (or "rollout") is conducted by sampling actions within the environment until a terminal state is reached, using a default policy (often random). 
-      The cumulative reward obtained during this phase serves as feedback for evaluating the node.
+      From the newly expanded node, a simulation (or 'rollout') is performed by sampling actions using a default (often random) policy until a terminal state is reached. The cumulative reward obtained during this phase serves as feedback for evaluating the node.
     </p>
   </div>
   <div class="col-md-6">
@@ -144,7 +142,7 @@ MCTS operates within an environment, which defines the possible states and actio
   These diagrams and their descriptions summarize the four main phases of MCTS: Selection, Expansion, Simulation, and Backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
 </div>
 
-MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space (e.g., a game tree) is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
+MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
 
 At the conclusion of the MCTS process, the algorithm recommends the action $a_{final}$ that maximizes the average reward $Q(s_0, a)$ among all possible actions $a$ from the root state $s_0$:
 
@@ -155,15 +153,13 @@ $$
 where:
 
 -   $A(s_0)$ represents the set of actions available in the root state $s_0$.
--   $Q(s_0, a)$ represents the average reward from playing action $a$ in state $s_0$ from simulations performed so far.
+-   $Q(s_0, a)$ represents the average reward from playing action $a$ in state $s_0$ based on simulations performed so far.
 
 As the number of iterations grows to infinity, the average reward estimates $Q(s_0, a)$ for each of the actions from the root state converge in probability to their minimax action values. This iterative refinement allows the action $a_{final}$ chosen by MCTS to converge toward the optimal action $a^*$, improving its decision quality over time.
 
 ### The UCT Selection Policy
 
 A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far) while building the search tree. UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase<d-cite key="swiechowski2022mcts"></d-cite>.
-
-During selection, the algorithm operates within the current state of the search tree as it has been constructed so far. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown in the brackets below:
 
 During the selection phase, the algorithm chooses actions based on the statistics of actions that have already been explored within the search tree. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown below:
 
@@ -313,7 +309,7 @@ In TDS-df-UCT, the tree is distributed across workers using Transposition-Driven
 
 Despite these limitations, TDS-df-UCT achieves significant speedups over sequential MCTS by leveraging distributed resources effectively.
 
-Building upon TDS-df-UCT, MP-MCTS refines the parallel MCTS process to address its shortcomings. Introduced in the context of molecular design and other large-scale problems, MP-MCTS incorporates several key innovations<d-cite key="yang2021practical"></d-cite>:
+Building upon TDS-df-UCT, Yang et al. introdued Massively Parallel MCTS (MP-MCTS), which refines the parallel MCTS process to address its shortcomings. Introduced in the context of molecular design and other large-scale search problems, MP-MCTS incorporates several key innovations<d-cite key="yang2021practical"></d-cite>:
 
 -   **Node-Level History Tables**: Unlike TDS-df-UCT, where history is carried only in messages, MP-MCTS stores detailed statistical histories (e.g., visit counts and rewards) within each node. This accelerates the dissemination of the latest simulation results across workers and allows for more informed decisions during traversal.
 -   **Strategic Backpropagation**: MP-MCTS introduces a more dynamic backpropagation strategy, where updates are performed as needed to maintain accurate UCT value estimates. This prevents over-exploration of less promising branches while ensuring timely propagation of critical information.
@@ -329,7 +325,7 @@ These enhancements enable MP-MCTS to approximate the behavior of sequential MCTS
 
 Experiments show that MP-MCTS not only achieves deeper trees but also consistently outperforms TDS-df-UCT in solution quality. In molecular design benchmarks, MP-MCTS running on 256 cores for 10 minutes found solutions comparable to non-parallel MCTS running for 42 hours<d-cite key="yang2021practical"></d-cite>.
 
-Distributed depth-first MCTS approaches like TDS-df-UCT and MP-MCTS represent a significant step forward in scaling MCTS for large-scale distributed environments. While TDS-df-UCT introduced foundational ideas for mitigating communication bottlenecks, MP-MCTS refined these concepts to achieve better tree depth, scalability, and solution quality. By intelligently reducing backpropagation overhead and introducing node-level history tables, these methods achieve significant speedups while approximating the behavior of sequential MCTS.
+Distributed depth-first MCTS approaches like TDS-df-UCT and MP-MCTS represent a significant step forward in scaling MCTS for large-scale distributed environments. While TDS-df-UCT introduced foundational ideas for mitigating communication bottlenecks, MP-MCTS refined these concepts to achieve better tree depth, scalability, and solution quality. By cleverly reducing backpropagation overhead and introducing node-level history tables, these methods achieve significant speedups while approximating the behavior of sequential MCTS.
 
 ## Conclusion
 
