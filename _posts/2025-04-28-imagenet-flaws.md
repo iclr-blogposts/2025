@@ -19,7 +19,7 @@ authors:
   - name: Kateřina Hanzelková
     url:
     affiliations:
-      name: Faculty of Science, Charles University
+      name: Faculty of Science, Charles University, Czech Republic, Prague
   - name: Klara Janouskova
     url:
     affiliations:
@@ -1128,6 +1128,7 @@ To solve the 'ferret' issues, redefinition of classes might be needed, e.g.:
 1. Introduction of a distinct class for ferret, specifically denoting the domesticated form of the European polecat.
 2. Reclassification of the term polecat so that it no longer appears in the synset for skunk; instead, this term should be used to represent a broader category encompassing both the European polecat and American polecat (also referred to as the black-footed ferret), as well as other species, such as the marbled, steppe, and striped polecats.
 3. Create a class that encompasses both polecats and ferrets.
+
 
 ### Results of Relabeling
 
