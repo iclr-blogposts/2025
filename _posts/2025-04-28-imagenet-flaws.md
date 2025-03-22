@@ -1129,7 +1129,6 @@ To solve the 'ferret' issues, redefinition of classes might be needed, e.g.:
 2. Reclassification of the term polecat so that it no longer appears in the synset for skunk; instead, this term should be used to represent a broader category encompassing both the European polecat and American polecat (also referred to as the black-footed ferret), as well as other species, such as the marbled, steppe, and striped polecats.
 3. Create a class that encompasses both polecats and ferrets.
 
-
 ### Results of Relabeling
 
 After relabeling the weasel family classes, we found that only the *"mink"* class had more than 50% of the original labels correct.
