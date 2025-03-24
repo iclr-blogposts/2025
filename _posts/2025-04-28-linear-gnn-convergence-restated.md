@@ -45,7 +45,7 @@ toc:
 
 ## Introduction
 
-In this post, we're diving into a 2021 paper that attempts to pin down the *training dynamics* of Graph Neural Networks (GNNs). 
+**[Test]**，In this post, we're diving into a 2021 paper that attempts to pin down the *training dynamics* of Graph Neural Networks (GNNs). 
 
 This paper<d-cite key="Xu2021"></d-cite>, written by researchers Keyulu Xu, Mozhi Zhang, Stefanie Jegelka and Kenji Kawaguchi, comes with several **strong claims**. Among them, the first and most important one is: linear GNNs <d-footnote> <b>Hint</b>: Check the Minimal Background Section for formal definition of a linear GNN. </d-footnote> converge to the optimal loss at a **linear rate** <d-footnote> <b>Hint</b>: Linear convergence means that we need $\mathcal{O}(\log 1/\epsilon)$ steps of iteration to ensure that the absolute value of the difference between the current solution and the optimal solution is less than $\epsilon$. </d-footnote>. Intrigued? Let’s unravel it together.
 
