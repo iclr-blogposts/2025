@@ -12,7 +12,7 @@ authors:
   - name: Scott H. Hawley
     url: "https://hedges.belmont.edu"
     affiliations: 
-      name: Belmont University and Hyperstate Music AI
+      name: Belmont University and Hyperstate Music, Inc.
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-flow-with-what-you-know.bib  
