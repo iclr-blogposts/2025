@@ -9,7 +9,10 @@ hidden: false
 
 # Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Scott H. Hawley
+    url: "https://hedges.belmont.edu"
+    affiliations: 
+      name: Belmont University and Hyperstate Music AI
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-flow-with-what-you-know.bib  
@@ -123,7 +126,7 @@ Also, note that <b><i>there is no explicit "rectification" mechanism</i></b> in 
 
 # How Do FM/RF Models Work?
 
-To gain a deep understanding of how models work, having an executable toy model is often a key instructional tool.  This tutorial is written as an executable Jupyter notebook<d-footnote>Anonymized Colab link: <a href="https://tinyurl.com/iclr-2025-flow-blogpost-colab">https://tinyurl.com/iclr-2025-flow-blogpost-colab</a></d-footnote>, though you can make sense of it without the code, so we will typically collapse or hide the code. But if you want to see it, you can expand the drop-down arrows.  
+To gain a deep understanding of how models work, having an executable toy model is often a key instructional tool.  This tutorial is written as an executable Jupyter notebook<d-footnote>Colab link: <a href="https://tinyurl.com/iclr-2025-flow-blogpost-colab">https://tinyurl.com/iclr-2025-flow-blogpost-colab</a></d-footnote>, though you can make sense of it without the code, so we will typically collapse or hide the code. But if you want to see it, you can expand the drop-down arrows.  
 
 For instance, the code starts with importing packages...
 
