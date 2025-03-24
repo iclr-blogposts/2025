@@ -27,14 +27,13 @@ toc:
       subsections:
           - name: The Four Phases of MCTS
           - name: The UCT Selection Policy
-          - name: MCTS Extensions
     - name: How can we scale MCTS?
       subsections:
           - name: Leaf Parallelism
           - name: Root Parallelism
           - name: Tree Parallelism
-    - name: Lock-Based Tree Parallelism
-    - name: Lock-Free Tree Parallelism and Virtual Loss
+    - name: Lock-Based and Lock-Free Tree Parallelism
+    - name: Virtual Loss
     - name: Transposition Driven Scheduling
     - name: Distributed MCTS
     - name: Distributed Depth-First MCTS
@@ -137,7 +136,7 @@ MCTS operates in an environment that defines the states, actions, transition rul
 </div>
 
 <div class="caption mt-3">
-  These diagrams and their descriptions summarize the four main phases of MCTS: Selection, Expansion, Simulation, and Backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
+  These diagrams and their descriptions outline the four main phases of MCTS: Selection, Expansion, Simulation, and Backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
 </div>
 
 MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
@@ -153,13 +152,13 @@ where:
 -   $A(s_0)$ represents the set of actions available in the root state $s_0$.
 -   $Q(s_0, a)$ represents the average reward from playing action $a$ in state $s_0$ based on simulations performed so far.
 
-As the number of iterations grows to infinity, the average reward estimates $Q(s_0, a)$ for each of the actions from the root state converge in probability to their minimax optimal values<d-cite key="kocsis2006bandit"></d-cite>. This iterative refinement allows the action $a_{final}$ chosen by MCTS to converge toward the optimal action $a^*$, improving its decision quality over time.
+As the number of iterations grows to infinity, the average reward estimates $Q(s_0, a)$ for each of the actions from the root state converge in probability to their minimax optimal values<d-cite key="kocsis2006bandit"></d-cite>. Consequently, as MCTS performs more iterations, the selected action $a_{final}$ converges to the optimal action $a^*$.
 
 ### The UCT Selection Policy
 
 A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far) while building the search tree. UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase<d-cite key="swiechowski2022mcts"></d-cite>.
 
-During the selection phase, the algorithm chooses actions based on the statistics of actions that have already been explored within the search tree. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown below:
+During the selection phase, the algorithm chooses actions based on the statistics of actions that have already been explored within the search tree. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown in brackets below:
 
 $$
 a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left\{ Q(s, a) + C \sqrt{\frac{\ln N(s)}{N(s, a)}} \right\} \tag{2}
@@ -178,7 +177,7 @@ This concludes our discussion of the foundational elements of MCTS, providing th
 
 ## How can we scale MCTS?
 
-Its great that MCTS improves its solution quality with time, but what if we have an urgent problem that must be solved within a short amount of time (e.g. for real-time decision making)? In this case, MCTS can be adapted to leverage parallel computation, enabling us to find a better solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
+Its great that MCTS improves its solution quality with time, but what if we have an urgent problem that must be solved within a short amount of time (e.g. real-time decision making)? In this case, MCTS can be adapted to leverage parallel computation, enabling us to find a better solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
 
 To find better solutions without increasing [wall-clock time](https://en.wikipedia.org/wiki/Elapsed_real_time), we can consider how the four different phases of MCTS can be distributed. There are three broad types of parallelism used to scale MCTS, and we will discuss each one below.
 
@@ -198,64 +197,68 @@ Root parallelism takes the approach of distributing all phases onto separate wor
 
 ### Tree Parallelism
 
-Finally, we describe tree parallelism, which will be the focus for the remainder of this blogpost. This approach, widely used in modern distributed MCTS implementations and the AlphaGo line of work<d-cite key="schrittwieser2024questions"></d-cite>, enables multiple threads or processes to operate on the same tree simultaneously. Tree parallelism accelerates tree expansion by allowing concurrent operations on different parts of the tree. However, the primary challenge lies in striking a balance between maximizing computational resource utilization and ensuring sufficient focus on the most promising parts of the tree.
+Tree parallelism, which will be the focus for the remainder of this blogpost, is widely used in modern distributed MCTS implementations and is the method of choice in the AlphaGo line of work<d-cite key="schrittwieser2024questions"></d-cite>. It shares information effectively by building out a single tree using using multiple threads. Further, it accelerates tree expansion by allowing concurrent expansions on different parts of the tree. The primary implementation challenge lies in striking a balance between maximizing computational resource utilization and ensuring sufficient focus on the most promising parts of the tree.
 
-**There are several compelling reasons to parallelize MCTS:**
+**There are many compelling reasons to use tree parallelism:**
 
--   Parallelism enables exploration of more of the game tree, increasing the likelihood of discovering the optimal trajectory (sequence of actions).
+-   It may find a better solution within a fixed amount of wall-clock time.
+-   It explores of more of the game tree, increasing the likelihood of discovering the optimal trajectory (sequence of actions).
 -   It makes full use of accelerators (GPUs, TPUs, etc.).
 
-**Yet at the same time, there are many reasons to work sequentially:**
+**Yet at the same time, there are many challenges:**
 
 -   MCTS relies on the statistics gathered from previous iterations to guide future decisions. In parallel implementations, these statistics may become inconsistent or outdated due to simultaneous updates, potentially leading to suboptimal traversal of the search tree.
 -   Evaluating actions that are far away from the optimal trajectory may actively hurt us, as approximation errors and variability in rollouts can make bad moves seem promising in the short term<d-cite key="schrittwieser2024questions"></d-cite>.
 -   Managing concurrent access to the tree and ensuring data integrity introduces complexity. For instance, race conditions or data overwrites could corrupt the search process<d-cite key="steinmetz2020more"></d-cite>.
 
-To address these challenges, techniques such as lock-free programming, virtual loss, and transposition driven scheduling have been proposed to manage these issues. Below, we will expand on these different techniques and explain how they are used to implement tree parallelism effectively.
+To address these challenges, techniques such as lock-free programming, virtual loss, and transposition driven scheduling have been proposed. Below, we will expand on these different techniques and explain how they are used to implement tree parallelism effectively.
 
-## Lock-Based Tree Parallelism
+## Lock-Based and Lock-Free Tree Parallelism
 
-As mentioned, one of the main challenges with tree parallelism is dealing with resource contention. There are two main lock-based approaches used in the literature to address this challenge: **global mutex** and **local mutex** methods. Global mutex methods lock the entire tree such that only one thread can access the tree at a time. However, simulations can still be completed in parallel since they don't modify the tree. An obvious shortcoming of this method is that locking the entire tree creates a bottleneck that prevents speedups when scaling to a large number of threads. So, while this approach is easy to implement due to its straightforward synchronization, the limited scalability is a huge issue that cannot be ignored.
+As mentioned, one of the main challenges with tree parallelism is dealing with resource contention. There are two main lock-based approaches used in the literature to address this challenge: **global mutex** and **local mutex** methods.
 
-Local mutex methods make locking much more fine-grained, allowing for multiple workers to work in parallel on the same tree. In local mutex methods, threads only lock the node they are currently working on. Since this allows multiple workers to operate on different parts of the tree, local mutex methods have much greater scalability compared to global mutex methods. However, while this method increases parallelism, it also increases overhead since we have to manage multiple locks. To mitigate this, Chaslot et al. recommend using fast-access mutexes like spinlocks, which are designed for situations where threads are expected to hold locks for very short durations<d-cite key="chaslot2008parallel"></d-cite>.
+Global mutex methods use a single lock to control access to the tree during critical operations. While threads must acquire this lock during selection, expansion, and backpropagation phases, they can perform simulations without acquiring the lock since they don't modify the tree. This approach is straightforward to implement but creates a significant bottleneck since threads often have to wait before accessing the tree. Consequently, global mutex methods show limited scalability, making them suitable primarily for systems that use few threads.
 
-## Lock-Free Tree Parallelism and Virtual Loss
+Local mutex methods make locking much more fine-grained, allowing multiple workers modify the shared tree at the same time. In local mutex methods, threads only lock the node they are currently working on. Since this allows multiple workers to operate on different parts of the shared search tree, local mutex methods have much greater scalability compared to global mutex methods. However, while this method increases parallelism, it also increases overhead since we have to manage multiple locks. Chaslot et al. recommend using fast-access mutexes like spinlocks for implementation, which are designed for situations where threads are expected to hold locks for very short durations<d-cite key="chaslot2008parallel"></d-cite>.
 
 Since lock-based methods add additional overhead and require a complex implementation, there are also lock-free methods that rely on atomic operations and memory models to enable concurrent access without using traditional locks<d-cite key="steinmetz2020more"></d-cite>. While lock-free algorithms can be challenging to implement correctly, they can provide better performance than lock-based approaches while still ensuring thread safety.
 
-One technique often used in lock-free implementations is **virtual loss**, which reduces redundant exploration by dynamically adjusting UCT scores. If naive parallel rollouts are performed with multiple workers, all workers may redundantly select the same promising path in the search tree. Virtual loss mitigates this by temporarily reducing the UCT score of nodes currently being explored, encouraging workers to diversify their trajectories. Specifically, it temporarily assumes that ongoing rollouts at a given node will result in zero reward, reducing the likelihood of other threads selecting the same node until its rollouts are completed and backpropagated.
+## Virtual Loss
 
-To illustrate how virtual loss promotes exploration of diverse trajectories in MCTS, consider the following diagram from Yang et al., which compares naive parallelization without virtual loss and parallelization with virtual loss. Virtual loss dynamically reduces UCT scores for nodes being explored, encouraging workers to take distinct search paths and avoid redundant computation.
+One technique often used in implementations is **virtual loss**, which reduces redundant exploration by dynamically adjusting UCT scores. If selection is performed in parallel by multiple workers, they may all redundantly select the same promising path in the search tree before it is updated with new statistics. Virtual loss mitigates this issue by temporarily reducing the UCT score of nodes currently being explored, encouraging workers to diversify their trajectories. Specifically, it temporarily assumes that ongoing rollouts at a given node will result in zero reward, reducing the likelihood of other threads selecting the same node until its rollouts are completed and backpropagated.
+
+To illustrate how virtual loss promotes exploration of diverse trajectories in MCTS, consider the following diagram from Yang et al., which compares parallelization with and without virtual loss. In this scenario, we assume that there are multiple workers traversing the search tree at the same time, but they perform selection in some specific order. As a result, virtual loss dynamically reduces UCT scores for nodes being explored, enabling workers to take distinct search paths and avoid redundant computation.
 
 {% include figure.html path="assets/img/2025-04-28-scalable-mcts/virtual_loss_traversal.png" class="img-fluid" %}
 
 <div class="caption">
-  Comparison of (a) naive parallel UCT using UCB1, where workers redundantly explore the same path, and (b) parallel UCT with virtual loss, where ongoing rollouts dynamically reduce UCT scores, resulting in distinct search paths for each worker (shown in green, red, and blue). Adapted from Yang et al.<d-cite key="yang2021practical"></d-cite>
+  Comparison of (a) naive parallel UCT, where workers redundantly explore the same path, and (b) parallel UCT with virtual loss, where ongoing rollouts dynamically reduce UCT scores, resulting in distinct search paths for each worker. Workers from earliest to latest are shown in green, red, and blue. Adapted from Yang et al.<d-cite key="yang2021practical"></d-cite>
 </div>
 
 Virtual loss modifies the usual UCT selection policy to be the following:
 
 $$
-a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left( \frac{N(s, a)Q(s, a)}{N(s, a) + T(s, a)} + C \sqrt{\frac{\ln (N(s) + T(s))}{N(s, a) + T(s, a)}} \right) \tag{3}
+a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left\{ \frac{N(s, a)Q(s, a)}{N(s, a) + T(s, a)} + C \sqrt{\frac{\ln (N(s) + T(s))}{N(s, a) + T(s, a)}} \right\} \tag{3}
 $$
 
 where:
 
 -   $a_{selection}$ is the action selected from state $s$.
 -   $A(s)$ is the set of actions available in state $s$.
--   $Q(s, a)$ represents the average reward from playing action $a$ in state $s$ from simulations performed so far.
+-   $Q(s, a)$ represents the average reward from playing action $a$ in state $s$ based on simulations performed so far.
 -   $N(s)$ is the number of times state $s$ has been visited.
 -   $N(s, a)$ is the number of times action $a$ has been played from state $s$.
 -   $T(s)$ is the number of workers currently exploring action $a$ in state $s$.
 -   $T(s, a)$ is the number of workers currently exploring action $a$ in state $s$.
 -   $C$ is a constant controlling the balance between exploration and exploitation. In general, it is set differently depending on the domain.
 
+In this modified UCT score, there are two mechanisms that punish nodes having ongoing rollouts. $T(s, a)$ penalizes nodes with many active simulations.
 Virtual loss encourages exploration by diversifying worker trajectories, but its fixed penalty can lead to inefficiencies. For example, promising nodes may be overly penalized, hindering exploitation<d-cite key="mirsoleimani2015parallel"></d-cite>.
 
-To overcome the challenges of fixed penalties in virtual loss, Liu et al. proposed an alternative approach called _Watch the Unobserved in UCT (WU-UCT)_. WU-UCT modifies the standard virtual loss formula by maintaining the original average reward, rather than reducing it as in virtual loss. However, it applies the same penalty adjustment to the exploration term, encouraging workers to prioritize less-visited actions. Thus, the action $a_{selection}$ to play in a given state $s$ is selected by maximizing the WU-UCT score shown below:
+To overcome the challenges of fixed penalties in virtual loss, Liu et al. proposed an alternative approach called _Watch the Unobserved in UCT (WU-UCT)_. WU-UCT modifies the standard virtual loss formula by maintaining the original average reward, rather than reducing it as in virtual loss. However, it applies the same penalty adjustment to the exploration term, encouraging workers to prioritize less-visited actions. Thus, the action $a_{selection}$ to play in a given state $s$ is selected by maximizing the WU-UCT score shown in brackets below:
 
 $$
-a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left(Q(s, a) + C \sqrt{\frac{\ln (N(s) + T(s))}{N(s, a) + T(s, a)}} \right) \tag{4}
+a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left\{Q(s, a) + C \sqrt{\frac{\ln (N(s) + T(s))}{N(s, a) + T(s, a)}} \right\} \tag{4}
 $$
 
 Just as in virtual loss, $T(s, a)$ penalizes nodes with many active simulations. Unlike virtual loss, which assumes zero reward for ongoing workers, WU-UCT assumes that the reward will be $Q(s, a)$, the average reward observed so far. By preserving average rewards and penalizing only the exploration term, WU-UCT aims to improve the efficiency of parallel rollouts while reducing the likelihood of redundant computations.
@@ -298,7 +301,7 @@ While TDS minimizes communication overhead through its asynchronous design, this
 
 To address the uneven distribution of workload in parallel MCTS, Yoshizoe et al.<d-cite key="yoshizoe2011scalable"></d-cite> proposed a depth-first version of MCTS (TDS-df-UCT). The core idea is to reduce the frequency of backpropagation steps, limiting contention around heavily visited nodes, particularly the root. TDS-df-UCT operates similarly to traditional MCTS but delays backpropagation until a node is sufficiently explored. This reduces the number of messages sent between workers and alleviates bottlenecks caused by frequent updates to high-traffic nodes.
 
-In TDS-df-UCT, the tree is distributed across workers using Transposition-Driven Scheduling (TDS), where each worker stores a subset of the tree based on a hash function. While this approach minimizes communication overhead and allows for asynchronous computation, the reduction in backpropagation frequency introduces the following drawbacks:
+In TDS-df-UCT, the tree is distributed across workers using Transposition Driven Scheduling (TDS), where each worker stores a subset of the tree based on a hash function. While this approach minimizes communication overhead and allows for asynchronous computation, the reduction in backpropagation frequency introduces the following drawbacks:
 
 -   **Shallow Trees**: By skipping frequent backpropagations, TDS-df-UCT may overlook discoveries from other workers, leading to trees that are wider and shallower than sequential MCTS.
 -   **Delayed Information Sharing**: Since history is carried only in the messages exchanged between workers, new findings take longer to propagate through the tree.
