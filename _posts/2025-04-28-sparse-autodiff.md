@@ -797,7 +797,7 @@ and ColPack <d-cite key="gebremedhinColPackSoftwareGraph2013"></d-cite>.
 Here are the packages we will use for this demonstration.
 
 - [SparseConnectivityTracer.jl](https://github.com/adrhill/SparseConnectivityTracer.jl) <d-cite key="hillSparseConnectivityTracerjl2024"></d-cite>: Sparsity pattern detection with operator overloading.
-- [SparseMatrixColorings.jl](https://github.com/gdalle/SparseMatrixColorings.jl) <d-cite key="dalleGdalleSparseMatrixColoringsjlV04102024"></d-cite>: Greedy algorithms for colorings, decompression utilities. 
+- [SparseMatrixColorings.jl](https://github.com/gdalle/SparseMatrixColorings.jl) <d-cite key="dalleGdalleSparseMatrixColoringsjlV04102024"></d-cite>: Greedy algorithms for colorings, decompression utilities.
 - [ForwardDiff.jl](https://github.com/JuliaDiff/ForwardDiff.jl) <d-cite key="revelsForwardModeAutomaticDifferentiation2016"></d-cite>: Forward-mode AD and computation of JVPs.
 - [DifferentiationInterface.jl](https://github.com/JuliaDiff/DifferentiationInterface.jl) <d-cite key="dalleJuliaDiffDifferentiationInterfacejlDifferentiationInterfacev06232024"></d-cite>: High-level interface bringing all of these together, originally inspired by <d-cite key="schaferAbstractDifferentiationjlBackendAgnosticDifferentiable2022"></d-cite>.
 
@@ -807,9 +807,19 @@ We also use a few other packages for data manipulation <d-cite key="bouchet-vala
 Like in any other language, the first step is importing the dependencies:
 
 ```julia
-using DifferentiationInterface
+using DifferentiationInterface, DifferentiationInterfaceTest
 using SparseConnectivityTracer, SparseMatrixColorings
 import ForwardDiff
+```
+
+The syntax we showcase is accurate as of the following package versions:
+
+```
+[a0c0ee7d] DifferentiationInterface v0.6.48
+[a82114a7] DifferentiationInterfaceTest v0.9.5
+[f6369f11] ForwardDiff v0.10.38
+[9f842d2f] SparseConnectivityTracer v0.6.15
+[0a514795] SparseMatrixColorings v0.4.14
 ```
 
 ### Test function
@@ -973,13 +983,12 @@ Our goal is to find out when sparse differentiation becomes relevant.
 Benchmark data can be generated with the following code:
 
 ```julia
-using DifferentiationInterfaceTest
 scenarios = [
     Scenario{:jacobian, :out}(iter_diff, rand(n); contexts=(Constant(k),))
     for n in round.(Int, 10 .^ (1:0.3:4))
 ]
 data = benchmark_differentiation(
-    [ad, asd], scenarios; benchmark=:full
+    [ad, asd], scenarios; benchmark=:full, logging=true
 )
 ```
 
