@@ -41,7 +41,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
-      - run: aws s3 sync --region eu-west-1 --acl public-read _site s3://iclr-blogposts-2025/${{env.SLUG}}-${{env.ISSUE_NUMBER}}
+      - run: aws s3 sync --region eu-west-1 --acl public-read _site s3://iclr-blogposts-2024/${{env.SLUG}}-${{env.ISSUE_NUMBER}}
       - uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

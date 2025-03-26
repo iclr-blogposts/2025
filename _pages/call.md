@@ -8,7 +8,7 @@ nav_order: 2
 ---
 
 # Key Dates
-- **Abstract/Paper  deadline**: Nov. 15th, 23:59AOE, 2024.
+- **Abstract & Submission deadline**: ~~Nov 15th~~ **Extended to** Nov 22nd 23:59 AOE, 2024 
   - [Submit to OpenReview](https://openreview.net/group?id=ICLR.cc/2025/BlogPosts)
   - Any modifications to your blog post, via a pull request on github
 - **Notification of acceptance**: ~January 22nd, 2025
