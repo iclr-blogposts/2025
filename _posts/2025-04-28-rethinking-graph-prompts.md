@@ -14,7 +14,25 @@ hidden: false
 
 # Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Chenyi Zi
+    url: https://barristen.github.io/
+    affiliations: Hong Kong University of Science and Technology (Guangzhou)
+
+  - name: Bowen LIU
+    url: https://adastraabyssoque.github.io/
+    affiliations: Hong Kong University of Science and Technology (Guangzhou)
+
+  - name: Xiangguo Sun
+    url: https://xgsun.mysxl.cn/
+    affiliations: The Chinese University of Hong Kong
+
+  - name: Hong Cheng
+    url: https://www.se.cuhk.edu.hk/people/academic-staff/prof-cheng-hong/
+    affiliations: The Chinese University of Hong Kong
+
+  - name: Jia Li
+    url: https://sites.google.com/view/lijia
+    affiliations: Hong Kong University of Science and Technology (Guangzhou)
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-rethinking-graph-prompts.bib
