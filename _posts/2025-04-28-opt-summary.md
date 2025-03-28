@@ -1,29 +1,21 @@
 ---
 layout: distill
-title: Think Twice Before Claiming Your Optimization Algorithm Outperformance - Review and Beyond
+title: Avoid Overclaims: Summary of Complexity Bounds for Algorithms in Minimization and Minimax Optimization
 description: In this blog, we revisit the convergence analysis of first-order algorithms in minimization and minimax optimization problems. Within the classical oracle model framework, we review the state-of-the-art upper and lower bound results in various settings, aiming to identify gaps in existing research. With the rapid development of applications like machine learning and operation research, we further identify some recent works that revised the classical settings of optimization algorithms study.
 date: 2025-04-28
 future: true
 htmlwidgets: true
 hidden: false
 
-# Anonymize when submitting
 authors:
-  - name: Anonymous
-
-# authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+  - name: Siqi Zhang
+    url: https://siqi-z.github.io/
+    affiliations:
+      name: School of Management and Engineering, Nanjing University
+  - name: Yifan Hu
+    url: https://sites.google.com/view/yifan-hu
+    affiliations:
+      name: EPFL & ETH Zürich
 
 # To-do:
 # 1. https://arxiv.org/pdf/2412.02175
@@ -33,7 +25,8 @@ authors:
 # 5. Shuffling 2309.07879, also one paper reviewed
 # 6. https://arxiv.org/pdf/2502.14060
 # 7. https://proceedings.mlr.press/v139/yoon21d.html
-# 8. ddl: 3.15
+# 8. 2411.14601
+
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-opt-summary.bib  
