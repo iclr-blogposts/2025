@@ -1010,8 +1010,7 @@ $$
 
   We first prove an intermediate result, which is the form most often found in the literature, but not the most interpretable in our opinion:
 
-  $$
-  \begin{align}\label{eq:cond2uncond}
+  $$\begin{align}\label{eq:cond2uncond}
     \forall \, t, \, x, \, \u = \Ebracket{z}{\frac{\ucond \pcond } {\p}}
     \enspace.
   \end{align}
@@ -1022,16 +1021,16 @@ $$
 
   $$\begin{aligned}
     \forall \, t, \, x, \, p(x|t)
-    &= \int_z p(x, z|t) \mathrm{d} z \\ %= \int_z p(x | z, t) p(z | t) \mathrm{d} z \\
+    &= \int_z p(x, z|t) \mathrm{d} z \\
     \forall \, t, \, x, \, \partialt{p(x|t)}
     &= \partialt{} \Ebracket{z}{p(x|t,z)} \\
-    &= \Ebracket{z}{\partialt{} p(x|t,z)} \quad \small{\text{(under technical conditions)}} \\
+    &= \Ebracket{z}{\partialt{} p(x|t,z)} \quad \small{\text{(under technical conditions)} } \\
     &= -\Ebracket{z}{\nabla \cdot \left( \ucond p(x|t,z) \right)} \quad\small{\text{continuity equation for } p(x|t,z)}\\
     &= -\nabla \cdot \Ebracket{z}{\ucond p(x|t,z)} \quad \small{\text{(under technical conditions)}} \\
     &= -\nabla \cdot \Ebracket{z}{\ucond p(x|t,z) \frac{p(x|t)}{p(x|t)}} \\
     &= -\nabla \cdot \left(\Ebracket{z}{\frac{\ucond p(x|t,z)}{p(x|t)}}p(x|t)\right) \quad \small{(p(x|t) \text{ is independent of } z)}
-    \end{aligned}
-    $$
+  \end{aligned}
+  $$
 
   Hence
   $$\forall \, t, \, x, \, \u = \Ebracket{z}{\frac{\ucond \pcond } {\p}}$$
@@ -1040,6 +1039,7 @@ $$
   </details>
 
   Then, we rewrite this intermediate formulation:
+
   $$\begin{align}
   \forall \, t, \, x, \, \u &=
   \Ebracket{z}{\frac{\ucond \pcond } {\p}} \\
