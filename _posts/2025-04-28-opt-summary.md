@@ -249,9 +249,10 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 **Remark:**
 
-1. $\kappa\triangleq L/\mu\geq 1$ is called the condition number, which can be very large in many applications, e.g., the optimal regularization parameter choice in statistical learning can lead to $\kappa=\Omega(\sqrt{n})$ where $n$ is the sample size<d-cite key="shalev2014understanding"></d-cite>.
-2. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
-3. The $L$-Smooth Convex setting comes with two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the other assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
+1. References: <d-cite key="nesterov2018lectures"></d-cite> <d-cite key="bubeck2015convex"></d-cite> <d-cite key="carmon2021lower"></d-cite> <d-cite key="nesterov2012make"></d-cite> <d-cite key="carmon2020lower"></d-cite> <d-cite key="beck2017first"></d-cite> <d-cite key="davis2018stochastic"></d-cite> <d-cite key="yue2023lower"></d-cite> <d-cite key="karimi2016linear"></d-cite>
+2. $\kappa\triangleq L/\mu\geq 1$ is called the condition number, which can be very large in many applications, e.g., the optimal regularization parameter choice in statistical learning can lead to $\kappa=\Omega(\sqrt{n})$ where $n$ is the sample size<d-cite key="shalev2014understanding"></d-cite>.
+3. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
+4. The $L$-Smooth Convex setting comes with two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the other assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
 
 ### Case 1-2: Finite-sum and Stochastic Optimization
 
@@ -278,8 +279,6 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
 2. "Thm" and "Cor" stand for "Theorem" and "Corollary" respectively.
-
-</div>
  
 ### Case 2-1: SC-SC/SC-C/C-C Deterministic Minimax Optimization
 
@@ -344,6 +343,8 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 **Remark:**
 
 1. Here
+
+</div>
 
 ---
 
