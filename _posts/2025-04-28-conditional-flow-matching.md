@@ -1020,7 +1020,7 @@ $$
   <summary>Click here to unroll the proof of \eqref{eq:cond2uncond}</summary>
 
   $$\begin{aligned}
-    \forall \, t, \, x, \, p(x|t)
+    \forall \, t, \, x, \, p(x|t) 
     &= \int_z p(x, z|t) \mathrm{d} z \\
     \forall \, t, \, x, \, \partialt{p(x|t)}
     &= \partialt{} \Ebracket{z}{p(x|t,z)} \\
