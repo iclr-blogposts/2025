@@ -124,7 +124,7 @@ _styles: >
     }
   }
   .sidebar {
-    background: #eee;
+    background: var(--sidebar-bg);
     border-radius: 1em;
     width: calc(var(--w) * 1px);
     height: calc(var(--h) * 1px);
@@ -213,21 +213,28 @@ _styles: >
     border-left: 3px solid gray;
     padding-left: 1em;
     margin-bottom: 1em;
-    display: grid;}
-    # align-items: center;
+    display: grid;
   }
 
   /* DARK MODE HELPERS */
   html {
     --l-bg: 70;
     --l-fg: 50;
-    &[data-theme="dark"] {
-      --l-bg: 50;
-      --l-fg: 70;
-      .invert {
-        filter: invert();
-      }
+    --summary-text: darkblue;
+    --sidebar-bg: #EEE;
+  }
+  html[data-theme="dark"] {
+    --l-bg: 50;
+    --l-fg: 70;
+    --sidebar-bg: #333;
+    --summary-text: lightblue;
+    .invert {
+      filter: invert();
     }
+  }
+
+  .summary-table td:nth-of-type(n+2) {
+    &, strong, mjx-container { color: black !important; }
   }
 
   /* DETAILS (foldable) */
@@ -239,7 +246,7 @@ _styles: >
     padding-left: 2em;
     summary {
       margin-left: -1.5em;
-      color: darkblue !important;
+      color: var(--summary-text) !important;
     }
   }
 
@@ -263,6 +270,15 @@ _styles: >
   }
   summary {
     color: var(--global-text-color) !important;
+  }
+  html[data-theme="dark"] {
+    .grid-custom1 img {
+      padding-top: 1em;
+      background: white;
+    }
+    mjx-container {
+      color: var(--global-text-color);
+    }
   }
   /* FIX scroll */
   :target {
@@ -416,7 +432,7 @@ which is still easy to evaluate provided each $$\phi_k$$ satisfies the two const
 % include figure.html path="assets/img/2025-04-28-conditional-flow-matching/T_theta_pushforward_phis.svg" class="img-fluid invert" caption="Normalizing flow \(T \) obtained as a composition of building blocks \(\phi_k\): \( T = \phi_K \circ \dots \circ \phi_1 \)." %
 -->
 
-{% include figure.html path="assets/img/2025-04-28-conditional-flow-matching/normalizing_flow_cross.png" class="img-fluid" caption="Normalizing flow with \(K=4\), transforming an isotropic Gaussian (leftmost) to a cross shape target distribution (rightmost). Picture from <d-cite key='papamakarios2021normalizing'/>" %}
+{% include figure.html path="assets/img/2025-04-28-conditional-flow-matching/normalizing_flow_cross.png" class="img-fluid invert" caption="Normalizing flow with \(K=4\), transforming an isotropic Gaussian (leftmost) to a cross shape target distribution (rightmost). Picture from <d-cite key='papamakarios2021normalizing'/>" %}
 
 
 
@@ -524,7 +540,7 @@ For a field $$u$$ regular enough such that the initial value problem has a uniqu
 </span></d-footnote>.
 
 <figure >
-  <img style="height: 250px" src="{{ 'assets/img/2025-04-28-conditional-flow-matching/trifecta.svg' | relative_url }}" frameborder="0" scrolling="no"/>
+  <img class="invert" style="height: 250px" src="{{ 'assets/img/2025-04-28-conditional-flow-matching/trifecta.svg' | relative_url }}" frameborder="0" scrolling="no"/>
   <figcaption class="caption">
   Link between the probability path, the velocity field and the flow.
   </figcaption>
@@ -539,7 +555,7 @@ Sampling is then achieved by solving the initial value problem \eqref{eq:initial
 
 
 <figure class="sidebar" style="--w: 200; --h: 420;" >
-  <video style="width: 100%; height: auto; object-fit: cover; border: none;"
+  <video class="invert" style="width: 100%; height: auto; object-fit: cover; border: none;"
          autoplay loop muted onclick="this.controls = true"
          src="{{ 'assets/img/2025-04-28-conditional-flow-matching/traj.mp4' | relative_url }}">
   </video>
@@ -560,23 +576,27 @@ $$
 \end{equation}
 $$
 
-<details>
+<details markdown="1">
   <summary>Click here to unroll the proof</summary>
+
   The proof relies on the identity
-  $$\nabla\cdot \left( p_t(x) u(t, x) \right) = \langle \nabla p_t(x) , u(x, t) \rangle + p_t(x) \nabla\cdot u(x, t) \, .$$
-  <span markdown="1">
+
+  $$
+  \nabla\cdot \left( p_t(x) u(t, x) \right) = \langle \nabla p_t(x) , u(x, t) \rangle + p_t(x) \nabla\cdot u(x, t) \, .
+  $$
+  
   Starting from the continuity equation \eqref{eq:continuity_eq} at any $$t, x$$ and dividing it by $$p_t(x)$$, we get:
-  </span>
+
   $$
   \begin{align}
     \frac{1}{p_t(x)} \frac{\mathrm{d} p_t}{\mathrm{d} t}(x) + \frac{1}{p_t(x)} \nabla\cdot(p_t(x) u(x, t)) &= 0 \nonumber \\
     \frac{\mathrm{d} \log p_t }{\mathrm{d} t} (x) + \frac{1}{p_t(x)} \langle \nabla p_t(x) , u(x, t) \rangle + \nabla\cdot u(x, t) &= 0 \label{eq:inst_change_pf}
   \end{align}
   $$
-  <span markdown="1">
+
   Note that if we plug $$x = x(t)$$, the left-hand side is the derivative with respect to $$t$$ of $$\log p_t$$, evaluated at $$x(t)$$.
   This is different from the derivative with respect to $$t$$ of $$t \mapsto \log p_t(x(t))$$ -- the so-called *total derivative*, which we now compute:
-  </span>
+
   $$
   \begin{align*}
     \frac{\mathrm{d} \log p_t(x(t))}{\mathrm{d}t} &=
@@ -587,10 +607,10 @@ $$
         &= - \nabla\cdot u_\theta(x, t)
   \end{align*}
   $$
-  <span markdown="1">
+
   using $$\nabla \log p_t(x) = \frac{1}{p_t(x)} \nabla p_t(x)$$ and \eqref{eq:inst_change_pf} successively.
   We conclude by observing that the divergence is equal to the trace of the Jacobian.
-  </span>
+
 </details>
 
 
@@ -985,15 +1005,18 @@ $$
 
 
 
-<details>
+<details markdown="1">
   <summary>Click here to unroll the proof</summary>
+
   We first prove an intermediate result, which is the form most often found in the literature, but not the most interpretable in our opinion:
+
   $$
   \begin{align}\label{eq:cond2uncond}
     \forall \, t, \, x, \, \u = \Ebracket{z}{\frac{\ucond \pcond } {\p}}
     \enspace.
   \end{align}
   $$
+
   <details markdown="1">
   <summary>Click here to unroll the proof of \eqref{eq:cond2uncond}</summary>
 
@@ -1129,7 +1152,7 @@ Finally, computing the CFM loss  requires the values of the conditional velocity
 
 #### Summary: Flow Matching In Practice
 
-<table style="width:100%; border-collapse: collapse;">
+<table class="summary-table" style="width:100%; border-collapse: collapse;">
   <!-- Row 1: Header -->
   <tr style="color: black;"> <!-- Soft pastel green -->
     <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center; width: 40%;"><strong>Flow Matching In Practice</strong></td>
@@ -1273,7 +1296,7 @@ This approach can be formalized by setting the conditioning variable $$z$$ as a 
       align-items: center;
       background: none;  /* No background */
   ">
-    <video style="
+    <video class="invert" style="
         width: 100%;  /* Adjust this value for smaller video size */
         background: none;  /* Transparent background */
     "
@@ -1429,6 +1452,6 @@ $$
 ### CFM Playground
 
 <figure class="">
-  <iframe style="--w: 800; --h: 600; width: 100%;" class="invert" src="{{ 'assets/html/2025-04-28-conditional-flow-matching/cfm-1d.html#playground' | relative_url }}" frameborder="0" scrolling="no"></iframe>
+  <iframe style="--w: 800; --h: 600; width: 100%; background: white;" class="invert" src="{{ 'assets/html/2025-04-28-conditional-flow-matching/cfm-1d.html#playground' | relative_url }}" frameborder="0" scrolling="no"></iframe>
   <figcaption class="caption">A playground to explore a variety of CFM settings.</figcaption>
 </figure>
