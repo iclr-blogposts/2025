@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: Avoid Overclaims: Summary of Complexity Bounds for Algorithms in Minimization and Minimax Optimization
+title: Avoid Overclaims - Summary of Complexity Bounds for Algorithms in Minimization and Minimax Optimization
 description: In this blog, we revisit the convergence analysis of first-order algorithms in minimization and minimax optimization problems. Within the classical oracle model framework, we review the state-of-the-art upper and lower bound results in various settings, aiming to identify gaps in existing research. With the rapid development of applications like machine learning and operation research, we further identify some recent works that revised the classical settings of optimization algorithms study.
 date: 2025-04-28
 future: true
@@ -11,7 +11,7 @@ authors:
   - name: Siqi Zhang
     url: https://siqi-z.github.io/
     affiliations:
-      name: School of Management and Engineering, Nanjing University
+      name: SME, Nanjing University
   - name: Yifan Hu
     url: https://sites.google.com/view/yifan-hu
     affiliations:
