@@ -81,6 +81,7 @@ and *minimax* problems of the following forms:
 $$
 \min_{x\in\mathcal{X}}\ \left[f(x)\triangleq \max_{y\in\mathcal{Y}}\ g(x,y)\right],
 $$
+
 where $\mathcal{X}$ is a convex set. 
 
 Based on the **stochasticity**, we divide our discussions into three cases:
@@ -130,7 +131,7 @@ $$
 x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
 $$
 
-Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+   Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
 
 - *Complexity measure* $\mathcal{M}$, e.g., 
   - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
@@ -372,7 +373,7 @@ The section above summarize the upper and lower bounds of the oracle complexity 
 
 In this notes, we only discussed minimization and minimax problems, while there are also many other important optimization problems with different structure, for example:
 
-* Bilevel Optimization 
+* Bilevel Optimization<d-cite key="zhang2024introduction"></d-cite> 
 
   $$
   \min_{x \in \mathcal{X}} \Phi(x) = F(x, y^\star(x))  \quad \text{where} \quad y^\star(x) = \underset{y \in \mathcal{Y}}{\arg\min} \, G(x, y),
