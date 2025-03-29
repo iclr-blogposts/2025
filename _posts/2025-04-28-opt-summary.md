@@ -117,7 +117,7 @@ This blog aims to summarize complexity results of state-of-the-art (SOTA) first-
 
 ## Framework: Oracle Complexity Model
 
-Intuitively, upper complexity bounds means how many sample/iteration it takes for an algorithm to reach a certain accuracy, such as $epsilon$-optimality. Thus upper complexity bound are algorithm-specific. Lower complexity bounds characterizes how many sample/iteration it at least take for the best algorithm (within some algorithm class) to reach a certain accuracy for the worst-case function within some function class. Thus lower complexity bounds are usually for a class of algorithms and function class. Since computing gradient or generating samples requires some efforts, in optimization, we sometimes use oracle to represent these efforts.
+Intuitively, upper complexity bounds means how many sample/iteration it takes for an algorithm to reach a certain accuracy, such as $\epsilon$-optimality. Thus upper complexity bound are algorithm-specific. Lower complexity bounds characterizes how many sample/iteration it at least take for the best algorithm (within some algorithm class) to reach a certain accuracy for the worst-case function within some function class. Thus lower complexity bounds are usually for a class of algorithms and function class. Since computing gradient or generating samples requires some efforts, in optimization, we sometimes use oracle to represent these efforts.
 
 To formally characterize complexity, we use the classical **oracle complexity model** framework<d-cite key='nemirovskij1983problem'></d-cite>. Feel free to jump directly to the summary table as these are just for proper descriptions of lower bounds.
 
