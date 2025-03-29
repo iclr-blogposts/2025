@@ -148,7 +148,7 @@ To explore the effectiveness of gradient-based similarity. The protocol involved
    - We generated a dataset containing ten distinct animal classes using a **Stable Diffusion Model** <d-cite key="rombach2022highresolution"></d-cite>. This allowed us to create diverse and realistic samples for each class, providing a rich dataset for evaluating similarities, while avoinding to test on samples which the pretained model is trained on.
 <div class="l-body">
 
-  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/generic_classes_grid-1.png" class="img-fluid" %}
+  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/generic_classes_grid-12.png" class="img-fluid" %}
 
 </div>
 <div class="caption">
@@ -164,7 +164,7 @@ To explore the effectiveness of gradient-based similarity. The protocol involved
    - Additionally, we computed the similarity of **Grad-CAM** maps using **saliency metrics**<d-cite key="adebayo2018saliency"></d-cite> such as: **Correlation Coefficient (CC)**, **Similarity Metric (SIM)**, **Kullback-Leibler Divergence (KLD)**, and **Area Under the Curve (AUC)** <d-cite key="10.1007/978-3-030-01270-0_47"></d-cite> <d-cite key="8315047"></d-cite>. 
 <div class="l-body">
 
-  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/snail_grid.png" class="img-fluid" %}
+  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/snail_grid2.png" class="img-fluid" %}
 
 </div>
 <div class="caption">
@@ -338,7 +338,7 @@ A similar trend was observed for GMM clustering. The gradient weights again demo
 
 <div class="l-page">
 
-  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/Fig-repre-clustering.png" class="img-fluid" %}
+  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/Fig-repre-clustering2.png" class="img-fluid" %}
 
 </div>
 <div class="caption">
