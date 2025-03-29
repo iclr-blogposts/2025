@@ -70,11 +70,13 @@ _styles: >
 
 In this blog, we review the complexity bounds of (stochastic) first-order methods in optimization. 
 
-Regarding the **problem structure**, we consider *minimization* problems and *minimax* problems of the following forms.
+Regarding the **problem structure**, we consider *minimization* problems:
 
 $$
 \min_{x\in\mathcal{X}}\ f(x),
 $$
+
+and *minimax* problems of the following forms:
 
 $$
 \min_{x\in\mathcal{X}}\ \left[f(x)\triangleq \max_{y\in\mathcal{Y}}\ g(x,y)\right],
@@ -127,6 +129,7 @@ The oracle complexity model consists of the following components:
 $$
 x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
 $$
+
 Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
 
 - *Complexity measure* $\mathcal{M}$, e.g., 
@@ -450,7 +453,7 @@ Such a question has been partially addressed for stochastic optimization using *
   - Also in distributed optimization (or federated learning) literature, the communication cost is one of the main bottlenecks compared to computation<d-cite key="konevcny2016federated"></d-cite><d-cite key="mcmahan2017communication"></d-cite><d-cite key="karimireddy2020scaffold"></d-cite><d-cite key="kairouz2021advances"></d-cite>, so many works modified the oracle framework a bit and turn to study the complexity bound in terms of *communication cost* (or communication oracle) rather than the computation efforts, such change also motivated the fruitful study of *local algorithms*<d-cite key="stich2019local"></d-cite><d-cite key="mishchenko2022proxskip"></d-cite>, which try to skip unnecessary communications while still attain the convergence guarantees. 
   - Recently another series of recent works<d-cite key="grimmer2024provably"></d-cite><d-cite key="altschuler2023acceleration1"></d-cite><d-cite key="altschuler2023acceleration2"></d-cite> consider *long stepsize* by incorporating a craft stepsize schedule into first-order methods and achieve a faster convergence rate, which is quite counterintuitive and may be of interests to the community. At the same time, as indicated in <d-cite key="kornowski2024open"></d-cite><d-cite key="altschuler2023acceleration1"></d-cite>, such theoretical outperformance generally only works for some specific iteration numbers, while in lack of guarantees of *anytime convergence*, also the extension of the study beyond the deterministic and convex case is still an open problem.
   
-    *Regarding the open problem above, after we submitted the draft, there appeared a new work on arXiv<d-cite key="zhang2024anytime"></d-cite>, which claimed to solve the anytime convergence issue mentioned above<d-cite key="kornowski2024open"></d-cite>.*
+    **Update**: *Regarding the open problem above, after we submitted the draft for review, there appeared a new work on arXiv<d-cite key="zhang2024anytime"></d-cite>, which claimed to solve the anytime convergence issue mentioned above<d-cite key="kornowski2024open"></d-cite>.*
 
 ---
 
