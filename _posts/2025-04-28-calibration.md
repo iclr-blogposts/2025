@@ -13,9 +13,9 @@ hidden: false
 
 authors:
 - name: Maja Pavlovic
-url: "https://majapavlo.github.io"
-affiliations:
-name: Queen Mary University London
+  url: "https://majapavlo.github.io"
+  affiliations:
+    name: Queen Mary University London
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-calibration.bib
