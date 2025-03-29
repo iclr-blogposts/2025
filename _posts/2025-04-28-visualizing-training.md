@@ -7,23 +7,24 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# Anonymize when submitting
-authors:
-  - name: Anonymous
 
-# authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+authors:
+  - name: Michael Y. Hu
+    url: "https://michahu.github.io/"
+    affiliations:
+      name: New York University
+  - name: Shreyans Jain
+    url: "https://shreyansjainn.github.io/"
+    affiliations:
+      name: Independent
+  - name: Sangam Chaulagain
+    url: "https://www.linkedin.com/in/csangam/"
+    affiliations:
+      name: Independent
+  - name: Naomi Saphra
+    url: "https://nsaphra.net/"
+    affiliations:
+      name: Harvard University
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-visualizing-training.bib  
@@ -61,7 +62,7 @@ _styles: >
 
 # Introduction
 
-What happens inside a neural network during training? And does this process unfold the same way every time? In deep learning, the most basic way to examine training dynamics is to plot train and validation losses. 
+What happens inside a neural network during training? Does this process unfold the same for every training run? In deep learning, the most basic way to examine training dynamics is to plot train and validation losses. 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -72,13 +73,13 @@ What happens inside a neural network during training? And does this process unfo
     Each gradient update drives the neural network's weights towards convergence. We track this process by looking at the training loss.
 </div>
 
-Loss curves already give us some intuition about the training process. First, we randomly initialize the neural net’s weights to some state. These initial weights are far from an optimal solution, judging by the train and validation losses being high. Each weight update drives the network towards solving the task, and we can tell training is working because the loss goes down.
+Loss curves already give us some intuition about the training process. The loss starts out high because the randomly initialized weights are far from an optimal solution. Each weight update drives the network towards solving the task, and so the loss goes down.
 
-But train and validation losses are a coarse-grained view of training dynamics. Because the validation set is sampled from the same distribution as the train set, we might miss changes in model behavior on specific data subsets or distribution shifts. Even when a change is visible, it might not be easily interpreted.  For example, if there’s a bump or plateau in the training loss, it could be for a variety of reasons. If you’re training a language model, the bump could be due to a one-time loss spike from a batch of gibberish data <d-cite key="li2023loss"></d-cite>, or because your model is actually learning some fundamental capability like induction heads <d-cite key="olsson2022context"></d-cite>.
+But train and validation losses are a coarse-grained view of training dynamics. Because the validation set is sampled from the same distribution as the train set, we might miss changes in model behavior on specific data subsets or distribution shifts. Even when a change is visible, it might not be easily interpreted.  For example, a bump or plateau in the training loss could have a variety of causes. If you’re training a language model, the loss increases when your model encounters a batch of gibberish data <d-cite key="li2023loss"></d-cite>, but it also increases when your model develops a fundamental capability like in-context learning <d-cite key="olsson2022context"></d-cite>. We can’t know what caused the bump just by inspecting the loss curve.
 
-How, then, should we interpret changes in the loss curve?  One common approach is to design targeted test tasks. Observe some interesting loss behavior, develop a hypothesis about what the model might be doing under the hood, and make or collect data that would test your hypothesis. But this is not a prescriptive approach–we basically just described the scientific method.
+How, then, should we interpret changes in the loss curve?  One common approach is to design targeted test sets around specific tasks. Observe some interesting loss behavior, develop a hypothesis about what the model might be doing under the hood, and make or collect data that would test your hypothesis. But this is not a prescriptive approach—we basically just described the scientific method.
 
-Instead, in this blog post, we’ll explain how to use classical data science tools to analyze training dynamics. We'll demonstrate that we can do exploratory data analysis on training dynamics *first*. Test tasks can come later---right now, we want a more fine-grained, bottom-up description of how our neural networks learn.
+Instead, in this blog post, we’ll explain how to use classical data science tools to analyze training dynamics. We'll show how to do exploratory data analysis on training dynamics *first*. Test tasks can come later---right now, we want a more fine-grained, bottom-up description of how our neural networks learn.
 
 # A Motivating Example: Grokking Modular Addition
 
@@ -100,6 +101,8 @@ In particular, if we plot the training and validation losses, we see something c
 - **Memorization:** Training loss then drops to near-zero quickly, but validation loss remains high or increases.
 - **Generalization:** After a long period of gradual decline, the validation loss suddenly drops---the model has "grokked" the task.
 
+This runs counter to the traditional train-validation loss behavior in machine learning, where the training and validation loss tend to drop in tandem, and validation loss eventually begins rising when the model overfits.
+
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/2025-04-28-visualizing-training/pca_loss_curve.png" class="img-fluid rounded z-depth-1" style="margin: 20px;" %}
@@ -113,10 +116,10 @@ Here, we will use modular addition both to validate our data analysis methods an
 
 # PCA: Analyzing Sequences of Functions
 
-Suppose we save some checkpoints of weights throughout training. Beyond examining aggregate training or validation losses, we can visualize how the neural network's implemented function—its mapping from inputs to outputs—evolves over time. **Principal Component Analysis** (PCA) offers one way to do this:
+Beyond examining aggregate training or validation losses, we can visualize how the neural network's implemented function—its mapping from inputs to outputs—evolves over time. **Principal Component Analysis** (PCA) offers one way to do this. Suppose we’ve saved some checkpoints of weights $$\theta_{1:T}$$ throughout training. Then, we can:
 
 - Choose a (random) subset of sample inputs (x₁, y₁), (x₂, y₂), ..., (xₙ, yₙ).
-- At each checkpoint, compute the loss for each sample. This yields an $$n$$-dimensional loss vector, where $$n$$ is the number of samples.
+- At each checkpoint $$\theta_i$$, compute the loss for each sample. This yields an $$n$$-dimensional loss vector, where $$n$$ is the number of samples.
 - Apply PCA to these vectors to get a lower-dimensional representation, and visualize.
 
 Why use PCA? Consider a scenario where your model learns half of the dataset first, then the other half. In this case, PCA would likely reveal two large principal components, since your loss vector can be represented with a 2D vector---one dimension for the first half, and one dimension for the second. Thus, tracking your model's trajectory in PCA space reveals how it learns different data subsets, even without knowing exactly what these subsets are.
@@ -211,4 +214,4 @@ We notice that the HMM segments training into three phases, which roughly align 
 
 Classical data analysis tools like PCA and HMMs can provide insights into neural network training dynamics. In this blog post, we demonstrated two complementary approaches: using PCA to visualize how models learn different subsets of data over time, even without explicitly identifying these subsets, and applying HMMs to discover distinct phases in training by analyzing weight statistics. Applied to the grokking phenomenon, these methods revealed clear phase transitions---from memorization to generalization to convergence---with the HMM discovering these phases purely from weight dynamics, without access to loss values.
 
-These results suggest that traditional statistical methods remain valuable tools for understanding modern deep learning systems. While neural networks may seem dauntingly complex, careful application of classical analysis techniques can help us better understand their training process. Code to reproduce this blog post is here.<d-footnote>Link redacted while under review.</d-footnote>
+These results suggest that traditional statistical methods remain valuable tools for understanding modern deep learning systems. While neural networks may seem dauntingly complex, careful application of classical analysis techniques can help us better understand their training process. Code to reproduce this blog post is [here](https://github.com/shreyansjainn/visualizing-training/blob/quickstart/blog_post.ipynb).
