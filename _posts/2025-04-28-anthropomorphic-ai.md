@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: "I Am the One and Only, Your Cyber BFF": Understanding the Impact of GenAI Requires Understanding the Impact of Anthropomorphic AI
+title: 'I Am the One and Only, Your Cyber BFF: Understanding the Impact of GenAI Requires Understanding the Impact of Anthropomorphic AI'
 description: State-of-the-art generative AI (GenAI) systems are increasingly prone to anthropomorphic behaviors, i.e., to generating outputs that are perceived to be human-like. While this has led to scholars increasingly raising concerns about possible negative impacts such anthropomorphic AI systems can give rise to, anthropomorphism in AI development, deployment, and use remains vastly overlooked, understudied, and under-specified. In this blog post, we argue that we cannot thoroughly understand the impact of generative AI without understanding the impact of anthropomorphic AI, and outline a call to action.
 
 date: 2025-04-28
