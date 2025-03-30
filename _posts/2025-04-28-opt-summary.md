@@ -284,7 +284,8 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 2. $\kappa\triangleq L/\mu\geq 1$ is called the condition number, which can be very large in many applications, e.g., the optimal regularization parameter choice in statistical learning can lead to $\kappa=\Omega(\sqrt{n})$ where $n$ is the sample size<d-cite key="shalev2014understanding"></d-cite>.
 3. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
 4. The $L$-Smooth Convex setting comes with two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the other assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
-5. **Exact Matching**: In fact for some settings, some works has already shown
+5. **Exact Matching**: In fact for some settings, some works has already shown that the lower and upper bounds are **exactly** the same:
+   - In the smooth convex case, <d-cite key="drori2017exact"></d-cite>(Corollary 4) derived the minimax risk which exactly matches the upper bound derived in <d-cite key="kim2016optimized"></d-cite> (Theorem 2).
 
 ### Case 1-2: Finite-sum and Stochastic Minimization
 
