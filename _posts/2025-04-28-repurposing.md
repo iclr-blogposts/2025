@@ -15,7 +15,7 @@ authors:
       affiliations: 
         name: University College London
 
-    - name: Antonis Bikakis
+    - name: Antonios Bikakis
       url: "https://profiles.ucl.ac.uk/32337-antonios-bikakis"
       affiliations: 
         name: University College London
@@ -84,7 +84,7 @@ Loosely speaking, the conceptual space of an agent is essentially its embedding 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-distill-example/cps_cx.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/2025-04-28-repurposing/cps_cx.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -136,7 +136,7 @@ A higher adaptability score indicates a more efficient repurposing solution, as 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-distill-example/rep_cx.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/2025-04-28-repurposing/rep_cx.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -286,7 +286,7 @@ Calculate $$S(G, C_X, R, p)$$ to assess goal satisfaction
 Using cooking as a testbed, we demonstrate the distinction between creative problem-solving and repurposing through interactions with GPT-4-turbo. We present two scenarios where the model is asked to solve cooking-related challenges. In the first scenario, with an open-ended prompt, the model typically suggests solutions involving new ingredients or tools, aligning with creative problem-solving. In the second scenario, when explicitly constrained to use only a specified set of available resources, the model shifts to repurposing-based solutions, finding innovative ways to use existing items.
 This observation highlights a key aspect of repurposing: the importance of clearly defining the resource set R and enforcing its constraints. Without explicit resource constraints, the model naturally defaults to creative problem-solving by expanding the conceptual space with new elements. To effectively elicit repurposing solutions, one must explicitly frame the problem in terms of a fixed set of available resources and their properties.
 
-<iframe src="/2025/assets/html/2025-04-28-distill-example/example.html" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
+<iframe src="/2025/assets/html/2025-04-28-repurposing/example.html" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
 
 
 ### Differences and Advantages of Repurposing Framework
@@ -315,7 +315,7 @@ The creative problem-solving and repurposing frameworks, while complementary, ex
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-distill-example/cps_vs_rep.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/2025-04-28-repurposing/cps_vs_rep.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -340,7 +340,7 @@ By viewing such problems through the repurposing lens, we can potentially develo
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2025-04-28-distill-example/macgyver.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/2025-04-28-repurposing/macgyver.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
