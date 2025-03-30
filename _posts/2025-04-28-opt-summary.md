@@ -47,12 +47,17 @@ toc:
   - name: Summary of Results
     subsections:
     - name: Case 1-1 - Deterministic Minimization
-    - name: Case 1-2 - Finite-sum and Stochastic Optimization
-    - name: Case 2-1 - SC-SC/SC-C/C-C Deterministic Minimax Optimization
-    - name: Case 2-2 - SC-SC/SC-C/C-C Finite-sum and Stochastic Minimax Optimization
-    - name: Case 2-3 - NC-SC/NC-C Deterministic Minimax Optimization
-    - name: Case 2-4 - NC-SC/NC-C Finite-sum and Stochastic Minimax Optimization
+    - name: Case 1-2 - Finite-sum and Stochastic Min
+    - name: Case 2-1 - (S)C-(S)C Deterministic Minimax
+    - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax
+    - name: Case 2-3 - NC-(S)C Deterministic Minimax
+    - name: Case 2-4 - NC-(S)C Finite-sum and Stochastic Minimax
   - name: What's next?
+    subsections:
+    - name: Richer Problem Structure
+    - name: Landscape Analysis
+    - name: Unified Lower Bounds
+    - name: Beyond Classical Oracle Model
   - name: Conclusion
 
 # Below is an example of injecting additional post-specific styles.
@@ -132,17 +137,20 @@ Intuitively, upper complexity bounds means how many sample/iteration it takes fo
 To formally characterize complexity, we use the classical **oracle complexity model** framework<d-cite key='nemirovskij1983problem'></d-cite>. Feel free to jump directly to the summary table as these are just for proper descriptions of lower bounds.
 
 The oracle complexity model consists of the following components:
-- *Fucntion class* $\mathcal{F}$, e.g., convex Lipschitz continuous function class, and (nonconvex) Lipschitz smooth function class.
-- *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
-- *Algorithm class* $\mathcal{A}$, e.g., a common algorithm class studied in optimization literature is the *linear-span algorithm*, which covers various gradient-based methods. The algorithm interacting with an oracle $\mathbb{O}$ to decide the next query point. Linear-span algorithm says that the next query point is within a linear combination of all past information:
-$$
-x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
-$$
-Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
-- *Complexity measure* $\mathcal{M}$, e.g., 
-  - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
-  - Point distance $\|\|x-x^\star\|\|$.
-  - Function stationarity $\|\|\nabla f(x)\|\|$, which is common in nonconvex optimization. 
+  - *Fucntion class* $\mathcal{F}$, e.g., convex Lipschitz continuous function class, and (nonconvex) Lipschitz smooth function class.
+  - *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
+  - *Algorithm class* $\mathcal{A}$, e.g., a common algorithm class studied in optimization literature is the *linear-span algorithm*, which covers various gradient-based methods. The algorithm interacting with an oracle $\mathbb{O}$ to decide the next query point. Linear-span algorithm says that the next query point is within a linear combination of all past information:
+  
+  $$
+  x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
+  $$
+   
+    Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+
+  - *Complexity measure* $\mathcal{M}$, e.g., 
+    - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
+    - Point distance $\|\|x-x^\star\|\|$.
+    - Function stationarity $\|\|\nabla f(x)\|\|$, which is common in nonconvex optimization. 
 
 {% include figure.html path="assets/img/2025-04-28-opt-summary/complexity_analysis.jpg" class="img-fluid" %}
 
