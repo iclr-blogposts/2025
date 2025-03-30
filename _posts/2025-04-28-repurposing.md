@@ -13,7 +13,7 @@ hidden: false
 
 authors:
   - name: Aissatou Diallo
-    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+    url: "http://www0.cs.ucl.ac.uk/people/A.Diallo.html"
     affiliations: University College London
 
 - name: Antonis Bikakis
