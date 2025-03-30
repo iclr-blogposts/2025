@@ -8,13 +8,29 @@ htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
-authors:
-  - name: Anonymous
-
 #authors:
-#  - name: Albert Einstein
-#    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#    affiliations:
+#  - name: Anonymous
+
+authors:
+  - name: Aissatou Diallo
+    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+    affiliations: University College London
+
+- name: Antonis Bikakis
+    url: "https://profiles.ucl.ac.uk/32337-antonios-bikakis"
+    affiliations: University College London
+
+- name: Luke Dickens
+    url: "https://profiles.ucl.ac.uk/51296-luke-dickens"
+    affiliations: University College London
+
+- name: Anthony Hunter
+    url: "https://profiles.ucl.ac.uk/277-anthony-hunter"
+    affiliations: University College London
+
+- name: Rob Miller
+    url: "https://profiles.ucl.ac.uk/6140-rob-miller"
+    affiliations: University College London
 #      name: IAS, Princeton
 #  - name: Boris Podolsky
 #    url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
