@@ -40,9 +40,18 @@ bibliography: 2025-04-28-opt-summary.bib
 #   - please use this format rather than manually creating a markdown table of contents.
 toc:
   - name: Introduction
+    subsections:
+    - name: Literature
   - name: Framework
   - name: Notations
   - name: Summary of Results
+    subsections:
+    - name: Case 1-1\: Deterministic Minimization
+    - name: Case 1-2\: Finite-sum and Stochastic Optimization
+    - name: Case 2-1\: SC-SC/SC-C/C-C Deterministic Minimax Optimization
+    - name: Case 2-2\: SC-SC/SC-C/C-C Finite-sum and Stochastic Minimax Optimization
+    - name: Case 2-3\: NC-SC/NC-C Deterministic Minimax Optimization
+    - name: Case 2-4\: NC-SC/NC-C Finite-sum and Stochastic Minimax Optimization
   - name: What's next?
   - name: Conclusion
 
@@ -131,7 +140,7 @@ $$
 x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
 $$
 
-   Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
 
 - *Complexity measure* $\mathcal{M}$, e.g., 
   - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
