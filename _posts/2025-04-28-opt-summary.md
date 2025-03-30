@@ -386,13 +386,13 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 ---
 
 ## What is next?
-The section above summarize the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly this is not the end of the story, there are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics; also we need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory<d-cite key="zhang2024complexity"></d-cite>, sometimes (or often) we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective on accelerating the training of deep learning models, which contrast the classical convergence theory. Here we discuss what could be potential interesting next steps. 
+The section above summarize the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly this is not the end of the story, there are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics; also we need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory, sometimes (or often) we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective on accelerating the training of deep learning models, which contrast the classical convergence theory. Here we discuss what could be potential interesting next steps. 
 
 ### Richer Problem Structure
 
 In this notes, we only discussed minimization and minimax problems, while there are also many other important optimization problems with different structure, for example:
 
-* Bilevel Optimization
+* Bilevel Optimization<d-cite key="ghadimi2018approximation"></d-cite>
 
   $$
   \min_{x \in \mathcal{X}} \Phi(x) = F(x, y^\star(x))  \quad \text{where} \quad y^\star(x) = \underset{y \in \mathcal{Y}}{\arg\min} \, G(x, y),
