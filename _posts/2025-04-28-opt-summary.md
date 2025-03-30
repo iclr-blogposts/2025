@@ -392,7 +392,7 @@ The section above summarize the upper and lower bounds of the oracle complexity 
 
 In this notes, we only discussed minimization and minimax problems, while there are also many other important optimization problems with different structure, for example:
 
-* Bilevel Optimization
+* Bilevel Optimization<d-cite key="zhang2024introduction"></d-cite>
 
   $$
   \min_{x \in \mathcal{X}} \Phi(x) = F(x, y^\star(x))  \quad \text{where} \quad y^\star(x) = \underset{y \in \mathcal{Y}}{\arg\min} \, G(x, y),
@@ -402,7 +402,7 @@ In this notes, we only discussed minimization and minimax problems, while there 
   - Approximate Implicit Differentiation (AID)
   - Iterative Differentiation (ITD)
   
-  Starting from <d-cite key="ghadimi2018approximation"></d-cite>, which investigates double-loop methods for solving bilevel optimization, <d-cite key="hong2020two"></d-cite> initiated the development of single-loop, single-timescale methods for stochastic bilevel optimization. This line of research leads to a simple single-timescale algorithm <d-cite key="chen2021tighter"></d-cite> and multiple variance reduction techniques to achieve single-loop <d-cite key="guo2021randomized"></d-cite><d-cite key="khanduri2021near"></d-cite><d-cite key="zhang2024introduction"></d-cite>. 
+  Starting from <d-cite key="ghadimi2018approximation"></d-cite>, which investigates double-loop methods for solving bilevel optimization, <d-cite key="hong2020two"></d-cite> initiated the development of single-loop, single-timescale methods for stochastic bilevel optimization. This line of research leads to a simple single-timescale algorithm <d-cite key="chen2021tighter"></d-cite> and multiple variance reduction techniques to achieve single-loop <d-cite key="guo2021randomized"></d-cite><d-cite key="khanduri2021near"></d-cite>. 
   
   Subsequent developments have focused on developing fully first-order methods for solving bilevel optimization <d-cite key="kwon2023fully"></d-cite>, achieving global optimality <d-cite key="xiao2024unlocking"></d-cite>, addressing contextual/multiple lower-level problems <d-cite key="hu2024contextual"></d-cite><d-cite key="guo2021randomized"></d-cite>, handling constrained lower-level problems <d-cite key="jiang2024barrier"></d-cite>, and bilevel reinforcement learning <d-cite key="chen2022adaptive"></d-cite><d-cite key="chakraborty2024parl"></d-cite><d-cite key="thoma2024contextual"></d-cite> for model design and reinforcement learning with human feedback.
   Several questions remain open and are interesting to investigate:
