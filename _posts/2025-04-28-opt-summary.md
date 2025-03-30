@@ -299,7 +299,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 | FS $L$-AS $\mu$-SC      | Optimality gap        | $\Omega \left( n + n^{\frac{3}{4}} \sqrt{\kappa} \log \frac{\Delta}{\epsilon} \right)$ | $\checkmark$   | <d-cite key="xie2019general"></d-cite>, Theorem 3.5         | <d-cite key="allen2018katyusha"></d-cite>, Section 5                                 |
 | FS $L$-IS C             | Optimality gap        | $\Omega \left( n + D \sqrt{n L \epsilon^{-1}} \right)$         | $\checkmark$ (within logarithmic)          | <d-cite key="woodworth2016tight"></d-cite>, Theorem 7<d-footnote>The lower bound analysis extended the oracle class with additional proximal oracle.</d-footnote>          | <d-cite key="allen2018katyusha"></d-cite>, Corollary 3.7 |
 | FS $L$-AS C             | Optimality gap        | $\Omega \left( n + n^{\frac{3}{4}} D \sqrt{L \epsilon^{-1}} \right)$ | $\checkmark$                     | <d-cite key="zhou2019lower"></d-cite>, Theorem 4.2         | <d-cite key="allen2018katyusha"></d-cite>, Section 5                                 |
-| FS $L$-IS NC            | Stationarity        | $\Omega \left( \Delta L \epsilon^{-2} \right)$               | $\tilde{\mathcal{O}} \left( \sqrt{n}\Delta L \epsilon^{-2} \right)$                          | <d-cite key="zhou2019lower"></d-cite>, Theorem 4.7         | <d-cite key="wang2019spiderboost"></d-cite>, Theorem 1 |
+| FS $L$-IS NC            | Stationarity        | $\Omega \left( \Delta L \epsilon^{-2} \right)$               | $\mathcal{O} \left( \sqrt{n}\Delta L \epsilon^{-2} \right)$                          | <d-cite key="zhou2019lower"></d-cite>, Theorem 4.7         | <d-cite key="wang2019spiderboost"></d-cite>, Theorem 1 |
 | FS $L$-AS NC            | Stationarity       | $\Omega \left( \sqrt{n} \Delta L \epsilon^{-2} \right)$       | $\checkmark$                     | <d-cite key="zhou2019lower"></d-cite>, Theorem 4.5         | <d-cite key="fang2018spider"></d-cite>, Theorem 2, 3|
 |                         |         |                                                     |                                  |                                                           |
 | Stoc $L$-S $\mu$-SC?   | Optimality gap        | $\Omega (\epsilon^{-1})$                            | $\checkmark$                     | <d-cite key="rakhlin2012making"></d-cite>, Theorem 2         | <d-cite key="ghadimi2012optimal"></d-cite>, Proposition 9                        |
@@ -338,8 +338,6 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="ouyang2021lower"></d-cite> <d-cite key="chambolle2011first"></d-cite> <d-cite key="xie2020lower"></d-cite> <d-cite key="nemirovski2004prox"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="du2019linear"></d-cite> <d-cite key="zhang2022lower"></d-cite> <d-cite key="chambolle2016ergodic"></d-cite> <d-cite key="wang2020improved"></d-cite> <d-cite key="yang2020global"></d-cite>
 2. Here $\kappa_x$ and $\kappa_y$ corresponds to condition numbers on $x$ and $y$ components, respectively.
-
-</div>
 
 ### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
 
@@ -390,6 +388,8 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 **Remark:**
 
 1. References: <d-cite key="zhang2021complexity"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="zhang2022sapd+"></d-cite> <d-cite key="li2021complexity"></d-cite> <d-cite key="yang2022faster"></d-cite> <d-cite key="yan2020optimal"></d-cite>
+
+</div>
 
 ---
 
