@@ -286,7 +286,7 @@ Calculate $$S(G, C_X, R, p)$$ to assess goal satisfaction
 Using cooking as a testbed, we demonstrate the distinction between creative problem-solving and repurposing through interactions with GPT-4-turbo. We present two scenarios where the model is asked to solve cooking-related challenges. In the first scenario, with an open-ended prompt, the model typically suggests solutions involving new ingredients or tools, aligning with creative problem-solving. In the second scenario, when explicitly constrained to use only a specified set of available resources, the model shifts to repurposing-based solutions, finding innovative ways to use existing items.
 This observation highlights a key aspect of repurposing: the importance of clearly defining the resource set R and enforcing its constraints. Without explicit resource constraints, the model naturally defaults to creative problem-solving by expanding the conceptual space with new elements. To effectively elicit repurposing solutions, one must explicitly frame the problem in terms of a fixed set of available resources and their properties.
 
-<iframe src="/2025/assets/html/2025-04-28-repurposing/example.html" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
+<iframe src="/assets/html/2025-04-28-repurposing/example.html" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
 
 
 ### Differences and Advantages of Repurposing Framework
@@ -368,7 +368,7 @@ Regarding the question of whether AI efforts should prioritize repurposing over 
 In conclusion, while repurposing and creative problem solving share common ground, repurposing emerges as a distinct and valuable approach. The structured nature of repurposing, combined with its focus on efficiency and transformation of existing solutions, makes it a particularly promising area for AI research and development. As we face increasingly complex global challenges, AI-driven repurposing could offer a powerful tool for innovation, potentially yielding more immediate and practical solutions than broader creative problem-solving approaches.
 Future work in this area could focus on developing AI systems that can effectively navigate the repurposing process. Additionally, further exploration of how humans and AI can collaborate in repurposing tasks could lead to powerful hybrid approaches, combining human intuition with AI's vast knowledge and processing capabilities.
 
-<d-bibliography src="/2025/assets/bibliography/2025-04-28-repurposing.bib"></d-bibliography>
+<d-bibliography src="/assets/bibliography/2025-04-28-repurposing.bib"></d-bibliography>
 
 
 
