@@ -8,7 +8,11 @@ htmlwidgets: true
 hidden: false
 
 authors:
-  - name: Anonymous
+  - name: Tianyi Huang
+    url: "https://scholar.google.com/citations?user=saanzOEAAAAJ&hl=en&oi=sra"
+    affiliations:
+      name: App Inventor Foundation
+      url: https://www.appinventorfoundation.org/
 
 bibliography: 2025-04-28-factual-validation-simplification.bib
 
