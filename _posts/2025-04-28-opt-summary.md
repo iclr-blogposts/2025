@@ -51,10 +51,10 @@ toc:
     subsections:
     - name: Case 1-1 - Deterministic Minimization
     - name: Case 1-2 - Finite-sum and Stochastic Minimization
-    - name: Case 2-1 - (S)C-(S)C Deterministic Minimax
-    - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax
-    - name: Case 2-3 - NC-(S)C Deterministic Minimax
-    - name: Case 2-4 - NC-(S)C Finite-sum and Stochastic Minimax
+    - name: Case 2-1 - (S)C-(S)C Deterministic Minimax Optimization
+    - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
+    - name: Case 2-3 - NC-(S)C Deterministic Minimax Optimization
+    - name: Case 2-4 - NC-(S)C Finite-sum and Stochastic Minimax Optimization
   - name: What's next?
     subsections:
     - name: Richer Problem Structure
@@ -311,7 +311,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 1. References: <d-cite key="woodworth2016tight"></d-cite> <d-cite key="defazio2016simple"></d-cite> <d-cite key="allen2018katyusha"></d-cite> <d-cite key="xie2019general"></d-cite> <d-cite key="zhou2019lower"></d-cite> <d-cite key="wang2019spiderboost"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="rakhlin2012making"></d-cite> <d-cite key="ghadimi2012optimal"></d-cite> <d-cite key="woodworth2018graph"></d-cite> <d-cite key="lan2012optimal"></d-cite> <d-cite key="agarwal2009information"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite> <d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="davis2018stochastic"></d-cite>
 2. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
  
-### Case 2-1: (S)C-(S)C Deterministic Minimax
+### Case 2-1: (S)C-(S)C Deterministic Minimax Optimization
 
 | Problem Type            | Measure | Lower Bound                                                | Upper Bound                               | Reference (LB)     | Reference (UB)                         |
 |-------------------------|---------|---------------------------------------------------|----------------------------------|-----------------------------------------------------------|------------------------|
@@ -333,7 +333,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 </div>
 
-### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax
+### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
 
 | Problem Type         | Measure | LB                                         | UB                            | Reference-LB      | Reference-UB                                   |
 |----------------------|---------|---------------------------------------------|-------------------------------|-------------------|------------------------------------------|
@@ -351,7 +351,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="xie2020lower"></d-cite> <d-cite key="yazdandoost2023stochastic"></d-cite> <d-cite key="juditsky2011solving"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="palaniappan2016stochastic"></d-cite> <d-cite key="hsieh2019convergence"></d-cite> <d-cite key="yan2020optimal"></d-cite> <d-cite key="yang2020global"></d-cite>
 
-### Case 2-3: NC-(S)C Deterministic Minimax
+### Case 2-3: NC-(S)C Deterministic Minimax Optimization
 
 | Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
@@ -365,7 +365,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 1. References: <d-cite key="zhang2021complexity"></d-cite> <d-cite key="lin2020near"></d-cite> <d-cite key="boct2023alternating"></d-cite> <d-cite key="yang2022faster"></d-cite>
 2. Some other works also studied the above problems in terms of the fucnction stationarity (i.e., the gradient norm of $f$, rather than it primal), e.g., <d-cite key="lin2020near"></d-cite><d-cite key="xu2023unified"></d-cite>. As discussed in <d-cite key="yang2022faster"></d-cite>, it has been shown that function stationarity and primal stationarity are transferable with a mild efforts, here we do not present the results specifically.
 
-### Case 2-4: NC-(S)C Finite-sum and Stochastic Minimax
+### Case 2-4: NC-(S)C Finite-sum and Stochastic Minimax Optimization
 
 | Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
@@ -457,7 +457,7 @@ $$
     Another noteworthy work is <d-cite key="zhang2020adaptive"></d-cite>, which verified the ubiquity of *heavy-tailed noise* in stochastic gradients in neural network training practices, such evidence drove them to revise SGD and incorporate strategies like clipping in the algorithm design, which also outperformed in numerical experiments. The above two works, along with their more practical assumptions, inspired many follow-up works, evidented by their high citations according to Google Scholar<d-cite key="zhang2019citation"></d-cite><d-cite key="zhang2020citation"></d-cite>.
 
 ### Unified Lower Bounds
-For lower bounds, we adapt the so-called optimization-based lower bounds proved via *zero-chain arguments* <d-cite key="nesterov2013introductory"></d-cite>. The narrative of such lower bounds admits the following form: For any given accuracy $\epsilon>0$, there exists a hard instance $f:\mathbb{R}^{d_\epsilon}\rightarrow\mathbb{R}$ in the function class $\mathcal{F}$, where the dimension $d_\epsilon$ depends on the accuracy $\epsilon>0$, such that it takes at least $\mathrm{poly}(\epsilon^{-1})$ number of oracles to find an $\epsilon$-optimal solution or $\epsilon$-stationary point. 
+For lower bounds, we adapt the so-called optimization-based lower bounds proved via *zero-chain arguments*<d-cite key="nesterov2018lectures"></d-cite><d-cite key="carmon2020lower"></d-cite><d-cite key="fang2018spider"></d-cite>. The narrative of such lower bounds admits the following form: For any given accuracy $\epsilon>0$, there exists a hard instance $f:\mathbb{R}^{d_\epsilon}\rightarrow\mathbb{R}$ in the function class $\mathcal{F}$, where the dimension $d_\epsilon$ depends on the accuracy $\epsilon>0$, such that it takes at least $\mathrm{poly}(\epsilon^{-1})$ number of oracles to find an $\epsilon$-optimal solution or $\epsilon$-stationary point. 
 
 Note that the dimension $d_\epsilon$ depends on the accuracy, particularly $d_\epsilon$ increases as $\epsilon$ decreases. For a function class with a given dimension $d$, which is independent of the accuracy, the dependence on $\epsilon$ becomes loose especially when $d$ is small. In other words, for a $d$-dimension function classes and a given accuracy $\epsilon>0$, the upper bounds on the complexity of first-order methods given in the tables still hold, yet the lower bounds becomes loose, which could lead to a mismatch between upper and lower bounds. This leads to a fundamental question: *How to prove lower bounds of first-order methods for any given $d$-dimensional function classes?* 
 
