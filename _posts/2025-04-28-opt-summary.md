@@ -398,7 +398,7 @@ In this notes, we only discussed minimization and minimax problems, while there 
   \min_{x \in \mathcal{X}} \Phi(x) = F(x, y^\star(x))  \quad \text{where} \quad y^\star(x) = \underset{y \in \mathcal{Y}}{\arg\min} \, G(x, y),
   $$
 
-  Bilevel optimization covers minimax optimization as a special case<d-cite key="zhang2023introduction"></d-cite>. Over the past seven years, bilevel optimization has become increasingly popular due to its applications in machine learning. Common approaches for solving bilevel optimization problems includes:
+  Bilevel optimization covers minimax optimization as a special case. Over the past seven years, bilevel optimization has become increasingly popular due to its applications in machine learning. Common approaches for solving bilevel optimization problems includes:
   - Approximate Implicit Differentiation (AID)
   - Iterative Differentiation (ITD)
   
