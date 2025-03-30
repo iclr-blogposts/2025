@@ -368,7 +368,7 @@ Regarding the question of whether AI efforts should prioritize repurposing over 
 In conclusion, while repurposing and creative problem solving share common ground, repurposing emerges as a distinct and valuable approach. The structured nature of repurposing, combined with its focus on efficiency and transformation of existing solutions, makes it a particularly promising area for AI research and development. As we face increasingly complex global challenges, AI-driven repurposing could offer a powerful tool for innovation, potentially yielding more immediate and practical solutions than broader creative problem-solving approaches.
 Future work in this area could focus on developing AI systems that can effectively navigate the repurposing process. Additionally, further exploration of how humans and AI can collaborate in repurposing tasks could lead to powerful hybrid approaches, combining human intuition with AI's vast knowledge and processing capabilities.
 
-<d-bibliography src="/assets/bibliography/2025-04-28-repurposing.bib"></d-bibliography>
+<d-bibliography src="/2025/assets/bibliography/2025-04-28-repurposing.bib"></d-bibliography>
 
 
 
