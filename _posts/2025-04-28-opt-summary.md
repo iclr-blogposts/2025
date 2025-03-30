@@ -43,6 +43,9 @@ toc:
     subsections:
     - name: Literature
   - name: Framework - Oracle Complexity Model
+    subsections:
+    - name: Framework Setup
+    - name: What We Did Not Cover
   - name: Notations
   - name: Summary of Results
     subsections:
@@ -136,6 +139,8 @@ Intuitively, upper complexity bounds means how many sample/iteration it takes fo
 
 To formally characterize complexity, we use the classical **oracle complexity model** framework<d-cite key='nemirovskij1983problem'></d-cite>. Feel free to jump directly to the summary table as these are just for proper descriptions of lower bounds.
 
+### Framework Setup
+
 The oracle complexity model consists of the following components:
   - *Fucntion class* $\mathcal{F}$, e.g., convex Lipschitz continuous function class, and (nonconvex) Lipschitz smooth function class.
   - *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
@@ -200,7 +205,7 @@ $$
 
 In this notes, we will focus on **first-order algorithms** in various optimization problem settings, trying to summarize the state-of-the-art (SOTA) UB and LB results, aiming to identify the gaps in existing reseach, and develop new trends. 
 
-**Remark:**
+### What We Did Not Cover
 Here we focus on first-order optimization only, in fact there are also many works on *zeroth-order optimization*<d-cite key="liu2020primer"></d-cite>, and *higher-order optimization*<d-cite key="sun2019survey"></d-cite>, and the key difference just lie in the oracle information. For example second-order methods (e.g., Newton's method) generally are able to access the Hessian information, which first-order methods cannot access, so with such finer information, generally second-order methods attain better complexities compared to their first-order counterparts, which is also characterized in theory as mentioned in <d-cite key="carmon2020lower"></d-cite>. 
   
 Also here the discussion does not include some other popular algorithms like *proximal algorithms*<d-cite key="parikh2014proximal"></d-cite>, one prominent example is *proximal point algorithm* (PPA)<d-cite key="rockafellar1976monotone"></d-cite> based on *proximal operator*:
