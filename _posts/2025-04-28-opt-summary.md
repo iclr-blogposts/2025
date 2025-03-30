@@ -150,7 +150,8 @@ The oracle complexity model consists of the following components:
     x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
     $$
    
-    Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+    - Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+    - An important point regarding finite-sum and stochastic optimization is the difference between *deterministic algorithms* and *randomized algorithms*. A randomized algorithm is one that uses internal or external randomness to generate its iterates, which is more general than the deterministic one. Here for simplicity, we mainly consider the deterministic setting.
 
   - *Complexity measure* $\mathcal{M}$, e.g., 
     - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
@@ -315,7 +316,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="lan2018optimal"></d-cite> <d-cite key="allen2018katyusha"></d-cite> <d-cite key="xie2019general"></d-cite> <d-cite key="zhou2019lower"></d-cite> <d-cite key="wang2019spiderboost"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="rakhlin2012making"></d-cite> <d-cite key="ghadimi2012optimal"></d-cite> <d-cite key="woodworth2018graph"></d-cite> <d-cite key="lan2012optimal"></d-cite> <d-cite key="agarwal2009information"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite> <d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="davis2018stochastic"></d-cite>
 2. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
-3. For the finite-sum $L$-IS $\mu$-SC case, <d-cite key="woodworth2016tight"></d-cite> (Theorem 8) furthered the study with more general randomized algorithm and oracle class settings, and derived $\Omega \left( n + \sqrt{\kappa n} \log \frac{1}{\epsilon} \right)$ lower bound, a matching upper bound is proposed in <d-cite key="defazio2016simple"></d-cite>.
+3. For the finite-sum $L$-IS $\mu$-SC case, <d-cite key="woodworth2016tight"></d-cite> furthered the study with more general randomized algorithm and oracle class settings, and derived $\Omega \left( n + \sqrt{\kappa n} \log \frac{1}{\epsilon} \right)$ lower bound, a matching upper bound is proposed in <d-cite key="defazio2016simple"></d-cite>.
  
 ### Case 2-1: (S)C-(S)C Deterministic Minimax Optimization
 
