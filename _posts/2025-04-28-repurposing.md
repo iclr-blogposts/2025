@@ -8,38 +8,33 @@ htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
-#authors:
-#  - name: Anonymous
 
 authors:
-  - name: Aissatou Diallo
-    url: "http://www0.cs.ucl.ac.uk/people/A.Diallo.html"
-    affiliations: University College London
+    - name: Aissatou Diallo
+      url: "http://www0.cs.ucl.ac.uk/people/A.Diallo.html"
+      affiliations: 
+        name: University College London
 
-- name: Antonis Bikakis
-    url: "https://profiles.ucl.ac.uk/32337-antonios-bikakis"
-    affiliations: University College London
+    - name: Antonis Bikakis
+      url: "https://profiles.ucl.ac.uk/32337-antonios-bikakis"
+      affiliations: 
+        name: University College London
 
-- name: Luke Dickens
-    url: "https://profiles.ucl.ac.uk/51296-luke-dickens"
-    affiliations: University College London
+    - name: Luke Dickens
+      url: "https://profiles.ucl.ac.uk/51296-luke-dickens"
+      affiliations: 
+        name: University College London
 
-- name: Anthony Hunter
-    url: "https://profiles.ucl.ac.uk/277-anthony-hunter"
-    affiliations: University College London
+    - name: Anthony Hunter
+      url: "https://profiles.ucl.ac.uk/277-anthony-hunter"
+      affiliations: 
+        name: University College London
 
-- name: Rob Miller
-    url: "https://profiles.ucl.ac.uk/6140-rob-miller"
-    affiliations: University College London
-#      name: IAS, Princeton
-#  - name: Boris Podolsky
-#    url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#    affiliations:
-#      name: IAS, Princeton
-#  - name: Nathan Rosen
-#    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#    affiliations:
-#      name: IAS, Princeton
+    - name: Rob Miller
+      url: "https://profiles.ucl.ac.uk/6140-rob-miller"
+      affiliations: 
+        name: University College London
+
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-repurposing.bib  
