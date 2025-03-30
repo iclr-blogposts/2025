@@ -284,6 +284,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 2. $\kappa\triangleq L/\mu\geq 1$ is called the condition number, which can be very large in many applications, e.g., the optimal regularization parameter choice in statistical learning can lead to $\kappa=\Omega(\sqrt{n})$ where $n$ is the sample size<d-cite key="shalev2014understanding"></d-cite>.
 3. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
 4. The $L$-Smooth Convex setting comes with two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the other assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
+5. **Exact Matching**: In fact for some settings, some works has already shown
 
 ### Case 1-2: Finite-sum and Stochastic Minimization
 
@@ -399,10 +400,11 @@ In this notes, we only discussed minimization and minimax problems, while there 
   $$
 
   Bilevel optimization covers minimax optimization as a special case. Over the past seven years, bilevel optimization has become increasingly popular due to its applications in machine learning. Common approaches for solving bilevel optimization problems includes:
-  - Approximate Implicit Differentiation (AID)
-  - Iterative Differentiation (ITD)
+
+    - Approximate Implicit Differentiation (AID)
+    - Iterative Differentiation (ITD)
   
-  Starting from <d-cite key="ghadimi2018approximation"></d-cite>, which investigates double-loop methods for solving bilevel optimization, <d-cite key="hong2020two"></d-cite> initiated the development of single-loop, single-timescale methods for stochastic bilevel optimization. This line of research leads to a simple single-timescale algorithm <d-cite key="chen2021tighter"></d-cite> and multiple variance reduction techniques to achieve single-loop <d-cite key="guo2021randomized"></d-cite><d-cite key="khanduri2021near"></d-cite>. 
+  Starting from <d-cite key="ghadimi2018approximation"></d-cite>, which investigates double-loop methods for solving bilevel optimization, <d-cite key="hong2020two"></d-cite> initiated the development of single-loop, single-timescale methods for stochastic bilevel optimization. This line of research leads to a simple single-timescale algorithm <d-cite key="chen2021tighter"></d-cite> and multiple variance reduction techniques to achieve single-loop<d-cite key="guo2021randomized"></d-cite><d-cite key="khanduri2021near"></d-cite>. 
   
   Subsequent developments have focused on developing fully first-order methods for solving bilevel optimization <d-cite key="kwon2023fully"></d-cite>, achieving global optimality <d-cite key="xiao2024unlocking"></d-cite>, addressing contextual/multiple lower-level problems <d-cite key="hu2024contextual"></d-cite><d-cite key="guo2021randomized"></d-cite>, handling constrained lower-level problems <d-cite key="jiang2024barrier"></d-cite>, and bilevel reinforcement learning <d-cite key="chen2022adaptive"></d-cite><d-cite key="chakraborty2024parl"></d-cite><d-cite key="thoma2024contextual"></d-cite> for model design and reinforcement learning with human feedback.
   Several questions remain open and are interesting to investigate:
@@ -490,3 +492,6 @@ Such a question has been partially addressed for stochastic optimization using *
 In this post, we review SOTA complexity upper and lower bounds of first-order algorithms in optimization tailored for minimization and minimax regimes with various settings, the summary identified gaps in existing research, which shed light on the open questions regarding accelerated algorithm design and performance limit investigation. Under the oracle framework, people should be careful when claiming one algorithm is better than the others, and double check whether the comparison is fair, in terms of the settings like function class, oracle information and algorithm class definition.
 
 Regarding the rapid development and interdisciplinary applications in areas like machine learning and operation research, we revisited several recent works which go beyond the classical research flow in optimization community, these works advocate a paradigm shift in research: besides an elegant and unified theory trying to cover all cases, sometimes we should also try to avoid the "Maslow's hammer", focus on the detailed applications first, identify their unique structure, and correspondently design algorithms tailored for these problems, which in turn will benefit the practice. Such instance-driven pattern may help the optimization community to devise theory that fits the practice better. Given the extensive body of literature in this field, there is a possibility that some relevant references may have been inadvertently overlooked. We welcome any comments or questions and are happy to discuss.
+
+## Acknowledgement
+We thank the insightful suggestions from two anonymous reviewers and Prof. Benjamin Grimmer.
