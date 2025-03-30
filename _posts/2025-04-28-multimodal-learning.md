@@ -17,7 +17,19 @@ hidden: false
 
 # Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Divyam Madaan
+    url: "https://dmadaan.com/"
+    affiliations:
+      name: New York University
+  - name: Sumit Chopra
+    url: "https://www.spchopra.net/"
+    affiliations:
+      name: New York University, New York University Grossman School of Medicine
+  - name: Kyunghyun Cho
+    url: "https://kyunghyuncho.me/"
+    affiliations:
+      name: New York University, Genentech, CIFAR
+
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-multimodal-learning.bib  
@@ -320,9 +332,9 @@ For any dataset or benchmark, we recommend to start with the assumption of what 
 
 To answer that question, we recommend a thorough examination of the dependencies for each defined modality, both individually and jointly with other modalities for the target task.  These dependencies are categorized as ***intra-modality dependencies***, which represent interactions between individual modalities and the target label and ***inter-modality dependencies***, which captures interaction between modalities and label. 
 
-Several studies have evaluated benchmarks involving images and text as two modalities, and we illustrate how these dependencies differed across benchmarks based on prior studies<d-cite key="wang2020makes, du2023uni, tong2024cambrian, madaan2024jointly"></d-cite> in the Figure above. For datasets such as ***SQA-I, MMMU, fastMRI, MathVista, UCF101, intra-modality dependencies are more important***, as removing one modality all together does not affect model performance. Conversely, for datasets like ***MMB, MathVista, SEED-I and so on, both inter- and intra-modality dependencies are important***, as both uni-modal and inter-modality models obtain more than random performance. For benchmarks such as **MME, OCRBench, NLVR2 and others, inter-dependencies are more important***;* removing one modality results in random performance; underscoring the importance of modality interactions. 
+Several studies have evaluated benchmarks involving images and text as two modalities, and we illustrate how these dependencies differed across benchmarks based on prior studies<d-cite key="wang2020makes, du2023uni, tong2024cambrian, madaan2024jointly"></d-cite> in the Figure above. For datasets such as ***SQA-I, MMMU, fastMRI, MathVista, UCF101, intra-modality dependencies are more important***, as removing one modality all together does not affect model performance. Conversely, for datasets like ***MMB, SEED-I, GQA, ChartQA and so on, both inter- and intra-modality dependencies are important***, as both uni-modal and inter-modality models obtain more than random performance. For benchmarks such as **MME, OCRBench, NLVR2 and others, inter-dependencies are more important***;* removing one modality results in random performance; underscoring the importance of modality interactions. 
 
-For all these benchmarks, specific architectural choices—such as the type of fusion method or the backbone architecture for vision and language models—exhibit minimal impact on performance, as noted in prior studies<d-cite key="wang2020makes, du2023uni, tong2024cambrian, madaan2024jointly"></d-cite>. 
+For all these benchmarks, specific architectural choices—such as the type of fusion method or the backbone architecture for vision and language models—exhibit minimal impact on performance, as noted in prior studies<d-cite key="wang2020makes, du2023uni, tong2024cambrian, madaan2024jointly"></d-cite>. Thus
 
 <aside class="box-important l-body" markdown="1">
 The emphasis should be on analyzing how each modality contributes to task performance, both independently and jointly with other modalities. 
@@ -349,19 +361,39 @@ With a clear understanding of each modality’s contribution, we can prioritize 
 
 {% highlight python linenos %}
 def forward(x_1, x_2):
-  ## Intra-modality predictors for two modalities
-  outputs_modality_1 = self.intra_model_1(x_1)
-  outputs_modality_2 = self.intra_model_2(x_2)
-  # Inter-modality predictor (Early/Intermediate/Late)
-  outputs_inter = self.inter_model(torch.cat([x_1, x_2], dim=-1))
-  ## Product of experts (additive ensemble in the log-probability space)
-  output_num = torch.log_softmax(outputs_modality_1, dim=-1) +  \
-               torch.log_softmax(outputs_modality_2, dim=-1) + \
-               torch.log_softmax(outputs_inter, dim=-1)
-  ## Normalizing the output
-  output_den = torch.logsumexp(output_num, dim=-1)
-  outputs = output_num - output_den.unsqueeze(1)
-  return outputs
+  """
+  Forward pass for multi-modal classification using Product of Experts (PoE).
+  Combines predictions from intra-modality models and inter-modality model.
+
+  Args:
+    x_1 (Tensor): Input from modality 1 
+    x_2 (Tensor): Input from modality 2
+
+  Returns:
+    Tensor: Log-probabilities over output classes, shape [batch_size, num_classes]
+  """
+  # Intra-modality predictors (separate models for each modality)
+  intra_output_1 = self.intra_model_1(x_1)
+  intra_output_2 = self.intra_model_2(x_2)
+
+  # Inter-modality predictor (fusion model over both modalities)
+  inter_input = torch.cat([x_1, x_2], dim=-1)
+  inter_output = self.inter_model(inter_input)
+
+  # Convert outputs to log-probabilities
+  log_probs_intra_1 = torch.log_softmax(intra_output_1, dim=-1)
+  log_probs_intra_2 = torch.log_softmax(intra_output_2, dim=-1)
+  log_probs_inter = torch.log_softmax(inter_output, dim=-1)
+
+  # Product of Experts: add log-probabilities from each expert
+  combined_log_probs = log_probs_intra_1 + log_probs_intra_2 + log_probs_inter
+
+  # Normalize
+  log_normalizer = torch.logsumexp(combined_log_probs, dim=-1, keepdim=True)
+  log_probs = combined_log_probs - log_normalizer
+
+  return log_probs
+
 {% endhighlight %}
 
 The code above combines the output log probabilities in an additive way and has been shown to work effectively across various healthcare, language, and vision benchmarks, even when the relative strength of these dependencies is not known<d-cite key="madaan2024jointly"></d-cite>. Such an approach does not fundamentally alter the multi-modal learning problem; instead, it offers a structured way to balance individual and joint modality contributions. By explicitly modeling the importance of individual modalities, this approach mitigates uni-modal biases.
@@ -374,3 +406,10 @@ This comes with the trade-off of increased parameter requirements, which could i
 
 ## Takeaway
 Current approaches to multimodal learning tend to overemphasize the interaction between modalities for downstream tasks, resulting in benchmarks and architectures narrowly focused on modeling these interactions. In real-world scenarios, however, the strength of these interactions are often unkown. To build more effective multimodal models, we need to shift our focus toward holistically understandinging the independent contributions of each modality as well as their joint impact on the target task.
+
+## Acknowledgement
+This work was supported by the Institute of Information & Communications Technology Planning
+& Evaluation (IITP) with a grant funded by the Ministry of Science and ICT (MSIT) of the Republic
+of Korea in connection with the Global AI Frontier Lab International Collaborative Research,
+Samsung Advanced Institute of Technology (under the project Next Generation Deep Learning: From Pattern
+Recognition to AI), National Science Foundation (NSF) award No. 1922658, Center for Advanced Imaging Innovation and Research (CAI2R), National Center for Biomedical Imaging and Bioengineering operated by NYU Langone Health, and National Institute of Biomedical Imaging and Bioengineering through award number P41EB017183.
