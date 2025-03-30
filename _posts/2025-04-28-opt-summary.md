@@ -42,12 +42,12 @@ toc:
   - name: Introduction
     subsections:
     - name: Literature
-  - name: Framework
+  - name: Framework - Oracle Complexity Model
   - name: Notations
   - name: Summary of Results
     subsections:
     - name: Case 1-1 - Deterministic Minimization
-    - name: Case 1-2 - Finite-sum and Stochastic Min
+    - name: Case 1-2 - Finite-sum and Stochastic Minimization
     - name: Case 2-1 - (S)C-(S)C Deterministic Minimax
     - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax
     - name: Case 2-3 - NC-(S)C Deterministic Minimax
@@ -141,9 +141,9 @@ The oracle complexity model consists of the following components:
   - *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
   - *Algorithm class* $\mathcal{A}$, e.g., a common algorithm class studied in optimization literature is the *linear-span algorithm*, which covers various gradient-based methods. The algorithm interacting with an oracle $\mathbb{O}$ to decide the next query point. Linear-span algorithm says that the next query point is within a linear combination of all past information:
   
-  $$
-  x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
-  $$
+    $$
+    x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
+    $$
    
     Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
 
@@ -280,7 +280,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 3. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
 4. The $L$-Smooth Convex setting comes with two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the other assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
 
-### Case 1-2: Finite-sum and Stochastic Optimization
+### Case 1-2: Finite-sum and Stochastic Minimization
 
 | Problem Type            | Measure | Lower Bound                                                | Upper Bound                               | Reference (LB)     | Reference (UB)                         |
 |-------------------------|---------|---------------------------------------------------|----------------------------------|-----------------------------------------------------------|------------------------|
@@ -308,7 +308,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 </div>
  
-### Case 2-1: SC-SC/SC-C/C-C Deterministic Minimax Optimization
+### Case 2-1: (S)C-(S)C Deterministic Minimax
 
 | Problem Type            | Measure | Lower Bound                                                | Upper Bound                               | Reference (LB)     | Reference (UB)                         |
 |-------------------------|---------|---------------------------------------------------|----------------------------------|-----------------------------------------------------------|------------------------|
@@ -328,7 +328,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 1. References: <d-cite key="ouyang2021lower"></d-cite> <d-cite key="chambolle2011first"></d-cite> <d-cite key="xie2020lower"></d-cite> <d-cite key="nemirovski2004prox"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="du2019linear"></d-cite> <d-cite key="zhang2022lower"></d-cite> <d-cite key="chambolle2016ergodic"></d-cite> <d-cite key="wang2020improved"></d-cite> <d-cite key="yang2020global"></d-cite>
 2. Here $\kappa_x$ and $\kappa_y$ corresponds to condition numbers on $x$ and $y$ components, respectively.
 
-### Case 2-2: SC-SC/SC-C/C-C Finite-sum and Stochastic Minimax Optimization
+### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax
 
 | Problem Type         | Measure | LB                                         | UB                            | Reference-LB      | Reference-UB                                   |
 |----------------------|---------|---------------------------------------------|-------------------------------|-------------------|------------------------------------------|
@@ -346,7 +346,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="xie2020lower"></d-cite> <d-cite key="yazdandoost2023stochastic"></d-cite> <d-cite key="juditsky2011solving"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="palaniappan2016stochastic"></d-cite> <d-cite key="hsieh2019convergence"></d-cite> <d-cite key="yan2020optimal"></d-cite> <d-cite key="yang2020global"></d-cite>
 
-### Case 2-3: NC-SC/NC-C Deterministic Minimax Optimization
+### Case 2-3: NC-(S)C Deterministic Minimax
 
 | Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
@@ -360,7 +360,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 1. References: <d-cite key="zhang2021complexity"></d-cite> <d-cite key="lin2020near"></d-cite> <d-cite key="boct2023alternating"></d-cite> <d-cite key="yang2022faster"></d-cite>
 2. Some other works also studied the above problems in terms of the fucnction stationarity (i.e., the gradient norm of $f$, rather than it primal), e.g., <d-cite key="lin2020near"></d-cite><d-cite key="xu2023unified"></d-cite>. As discussed in <d-cite key="yang2022faster"></d-cite>, it has been shown that function stationarity and primal stationarity are transferable with a mild efforts, here we do not present the results specifically.
 
-### Case 2-4: NC-SC/NC-C Finite-sum and Stochastic Minimax Optimization
+### Case 2-4: NC-(S)C Finite-sum and Stochastic Minimax
 
 | Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
