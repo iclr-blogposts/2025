@@ -286,7 +286,8 @@ Calculate $$S(G, C_X, R, p)$$ to assess goal satisfaction
 Using cooking as a testbed, we demonstrate the distinction between creative problem-solving and repurposing through interactions with GPT-4-turbo. We present two scenarios where the model is asked to solve cooking-related challenges. In the first scenario, with an open-ended prompt, the model typically suggests solutions involving new ingredients or tools, aligning with creative problem-solving. In the second scenario, when explicitly constrained to use only a specified set of available resources, the model shifts to repurposing-based solutions, finding innovative ways to use existing items.
 This observation highlights a key aspect of repurposing: the importance of clearly defining the resource set R and enforcing its constraints. Without explicit resource constraints, the model naturally defaults to creative problem-solving by expanding the conceptual space with new elements. To effectively elicit repurposing solutions, one must explicitly frame the problem in terms of a fixed set of available resources and their properties.
 
-<iframe src="assets/html/2025-04-28-repurposing/example.html" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
+<iframe src="assets/html/2025-04-28-repurposing/rep_cx.png" frameborder="0" scrolling="no" height="520px" width="100%"></iframe>
+
 
 
 ### Differences and Advantages of Repurposing Framework
