@@ -9,7 +9,16 @@ hidden: false
 
 # anonymize when submitting 
 authors:
-  - name: Anonymous 
+  - name: Amitoj Singh Miglani
+    affiliations:
+      name: IIT, Roorkee
+  - name: Vidit Aggarwal
+    url: "https://www.linkedin.com/in/vidit-aggarwal-328525285/"
+    affiliations:
+      name: IIT, Roorkee
+  - name: Shweta Singh
+    affiliations:
+      name: IIT,Roorkee
 
 
 bibliography: 2025-04-28-analysing-the-spectral-biases-in-generative-models.bib  
@@ -85,7 +94,7 @@ If the details in the scene change more rapidly than this (i.e., they have a hig
 
 ## Analysis of Bias in GANs
 
-Now, let us analyze spectral biases<d-cite key="rahaman2019spectralbiasneuralnetworks"></d-cite> in GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite>. GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite> have been quite successful in producing photo-realistic images. But things are a bit different when we view the produced images in the frequency domain. In this section we show that the ability of GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite> to learn a distribution is significantly biased against high spatial frequencies i.e. GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite> produce less high frequency content than in the actual image<d-cite key="lee2024spectrumtranslationrefinementimage"></d-cite>.
+Now, let us analyze spectral biases<d-cite key="rahaman2019spectralbiasneuralnetworks"></d-cite> in GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite>. GANs have been quite successful in producing photo-realistic images. But things are a bit different when we view the produced images in the frequency domain. In this section we show that the ability of GANs to learn a distribution is significantly biased against high spatial frequencies i.e. GANs produce less high frequency content than in the actual image<d-cite key="lee2024spectrumtranslationrefinementimage"></d-cite>.
 
 This was earlier attributed to a mere scarcity of high frequencies in natural images, but recent works<d-cite key="chen2020ssdganmeasuringrealnessspatial"></d-cite><d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite><d-cite key="schwarz2021frequencybiasgenerativemodels"></d-cite> have shown that this is not the case. There are two main hypotheses that have been proposed for the spectral biases; one attributes it to the employment of upsampling operations<d-cite key="schwarz2021frequencybiasgenerativemodels"></d-cite>, and the other attributes it to linear dependencies in the convolution filter<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite>, i.e., the size of the kernel deployed in the generator network. We take up these hypotheses in the remainder of this section.
 
@@ -99,8 +108,8 @@ $$ H_{l+1}^i = \text{Conv}_l^i(H_l) = \sum_c F_{l}^{i,c} * \text{Up}(\sigma(H_l^
 
 where:
 
-- $\text{H}_l$ : The feature map at layer *l*.
-- $F_{l}^{i,c}$: A convolutional filter at layer *l*, of size ${k_l} \times \text{k}_l$ , that connects input channel *c* to output channel *i*.
+- $\text{H}_l$ : The feature map at layer ***l***.
+- $F_{l}^{i,c}$: A convolutional filter at layer ***l***, of size ${k_l} \times \text{k}_l$ , that connects input channel ***c*** to output channel ***i***.
 - $\text{Up}(\cdot)$ : The upsampling operator, which increases the spatial dimensions, helping generate higher-resolution outputs.
 - $\sigma(\cdot)$: A non-linearity function, typically a ReLU. 
 
@@ -117,22 +126,22 @@ Before starting with the analysis of a filter's spectrum, we first need to intro
 
 ### ReLU as a Fixed Binary Mask
 
-Considering ReLUs to be the activation $\sigma(\cdot)$, they can then be viewed as fixed binary masks<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite> in the neighbourhood of the parameter $W$. Here, this means that for small variations in the parameters $W$, the activation pattern of the ReLU units (which inputs are passed and which are zeroed) does not change and since the ReLU outputs are determined by the sign of the pre-activation values, these signs only change at specific boundaries in the parameter space, ensuring binary mask remains fixed within any given region. We will now attempt to prove this.
+Considering ReLUs to be the activation $\sigma(\cdot)$, they can then be viewed as fixed binary masks<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite> in the neighbourhood of the parameter $W$. Here, this means that for small variations in the parameters $W$, the activation pattern of the ReLU units (which inputs are passed and which are zeroed) does not change and since the ReLU outputs are determined by the sign of the pre-activation values, these signs only change at specific boundaries in the parameter space, thus ensuring binary mask remains fixed within any given region. We will now attempt to prove this.
 
-This proof has been inspired from the paper "Spatial Frequency Bias in Convolutional Generative Adversarial Networks"<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite> focuses on showing that in a finite ReLU-CNN, the set of parameter configurations where the scalar output of the network crosses zero (i.e., changes sign) has a measure of zero. What is measure zero? A set of measure zero essentially means that the set occupies "negligible space" in the parameter space. In high-dimensional spaces like $\mathbb{R}^n$, measure-zero sets can often be thought of as lower-dimensional "slices" (e.g., lines, points, or surfaces) within the larger space. While they may exist mathematically, they are effectively insignificant in the context of the full parameter space.
+This proof has been inspired from the paper "Spatial Frequency Bias in Convolutional Generative Adversarial Networks"<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite> and focuses on showing that in a finite ReLU-CNN, the set of parameter configurations where the scalar output of the network crosses zero (i.e., changes sign) has a measure of zero. What is measure zero? A set of measure zero essentially means that the set occupies "negligible space" in the parameter space. In high-dimensional spaces like $\mathbb{R}^n$, measure-zero sets can often be thought of as lower-dimensional "slices" (e.g., lines, points, or surfaces) within the larger space. While they may exist mathematically, they are effectively insignificant in the context of the full parameter space.
 
 Mathematically,
 We are working with a scalar ouptut $\mathcal{f}(W)$ of a convolutional layer in a finite ReLU-CNN. Therefore, the function depends on the weight parameter *W* and the latent input $H_{1}$. Now, we need to show that for any neighbourhood around $W$, the output of the function is entirely non-negative or entirely non-positive.
 This means proving that the set of parameters where 𝑓 changes sign within every neighbourhood of 𝑊 (i.e., it crosses zero somewhere in every neighbourhood) has measure zero.
 
-$$\implies G = \{ W \in \mathcal{W} \mid \forall N(W), \exists U, V \in N(W) : f(U) < 0 < f(V) \}$$
+$$\implies G = \{ W \in \mathcal{W} \mid \forall \mathcal{N}(W), \exists U, V \in \mathcal{N}(W) : f(U) < 0 < f(V) \}$$
 
 where $\mathcal{N}(W)$ represents the neighbourhood of $W$. $G$ captures the parameter values $W$ where $f(W)$ crosses zero in every neighborhood. Therefore, our objective becomes to show that $G$ has measure zero.
 
 A finite ReLU-CNN has a finite number of neurons and, hence, a finite number of ReLU activations. Each ReLU activation behaves like a piecewise linear function that "splits" the parameter space into regions. \
 $\implies$ For any fixed configuration of active/inactive neurons, $f(W)$ becomes a polynomial function of $W$. Thus, for each configuration of ReLU activations, $f(W)$ behaves as a polynomial, with each configuration yielding a different polynomial form.
 
-A polynomial function on $\mathbb{R}^n \text{ to } \mathbb{R}$ has a measure zero set of zero-crossings in the parameter space.<d-footnote>refer to <a href="https://www.researchgate.net/publication/281285245_The_Zero_Set_of_a_Polynomial" target="_blank">this ResearchGate article</a></d-footnote> Intuitively, this means that the solutions to $f(W)=0$ occupy "negligible" space in the parameter space. \
+A polynomial function on $\mathbb{R}^n \text{ to } \mathbb{R}$ has a measure zero set of zero-crossings in the parameter space <d-footnote> refer to <a href="https://www.researchgate.net/publication/281285245_The_Zero_Set_of_a_Polynomial" target="_blank">this ResearchGate article</a></d-footnote>. Intuitively, this means that the solutions to $f(W)=0$ occupy "negligible" space in the parameter space. \
 $\implies$ A finite set of such polynomials also has a measure zero set of zero-crossings. $\therefore$ $G$ is also a measure zero set.
 
 Finally, this reasoning holds for any scalar output $f$ of the network, at any spatial location or layer. Given that there are only a finite number of such outputs in a finite network, the measure of $G$ for all outputs is still zero, thereby completing the proof.
@@ -315,7 +324,9 @@ $$
 Now, if the $U$ and $V$ frequencies are diagonally adjacent, then the correlation coefficient becomes:
 
 $$
+\begin{equation}
 |\operatorname{corr}(U, V)|=\frac{\sin ^2\left(\frac{\pi k_l}{d_l}\right)}{k_l^2 \sin ^2\left(\frac{\pi}{d_l}\right)}
+\end{equation}
 $$
 
 This result indicates that the correlation between two frequency components in the spectrum of $F_l$ is inversely related to the filter size $k_l$. A larger filter (i.e., higher $k_l$) reduces the correlation between frequencies, enhancing the filter's ability to represent diverse frequencies independently. Conversely, a smaller filter (lower $k_l$) increases correlation, meaning that adjustments to one part of the frequency spectrum impact neighboring frequencies, thereby limiting the filter's effective capacity to separate and individually adjust each frequency component.
