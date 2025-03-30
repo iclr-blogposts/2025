@@ -305,8 +305,6 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="woodworth2016tight"></d-cite> <d-cite key="defazio2016simple"></d-cite> <d-cite key="allen2018katyusha"></d-cite> <d-cite key="xie2019general"></d-cite> <d-cite key="zhou2019lower"></d-cite> <d-cite key="wang2019spiderboost"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="rakhlin2012making"></d-cite> <d-cite key="ghadimi2012optimal"></d-cite> <d-cite key="woodworth2018graph"></d-cite> <d-cite key="lan2012optimal"></d-cite> <d-cite key="agarwal2009information"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite> <d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="davis2018stochastic"></d-cite>
 2. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
-
-</div>
  
 ### Case 2-1: (S)C-(S)C Deterministic Minimax
 
@@ -327,6 +325,8 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="ouyang2021lower"></d-cite> <d-cite key="chambolle2011first"></d-cite> <d-cite key="xie2020lower"></d-cite> <d-cite key="nemirovski2004prox"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="du2019linear"></d-cite> <d-cite key="zhang2022lower"></d-cite> <d-cite key="chambolle2016ergodic"></d-cite> <d-cite key="wang2020improved"></d-cite> <d-cite key="yang2020global"></d-cite>
 2. Here $\kappa_x$ and $\kappa_y$ corresponds to condition numbers on $x$ and $y$ components, respectively.
+
+</div>
 
 ### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax
 
