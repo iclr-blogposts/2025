@@ -65,11 +65,11 @@ We borrow and adapt the mathematical formalization from the creative problem sol
 In this framework, _concepts_, are defined as either states of the environment and/or agent or actions. $$C_X$$ it the set of
 all concepts relating to $$X$$, with $$X$$ being environment states $$S$$ or actions $$A$$. In the creative problem solving framework, a goal $$G$$ is un-achievable if the conceptual space $$C_X$$ is unsufficient. To achieve the goal $$G$$, the agent needs to discover a new conceptual space $$C_X' \not\subset C_X$$ such that $$C_X' = f(C_X)$$. _Creative problem solving_ is the process of finidng $$f$$ to apply to the current conceptual space $$C_X$$ to find $$C'_X$$.
 
-But what is a __conceptual space__? 
+This raises an important question: what is a __conceptual space__? 
 
 >  A “[conceptual space] is the generative system that underlies the domain and defines a certain range of possibilities: chess moves, or molecular structures, or jazz melodies. ... in short, any reasonably disciplined way of thinking".
 
-Loosely speaking, the conceptual space of an agent is essentially its embedding space, that is to say, the space where the agent organizes data points to simplify how real-world data is represented. 
+Loosely speaking, the conceptual space of an agent is essentially its embedding space, that is to say, the space where the agent organizes data points to to efficiently encode real-world data and relationships. 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -77,15 +77,18 @@ Loosely speaking, the conceptual space of an agent is essentially its embedding 
     </div>
 </div>
 <div class="caption">
-    The initial conceptual space known to the agent is not sufficient to reach the goal. Hence, CPS seeks to enable the agent to discover new concepts for
-accomplishing the goal, by modifying the agent’s initial conceptual space into a new one.
+    The initial conceptual space known to the agent is not sufficient to reach the goal. Creative problem solving enables the agent to discover or generate new concepts by transforming its initial conceptual space into an expanded one that contains solution paths.
 </div>
 
-<aside style="padding:20px;background-color:green;" class="box-important l-body"> 
-  <p> We borrow the simplified example from <d-cite key="nair-etal-2024-creative"></d-cite> illustrating a robot with the goal $G$ of transferring beans from a jar to a cooker: $G = in $(beans, cooker). The initial state is defined as $C_S = in$(beans, jar), $hasContainability$(spoon). The actions are defined as $C_A = scoop$(beans, $X, loc_s, loc_d)$, where $X$ refers to an object that satisfies $hasContainability(\cdot)$. In the creative problem-solving framework, when the robot doesn't have a spoon but has a glass, it uses a function $f(\cdot)$ to discover a new conceptual space: $f(C_S) = C'_S = C_S \cup hasContainability$ (glass), allowing it to solve the previously unsolvable task.</p> 
-
+<aside style="padding:20px;background-color:#030351;font-size:15px;" class="box-important l-body"> 
+  <p> We borrow the simplified example from <d-cite key="nair-etal-2024-creative"></d-cite> illustrating a robot with the goal $G$ of transferring beans from a jar to a cooker: $G = in $(beans, cooker). The initial state is defined as $C_S = in$(beans, jar), $hasContainability$(spoon).</p> 
+  <p>The actions are defined as $C_A = scoop$(beans, $X, loc_s, loc_d)$, where $X$ refers to an object that satisfies $hasContainability(\cdot)$. </p> 
+<p>In the creative problem-solving framework, when the robot doesn't have a spoon but has a glass, it uses a function $f(\cdot)$ to discover a new conceptual space: $f(C_S) = C'_S = C_S \cup hasContainability$ (glass), allowing it to solve the previously unsolvable task. </p> 
+<p>This represents a genuine expansion of the agent's knowledge space, as it must "discover" the containability property of the glass as if adding a new fact to its knowledge base.</p> 
 </aside>
 
+While this example effectively demonstrates creative problem solving through conceptual expansion, it illustrates a potentially inefficient approach to the problem. The agent must undergo a process of discovery and knowledge expansion when a more direct solution might be available. The same scenario can be analyzed through the lens of repurposing, which offers a more resource-efficient perspective focused on leveraging existing knowledge rather than expanding it.
+To fully understand this alternative approach, we need to introduce the critical concepts of resources and adaptability that form the foundation of the repurposing framework. These concepts will help illustrate how the same problem can be solved without requiring conceptual expansion, potentially offering a more computationally efficient solution path.
 
 ## Repurposing
 
@@ -93,7 +96,7 @@ Repurposing is the process of adapting or transforming an existing concept, obje
 
 Unlike creative problem-solving, which discovers new concepts, repurposing focuses on finding new ways to use existing resources within the current conceptual space. This process incorporates various aspects of creativity under the form of exploration of existing features of concepts.
 
-Repurposing goes beyond simple reuse by requiring a systematic analysis of resource properties and their potential applications. While creative problem-solving expands the conceptual space through a function, repurposing works within by identifying how existing resources can be used differently based on their properties with the objective of making the most of our existing knowledge and resources.
+Repurposing transcends simple reuse by requiring a methodical analysis of resource properties and their potential applications in novel contexts. While creative problem-solving expands the conceptual space through discovery functions, repurposing works within existing boundaries by identifying how known resources can fulfill different roles based on their inherent properties. The ultimate objective is maximizing efficiency by leveraging existing resources and knowledge rather than expanding our understanding into new territories.
 
 ### Definition of Repurposing
 
@@ -118,7 +121,7 @@ $$a = 1 - \frac{n}{N}$$, where:
   - a = 1 indicates perfect repurposing (using existing resources as-is)
 - a = 0 indicates complete replacement (not really repurposing)
 
-A higher adaptability score suggests a more efficient repurposing solution, as it requires fewer changes to the existing resources. This score helps us evaluate and compare different repurposing strategies, favoring those that make the most of what's already available.
+A higher adaptability score indicates a more efficient repurposing solution, as it requires fewer modifications to existing resources. This metric provides a quantitative way to evaluate and compare different repurposing strategies, prioritizing those that maximize the utility of available resources.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -133,50 +136,60 @@ Therefore, repurposing finds a function $$r$$ where:
 $$r: (C_X, R, p) → G$$
 where $$r$$ is a new interpretation/mapping function that achieves $$G$$ using the same $$C_X$$ by leveraging the properties identified by $$p$$.
 
-Let us recall the previous example used to descrive creative problem solving. For repurposing, the same example becomes:
-
-<aside style="padding:20px;background-color:green;font-size: 20;" class="box-important l-body"> 
-  <p> Let's consider the same robot with the same goal of transferring beans from a jar to a cooker: $G = in $(beans, cooker). The initial state is defined as $C_S = in$(beans, jar), $hasContainability$(spoon). The actions are defined as $C_A = scoop$(beans, $X, loc_s, loc_d)$, where $X$ refers to an object that satisfies $hasContainability(\cdot)$. Let $P = \{$hasContainability, isTransparent $, ...\}$ be the set of properties, and $R = \{$glass$\}$ be the set of available resources (no spoon available). The property mapping function $p$ reveals that $p$(glass) = $hasContainability$, indicating that the glass shares the crucial property needed for the scooping action.
-
-In the repurposing framework, when the robot doesn't have a spoon but has a glass, it:
-
-(i) uses $p$ to identify that glass has the required containability property; (ii) maps the glass to fulfill the role of $X$ in the scoop action; (iii) achieves $G$ using the existing conceptual space $C_X = {C_S, C_A}$ and resource $R$ through $r(C_X, R, p)$.</p> 
-
+Let us revisit the previous example used to describe creative problem solving, now reframed through the lens of repurposing:
+<aside style="padding:20px;background-color:#030351;font-size:15px;" class="box-important l-body"> 
+  <p>Consider the same robot with the goal of transferring beans from a jar to a cooker: $G = in$(beans, cooker). The initial state is defined as $C_S = in$(beans, jar), $hasContainability$(spoon). The actions are defined as $C_A = scoop$(beans, $X, loc_s, loc_d)$, where $X$ refers to an object that satisfies $hasContainability(\cdot)$.</p>
+  <p>Let $P = \{$hasContainability, isTransparent$, ...\}$ be the set of properties, and $R = \{$glass$\}$ be the set of available resources (no spoon available). The property mapping function $p$ reveals that $p$(glass) = $hasContainability$, indicating that the glass shares the crucial property needed for the scooping action.</p>
+  <p>In the repurposing framework, when the robot doesn't have a spoon but has a glass, it:</p>
+  <p>(i) uses $p$ to identify that glass already has the required containability property (rather than "discovering" this as new knowledge);</p> 
+  <p>(ii) maps the glass to fulfill the role of $X$ in the scoop action based on this shared property;</p> 
+  <p>(iii) achieves $G$ using the existing conceptual space $C_X = \{C_S, C_A\}$ and resource $R$ through $r(C_X, R, p)$.</p>
 </aside>
 
-This differs from creative problem solving which would expand $$C_S$$ to include _hasContainability(glass)_ as new knowledge. Instead, repurposing uses existing knowledge about properties to identify suitable resource substitutions within the current conceptual space.
 
+This approach fundamentally differs from creative problem solving, which would expand $$C_S$$ to include _hasContainability_(glass) as newly discovered knowledge. In contrast, repurposing leverages existing knowledge about properties to identify suitable resource substitutions within the current conceptual space. The robot doesn't "learn" that the glass has containability—it recognizes that this known property of the glass can be applied in a different context.
+This distinction highlights the efficiency advantage of repurposing: it doesn't require conceptual expansion or knowledge discovery, just recognition of how existing properties can be applied in novel contexts. For resource-constrained systems or time-sensitive applications, repurposing often provides a more direct path to problem resolution than creative problem solving.
+
+This distinction highlights the efficiency advantage of repurposing: it doesn't require conceptual expansion or knowledge discovery, just recognition of how existing properties can be applied in novel contexts. For resource-constrained systems or time-sensitive applications, repurposing often provides a more direct path to problem resolution than creative problem solving.
 
 ### Repurposing procedure
 
-To determine how resources can be repurposed, we need to analyze their properties and potential transformations:
+To systematically determine how resources can be effectively repurposed, we employ a structured analytical process that focuses on identifying and leveraging inherent properties rather than expanding conceptual boundaries:
 
 1. Property Mapping: 
-   - Define a property mapping function $$p: R \leftarrow P$$
-   - For each resource $$r \in R$$, identify its properties $$p(r)$$
-   - Create a mapping of required properties for the goal $$G$$
+   - Define a comprehensive property mapping function $$p: R \rightarrow P$$ that identifies all relevant properties
+   - For each available resource $$r \in R$$, methodically identify its complete set of properties $$p(r)$$
+   - Create a detailed mapping of the properties required to achieve goal $$G$$
 
 2. Resource Analysis:
-   - Compare properties of available resources $$p(r)$$ with required properties for $$G$$
-   - Identify resources that share properties with needed tools
-   - Example: $$p$$(spoon) = $$\{$$hasContainability, hasHandle$$\}$$
-             $$p$$(glass) = $$\{$$hasContainability, hasVolume$$\}$$
+   - Rigorously compare the properties of available resources $$p(r)$$ with those required to achieve $$G$$
+   - Identify resources that share critical properties with the tools needed for the task
+   - For example:
+     - $$p$$(spoon) = $$\{$$hasContainability, hasHandle, isRigid$$\}$$
+     - $$p$$(glass) = $$\{$$hasContainability, isTransparent, hasVolume, isRigid$$\}$$
+   - Note that both share the critical property "hasContainability" needed for scooping
 
 3. Compatibility Assessment:
-   - Determine which resources can serve as substitutes based on shared properties
-   - Identify any property gaps that might prevent repurposing
+   - Evaluate which resources can serve as effective substitutes based on their shared properties
+   - Identify any property gaps that might impede successful repurposing
+   - Prioritize resources with the highest property overlap relevant to the task
 
 4. Transformation Requirements:
-   - Count resources that need modification to achieve required properties
-   - Identify any additional properties needed
+   - Quantify resources that require modification to achieve the required properties
+   - Identify any additional properties that need to be introduced or enhanced
+   - Assess the complexity and feasibility of necessary transformations
 
 5. Adaptability Score: 
-   $$a = 1 - n/N$$
+   $$a = 1 - \frac{n}{N}$$
    where:
-   - $$N$$ is the total number of original resources
-   - $$n$$ is the number of resources that needed property modifications
+   - $$N$$ represents the total number of resources in the original solution
+   - $$n$$ represents the number of resources that required property modifications or substitutions
 
-This framework emphasizes that repurposing relies on identifying and leveraging shared properties between resources, rather than discovering new properties (as in creative problem solving).
+
+This structured framework emphasizes a key distinction: repurposing operates by transferring known properties from one context to another, rather than discovering entirely new properties as in creative problem solving. When the glass is repurposed for scooping beans, the agent isn't discovering that glasses have containability in general (it already knows glasses hold liquids), but rather recognizing that this property can transfer to a new context (holding beans). This contextual transfer of properties is often more computationally efficient than expanding the conceptual space to include entirely new knowledge.
+
+By focusing on property matching rather than conceptual expansion, repurposing offers a more computationally efficient approach that maximizes the utility of available resources. This procedure provides agents with a systematic method to identify alternative applications for existing resources, potentially solving problems more efficiently than approaches requiring knowledge expansion.
+
 
 ### Evaluating Repurposing Success
 
@@ -200,28 +213,30 @@ This function returns a value between 0 and 1, representing the degree to which 
 
 ## Comparing Creative Problem-Solving and Repurposing
 
-While both approaches aim to achieve the same goal, they differ fundamentally in how they utilize and transform available resources and conceptual spaces.
-Let's consider the example of transforming a classic Italian pasta dish into a low-carb option.
+While both approaches aim to achieve the same goal, they differ fundamentally in how they utilize and transform available resources and conceptual spaces. These differences have significant implications for computational efficiency, resource utilization, and solution generation. To illustrate these distinctions clearly, let's analyze a practical example: transforming a classic Italian pasta dish into a low-carb alternative.
 
 ### Creative Problem-Solving Framework
 
-1. Define the Conceptual Space:
-   Let $$C$$ be the space of all possible dishes, where each dimension represents attributes like ingredients, cooking methods, flavors, textures, etc.
+1. **Define the Conceptual Space**:
+   Let $$C$$ be the space of all possible dishes, where each dimension represents specific culinary attributes such as ingredients, cooking methods, flavors, textures, nutritional properties, and cultural associations.
 
-2. Initial Concept:
-   $$c$$ = Spaghetti Bolognese, represented as a point in $$C_X$$
+2. **Initial Concept**:
+   $$c$$ = Spaghetti Bolognese, represented as a specific point in the conceptual space $$C_X$$
 
-3. Goal:
-   $$G$$ = Create a low-carb alternative
+3. **Goal Definition**:
+   $$G$$ = Create a low-carb alternative while maintaining the essential flavor profile and eating experience
 
-4. Creative Operators:
-   We need to find a function f that expands the conceptual space: $$C'_X = f(C_X)$$ where $$C'_X \notin C_X$$
+4. **Creative Operator Identification**:
+   The challenge is to find a transformation function $$f$$ that expands the conceptual space to include previously unconsidered possibilities: $$C'_X = f(C_X)$$ where $$C'_X \not\subset C_X$$
    
-5. Apply Transformation: The new solution $$c' ∈ C'_X$$ = Zucchini Noodle Bolognese
+5. **Transformation Application**: 
+   Through conceptual expansion, the agent discovers that vegetables can be transformed into pasta-like structures, creating a new solution $$c' \in C'_X$$ = Zucchini Noodle Bolognese
 
-6. Evaluate:
-    Define a function $$E(c, G)$$ that measures how well the new concept $$c'$$ meets the goal $$G$$.
-If $$E(c', G) > E(c, G)$$, then the creative transformation is considered successful.
+6. **Solution Evaluation**:
+   We define an evaluation function $$E(c, G)$$ that quantifies how effectively the new concept $$c'$$ satisfies the goal $$G$$ across multiple dimensions (carbohydrate content, taste similarity, texture, etc.).
+   If $$E(c', G) > E(c, G)$$, then the creative transformation is considered successful.
+
+In this framework, the agent must actually expand its conceptual understanding to include the novel concept that vegetables can be transformed into noodle-like structures—a concept that wasn't previously part of its culinary knowledge space. This represents genuine conceptual expansion rather than just reconfiguring existing knowledge.
 
 ### Repurposing Framework
 
@@ -265,21 +280,23 @@ This observation highlights a key aspect of repurposing: the importance of clear
 
 ### Differences and Advantages of Repurposing Framework
 
+The creative problem-solving and repurposing frameworks, while complementary, exhibit fundamental differences in their approach, methodology, and application domains. Understanding these distinctions helps identify when each approach might be most appropriate:
+
 1. **Focus**:
-   - CPS: Primarily focused on generating novel solutions, which may or may not involve existing resources.
-   - Repurposing: Specifically focused on finding new uses for existing resources or concepts.
+   - **CPS**: Primarily oriented toward generating novel solutions through conceptual expansion, which may require new resources or concepts beyond what's currently available.
+   - **Repurposing**: Specifically focused on identifying new applications for existing resources by recognizing transferable properties across contexts without requiring conceptual expansion.
 
 2. **Constraint consideration**:
-   - CPS: May consider constraints, but is not inherently bound by them.
-   - Repurposing: Explicitly works within given resource constraints as a core principle.
+   - **CPS**: May consider constraints, but is not inherently bound by them and  often seeks to overcome them through innovation and discovery of new possibilities.
+   - **Repurposing**: Explicitly works within given resource constraints as a core principle.
 
 3. **Outcome**:
-   - CPS: Can result in entirely new inventions or discoveries.
-   - Repurposing: Always results in a new use for an existing item or concept.
+   - **CPS**: Can result in genuinely novel inventions, discoveries, or paradigm shifts that represent expansion beyond existing knowledge.
+   - **Repurposing**: Always yields solutions that utilize existing resources in new contexts, maximizing resource utility while minimizing the need for new acquisitions.
 
 4. **Process**:
-   - CPS: May involve broader exploration of possibilities, including those outside current resources.
-   - Repurposing: Starts with available resources and explores possibilities within that scope.
+   - **CPS**: Often involves broader, divergent exploration of possibilities, including conceptual spaces beyond current resources or knowledge.
+   - **Repurposing**: Employs a more focused, property-based analysis that begins with inventory assessment and systematically explores contextual transfers.
 
 5. **Applicability**:
    - CPS: Useful in a wide range of scenarios, especially when novel solutions are needed.
@@ -291,9 +308,10 @@ This observation highlights a key aspect of repurposing: the importance of clear
     </div>
 </div>
 <div class="caption">
-    Some examples of the concepts defining creative problem solving and repurposing.
+    Illustrative examples highlighting the distinct approaches of creative problem solving and repurposing across various application domains. While CPS expands conceptual boundaries to discover new solutions, repurposing identifies novel applications for existing resources within current conceptual frameworks.
 </div>
 
+These distinctions highlight that repurposing isn't merely a subset of creative problem-solving but represents a complementary framework with its own unique advantages. In computational systems with limited resources or in environments where sustainability is paramount, the repurposing framework may offer more efficient and practical approaches to problem-solving than methods requiring conceptual expansion.
 
 ## Discussion
 While CPS is a powerful and essential approach in many scenarios, there are numerous problems that can benefit significantly from being framed as repurposing challenges. The dataset presented in <d-cite key=tian2024macgyver></d-cite> provides an excellent example of such problems.
@@ -301,9 +319,10 @@ The MACGYVER dataset, consisting of over 1,600 real-world problems designed to t
 
 Framing these as repurposing problems offers several advantages:
 
-- *Resource Constraints*: Repurposing explicitly considers available resources, which is crucial in the MacGyver-style problems where solutions must be crafted from limited, on-hand materials.
+- *Resource Constraints*: The repurposing framework explicitly incorporates available resource limitations as core parameters, which proves crucial in MacGyver-style problems where solutions must be crafted exclusively from immediately available materials.
+
 - *Adaptability Focus*: Our repurposing framework's emphasis on adaptability aligns well with the need to adapt existing objects for new purposes in these challenges.
-- *Practical Feasibility*: The repurposing approach inherently considers the practicality of solutions, addressing the issue of physically-infeasible actions proposed by LLMs in the study.
+- *Practical Feasibility*:  The property-based repurposing approach inherently considers the practical feasibility of solutions by focusing on actual object properties rather than abstract connections, potentially addressing the study's observation that LLMs often propose physically-impractical actions.
 - *Structured Approach*: Repurposing provides a more structured framework for tackling these problems, potentially bridging the gap between human intuition and AI's broad knowledge base.
 
 By viewing such problems through the repurposing lens, we can potentially develop more effective strategies for both human problem-solvers and AI systems. This approach complements creative problem solving, offering a structured method for innovation within constraints - a common scenario in real-world challenges.
@@ -339,7 +358,6 @@ In conclusion, while repurposing and creative problem solving share common groun
 Future work in this area could focus on developing AI systems that can effectively navigate the repurposing process. Additionally, further exploration of how humans and AI can collaborate in repurposing tasks could lead to powerful hybrid approaches, combining human intuition with AI's vast knowledge and processing capabilities.
 
 <d-bibliography src="/2025/assets/bibliography/2025-04-28-repurposing.bib"></d-bibliography>
-
 
 
 
