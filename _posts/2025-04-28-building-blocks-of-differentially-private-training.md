@@ -12,18 +12,16 @@ hidden: false
 #   - name: Anonymous
 
 authors:
-  - name: Anonymous
-    url: ""
+  - name: Mahmoud Hegazy
+    url: "https://mahegz.github.io/"
     affiliations:
-      name: Anonymous
-  - name: Anonymous
-    url: Anonymous
+      name: CMAP, École polytechnique, Institut Polytechnique de Paris, France
+  - name: Aymeric Dieuleveut
+    url: "http://www.cmap.polytechnique.fr/~aymeric.dieuleveut/"
     affiliations:
-      name: Anonymous 
-  - name: Anonymous
-    url: "https://website_link"
-    affiliations:
-      name: Anonymous
+      name: CMAP, École polytechnique, Institut Polytechnique de Paris, France
+
+  
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-building-blocks-of-differentially-private-training.bib  
