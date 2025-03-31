@@ -142,10 +142,10 @@ To formally characterize complexity, we use the classical **oracle complexity mo
 
 The oracle complexity model consists of the following components:
   - *Fucntion class* $\mathcal{F}$, e.g., convex Lipschitz continuous function class, and (nonconvex) Lipschitz smooth function class.
-  - *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
-    - In the deterministic case, 
-    - In the finite-sum case,
-    - In the stochastic case,
+  - *Oracle class* $\mathbb{O}$, for any query point $x$, it returns some information about the function $f\in\mathcal{F}$, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
+    - In the deterministic case, we consider the generic first-order oracle, which, for each query point $x$, returns the gradient $\nabla f(x)$.
+    - In the finite-sum case $f=\frac{1}{n}\sum_{i=1}^n f_i$, we consider the incremental first-order oracle (IFO)<d-cite key='agarwal2015lower'></d-cite>, given the query point $x$ and index $i\in[n]$, it returns $\nabla f_i(x)$.
+    - In the stochastic case, we will consider stochastic first-order oracle, given the query point $x$, it returns an unbiased gradient estimator $g(x)$ with a *bounded variance*. Also some works further considers the scenario that the returned estimator is *mean-squared smoothness* (or *averaged smooth*, denoted as AS), or each individual itself is Lipschitz smooth (denoted as IS).
   - *Algorithm class* $\mathcal{A}$, e.g., a common algorithm class studied in optimization literature is the *linear-span algorithm*, which covers various gradient-based methods. The algorithm interacts with an oracle $\mathbb{O}$ to decide the next query point. Linear-span algorithm says that the next query point is within a linear combination of all past information:
   
     $$
@@ -230,7 +230,7 @@ For convenience, we summarize some of the notations commonly used in the tables 
 - Stoc: stochastic optimization.
 -  $L$-Lip Cont.: $L$-Lipschitz continuous.
 - $L$-S: The objective function is $L$-Lipschitz smooth (or jointly Lipschitz smooth in minimax optimization). It is equivalent to its gradient being $L$-Lipschitz continuous.
-- $L$-IS / AS / SS<d-footnote>For clarification, $L$-IS means in finite-sum problems, each component function $f_i$ itself is $L$-smooth, for the definition of $L$-AS. Please refer to the definition of "mean-squared smoothness" in <d-cite key="arjevani2023lower"></d-cite>, and $L$-SS means the summation $f$ is $L$-smooth while each component $f_i$ may not be Lipschitz smooth. Clearly, IS is stronger than AS, and AS is stronger than SS.</d-footnote>: $L$-Lipschitz individual / averaged / summation smoothness.
+- $L$-IS / AS / SS<d-footnote>For clarification, $L$-IS means in finite-sum problems, each component function $f_i$ itself is $L$-smooth, for the definition of $L$-AS. Please refer to the definition of "mean-squared smoothness" (or averaged smooth) in <d-cite key="arjevani2023lower"></d-cite>, and $L$-SS means the summation $f$ is $L$-smooth while each component $f_i$ may not be Lipschitz smooth. Clearly, IS is stronger than AS, and AS is stronger than SS.</d-footnote>: $L$-Lipschitz individual / averaged / summation smoothness.
 - NS: Nonsmooth.
 - PL: Polyak-Łojasiewicz Condition. This is a condition that generalizes strong convexity. Under such a condition, without convexity, optimization algorithms could still globally converge. See e.g. <d-cite key= "karimi2016linear"></d-cite>.
 - $\mathcal{O},\tilde{\mathcal{O}},\Omega$: For nonnegative functions $f(x)$ and $g(x)$, we say $f=\mathcal{O}(g)$ if $f(x)\leq cg(x)$ for some $c>0$, and further write $f=\tilde{\mathcal{O}}(g)$ to omit poly-logarithmic terms on some constants, and $f=\Omega(g)$ if $f(x)\geq cg(x)$.
@@ -435,11 +435,11 @@ $$
 
 * Performative Prediction (or Decision-Dependent Stochastic Optimization)<d-cite key="perdomo2020performative"></d-cite><d-cite key="drusvyatskiy2023stochastic"></d-cite>
 
-$$
-\min_{x\in\mathcal{X}}\ F(x)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}(x)}[f(x;\xi)].
-$$
+  $$
+  \min_{x\in\mathcal{X}}\ F(x)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}(x)}[f(x;\xi)].
+  $$
 
-Note that this problem diverges from classical stochastic optimization because the distribution of $\xi$ depends on the decision variable $x$. Such dependency often disrupts the convexity of $F$, even if $f$ is convex with respect to $x$. In practical scenarios where the randomness can be decoupled from the decision variable, as in $\xi = g(x) + \eta$, the problem can be simplified to a classical stochastic optimization framework. This presents a trade-off: One can either impose additional modeling assumptions to revert to a classical approach or tackle the computational complexities inherent in such performative prediction problems. Practically, it is advisable to explore the specific structure of the problem to determine if it can be restructured into classical stochastic optimization.
+  Note that this problem diverges from classical stochastic optimization because the distribution of $\xi$ depends on the decision variable $x$. Such dependency often disrupts the convexity of $F$, even if $f$ is convex with respect to $x$. In practical scenarios where the randomness can be decoupled from the decision variable, as in $\xi = g(x) + \eta$, the problem can be simplified to a classical stochastic optimization framework. This presents a trade-off: One can either impose additional modeling assumptions to revert to a classical approach or tackle the computational complexities inherent in such performative prediction problems. Practically, it is advisable to explore the specific structure of the problem to determine if it can be restructured into classical stochastic optimization.
 
 * Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite> (or Decision-Focused Learning<d-cite key="mandi2024decision"></d-cite>)
 
@@ -453,7 +453,7 @@ Note that this problem diverges from classical stochastic optimization because t
 
   or 
   
-  $$\mathbb{E}_z\|\|\pi(z) - \pi^*(z)\|\|^2.$$
+  $$\mathbb{E}_z\|\pi(z) - \pi^*(z)\|^2.$$
   
   The challenges for solving such problems come from the fact that usually the available samples are only $(z,\xi)$ pairs, i.e., one does not have access to multiple samples of $\xi$ from the conditional distribution. As a result, one usually needs to first estimate $F(x;z)$ via nonparametric statistics techniques like $k$-nearest neighbors and kernel regression or via reparametrization tricks and conduct a regression. Both could suffer from the curse of dimensionality as the dimension of $z$ is large. 
 
