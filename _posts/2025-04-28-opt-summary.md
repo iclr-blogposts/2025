@@ -127,7 +127,7 @@ Based on the **convexity** of the objective $f(x)$, we categorize our discussion
 
 ### Literature
 
-This blog summarizes complexity results of state-of-the-art (SOTA) first-order optimization algorithms. There are several great works for a comprehensive review of optimization algorithms from different perspectives. Besides many well-known textbooks and course materials like the one from Stephen Boyd<d-cite key="boyd2024text"></d-cite><d-cite key="boyd2024video"></d-cite>, maybe one of the most impressive works is the blog post by Ruder<d-cite key="ruder2016overview"></d-cite>, which received more than 10k citations according to Google Scholar. The post reviewed algorithmic design of gradient descent (GD), stochastic gradient descent (SGD), and their variants, especially those commonly used in the machine learning community like AdaGrad<d-cite key="duchi2011adaptive"></d-cite> and Adam<d-cite key="kingma2014adam"></d-cite>. Several monographs reviewed optimization algorithms in various settings, e.g., <d-cite key="bubeck2015convex"></d-cite>, <d-cite key="bottou2018optimization"></d-cite>, <d-cite key="sun2019survey"></d-cite>, <d-cite key="dvurechensky2021first"></d-cite> and <d-cite key="garrigos2023handbook"></d-cite>; the page by Ju Sun<d-cite key="sun2021list"></d-cite> was a popular repository tracking research effort on achieving global optimality for nonconvex optimization<d-footnote>Latest update: Dec 11 2021.</d-footnote>. The review by Ruoyu Sun<d-cite key="sun2019optimization"></d-cite> further specified the survey of optimization algorithm study in the context of deep learning. A recent survey by Danilova et al.,<d-cite key="danilova2022recent"></d-cite> revisited algorithm design and complexity analysis for nonconvex optimization. To some extent, it is the closest one to our blog post. Our blog aims to serve as an easily accessible tool for optimizers to check the SOTA theoretical convergence rate from both upper and lower bounds perspectives.
+This blog summarizes complexity results of state-of-the-art (SOTA) first-order optimization algorithms. There are several great works for a comprehensive review of optimization algorithms from different perspectives. Besides many well-known textbooks and course materials like the one from Stephen Boyd<d-cite key="boyd2024text"></d-cite><d-cite key="boyd2024video"></d-cite>, maybe one of the most impressive works is the blog post by Sebastian Ruder<d-cite key="ruder2016overview"></d-cite>, which received more than 10k citations according to Google Scholar. The post reviewed algorithmic design of gradient descent (GD), stochastic gradient descent (SGD), and their variants, especially those commonly used in the machine learning community like AdaGrad<d-cite key="duchi2011adaptive"></d-cite> and Adam<d-cite key="kingma2014adam"></d-cite>. Several monographs reviewed optimization algorithms in various settings, e.g., <d-cite key="bubeck2015convex"></d-cite>, <d-cite key="bottou2018optimization"></d-cite>, <d-cite key="sun2019survey"></d-cite>, <d-cite key="dvurechensky2021first"></d-cite> and <d-cite key="garrigos2023handbook"></d-cite>; the page by Ju Sun<d-cite key="sun2021list"></d-cite> was a popular repository tracking research effort on achieving global optimality for nonconvex optimization<d-footnote>Latest update: Dec 11 2021.</d-footnote>. The review by Ruoyu Sun<d-cite key="sun2019optimization"></d-cite> further specified the survey of optimization algorithm study in the context of deep learning. A recent survey by Danilova et al.,<d-cite key="danilova2022recent"></d-cite> revisited algorithm design and complexity analysis for nonconvex optimization. To some extent, it is the closest one to our blog post. Our blog aims to serve as an easily accessible tool for optimizers to check the SOTA theoretical convergence rate from both upper and lower bounds perspectives.
 
 
 ---
@@ -143,6 +143,9 @@ To formally characterize complexity, we use the classical **oracle complexity mo
 The oracle complexity model consists of the following components:
   - *Fucntion class* $\mathcal{F}$, e.g., convex Lipschitz continuous function class, and (nonconvex) Lipschitz smooth function class.
   - *Oracle class* $\mathbb{O}$, for any query point $x$, it requires some information $\mathbb{O}(x)$ about the function, e.g., zeroth-order oracle returns function value and first-order oracle returns function gradient or subdifferential.
+    - In the deterministic case, 
+    - In the finite-sum case,
+    - In the stochastic case,
   - *Algorithm class* $\mathcal{A}$, e.g., a common algorithm class studied in optimization literature is the *linear-span algorithm*, which covers various gradient-based methods. The algorithm interacts with an oracle $\mathbb{O}$ to decide the next query point. Linear-span algorithm says that the next query point is within a linear combination of all past information:
   
     $$
@@ -204,7 +207,7 @@ $$
 
 In this note, we will focus on **first-order algorithms** in various optimization problem settings, trying to summarize the state-of-the-art (SOTA) UB and LB results to identify the gaps in existing research and discuss new trends. 
 
-### What We Did Not Cover
+### What We Do Not Cover
 Throughout the blog, we focus on first-order optimization. There are also many works on *zeroth-order optimization*<d-cite key="liu2020primer"></d-cite>, and *higher-order optimization*<d-cite key="sun2019survey"></d-cite>. The key difference lies within the oracle information. For example, second-order methods (e.g., Newton's method) have access to the Hessian information. With such finer information, generally, second-order methods attain better complexities compared to first-order methods, which is characterized in theory as mentioned in <d-cite key="carmon2020lower"></d-cite>. Of course, obtaining higher-order information would be much more costly, and thus, the per-iteration computational complexity is usually higher. 
   
 Some other popular algorithms like *proximal algorithms*<d-cite key="parikh2014proximal"></d-cite> are not discussed. One prominent example is *proximal point algorithm* (PPA)<d-cite key="rockafellar1976monotone"></d-cite> based on *proximal operator*:
@@ -340,7 +343,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 ### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
 
-| Problem Type         | Measure | LB                                         | UB                            | Reference-LB      | Reference-UB                                   |
+| Problem Type         | Measure | LB                                         | UB                            | Reference (LB)      | Reference (UB)                                   |
 |----------------------|---------|---------------------------------------------|-------------------------------|-------------------|------------------------------------------|
 | C-C, FS         | Duality Gap | $\Omega(n + L / \epsilon)$                 | $\mathcal{O}(\sqrt{n}/\epsilon)$                      | <d-cite key="xie2020lower"></d-cite>, Theorem 3     | <d-cite key="yazdandoost2023stochastic"></d-cite>, Corollary 2.1        |
 | C-C, Stoc, SS        | Duality Gap | $\Omega(\epsilon^{-2})$                    | $\checkmark$                  | /                                             | <d-cite key="juditsky2011solving"></d-cite>, Corollary 1      |
@@ -358,7 +361,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 ### Case 2-3: NC-(S)C Deterministic Minimax Optimization
 
-| Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
+| Type               | Measure | LB                                          | UB                               | Reference (LB)      | Reference (UB)                                 |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
 | NC-SC, Deter       | Primal Stationarity | $\Omega(\sqrt{\kappa}\Delta \mathcal{L} \epsilon^{-2})$  | $\checkmark$ | <d-cite key="zhang2021complexity"></d-cite>, Theorem 3.1 | <d-cite key="zhang2021complexity"></d-cite>, Theorem 4.1 |
 | NC-C, Deter        | Near-Stationarity | Unknown  | $\mathcal{O}(\Delta L^2 \epsilon^{-3} \log^2 \frac{1}{\epsilon})$               |   /      | <d-cite key="lin2020near"></d-cite>, Corollary A.8 |
@@ -372,7 +375,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 ### Case 2-4: NC-(S)C Finite-sum and Stochastic Minimax Optimization
 
-| Type               | Measure | LB                                          | UB                               | Reference-LB      | Reference-UB                                   |
+| Type               | Measure | LB                                          | UB                               | Reference (LB)      | Reference (UB)                           |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
 | NC-SC, FS, AS    | Primal Stationarity        | $\Omega\left(\sqrt{n\kappa}\Delta L\epsilon^{-2}\right)$ | $\mathcal{O}\left(\sqrt{n}\kappa^2 L\Delta\epsilon^{-2}\right)$ | /        |  <d-cite key="zhang2021complexity"></d-cite>,  |          
 | NC-C, FS, IS     | Near-stationarity        | Unknown | $\mathcal{O}\left(n^{3/4}L^2D\Delta\epsilon^{-3}\right)$ |  /        |  <d-cite key="yang2020catalyst"></d-cite>,                               |
@@ -443,6 +446,7 @@ Note that this problem diverges from classical stochastic optimization because t
 $$
 \min_{x\in\mathcal{X}}\ F(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z].
 $$
+
 Contextual stochastic optimization aims to leverage side information $Z$ to facilitate decision-making. The goal is to find a policy $\pi$ that maps a context $z$ to a decision $x$. Thus the performance measure is $\mathbb{E}_z(F(\pi(z);z) - F(\pi^*(z);z))$ or $\mathbb{E}_z\|\|\pi(z) - \pi^*(z)\|\|^2$. The challenges for solving such problems come from the fact that usually the available samples are only $(z,\xi)$ pairs, i.e., one does not have access to multiple samples of $\xi$ from the conditional distribution. As a result, one usually needs to first estimate $F(x;z)$ via nonparametric statistics techniques like $k$-nearest neighbors and kernel regression or via reparametrization tricks and conduct a regression. Both could suffer from the curse of dimensionality as the dimension of $z$ is large. 
 
 * Distributionally Robust Optimization<d-cite key="kuhn2024distributionally"></d-cite>
