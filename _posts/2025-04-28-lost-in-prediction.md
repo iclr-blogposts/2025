@@ -199,7 +199,7 @@ We can now delve into the series of experiments we tested to assess the central 
 
 Each experiment tests the predictive power of narratives from the curated datasets, for macroeconomic prediction of one (or more) of the financial targets introduced before: FFR, S&P 500, and VIX. 
 
-We won't be able to cover all the details of the experiments in this blog, but it is available in our paper <d-footnote>Link will be added upon acceptance.</d-footnote>. 
+We won't be able to cover all the details of the experiments in this blog, but it is available in our paper <d-cite key=gueta2024can></d-footnote>. 
 
 ## Experimental Setup
 
