@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: 'Factual Context Validation and Simplification: A Scalable Method to Enhance GPT Trustworthiness and Efficiency'
-description: 'As the deployment of Large Language Models (LLMs) like GPT expands across domains, mitigating their susceptibility to factual inaccuracies or hallucinations becomes crucial for ensuring reliable performance. This blog post introduces two novel frameworks that enhance retrieval-augmented generation (RAG): one uses summarization to achieve a maximum of 57.7% storage reduction, while the other preserves critical information through statement-level extraction. Leveraging DBSCAN clustering, vectorized fact storage, and LLM-driven fact-checking, the pipelines deliver higher overall performance across benchmarks such as PubmedQA, SQuAD, and HotpotQA. By optimizing efficiency and accuracy, these frameworks advance trustworthy AI for impactful real-world applications.'
+description: 'As the deployment of Large Language Models (LLMs) like GPT expands across domains, mitigating their susceptibility to factual inaccuracies or hallucinations becomes crucial for ensuring reliable performance. This blog post introduces two novel frameworks that enhance retrieval-augmented generation (RAG): one uses summarization to achieve a maximum of 57.7% storage reduction, while the other preserves critical information through statement-level extraction. Leveraging DBSCAN clustering, vectorized fact storage, and LLM-driven fact-checking, the pipelines deliver higher overall performance across benchmarks such as PubMedQA, SQuAD, and HotpotQA. By optimizing efficiency and accuracy, these frameworks advance trustworthy AI for impactful real-world applications.'
 date: 2025-04-28
 future: true
 htmlwidgets: true
@@ -9,7 +9,7 @@ hidden: false
 
 authors:
   - name: Tianyi Huang
-    url: "https://scholar.google.com/citations?user=saanzOEAAAAJ&hl=en&oi=sra"
+    url: "https://www.linkedin.com/in/tianyi-huang-36ba49280/"
     affiliations:
       name: App Inventor Foundation
       url: https://www.appinventorfoundation.org/
@@ -49,6 +49,7 @@ toc:
       - name: Realistic Usage
   - name: Broader Implications
   - name: Limitations and Future Work
+  - name: Reproducibility
   - name: Conclusion
   
 _styles: >
@@ -141,7 +142,7 @@ Large Language Models (LLMs), such as GPT, have advanced natural language proces
 
 Existing solutions, including fine-tuning, retrieval-augmented generation (RAG), and post-hoc validation, address specific aspects of this problem but often at the cost of scalability or computational efficiency <d-cite key="guu2020"></d-cite>. These methods frequently fail to account for the growing demand to process unstructured data efficiently while maintaining factual accuracy.
 
-In this blog post, we propose an enhancement to RAG pipelines that integrates LLM summarization, clustering with DBSCAN, and vectorized fact storage to tackle the challenges of managing unstructured data <d-cite key="ester1996"></d-cite>. Our framework further innovates a fact-verification system that splits LLM responses into granular components for individual fact-level validation. By processing expansive datasets into concise, verifiable formats, this approach achieves significant improvements in storage efficiency without sacrificing factual accuracy. Evaluated on the PubmedQA dataset, the proposed method demonstrates how preprocessing and factual validation can enhance RAG workflows, improve scalability, and maintain retrieval precision, offering new possibilities for real-world applications <d-cite key="jin2019"></d-cite>.
+In this blog post, we propose an enhancement to RAG pipelines that integrates LLM summarization, clustering with DBSCAN, and vectorized fact storage to tackle the challenges of managing unstructured data <d-cite key="ester1996"></d-cite>. Our framework further innovates a fact-verification system that splits LLM responses into granular components for individual fact-level validation. By processing expansive datasets into concise, verifiable formats, this approach achieves significant improvements in storage efficiency without sacrificing factual accuracy. Evaluated on the PubMedQA dataset, the proposed method demonstrates how preprocessing and factual validation can enhance RAG workflows, improve scalability, and maintain retrieval precision, offering new possibilities for real-world applications <d-cite key="jin2019"></d-cite>.
 
 ## The Challenge of Factual Accuracy in AI
 
@@ -255,7 +256,7 @@ RAG pipelines integrate external knowledge retrieval into the LLM workflow, prov
     </figcaption>
 </figure>
 
-Post-hoc validation attempts to correct inaccuracies after generation by cross-referencing outputs with external datasets or models <d-cite key="zhong2024"></d-cite>. While valuable, it struggles from inefficiencies:
+Post-hoc validation attempts to correct inaccuracies after generation by cross-referencing outputs with external datasets or models <d-cite key="zhong2024"></d-cite>. While valuable, it suffers from inefficiencies:
 
 - It introduces latency, making it unsuitable for real-time applications.
 - Validating every output, even when unnecessary, wastes computational resources <d-cite key="guu2020"></d-cite>.
@@ -395,7 +396,7 @@ To address the challenges of ensuring factual accuracy in GPT systems, we propos
 ## Implementation Details
 <span style="font-size: 25px; font-weight: bold;">New Data Input System</span>
 
-**Fetching Contexts**: All contexts are fetched from the PubmedQA dataset to serve as the input data for preprocessing <d-cite key="jin2019"></d-cite>.
+**Fetching Contexts**: All contexts are fetched from the PubMedQA dataset to serve as the input data for preprocessing <d-cite key="jin2019"></d-cite>.
  ```python
   dataset = load_dataset("qiaojin/PubMedQA", name="pqa_labeled", split="train")
   data = dataset.select_columns(["question", "context", "pubid"])
@@ -484,7 +485,7 @@ To address the challenges of ensuring factual accuracy in GPT systems, we propos
 
 <div class="box-two" markdown="1">
 #### Advantages of This System
-The proposed system introduces several features that enhances the reliability and adaptability of existing RAG pipelines:
+The proposed system introduces several features that enhance the reliability and adaptability of existing RAG pipelines:
 
 - **Innovative Design**: By integrating techniques like LLM summarization, DBSCAN clustering, and vectorized fact storage, the system introduces a new framework for precise fact validation and efficient data storage reduction.
 
@@ -503,11 +504,11 @@ If the dataset is preprocessed to isolate one specific fact per entry, we recomm
 
 ## Experimentation and Results
 
-We evaluated our proposed pipeline by benchmarking it against a **Traditional Retrieval-Augmented Generation (RAG) Pipeline** using the PubmedQA dataset <d-cite key="jin2019"></d-cite>. The evaluation focused on three key metrics: **factual accuracy, RAG effectiveness,** and **storage efficiency,** collectively measuring response quality, retrieval precision, and data storage optimization.
+We evaluated our proposed pipeline by benchmarking it against a **Traditional Retrieval-Augmented Generation (RAG) Pipeline** using the PubMedQA dataset <d-cite key="jin2019"></d-cite>. The evaluation focused on three key metrics: **factual accuracy, RAG effectiveness,** and **storage efficiency,** collectively measuring response quality, retrieval precision, and data storage optimization.
 
 <span style="font-size: 20px; font-weight: bold;">Traditional RAG Pipeline</span>
 
-The traditional RAG pipeline was tested under ideal conditions, embedding and retrieving the labeled contexts directly from the PubmedQA dataset <d-cite key="jin2019"></d-cite>. This setup provided perfect access to the correct answer contexts, offering a significant advantage. Despite this, our proposed pipeline—which applies summarization and compression—demonstrates performance comparable to this baseline, emphasizing its effectiveness.
+The traditional RAG pipeline was tested under ideal conditions, embedding and retrieving the labeled contexts directly from the PubMedQA dataset <d-cite key="jin2019"></d-cite>. This setup provided perfect access to the correct answer contexts, offering a significant advantage. Despite this, our proposed pipeline—which applies summarization and compression—demonstrates performance comparable to this baseline, emphasizing its effectiveness.
 
 The traditional pipeline workflow includes the following steps:
 - Embed each context using OpenAI's `text-embedding-3-large` model.
@@ -525,30 +526,30 @@ The traditional pipeline workflow includes the following steps:
 
 <span style="font-size: 20px; font-weight: bold;">Factual Accuracy</span>
 
-We tested factual accuracy to measure how well the system addressed prompts by integrating all processes, including context retrieval, summarization, and LLM response generation. Using the PubmedQA dataset with 1,000 labeled context-question-answer groups, we queried each question and deemed responses correct if they matched the dataset’s answer (yes, no, or maybe) <d-cite key="jin2019"></d-cite>. The traditional pipeline achieved 71.7% accuracy, while our pipeline achieved 71.2%, a negligible difference of 0.5%. This suggests that summarizing contexts did not hinder the LLM’s ability to generate correct answers. Further improvements in prompt engineering or summary generation could potentially surpass the traditional pipeline’s accuracy.
+We tested factual accuracy to measure how well the system addressed prompts by integrating all processes, including context retrieval, summarization, and LLM response generation. Using the PubMedQA dataset with 1,000 labeled context-question-answer groups, we queried each question and deemed responses correct if they matched the dataset’s answer (yes, no, or maybe) <d-cite key="jin2019"></d-cite>. The traditional pipeline achieved 71.7% accuracy, while our pipeline achieved 71.2%, a negligible difference of 0.5%. This suggests that summarizing contexts did not hinder the LLM’s ability to generate correct answers. Further improvements in prompt engineering or summary generation could potentially surpass the traditional pipeline’s accuracy.
 
 <span style="font-size: 20px; font-weight: bold;">RAG Effectiveness</span>
 
-RAG effectiveness was evaluated to determine how well each pipeline retrieved the most relevant context for a given query. The PubmedQA dataset contexts were queried using labeled questions, and a retrieval was marked correct if the top result matched the labeled correct context <d-cite key="jin2019"></d-cite>. The traditional pipeline achieved 99.2% RAG effectiveness, while our pipeline achieved 98.9%, a minor 0.3% difference. The minimal reduction shows that summarization and clustering do not compromise retrieval quality. Additionally, granting the proposed pipeline access to original embeddings instead of summaries for labeling could eliminate this gap entirely, further reinforcing its effectiveness.
+RAG effectiveness was evaluated to determine how well each pipeline retrieved the most relevant context for a given query. The PubMedQA dataset contexts were queried using labeled questions, and a retrieval was marked correct if the top result matched the labeled correct context <d-cite key="jin2019"></d-cite>. The traditional pipeline achieved 99.2% RAG effectiveness, while our pipeline achieved 98.9%, a minor 0.3% difference. The minimal reduction shows that summarization and clustering do not compromise retrieval quality. Additionally, granting the proposed pipeline access to original embeddings instead of summaries for labeling could eliminate this gap entirely, further reinforcing its effectiveness.
 
 <span style="font-size: 20px; font-weight: bold;">Storage Efficiency</span>
 
-We measured storage efficiency by calculating the total size of stored contexts in the vector database (excluding vector embeddings). The traditional pipeline required 1,351 KB, whereas our pipeline used only 571 KB, a reduction of 57.7%. This demonstrates the significant compression achieved through summarization and clustering. The benefits are particularly pronounced in unstructured datasets, where redundant data can be consolidated. While PubmedQA is a structured dataset, in more diverse real-world datasets, the proposed pipeline would likely achieve even greater storage savings. This reduced footprint allows for the storage of larger datasets and faster query times, providing scalability without sacrificing usability.
+We measured storage efficiency by calculating the total size of stored contexts in the vector database (excluding vector embeddings). The traditional pipeline required 1,351 KB, whereas our pipeline used only 571 KB, a reduction of 57.7%. This demonstrates the significant compression achieved through summarization and clustering. The benefits are particularly pronounced in unstructured datasets, where redundant data can be consolidated. While PubMedQA is a structured dataset, in more diverse real-world datasets, the proposed pipeline would likely achieve even greater storage savings. This reduced footprint allows for the storage of larger datasets and faster query times, providing scalability without sacrificing usability.
 
 <span style="font-size: 20px; font-weight: bold;">Validity Judgment with Chain of Thought</span>
 
-In addition to the metrics discussed above, we evaluated the integration of a validity judgment mechanism in both the traditional and proposed pipelines. The PubmedQA dataset, designed for direct question-answer accuracy, presents inherent limitations for chain-of-thought reasoning <d-cite key="jin2019"></d-cite>. Despite this, the validity judger paired with the traditional pipeline achieved a factual accuracy of 72.4%, demonstrating its effectiveness in assessing and verifying LLM responses.
+In addition to the metrics discussed above, we evaluated the integration of a validity judgment mechanism in both the traditional and proposed pipelines. The PubMedQA dataset, designed for direct question-answer accuracy, presents inherent limitations for chain-of-thought reasoning <d-cite key="jin2019"></d-cite>. Despite this, the validity judger paired with the traditional pipeline achieved a factual accuracy of 72.4%, demonstrating its effectiveness in assessing and verifying LLM responses.
 
 When integrated into the proposed pipeline, the accuracy decreased to 68.9%, showcasing areas for refinement in our system rather than inherent shortcomings in the validity judger. This drop is attributed to two primary reasons:
 
 - **Skewed Scoring Distribution**: Validity and importance scores were overly concentrated near 1, limiting their ability to distinguish subtle differences in factual accuracy.  
 - **Excessive Context Retrieval**: The RAG system retrieved more context than necessary, introducing noise to the validation process.
 
-While the PubmedQA dataset was not supportive for chain-of-thought reasoning, the validity judger still demonstrated its capability to decompose LLM responses into granular statements and retrieve relevant contexts for validation. These findings demonstrate its potential as a strong component for factual validation, particularly on tasks requiring multi-step reasoning. Addressing scoring and retrieval challenges, along with testing on more reasoning-intensive datasets, will likely see significant improvements in both accuracy and efficiency.
+While the PubMedQA dataset is not well-suited for chain-of-thought reasoning, the validity judger still demonstrated its capability to decompose LLM responses into granular statements and retrieve relevant contexts for validation. These findings demonstrate its potential as a strong component for factual validation, particularly on tasks requiring multi-step reasoning. Addressing scoring and retrieval challenges, along with testing on more reasoning-intensive datasets, will likely see significant improvements in both accuracy and efficiency.
 
 ## Alternative Solution: Statement Extraction
 
-One of the main limitations of the proposed framework (summarization-based) is the potential loss of important contextual details—particularly concerning in high-stakes domains such as finance, law, or medicine. To mitigate this risk and retain comprehensive coverage of critical information, we introduce an Alternative Pipeline that avoids excessive compression by converting the input data into standalone, verifiable statements. When a input passage can't safely be condensed, the system simply reproduces statements identical to the source text, thus ensuring no crucial content is omitted. Rather than aiming for a prescribed compression metric, the pipeline focuses on statement-level extraction, preserving essential facts while eliminating redundancies and inaccuracies.
+One of the main limitations of the proposed framework (summarization-based) is the potential loss of important contextual details—particularly concerning in high-stakes domains such as finance, law, or medicine. To mitigate this risk and retain comprehensive coverage of critical information, we introduce an Alternative Pipeline that avoids excessive compression by converting the input data into standalone, verifiable statements. When an input passage can’t safely be condensed, the system simply reproduces statements identical to the source text, thus ensuring no crucial content is omitted. Rather than aiming for a prescribed compression metric, the pipeline focuses on statement-level extraction, preserving essential facts while eliminating redundancies and inaccuracies.
 
 <figure style="text-align: center;">
     <img src="{{ 'assets/img/2025-04-28-factual-validation-simplification/alternative.png' | relative_url }}" style="width: 75%;">
@@ -561,7 +562,7 @@ One of the main limitations of the proposed framework (summarization-based) is t
 
 To evaluate this alternative pipeline, experiments were conducted on two widely used QA datasets: Stanford Question Answering Dataset (SQuAD) <d-cite key="rajpurkar2016"></d-cite> and HotpotQA <d-cite key="yang2018"></d-cite>. We compare factual accuracy and storage size between this Alternative Pipeline and the Traditional Pipeline that stores and retrieves paragraph-level contexts under ideal conditions with RAG.
 
-### SQuAD
+#### SQuAD
 
 | **Metric**          | **Traditional Pipeline** | **Statement Extraction** | **Difference** |
 |---------------------|--------------------------|--------------------------|----------------|
@@ -570,7 +571,7 @@ To evaluate this alternative pipeline, experiments were conducted on two widely 
 
 **Table 2.** On the SQuAD dataset, statement extraction yields a 2.4% increase in factual accuracy while reducing storage size by 21.43%.
 
-### HotpotQA
+#### HotpotQA
 
 | **Metric**          | **Traditional Pipeline** | **Statement Extraction** | **Difference** |
 |---------------------|--------------------------|--------------------------|----------------|
@@ -583,7 +584,7 @@ Notably, in comparison to our proposed pipeline, the storage savings here are no
 
 ## Realistic Usage
 
-Most real-world data comes from unstructured sources, including blog posts, news reports, or technical articles. Below, we demonstrate a small-scale test with two AI-related news articles—one from Google DeepMind <d-cite key="deepmind"></d-cite> and another from Wired <d-cite key="wired"></d-cite>. Both discuss new the Gemini 2.0 model releases, showcasing how statement extraction saves storage while retaining necessary context.
+Most real-world data comes from unstructured sources, including blog posts, news reports, or technical articles. Below, we demonstrate a small-scale test with two AI-related news articles—one from Google DeepMind <d-cite key="deepmind"></d-cite> and another from Wired <d-cite key="wired"></d-cite>. Both discuss the Gemini 2.0 model releases, showcasing how statement extraction saves storage while retaining necessary context.
 
 | **Metric**              | **Google Deepmind** | **Wired Article** | **Combination** |
 |-------------------------|---------------------|-------------------|-----------------|
@@ -628,8 +629,12 @@ The potential benefits of this approach include:
 While this concept represents a forward-looking direction, it builds naturally on the goals of the current system. By enhancing scalability, reliability, and transparency, it offers a pathway for advancing the framework in future iterations.
 </div>
 
+## Reproducibility
+
+We have open-sourced all code for our framework at [Tonyhrule/Factual-Validation-Simplification](https://github.com/Tonyhrule/Factual-Validation-Simplification). The repository contains complete scripts and instructions for replicating the results from this work. We hope this open-source release facilitates public auditing, broader adoption of our methods, encourages community-driven improvements, and enables new research on trustworthy LLMs.
+
 ## Conclusion
 
 In this blog post, we explored two approaches to improving the scalability and reliability of RAG pipelines by addressing challenges in storage efficiency and factual accuracy. The first method uses summarization, clustering, and vectorized fact storage to optimize data size while maintaining strong retrieval performance. The second method—the Alternative Pipeline—avoids summarization and instead extracts standalone statements, offering higher fidelity in high-stakes domains where preserving every nuance of context is critical.
 
-Through experimentation with PubmedQA, SQuAD, HotpotQA, the pipelines demonstrated competitive performance relative to traditional methods. The summarization-based pipeline excels in reducing storage space, while statement extraction preserves sensitive details, improving factual accuracy and removing redudant information. Looking ahead, by grounding outputs in verified information and ensuring greater transparency in decision-making, this framework takes a step forward in building trustworthy and explainable AI systems.
+Through experimentation with PubMedQA, SQuAD, HotpotQA, the pipelines demonstrated competitive performance relative to traditional methods. The summarization-based pipeline excels in reducing storage space, while statement extraction preserves sensitive details, improving factual accuracy and removing redundant information. Looking ahead, by grounding outputs in verified information and ensuring greater transparency in decision-making, this framework takes a step forward in building trustworthy and explainable AI systems.
