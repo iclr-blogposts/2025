@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: Analysing The Spectral Biases in Generative Models
-description: Diffusion and GAN models have demonstrated remarkable success in synthesizing high-quality images propelling them into various real-life applications across different domains. However, it has been observed that they exhibit spectral biases that impact their ability to generate certain frequencies and makes it pretty straightforward to distinguish real images from fake ones. In this blog we analyze these models and attempt to explain the reason behind these biases.
+description: Diffusion and GAN models have demonstrated remarkable success in synthesizing high-quality images propelling them into various real-life applications across different domains. However, it has been observed that they exhibit spectral biases that impact their ability to generate certain frequencies and makes it possible to distinguish real images from fake ones. In this blog we analyze these models and attempt to explain the reason behind these biases.
 date: 2025-04-28
 future: true
 htmlwidgets: true
@@ -47,11 +47,11 @@ $$
 \hat{I}[k, l] = \frac{1}{HW} \sum_{x=0}^{H-1} \sum_{y=0}^{W-1} e^{-2\pi i \frac{x \cdot k}{H}} \cdot e^{-2\pi i \frac{y \cdot l}{W}} \cdot I[x, y]
 $$
 
-Here, $k$=0,1,2...$H$-1 and $l$=0,1,2,...$W$-1. So it outputs an image in the frequency domain of size ${H \times W}$. Here $\hat{I}[k, l]$ is a complex value at the pixel $I[x, y]$. For example, given below is a grayscale image of a baboon<d-footnote>Image taken from <d-cite key="schwarz2021frequencybiasgenerativemodels"></d-cite>.</d-footnote>  viewed in the frequency domain.
+Here, $k=0,1,2...H-1$ and $l=0,1,2,...W-1$. So it outputs an image in the frequency domain of size ${H \times W}$. Here $\hat{I}[k, l]$ is a complex value at the pixel $I[x, y]$. For example, given below is a grayscale image of a baboon<d-footnote>Image taken from <d-cite key="schwarz2021frequencybiasgenerativemodels"></d-cite>.</d-footnote>  viewed in the frequency domain.
 
 {% include figure.html path="assets/img/2025-04-28-analysing-the-spectral-biases-in-generative-models/baboon_spectrum.png" class="img-fluid" %}
 
-To enhance power spectrum visualization, we remove the DC component, apply a Hann window to reduce spectral leakage, normalize by the maximum power, and use a logarithmic scale. This ensures the most powerful frequency is set to 0.<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite>
+To enhance power spectrum visualization, we remove the DC component, apply a Hann window<d-footnote>refer to this <a href="https://en.wikipedia.org/wiki/Hann_function?utm_source=chatgpt.com" target="_blank">article</a></d-footnote> to reduce spectral leakage, normalize by the maximum power, and use a logarithmic scale. This ensures the most powerful frequency is set to 0.<d-cite key="khayatkhoei2020spatialfrequencybiasconvolutional"></d-cite>
 
 Frequency basically refers to the rate of change of colour in an imgae. The smooth regions (where colour or pixel intensities don't change much) in an image correspond to low frequency while the regions containing edges and granular features (where colour changes rapidly) like hair, wrinkles etc correspond to high frequency. We can understand this by relating it to fitting  1D step functions using fourier series. The region of the step has large coefficients for the higher frequency waves while the other region has large coefficients for the low frequency waves. 
 
@@ -347,7 +347,7 @@ In addition to this, some works<d-cite key="chen2020ssdganmeasuringrealnessspati
 
 ## Frequency bias in Diffusion Models
 
-It has been well known that like GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite>, diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> too show some frequency bias. Smaller models fail to fit the high frequency spectrum properly whereas larger models are succesful in doing so<d-cite key="yang2022diffusionprobabilisticmodelslim"></d-cite>. In general, models have a hard time fitting the reduced spectrum graph especially where the magnitude of a particular frequency is low. This is shown in the graph below :
+It has been well known that like GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite>, diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> too show some frequency bias. **Smaller models fail to fit the high frequency spectrum properly whereas larger models are succesful in doing so**<d-cite key="yang2022diffusionprobabilisticmodelslim"></d-cite>. In general, models have a hard time fitting the reduced spectrum graph especially where the magnitude of a particular frequency is low. This is shown in the graph below :
 
 {% include figure.html path="assets/img/2025-04-28-analysing-the-spectral-biases-in-generative-models/spectral_den_diff.png" class="img-fluid" %}
 <div class="caption">
@@ -420,7 +420,7 @@ G_t^*  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline
 $$
 
 Here $ G_t^* $ is the conjugate reconstruction filter. As it is real, $G_t^* = G_t$ .
-Hence $G_t  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline{\alpha}}{|X_0|^2}}$ is the optimal linear reconstruction filter. The predicted $\hat{X}_0$ = $G_t \times X_t$. So predicted power spectrum $|\hat{X}_0|^2 = |G_t|^2 |X_t|^2$
+Hence $$G_t  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline{\alpha}}{|X_0|^2}}$$ is the optimal linear reconstruction filter. The predicted $\hat{X}_0$ = $G_t \times X_t$. So predicted power spectrum $|\hat{X}_0|^2 = |G_t|^2 |X_t|^2$
 
 $$
 |X_t|^2 \approx  \, \overline{\alpha} |X_0|^2 + (1 - \overline{\alpha}) |\epsilon|^2 = \overline{\alpha} |X_0|^2 + 1 - \overline{\alpha}    
@@ -439,7 +439,7 @@ $$|\hat{X_0}|^2 \approx |X_0|^2$$. In the high frequency region, $|X_0|^2$ is ve
 
 In the later stages of the denoising process, 
 $$\bar{\alpha} \approx 1$$, so regardless of the magnitude of 
-$$|X_0|^2$$, the value  
+$$|X_0|^2$$, the value of 
 $$|\hat{X_0}|^2 \approx |{X_0}|^2$$
 
 So we can clearly see that the model is succesfully able to learn the low frequency content in its initial denoising steps and eventually, given enough time steps, it learns the entire spectrum. But small models lack enough time steps and parameters, so only the low frequency spectrum is learnt well by the model and the predicted high frequency content is less than the ground truth. Note that the proof is based on the fact that the model has a hard time learning low magnitude regions in the power spectrum, which correspond to high frequency in natural images. But if we take a synthetic image which has low magnitude in the middle frequency region and high magnitude in the low and high frequency region, then as expected, the model fails to fit the middle region of the reduced spectrum properly. This can be seen below when we try to fit a synthetic image with two gaussian peaks by a small diffusion model<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> with limited timesteps.
