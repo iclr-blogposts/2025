@@ -131,7 +131,7 @@ Let's assume that we have $$n$$ clients in the dataset and that all salaries are
 2. Add random noise: $$\text{result} = \mu + \frac{B}{n}\mathcal{N}(0, \sigma(\varepsilon, \delta)^2)$$
 3. Release the noisy $$\text{result}$$
 
-In the above, the $$\text{clip}_B$$ sets any salary above $$B$$ to $$B$$ for ensuring that we process the data incase our assumption does not hold. Also, $$\sigma(\varepsilon, \delta)$$ is some function of $$\varepsilon$$ and $$\delta$$ that sets the noise according to the privacy level we want. We will spend the next subsection discussing $$\sigma(\varepsilon, \delta)$$ but for now let's see the usefulness of this approach. For this we fix:
+In the above, the $$\text{clip}_B$$ sets any salary above $$B$$ to $$B$$ for ensuring that we process the data in case our assumption does not hold. Also, $$\sigma(\varepsilon, \delta)$$ is some function of $$\varepsilon$$ and $$\delta$$ that sets the noise according to the privacy level we want. We will spend the next subsection discussing $$\sigma(\varepsilon, \delta)$$ but for now let's see the usefulness of this approach. For this we fix:
 - Failure probability $$\delta = 10^{-6}$$ 
 - Dataset size $$n = 10,000$$ employees
 - Salary bound $$B = \$1,000,000$$
@@ -156,14 +156,15 @@ For a better idea on the utility, looking at $$\varepsilon = 1/2$$, $$\sigma\app
 The process of adding Gaussian noise is usually called the Gaussian mechanism, which is an extremely fundamental building block of DP. First, we define the sensitivity of a function. 
 
 >**Definition:** For a function $$f:\mathcal{D}\rightarrow \mathbb{R}^d$$ computing a vector-valued statistic from a dataset, we define its sensitivity as   
-> $$\Delta_f  = \max_{D ,D':|D\setminus D'|=1} \|f(D) - f(D') \|_2 $$
-> where the condition $$|D\setminus D'|=1$$ indicates that $$D$$ and $$D'$$ only differ by a single record. 
+> $$\Delta_f  = \max_{D ,D':|D\triangle D'|=1} \|f(D) - f(D') \|_2 $$
+> where the condition $$|D\triangle D'|=1$$ indicates that $$D$$ and $$D'$$ only differ by a single record. 
 
-Then, for a function $$f$$ with sensitivity $$\Delta_f$$ and required $$(\varepsilon,\delta)$$-DP level, the Gaussian,mechanism calculates the needed $$\sigma$$ and adds a noise drawn from $$\mathcal{N}(0, \sigma^2I)$$ to the output of $$f$$. Then, the Gaussian mechanism is 
+Then, for a function $$f$$ and a required $$(\varepsilon,\delta)$$-DP level, based on the sensitivity $$\Delta_f$$, the Gaussian mechanism calculates the needed $$\sigma$$ and adds a noise drawn from $$\mathcal{N}(0, \sigma^2I)$$ to the output of $$f$$. Then, the Gaussian mechanism is simply
 
 $$M(x) = f(x) + \mathcal{N}(0, \sigma^2I).$$
 
-For a simple version of the Gaussian mechanism, we may set $$\sigma = \frac{\Delta}{\epsilon}\sqrt{2\ln(1/\delta)+2\varepsilon}$$ <d-footnote>For $\epsilon<1$, the folklore result is more refined and states that we can set $\sigma = \frac{\Delta}{\epsilon}\sqrt{2\ln(1.25/\delta)}$ <d-cite key=dwork2014algorithmic></d-cite>. The version we have here follows from the same derivation as the folklore result but using a couple of brute bounds to avoid the need for $\varepsilon>1$</d-footnote> to ensure $$(\varepsilon,\delta)$$-DP. While we wont prove this bound, its derivation depends on analysing the privacy loss random variable. The critical step is to show that when a Gaussian noise with covariance $$\sigma^2 I$$ is added, the privacy loss random variable satisfy 
+For a simple version of the Gaussian mechanism, we may set $$\sigma = \frac{\Delta}{\varepsilon}\sqrt{2\ln(1/\delta)+2\varepsilon}$$ <d-footnote>For $\varepsilon<1$, the folklore result is more refined and states that we can set $\sigma = \frac{\Delta}{\varepsilon}\sqrt{2\ln(1.25/\delta)}$ <d-cite key=dwork2014algorithmic></d-cite>. The version we have here follows from the same derivation as the folklore result but using a couple of brute bounds to avoid the need for $\varepsilon
+\leq 1$</d-footnote> to ensure $$(\varepsilon,\delta)$$-DP. While we wont prove this bound, its derivation depends on analysing the privacy loss random variable. The critical step is to show that when a Gaussian noise with covariance $$\sigma^2 I$$ is added, the privacy loss random variable satisfies
 
 $$
 \begin{equation}
@@ -195,8 +196,7 @@ Taking this one step further, <d-cite key=balle2018analytic></d-cite> proposed t
     </div> 
 </div>
 
-Taking another look at our example of computing the mean salary, we find out that for $$\varepsilon=0.5, \delta=10^{-6}$$, we get $$\sigma\approx 1051$$ with the original version, $$\sigma\approx 1026$$ with Pei's refinement, and $$\sigma\approx 806$$ with the analytic version. Crucially, all of those values give the same privacy guarantee, we just measure it in better ways.
-
+Taking another look at our example of computing the mean salary, we find out that for $$\varepsilon=0.5, \delta=10^{-6}$$, we get $$\sigma\approx 1051$$ with the original version, $$\sigma\approx 1026$$ with Pei's refinement, and $$\sigma\approx 806$$ with the analytic version. Crucially, across all of those values, we targted the same privacy guarantee. We just measure it in better ways.
 
 > 📝 **The key takeaway message here** and the reason we went into the details of the Gaussian mechanism is not to show what's the best way to implement the Gaussian mechanism. **It is to illustrate that in DP:**
 >1. We really care about tighter bounds as: **tighter bounds** ->  **less noise** -> **more useful results with same privacy**
@@ -208,12 +208,12 @@ The above two points are very important in both DP practice and research. While 
 
 ### Privatizing Gradient Descent
 
-Now that we introduced basic notions and tools of DP, let's go back to our goal of training a neural network on a simple dataset, starting with the fundamental optimization algorithm in machine learning - gradient descent (GD). Given a dataset $$D = \{z_1,...,z_k\}$$ and a model $$f_\theta$$ parameterized by $$\theta$$, GD aims to minimize the empirical risk $$R(f_\theta,D) = \sum_i R(f_\theta,z_i)$$ through iterative updates:
+Now that we introduced basic notions and tools of DP, let's go back to our goal of training a neural network on a simple dataset, starting with the fundamental optimization algorithm in machine learning - gradient descent (GD). Given a dataset $$D = \{z_1,...,z_k\}$$ and a model $$f_\theta$$ parameterized by $$\theta$$, GD aims to minimize the empirical loss $$R(f_\theta,D) = \sum_i R(f_\theta,z_i)$$ through iterative updates:
 
 **Algorithm: Gradient Descent (GD)**
 * **Input**: Initial parameters $\theta_0$, Dataset $D := \{z_1,...,z_k\}$, learning rate $\eta$, number of steps $T$
 * **For** $$t = 1$$ to $$T$$ **do**:
-  1. Compute gradient: $$g_t = \frac{1}{N} \sum_{i\in[N]} \nabla_{\theta_{t-1}} R(f_{\theta_{t-1}},z_i)$$
+  1. Compute gradient: $$g_t = \frac{1}{k} \sum_{i\in[k]} \nabla_{\theta_{t-1}} R(f_{\theta_{t-1}},z_i)$$
   2. Update parameters: $$\theta_t = \theta_{t-1} - \eta g_t$$
 * **Output**: $$\theta_T$$
 
@@ -237,10 +237,10 @@ Where $$\text{clip}_C(x):={\min(1, C/\|x\|_2)}{x}$$. This gives us bounded sensi
 
 In practice, training requires many gradient steps, a single gradient step gets us nowhere. Since each step accesses the data, we need to account for **cumulative privacy loss** through successive computations. In addition, each computation (gradient step) requires the output of the previous computation. What we showed in the previous subsection is that through clipping and noise addition, we are able to make a single gradient step satisfy DP. Thus, what we need is a method to calculate the $(\varepsilon_{\text{tot}}, \delta_{\text{tot}})$-DP guarantees of a mechanism, which works by combining and iteratively executing multiple $$(\varepsilon, \delta)$$ mechanisms. Let's define this more formally:
 
-**Definition (Adaptive Composition)**: Let $$M_1,...,M_k$$ be mechanisms where each $$M_i$$ takes both dataset $$D$$ and auxiliary input and the outputs of all previous mechanisms. Their adaptive composition is $$M_{[k]}(D):=(o_1, \ldots, o_k)$$, where
-1. $$o_1 = M_1(D)$$,
-2. $$o_2 = M_2(D,o_1)$$,
-3. $$o_3 = M_3(D,o_1,o_2)$$
+**Definition (Adaptive Composition)**: Let $$M_1,...,M_k$$ be mechanisms where each $$M_i$$ takes both dataset $$D$$ and auxiliary input and the outputs of all previous mechanisms. Their adaptive composition is $$M_{[k]}(D):=(O_1, \ldots, O_k)$$, where
+1. $$O_1 = M_1(D)$$,
+2. $$O_2 = M_2(D,O_1)$$,
+3. $$O_3 = M_3(D,O_1,O_2)$$
 and so on.
 
 
@@ -261,13 +261,13 @@ Let's interpret how gradient descent with many steps fits within the adaptive co
 
 Finally, going back to our goal of calculating $$(\varepsilon_{\text{tot}}, \delta_{\text{tot}})$$, we can achieve this using the the advanced composition theorem:
 
->**Theorem (Advanced Composition)**<d-cite key=dwork2014algorithmic></d-cite>: The $$k$$-fold adaptive composition of $$(\varepsilon,\delta)$$-DP mechanisms satisfies $$(\varepsilon',k\delta+\delta')$$-DP where. $$\varepsilon' = \varepsilon\sqrt{2k \ln(1/\delta')} + k\varepsilon(e^\varepsilon - 1)$$ <d-footnote> This is not tight. For the tight bound, check <d-cite key=kairouz2015composition></d-cite>.</d-footnote>.
+>**Theorem (Advanced Composition)**<d-cite key=dwork2010boosting></d-cite><d-cite key=dwork2014algorithmic></d-cite>: For $$\delta'\in (0,1)$$, the $$k$$-fold adaptive composition of $$(\varepsilon,\delta)$$-DP mechanisms satisfies $$(\varepsilon',k\delta+\delta')$$-DP, where $$\varepsilon' = \varepsilon\sqrt{2k \ln(1/\delta')} + k\varepsilon(e^\varepsilon - 1)$$ <d-footnote> This is not tight. For the tight bound, check <d-cite key=kairouz2015composition></d-cite>.</d-footnote>.
 
 #### A first try at DP training:
 
-After introducing the advanced composition theorem, we technically have all the ingredients for a first trial to train a small two layer neural network on a simple dataset. For our model we will use a simple two-layer neural network with RelU activation and $$128$$ hidden units. For the data, we will use $$5000$$ randomly sampled images from MNIST. To train our model with DP, we first need to set the hyperparameters $$C$$ (clipping norm) and $$T$$ (number of iteration). Then, after picking the privacy guarantee we want by setting $$\varepsilon$$ and $$\delta$$, we can use the Gaussian mechanism along with advanced composition result to calculate the magnitude of Gaussian noise required at each iteration. 
+After introducing the advanced composition theorem, we technically have all the ingredients for a first trial to train a small two layer neural network on a simple dataset. For our model we will use a simple two-layer neural network with ReLU activation and $$128$$ hidden units. For the data, we will use $$5000$$ randomly sampled images from MNIST. To train our model with DP, we first need to set the hyperparameters $$C$$ (clipping norm) and $$T$$ (number of iteration). Then, after picking the privacy guarantee we want by setting $$\varepsilon$$ and $$\delta$$, we can use the Gaussian mechanism along with advanced composition result to calculate the magnitude of Gaussian noise required at each iteration. 
 
-In fact, we may make use of a handy result from <d-cite key=kairouz2015composition></d-cite>, which states that to get $(\varepsilon,\delta)$ it is sufficient to have each inner Gaussian mechanism satisfy $(\varepsilon_0, \delta_0)$ with $\varepsilon_0 = \frac{\varepsilon}{2\sqrt{T\log(e + \varepsilon/\delta)}}$ and $\delta_0 = \frac{\delta}{2T}$. We can then use $\varepsilon_0$ and $\delta_0$ to calculate the amount of noise we need to have. However, we are left with two hyperparameters to tune $C$ and $T$. For the gradient clipping $C$, one common heuristic to tune it is to run the training without any DP, measure the distribution of the gradient norms, and pick $C$ so that we are doing some clipping but not a lot of clipping<d-footnote>This is a bit vague. It is hard to be very specific about hyperparameters tuning intuitions. On a side note, in the wider machine learning community, gradient clipping is being used to stabilize training. The critical difference is that we are computing the average of clipped gradients, while the (wider used) gradient clipping is often a clipping of the average gradients.</d-footnote>. $T$ can also be tricky to tune. For a larger $T$, we are able to train longer but we need to use smaller $\varepsilon_0$ and $\delta_0$ forcing us to add more noise at each iteration.
+In fact, we may make use of a handy result from <d-cite key=kairouz2015composition></d-cite>, which states that to get $(\varepsilon,\delta)$ it is sufficient to have each inner Gaussian mechanism satisfy $(\varepsilon_0, \delta_0)$ with $\varepsilon_0 = \frac{\varepsilon}{2\sqrt{T\log(e + \varepsilon/\delta)}}$ and $\delta_0 = \frac{\delta}{2T}$. We can then use $\varepsilon_0$ and $\delta_0$ to calculate the amount of noise we need to have. However, we are left with two hyperparameters to tune $C$ and $T$. For the gradient clipping $C$, one common heuristic is to tune it is to run the training without any DP, measure the distribution of the gradient norms, and pick $C$ so that we are doing some clipping but not a lot of clipping<d-footnote>This is a bit vague. It is hard to be very specific about hyperparameters tuning intuitions. On a side note, in the wider machine learning community, gradient clipping is being used to stabilize training. The critical difference is that we are computing the average of clipped gradients, while the (wider used) gradient clipping is often a clipping of the average gradients.</d-footnote>. $T$ can also be tricky to tune. For a larger $T$, we are able to train longer but we need to use smaller $\varepsilon_0$ and $\delta_0$ forcing us to add more noise at each iteration.
 
 To get some intuition of the tuning of $C$ and $T$, let's try a training run without any DP to see the gradients norms and the loss curves. We run gradient descent with learning $0.01$ for $5000$ iterations. For the gradients norm, the $95\%$ quantile is around $32$ and very low number of gradient go above $40$. For the sake of round numbers, let's take $C=30$ <d-footnote>One may want to do better hyperparameter tunning in practice but this blog is for illustrations only</d-footnote>
 
@@ -331,11 +331,11 @@ For the Gaussian mechanism with noise scale $$\sigma\Delta_f$$, we can show that
 
 **Theorem (RDP Conversion)**<d-cite key=mironov2017renyi></d-cite>: If $$M$$ is $$(\alpha,\varepsilon)$$-RDP, then for any $$\delta > 0$$, $$M$$ also satisfies $$(\varepsilon + \frac{\log(1/\delta)}{\alpha-1}, \delta)$$-DP.
 
-This means that each moment bound on the privacy loss random variable captures a different tradeoff between $\varepsilon$ and $$\delta$$. Nonetheless, the key advantage of RDP is its much cleaner composition theorem:
+Thus, the parmater $$\alpha$$ dictates the relation between $$\varepsilon$$ and $$\delta$$. This means that each moment bound on the privacy loss random variable captures a different tradeoff between $$\varepsilon$$ and $$\delta$$. Nonetheless, the key advantage of RDP is its much cleaner composition theorem:
 
 **Theorem (RDP Composition)**<d-cite key=mironov2017renyi></d-cite>: If $$M_1$$ is $$(\alpha,\varepsilon_1)$$-RDP and $$M_2$$ is $$(\alpha,\varepsilon_2)$$-RDP, then their adaptive composition is $$(\alpha,\varepsilon_1+\varepsilon_2)$$-RDP.
 
-Thus to compose a series of RDP mechanism, we can simply add their epsilons. The Gaussian mechanism has another remarkable property - it simultaneously satisfies RDP at all orders $$\alpha > 1$$ with:
+Thus to compose a series of RDP mechanisms, we can simply add their epsilons. The Gaussian mechanism has another remarkable property - it simultaneously satisfies RDP at all orders $$\alpha > 1$$ with:
 
 $$\varepsilon(\alpha) = \frac{\alpha}{2\sigma^2}.$$
 
@@ -370,7 +370,7 @@ This is more encouraging. We need a way smaller noise for the same exact privacy
 Well, we are actually able to train!
 ### The Power of Subsampling: From GD to SGD
 
-In practice, we rarely use full GD, preferring stochastic gradient descent (SGD) which operates on random minibatches. Beyond very small datasets on simple models, SGD is indispensable as trying to use the full dataset at each iteration makes the computations completely infeasible. In particular, SGD subsamples a random minibatch at the start of each training iteration. However, a critical issue with subsampling is the expanded sensitivity. To illustrate, let's reconsider our earlier example of computing the mean salary of $$n=10^4$$ employees. The sensitivity of this data query scales with $$\mathcal{O}(1/n)$$. Consider an alternative strategy to estimate the average the salary by first sampling the salary of $$250$$ employees and then computing the average using only the sampled salaries. In this sampling approach, the worst-case sensitivity for a datapoint may scale proportionally with $$1/250$$. As typically $$250\ll n$$, this forces us to add even more noise to maintain the same privacy guarantee. 
+In practice, we rarely use full GD, preferring stochastic gradient descent (SGD) which operates on random minibatches. Beyond very small datasets on simple models, SGD is indispensable as trying to use the full dataset at each iteration makes the computations completely infeasible. In particular, SGD subsamples a random minibatch at the start of each training iteration. However, a critical issue with subsampling is the expanded sensitivity. To illustrate, let's reconsider our earlier example of computing the mean salary of $$n=10^4$$ employees. The sensitivity of this data query scales with $$\mathcal{O}(1/n)$$. Consider an alternative strategy to estimate the average the salary by first sampling the salary of $$250$$ employees and then computing the average using only the sampled salaries. In this sampling approach, the worst-case sensitivity for a datapoint may scale proportionally with $$1/250$$. This is due to the fact that we normalize by $$1/250$$ instead of $$1/n$$ in computing the empirical mean. As typically $$250\ll n$$, this forces us to add even more noise to maintain the same privacy guarantee. 
 
 Nonetheless, implementing a differentially private SGD is still possible. Subsampling itself, under some conditions, can be shown to provide privacy benefits through **privacy amplification by subsampling**. Hence, the stochasticity of SGD makes each step more private, essentially allowing us to train with less noise. As a result, the tradeoff of increased sensitivity along with subsampling privacy amplification typically cancels out enabling us to use SGD<d-footnote>  This tradeoff between amplification by subsampling and increased sensitivity was recently studied in <d-cite key=2024subsampling></d-cite>.</d-footnote>, with almost the same amount of noise per iteration, independantly of the batch size. In practice, SGD is implemented by using a random batch with fixed batch-size at each iteration. For the following section, we will assume a different sampling strategy, which we will refer to as Poisson subsampling. We assume that given a dataset, at each step of SGD, each datapoint is independently at random selected for training with probability $$q$$. 
 
@@ -390,7 +390,6 @@ Those building blocks allow us to finally recover the DP-SGD algorithm<d-cite ke
 3. Average and add $$\mathcal{N}(0,\sigma^2 I)$$ noise
 4. Update parameters
 5. Track privacy via RDP composition<d-footnote>Technically the original DP-SGD was not introduced with the framework of RDP but with the moment accountant. Motivated by the structure of Gaussian noise, the authors proposed an algorithm to track the composition of Gaussian mechanisms through the moments of the privacy loss random variable. Later, RDP was introduced in <d-cite key=mironov2019r></d-cite>, which in some sense generalized the approach of tracking composition through the moment behavior of the privacy loss random variable. For a nice discussion on this and a substantially more rigorous results on the amplification by subsampling of RDP, check <d-cite key=Wang_Balle_Kasiviswanathan_2021></d-cite>.</d-footnote>
-
 
 #### A third try at DP training. 
 
@@ -413,7 +412,9 @@ Let's try another training trial this time with SGD.
     </div>
 </div>
 
- 
+
+> 📝 **In summary**, in the previous subsection, we already showed that it is possible to effectively train DP neural networks using GD. Typically, due to computational requirements, we are forced to use SGD. However, in SGD, we are using smaller batches at each step and thus increasing the sensitivity. As a result, if we naively train with SGD, we will be forced to add much more noise at each step. Privacy amplification by subsampling allows us to solve this dilema by showing that subsampling itself amplify the privacy gurantees. So, when training with SGD, we need much less noise. All of those factors roughly even out making the noise scale needed for DP-SGD similar to that of DP-GD.
+
 ## Beyond DP-SGD: Using Correlated Noise
 
 While DP-SGD with privacy amplification has become the standard approach for differentially private deep learning, it faces significant limitations:
@@ -565,3 +566,9 @@ In this blog post, we explored the building blocks of differentially private tra
 - Matrix factorization mechanisms, which enable carefully correlated noise across iterations through optimized encoder-decoder pairs 
 
 Both approaches offer viable paths to private deep learning, with different tradeoffs. While DP-SGD remains simpler to implement, matrix factorization mechanisms may achieve better privacy-utility tradeoffs in many settings. For practitioners looking to train neural networks with differential privacy, experimenting with both approaches may be valuable, as their relative performance can depend on factors like model architecture, dataset size, and privacy requirements. 
+
+Finally, we added some of the code to generate the simulation in this [repo](https://github.com/mahegz/iclr25_dp_blog)
+
+**Acknowledgments**
+
+We are deeply grateful for the insightful feedback and suggestions that helped shape and improve this blog post. We extend our sincere thanks to the anonymous reviewers for their valuable comments. We would also like to express our appreciation to Paul Mangold, Edwidge Cyffers, Adrien Majka, Martin Van Waerebeke, and Daniel Berg Thomsen for their careful reading and constructive feedback during the preparation of this work.
