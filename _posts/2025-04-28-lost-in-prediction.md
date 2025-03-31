@@ -39,7 +39,7 @@ toc:
   - name: Narrative Economics at the Macro Level
   - name: "Connecting the Dots: Testing the Effectiveness of Narratives for Macroeconomic Forecasting"
   - name: What Can We Take Away?
-  - name: Our Research Limits & Challenges
+  - name: Our Research Limits and Challenges
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -399,7 +399,7 @@ This study serves as a foundation for further exploration, highlighting the need
 
 *** 
 
-# Our Research Limits & Challenges
+# Our Research Limits and Challenges
 
 Like any research, this project has potential limitations and faced several interesting challenges:
 
