@@ -10,6 +10,7 @@ hidden: false
 # anonymize when submitting 
 authors:
   - name: Amitoj Singh Miglani
+  - url: "https://www.linkedin.com/in/amitoj-singh-miglani-76baa2291/"
     affiliations:
       name: IIT, Roorkee
   - name: Vidit Aggarwal
