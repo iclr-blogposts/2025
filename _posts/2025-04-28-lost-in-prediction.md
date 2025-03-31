@@ -396,6 +396,48 @@ The missing link between the successful narrative extraction demonstrated by the
 
 This study serves as a foundation for further exploration, highlighting the need for new macroeconomic models or tasks that can effectively assess the influence of extracted narratives on the economy.
 
+
+# Limitations
+Twitter only represents a very small and biased set of narratives
+
+This research has potential limitations while facing several challenges. 
+First, focusing on short-term prediction horizons (nowcasting) presents a significant challenge due to the inherent complexity and randomness of economic markets. The Efficient Market Hypothesis suggests that the predictive power of nowcasting is limited, as public information is instantly reflected in asset prices. However, Narrative Economics proposes that narratives can affect peoples' decisions and therefore help us predict and understand economic fluctuations \citep{shiller2017narrative}.
+
+We focused on a limited number of economic targets (FFR, S\&P 500, and VIX) influenced and shifted by diverse, external and unobserved sources. Utilizing other financial targets or other tasks, such as anomaly detection or profit prediction, might have lead to stronger evidences of the impact of narratives on the economy.
+
+Identifying the temporal lag between the emergence of a narrative and its potential influence on financial targets presents another hurdle. Although being comprehensive, our experiments only examined limited lags and prediction horizons. 
+
+While our datasets were carefully curated to capture potential narratives, identifying them definitively is challenging, especially when aggregating multiple narratives for a holistic economic picture. The definition of ``narrative'' is broad and subjective, and narratives are typically only recognizable as such in retrospect. Combined with the inherent noise and susceptible to misinformation in social media, extracting reliable narratives with certainty is a complex task.
+
+Regarding geographical aspects, this work is limited to English-language data, and to US-centric macroeconomic indicators.
+
+Lastly, we are limited to publicly accessible LLMs with a known cutoff date, to avoid potential ``future'' world knowledge. Utilizing other models might lead to better results.
+
+It is important to acknowledge that this research deals with predicting human and economic behavior, which carries potential risks of misuse. This technology could be applied in harmful or unfair ways, and therefore should be developed and used with caution and awareness of its ethical implications.
+
+
+
+
+
+# Limitations - What Our Research Doesn't Cover
+
+This research has potential limitations while facing several challenges:
+
+First, we focused on "nowcasting" – predicting indicators right now or very soon. Economy markets are inherently complex and involves randomess, which in a short time period can possess a sifnificant challenge for prediction. The Efficient Market Hypothesis suggests that the predictive power of nowcasting is limited as asset prices react instntly to new public information. However, Narrative Economics theory proposes that narratives affect people's decision, giving us a potential edge to predict economic fluctuations <d-cite key="shiller2017narrative"></d-cite>.
+
+We only looked at a few economic variables: FFR, S&P 500, and VIX, influenced and shifted by diverse, external and unobserved sources. Looking at different targets, or trying other tasks like detacting market anomalies or profit prediction, might have shown stronger evidences of the impact of narratives on the economy. 
+
+The challenge of timing: When does a narrative actually start to impact the market? and Until when? Does it take hours, days, weeks? Although being comprehensing, our experiments only examined limited lags and prediction horizons.
+
+What IS a Narrative? while our datasets were carefully curated to capture potential narratives, identifying them definitively is challenging, especially when aggregating multiple narratives for a holistic economic picture. The definition of "narrative" is broad and subjective, and narratives are often only recognizable as such in retrospect. Combined with the inherent noise, biases and misinformation in social media, extracting clear, reliable narratives out of that mix is a complex task.
+
+Our Worldview: Our analysis is based on English-language data and focused on US-centric macroeconomic indicators, only collected from Twitter. Narratives and economies work differently around the world, in other social media platforms and other outlets, and this is definitely an area for future expansion.
+
+Lastly, we are limited to publicly accessible LLMs with a known cutoff date, to ensure the models cannot "cheat" by using future world knowledge. However, utilizing different models may lead to better results.
+
+A Quick Word on Ethics: This research deals with technology that tries to predict human and economic behaviour. It's important to state clearly that this kind of tech could be misused in harmful or unfair ways (e.g., for market manipulation or unfair practices). We believe it needs to be developed and used with caution and awareness of its ethical implications.
+
+
 <br>
 
 *This blogpost extends the technical experiments presented in our paper <d-cite key="gueta2024can"></d-cite>, delving deeper into broader aspects that naturally in a paper can only receive a shorter discussion as it primarily presents the technical results. We invite you to read the paper for comprehensive background and detailed experiments.*
