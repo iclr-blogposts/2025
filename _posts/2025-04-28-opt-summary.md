@@ -135,7 +135,7 @@ This blog aims to summarize complexity results of state-of-the-art (SOTA) first-
 
 ## Framework: Oracle Complexity Model
 
-Intuitively, upper complexity bounds means how many sample/iteration it takes for an algorithm to reach a certain accuracy, such as $\epsilon$-optimality. Thus upper complexity bound are algorithm-specific. Lower complexity bounds characterizes how many sample/iteration it at least take for the best algorithm (within some algorithm class) to reach a certain accuracy for the worst-case function within some function class. Thus lower complexity bounds are usually for a class of algorithms and function class. Since computing gradient or generating samples requires some efforts, in optimization, we sometimes use oracle to represent these efforts.
+Intuitively, upper complexity bounds means how many sample/iteration it takes for an algorithm to reach a certain accuracy, such as $\epsilon$-optimality. Thus upper complexity bound are algorithm-specific. Lower complexity bounds characterizes how many sample/iteration it at least take for the best algorithm (within some algorithm class) to reach a certain accuracy for the worst-case function within some function class. Thus lower complexity bounds are usually for a class of algorithms and function class. Since computing gradient or generating samples requires some efforts, in optimization, we often use oracle to represent these efforts.
 
 To formally characterize complexity, we use the classical **oracle complexity model** framework<d-cite key='nemirovskij1983problem'></d-cite>. Feel free to jump directly to the summary table as these are just for proper descriptions of lower bounds.
 
@@ -150,7 +150,7 @@ The oracle complexity model consists of the following components:
     x^{t+1}\in\mathrm{Span}\left\{x^0,\cdots,x^t;\mathbb{O}(f,x^0),\cdots,\mathbb{O}(f,x^t)\right\}.
     $$
    
-    - Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$.
+    - Recall gradient descent $x^{t+1} = x^t - \alpha \nabla f(x^t)$. Obviously, $x^{t+1}$ is within the linear span of $x^t$ and $\nabla f(x^t)$. In addition, gradient descent uses first-order information and thus the oracle class is the first-order oracle. 
     - An important point regarding finite-sum and stochastic optimization is the difference between *deterministic algorithms* and *randomized algorithms*. A randomized algorithm is one that uses internal or external randomness to generate its iterates, which is more general than the deterministic one. Here for simplicity, we mainly consider the deterministic setting.
 
   - *Complexity measure* $\mathcal{M}$, e.g., 
@@ -170,7 +170,7 @@ $$
 T_{\epsilon}(f,\mathtt{A})\triangleq\inf\left\{T\in\mathbb{N}~|~\mathcal{M}(x^T)\leq\epsilon\right\}
 $$
 
-as the minimum number of oracle calls $\mathcal{A}$ makes to reach convergence. So given an algorithm $\mathtt{A}$, its upper complexity bound for solving one specific function class $\mathcal{F}$ is defined as
+as the minimum number of oracle calls $\mathcal{A}$ makes to reach convergence. Given an algorithm $\mathtt{A}$, its upper complexity bound for solving one specific function class $\mathcal{F}$ is defined as
 
 $$
 \mathrm{UB}_\epsilon(\mathcal{F};\mathtt{A})
@@ -179,8 +179,8 @@ $$
 	T_{\epsilon}(f,\mathtt{A}),
 $$
 
-One of the mainstreams of optimization study is trying to design algorithms with better upper complexity bounds, corresponding to decreasing $\mathrm{UB}_\epsilon(\mathcal{F};\cdot)$ with their own algorihms.
-On the other hand, another stream of study focuses on the performance limit in terms of the worst-case complexity, i.e., the lower complexity bound (LB) of a class of algorithm under certain settings, which can be written as:
+One of the mainstreams of optimization study is trying to design algorithms with better (smaller) upper complexity bounds, corresponding to decreasing $\mathrm{UB}_\epsilon(\mathcal{F};\cdot)$ with their own algorihms for a specific class of functions.
+On the other hand, another stream of study focuses on understanding the performance limit in terms of the worst-case complexity, i.e., the lower complexity bound (LB) of a class of algorithm using the information from a class of oracles on a class of functions under certain settings, which can be written as:
 
 $$
 \mathrm{LB}_\epsilon(\mathcal{F},\mathcal{A},\mathbb{O})
@@ -196,49 +196,48 @@ $$
     Illustration of Upper and Lower Complexity Bounds
 </div>
 
-As the figure above suggests, the optimization community keep facilitating the understanding of algorithm complexity from both upper and lower complexity directions.
-An ultimate goal in optimization algorithm complexity study is to find the *optimal algorithm* $\mathtt{A}^\star$ in a given setting, which means its upper bound matches with the lower bound of the algorithm class under the function setting, 
+As the figure above suggests, a common goal in optimization algorithm complexity studies is to find the *optimal algorithm* $\mathtt{A}^\star$ in a given setting, which means its upper bound matches with the lower bound of the algorithm class for a class of functions using certain oracles, 
 i.e.,
 
 $$
 \mathrm{UB}_\epsilon(\mathcal{F};\mathtt{A}^\star)\asymp\mathrm{LB}_\epsilon(\mathcal{F},\mathcal{A},\mathbb{O}).
 $$
 
-In this notes, we will focus on **first-order algorithms** in various optimization problem settings, trying to summarize the state-of-the-art (SOTA) UB and LB results, aiming to identify the gaps in existing reseach, and develop new trends. 
+In this notes, we will focus on **first-order algorithms** in various optimization problem settings, trying to summarize the state-of-the-art (SOTA) UB and LB results, aiming to identify the gaps in existing reseach, and discuss new trends. 
 
 ### What We Did Not Cover
-Here we focus on first-order optimization only, in fact there are also many works on *zeroth-order optimization*<d-cite key="liu2020primer"></d-cite>, and *higher-order optimization*<d-cite key="sun2019survey"></d-cite>, and the key difference just lie in the oracle information. For example second-order methods (e.g., Newton's method) generally are able to access the Hessian information, which first-order methods cannot access, so with such finer information, generally second-order methods attain better complexities compared to their first-order counterparts, which is also characterized in theory as mentioned in <d-cite key="carmon2020lower"></d-cite>. 
+Throughout the blog, we focus on first-order optimization. There are also many works on *zeroth-order optimization*<d-cite key="liu2020primer"></d-cite>, and *higher-order optimization*<d-cite key="sun2019survey"></d-cite>. The key difference lies within the oracle information. For example second-order methods (e.g., Newton's method) have access the Hessian information. With such finer information, generally second-order methods attain better complexities compared to first-order methods, which is characterized in theory as mentioned in <d-cite key="carmon2020lower"></d-cite>. Of course, obtaining higher-order information would be much more costly and thus the per-iteration computational complexity is usually higher. 
   
-Also here the discussion does not include some other popular algorithms like *proximal algorithms*<d-cite key="parikh2014proximal"></d-cite>, one prominent example is *proximal point algorithm* (PPA)<d-cite key="rockafellar1976monotone"></d-cite> based on *proximal operator*:
+Some other popular algorithms like *proximal algorithms*<d-cite key="parikh2014proximal"></d-cite> are not discussed. One prominent example is *proximal point algorithm* (PPA)<d-cite key="rockafellar1976monotone"></d-cite> based on *proximal operator*:
 
 $$x^{t+1}=\text{prox}_{\lambda f}(x^t)\triangleq\underset{x}{\arg\min}\left\{f(x)+\frac{1}{2\lambda}\|\|x-x^t\|\|^2\right\},$$
 
-and the proximal operator, which requires to exactly solve a subproblem, introduces new oracle in the algorithm design, and it goes beyond the main scope of the blog. Similarly, algorithms like alternating direction method of multipliers (ADMM)<d-cite key="boyd2011distributed"></d-cite>, which also inherits subproblems to solve, are not applicable to the discussion here.
+where the proximal operator requires to exactly solve a subproblem. Solving a subproblem could be regarded as a new kind of oracles in the algorithm design. Similarly, algorithms like alternating direction method of multipliers (ADMM)<d-cite key="boyd2011distributed"></d-cite>, which also inherits subproblems to solve, are not discussed.
 
 ---
 
 ## Notations
 
-Besides the structure above, optimization algorithm convergence literature often require some other regularity conditions like 
-Lipschitz smoothness, Lipschitz continuity, unbiased gradient estimator, bounded variance. Here we assume readers are already familiar with such context,
-interested readers may refer to these nice handbooks <d-cite key="garrigos2023handbook"></d-cite> and <d-cite key="danilova2022recent"></d-cite> for detailed definitions.
+To analyze the convergence of optimization algorithms, the literature often require some other regularity conditions like 
+Lipschitz smoothness, Lipschitz continuity, unbiased gradient estimator, bounded variance. 
+Interested readers may refer to these nice handbooks <d-cite key="garrigos2023handbook"></d-cite> and <d-cite key="danilova2022recent"></d-cite> for detailed definitions. 
 
 For convenience, we summarize some of the notations commonly used in tables below.
 - SC / C / NC / WC: strongly convex, convex, nonconvex, weakly-convex.
 - FS: finite-sum optimization.
-- Stoc: stochastic optimization
-- $L$-S: The objective function is $L$-Lipschitz smooth (or jointly Lipschitz smooth in minimax optimization).
+- Stoc: stochastic optimization.
+-  $L$-Lip Cont.: $L$-Lipschitz continuous.
+- $L$-S: The objective function is $L$-Lipschitz smooth (or jointly Lipschitz smooth in minimax optimization). It is equivalent to its gradient being $L$-Lipschitz continuous.
 - $L$-IS / AS / SS<d-footnote>For clarification, $L$-IS means in finite-sum problems, each component function $f_i$ itself is $L$-smooth, for the definition of $L$-AS, please refer to the definition of "mean-squared smoothness" in <d-cite key="arjevani2023lower"></d-cite>, and $L$-SS means the summation $f$ is $L$-smooth while each component $f_i$ may not be Lipschitz smooth. Clearly IS is stronger than AS, AS is stronger than SS.</d-footnote>: $L$-Lipschitz individual / averaged / summation smoothness.
-- $G$-Lip Cont.: $L$-Lipschitz continuous.
-- NS: Nonsmooth
-- PL: Polyak-Łojasiewicz Condition
+- NS: Nonsmooth.
+- PL: Polyak-Łojasiewicz Condition. This is a condition that generalizes strong convexity. Under such a condition, without convexity, optimization algorithms could still globally converge. See e.g. <d-cite key= "karimi2016linear"></d-cite>.
 - $\mathcal{O},\tilde{\mathcal{O}},\Omega$: For nonnegative functions $f(x)$ and $g(x)$, we say $f=\mathcal{O}(g)$ if $f(x)\leq cg(x)$ for some $c>0$, and further write $f=\tilde{\mathcal{O}}(g)$ to omit poly-logarithmic terms on some constants, and $f=\Omega(g)$ if $f(x)\geq cg(x)$.
 - $\Delta$, $D$: The initial function value gap $\Delta\triangleq f(x_0)-f(x^\star)$, and the initial point distance $D\triangleq\|\|x_0-x^\star\|\|$.
 - Optimality gap: the function value gap $f(x) - f^\star$.
 - Point distance: the distance (squared) between the current iterate and the global optimum $\|\| x-x^\star \|\|^2$.
 - Stationarity: the function gradient norm $\|\| \nabla f(x) \|\|$.
 - Near-stationarity: the gradient norm $\|\| \nabla f_\lambda(x) \|\|$, where $f_\lambda$ is the Moreau envelope of the original function $f$.
-- Duality Gap (for minimax optimization): the primal-dual gap of a given point $(\hat{x},\hat{y})$, defined as $G_f(\hat{x},\hat{y})\triangleq\max_y f(\hat{x},y)-\min_x f(x,\hat{y})$
+- Duality Gap (for minimax optimization): the primal-dual gap of a given point $(\hat{x},\hat{y})$, defined as $G_f(\hat{x},\hat{y})\triangleq\max_y f(\hat{x},y)-\min_x f(x,\hat{y})$.
 
 - Primal Stationarity (for minimax optimization)<d-footnote>Here we always define the convergence in terms that the **norm** is driven be smaller than $\epsilon$, note that some works may deduce the final result measured by the square, e.g., $\| \nabla f(x) \|^2$ or $\| \nabla f_\lambda(x) \|^2$. </d-footnote>: the primal function gradient norm $\|\| \nabla \Phi(x) \|\|$, where $\Phi(x)\triangleq\max_{y\in\mathcal{Y}}f(x,y)$ is the primal function. It is different from the function stationarity in terms of the original objective function $f$.
 
@@ -246,7 +245,7 @@ For convenience, we summarize some of the notations commonly used in tables belo
 
 ## Summary of Results
 
-As mentioned above, we categorize the discussion based on the problem, stochasticity and function structure, for convenience of presentation, we divide the presentation into the following cases:
+As mentioned above, we categorize the discussion based on the problem, stochasticity, and function structure. For the convenience of presentation, we divide the presentation into the following cases:
 
 **Minimization Problems**:
 1. Deterministic optimization
@@ -258,10 +257,10 @@ As mentioned above, we categorize the discussion based on the problem, stochasti
 3. NC-SC/NC-C deterministic minimax optimization
 4. NC-SC/NC-C finite-sum and stochastic minimax optimization
 
-We present the lower and upper bound results in tables below<d-footnote>Given the extensive body of literature on this topic, it is possible that some relevant references may have been inadvertently overlooked, or some results we cited are not fully correct. We welcome any comments or questions and are happy to discuss.</d-footnote>. Note that:
+We present the lower and upper bound results in tables below<d-footnote>Given the extensive body of literature on this topic, it is possible that some relevant references may have been inadvertently overlooked. We welcome any comments and discussions.</d-footnote>. Note that:
 
-- Here we use $\checkmark$ to denote that the upper and lower bounds already match in this setting, otherwise we use $\times$ or directly present existing best result.
-- Here "(within logarithmic)" means the upper bound matches the lower bound within logarithmic factors which depends on $\epsilon$, generally it can be regarded as a neglectable term, so we still denote it as $\checkmark$.
+- We use $\checkmark$ to denote that the upper and lower bounds already match in this setting, otherwise we use $\times$ or directly present existing best result.
+- "(within logarithmic)" means the upper bound matches the lower bound within logarithmic factors which depends on $\epsilon$, generally it can be regarded as a neglectable term, so we still denote it as $\checkmark$.
 - For some cases, we denote the LB as "Unknown" if there is not a specific (nontrivial) lower bound built for this case.
 
 <div class="l-page" markdown="1">
@@ -284,7 +283,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="nesterov2018lectures"></d-cite> <d-cite key="bubeck2015convex"></d-cite> <d-cite key="carmon2021lower"></d-cite> <d-cite key="carmon2020lower"></d-cite> <d-cite key="kim2021optimizing"></d-cite> <d-cite key="beck2017first"></d-cite> <d-cite key="davis2018stochastic"></d-cite> <d-cite key="yue2023lower"></d-cite> <d-cite key="karimi2016linear"></d-cite>
 2. $\kappa\triangleq L/\mu\geq 1$ is called the condition number, which can be very large in many applications, e.g., the optimal regularization parameter choice in statistical learning can lead to $\kappa=\Omega(\sqrt{n})$ where $n$ is the sample size<d-cite key="shalev2014understanding"></d-cite>.
-3. PL condition is a popular assumption in noncovex optimization which can be implied by the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB), and the LB in the PL case is strictly larger than that of the SC case, so in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
+3. PL condition is a popular assumption in noncovex optimization which generalizes the strong convexity condition. Based on the summary above, we can find that both smooth strongly convex and smooth PL condition optimization problems have established the optimal complexities (i.e., UB matches LB). However, the LB in the PL case is strictly larger than that of the SC case. Thus in terms of the worst-case complexity, we can say that the PL case is "strictly harder" than the strongly convex case.
 4. The $L$-Smooth convex setting with stationarity measurement are divided into two cases, the "function case" assumed the initial optimality gap is bounded $f(x_0)-f(x^\star)\leq \Delta$, and the "domain case" assumed bounded initialization $\|\|x_0-x^\star\|\|\leq D$.
 5. For $L$-Smooth Convex (function case) setting, <d-cite key="kim2021optimizing"></d-cite> (Theorem 6.1) provided $\mathcal{O}\left( \Delta L \epsilon^{-1} \right)$ upper bound, which avoids the logarithmic factor, while with worse dependence on $\Delta$ and $L$.
 6. The optimality gap and stationarity measurements in fact are closely related, see <d-cite key="kim2023time"></d-cite> for a discussion on their duality.
@@ -317,7 +316,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 
 1. References: <d-cite key="lan2018optimal"></d-cite> <d-cite key="woodworth2016tight"></d-cite> <d-cite key="allen2018katyusha"></d-cite> <d-cite key="xie2019general"></d-cite> <d-cite key="zhou2019lower"></d-cite> <d-cite key="wang2019spiderboost"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="rakhlin2012making"></d-cite> <d-cite key="ghadimi2012optimal"></d-cite> <d-cite key="woodworth2018graph"></d-cite> <d-cite key="lan2012optimal"></d-cite> <d-cite key="agarwal2009information"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite> <d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="davis2018stochastic"></d-cite>
 2. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
-3. For the finite-sum $L$-IS $\mu$-SC case, <d-cite key="woodworth2016tight"></d-cite> furthered the study with more general randomized algorithm and oracle class settings, and derived $\Omega \left( n + \sqrt{\kappa n} \log \frac{1}{\epsilon} \right)$ lower bound, a matching upper bound is proposed in <d-cite key="defazio2016simple"></d-cite>.
+3. For the finite-sum $L$-IS $\mu$-SC case, <d-cite key="woodworth2016tight"></d-cite> considered more general randomized algorithm and oracle class settings, and derived $\Omega \left( n + \sqrt{\kappa n} \log \frac{1}{\epsilon} \right)$ lower bound. A matching upper bound is proposed in <d-cite key="defazio2016simple"></d-cite>.
  
 ### Case 2-1: (S)C-(S)C Deterministic Minimax Optimization
 
@@ -370,7 +369,7 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 **Remark:**
 
 1. References: <d-cite key="zhang2021complexity"></d-cite> <d-cite key="lin2020near"></d-cite> <d-cite key="boct2023alternating"></d-cite> <d-cite key="yang2022faster"></d-cite>
-2. Some other works also studied the above problems in terms of the fucnction stationarity (i.e., the gradient norm of $f$, rather than it primal), e.g., <d-cite key="lin2020near"></d-cite><d-cite key="xu2023unified"></d-cite>. As discussed in <d-cite key="yang2022faster"></d-cite>, it has been shown that function stationarity and primal stationarity are transferable with a mild efforts, here we do not present the results specifically.
+2. Some other works also studied the above problems in terms of the fucnction stationarity (i.e., the gradient norm of $f$, rather than it primal), e.g., <d-cite key="lin2020near"></d-cite><d-cite key="xu2023unified"></d-cite>. As discussed in <d-cite key="yang2022faster"></d-cite>, it has been shown that function stationarity and primal stationarity are transferable with a mild efforts.  Thus we do not present the results specifically.
 
 ### Case 2-4: NC-(S)C Finite-sum and Stochastic Minimax Optimization
 
@@ -395,11 +394,11 @@ We present the lower and upper bound results in tables below<d-footnote>Given th
 ---
 
 ## What is next?
-The section above summarize the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly this is not the end of the story, there are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics; also we need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory, sometimes (or often) we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective on accelerating the training of deep learning models, which contrast the classical convergence theory. Here we discuss what could be potential interesting next steps. 
+The section above summarize the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly this is not the end of the story, there are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics. We also need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory, sometimes (or often) we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective on accelerating the training of deep learning models, which contrast the classical convergence theory. In below, we discuss what could be potential interesting next steps. 
 
 ### Richer Problem Structure
 
-In this notes, we only discussed minimization and minimax problems, while there are also many other important optimization problems with different structure, for example:
+In the aforementioned discussion, we only considered minimization and minimax problems. There are also many other important optimization problems with different structure, for example:
 
 * Bilevel Optimization<d-cite key="zhang2024introduction"></d-cite>
 
@@ -420,8 +419,6 @@ In this notes, we only discussed minimization and minimax problems, while there 
   2. How to accelerate fully first-order methods to match the optimal complexity bounds.
   3. How to establish non-asymptotic convergence guarantees for bilevel problems with convex lower levels.
 
-Also there appeared several other optimization problems with different formulations arising from practice, e.g.,
-
 * Compositional Stochastic Optimization<d-cite key="wang2017stochastic"></d-cite>
 
 $$
@@ -432,19 +429,22 @@ $$
 
   $$\min_{x \in \mathcal{X}} F(x) =\mathbb{E}_{\xi}\left[f\left(\mathbb{E}_{\eta\mid\xi}\left[g(x;\eta,\xi)\right];\xi\right)\right].$$
 
-  Conditional stochastic optimization differs from composition stochastic optimization mainly in the conditional expectation inside $f$. This requires one to sample from the conditional distribution of $\eta$ for any given $\xi$, while compositional optimization can sample from the marginal distribution of $\eta$. 
+  Conditional stochastic optimization differs from composition stochastic optimization mainly in the conditional expectation inside $f$. This requires one to sample from the conditional distribution of $\eta$ for any given $\xi$, while compositional optimization can sample from the marginal distribution of $\eta$. It appears widely in machine learning and causality when the randomness admits a two-level hierarchical structure.
 
 * Performative Prediction (or Decision-Dependent Stochastic Optimization)<d-cite key="perdomo2020performative"></d-cite><d-cite key="drusvyatskiy2023stochastic"></d-cite>
 
 $$
-\min_{x\in\mathcal{X}}\ f(x)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}(x)}[f(x;\xi)].
+\min_{x\in\mathcal{X}}\ F(x)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}(x)}[f(x;\xi)].
 $$
+
+Note that this problem diverges from classical stochastic optimization because the distribution of $\xi$ is dependent on the decision variable $x$. Such dependency often disrupts the convexity of $F$, even if $f$ is convex with respect to $x$. In practical scenarios where the randomness can be decoupled from the decision variable, as in $\xi = g(x) + \eta$, the problem can be simplified to a classical stochastic optimization framework. This presents a trade-off: one can either impose additional modeling assumptions to revert to a classical approach or tackle the computational complexities inherent in such performative prediction problems. Practically, it is advisable to explore the specific structure of the problem to determine if it can be restructured into classical stochastic optimization.
 
 * Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite> (or Decision-Focused Learning<d-cite key="mandi2024decision"></d-cite>)
 
 $$
-\min_{x\in\mathcal{X}}\ f(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z]
+\min_{x\in\mathcal{X}}\ F(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z].
 $$
+Contextual stochastic optimization aims to leverage side information $Z$ to facilitate decision making. The goal is to find a policy $\pi$ that maps a context $z$ to a decision $x$. Thus the performance measure is $\mathbb{E}_z(F(\pi(z);z) - F(\pi^*(z);z))$ or $\mathbb{E}_z\|\|\pi(z) - \pi^*(z)\|\|^2$. The challenges for solving such problems come from the fact that usually the available samples are only $(z,\xi)$ pairs, i.e., one does not have access to multiple samples of $\xi$ from the conditional distribution. As a result, one usually needs to first estimate $F(x;z)$ via nonparametric statistics techniques like $k$-nearest neighbors and kernel regression or via reparametrization tricks and conduct a regression. Both could suffer from the curse of dimensionality as the dimension of $z$ is large. 
 
 * Distributionally Robust Optimization<d-cite key="kuhn2024distributionally"></d-cite>
 
@@ -476,7 +476,7 @@ Such a question has been partially addressed for stochastic optimization using *
 - Yet, it raises another interesting observation, i.e., the obtained lower bounds  $\mathcal{O}(d\epsilon^{-2})$<d-cite key="agarwal2009information"></d-cite> is larger than the upper bounds $\mathcal{O}(\epsilon^{-2})$<d-cite key="nemirovski2009robust"></d-cite>. This is of course not a conflict as the two papers make different assumptions. Yet, it would be interesting to ask, if first-order methods such as mirror descent are really dimension independent or is it the case that existing optimization literature is treating some parameters that could be dimension dependent as dimension independent ones.   
 
 ### Beyond Classical Oracle Model
-  Regarding the oracle complexity model, because it mainly focuses on *worst-case instances* in the function class which may be far from *practical instances*, possibly the derived complexities can be such conservative and vacuous that they may not match the practice well, as the figure below illustrated.
+  Regarding the oracle complexity model, because it mainly focuses on *worst-case instances* in the function class which may be far from *practical instances*. It is possible that the derived complexities can be too conservative and vacuous that they may not match the practice well, as the figure below illustrated.
 
   {% include figure.html path="assets/img/2025-04-28-opt-summary/practice_gap.png" class="img-fluid" %}
 
