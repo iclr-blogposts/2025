@@ -41,7 +41,8 @@ toc:
 ---
 # Viewing Images in Frequency Domain
 
-We are used to viewing images in the spatial domain only. But there is another way to view an image, i.e. the frequency domain. We can calculate the frequency content in an image using the 2D Discrete Fourier Transform (DFT)<d-cite key="schwarz2021frequencybiasgenerativemodels"></d-cite>. A 2D discrete fourier transform maps a grayscale image $I \in \mathbb{R}^{H \times W}$ to the frequency domain as follows :
+While we typically view images in the spatial domain—where every pixel directly represents brightness or color—another compelling perspective is to examine them in the frequency domain. By applying the 2D Discrete Fourier Transform (DFT)<d-footnote>checkout <a href="https://github.com/Inspiaaa/2D-DFT-Visualisation" target="_blank">this</a> nice demo</d-footnote> <d-cite key="schwarz2021frequencybiasgenerativemodels"> </d-cite>, we can break down an image into its frequency components, revealing hidden structures and patterns that aren’t as apparent in the spatial view. A 2D discrete fourier transform maps a grayscale image $I \in \mathbb{R}^{H \times W}$ to the frequency domain as follows :
+
 
 $$
 \hat{I}[k, l] = \frac{1}{HW} \sum_{x=0}^{H-1} \sum_{y=0}^{W-1} e^{-2\pi i \frac{x \cdot k}{H}} \cdot e^{-2\pi i \frac{y \cdot l}{W}} \cdot I[x, y]
@@ -420,7 +421,12 @@ G_t^*  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline
 $$
 
 Here $ G_t^* $ is the conjugate reconstruction filter. As it is real, $G_t^* = G_t$ .
-Hence $$G_t  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline{\alpha}}{|X_0|^2}}$$ is the optimal linear reconstruction filter. The predicted $\hat{X}_0$ = $G_t \times X_t$. So predicted power spectrum $|\hat{X}_0|^2 = |G_t|^2 |X_t|^2$
+Hence,
+$$
+G_t  = \frac{\sqrt{\overline{\alpha}}}{\overline{\alpha} + \frac{1 - \overline{\alpha}}{|X_0|^2}}
+$$ 
+
+is the optimal linear reconstruction filter. The predicted $\hat{X}_0$ = $G_t \times X_t$. So predicted power spectrum $|\hat{X}_0|^2 = |G_t|^2 |X_t|^2$
 
 $$
 |X_t|^2 \approx  \, \overline{\alpha} |X_0|^2 + (1 - \overline{\alpha}) |\epsilon|^2 = \overline{\alpha} |X_0|^2 + 1 - \overline{\alpha}    
@@ -459,7 +465,7 @@ Most images have smooth features and there is a small perecntage of samples have
 
 ## Mitigation of Frequency Bias Using Spectral Diffusion Model
 
-The main problem with diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> is that the small vanilla U-Net cannot incorporate the dynamic spectrum into its loss function. So, the authors of the paper<d-cite key="yang2022diffusionprobabilisticmodelslim"></d-cite> introduce a spectrum-aware distillation to enable photo-realistic generation with small models. The U-Net is replaced with a Wavelet Gating module which consists of a **WG-Down** and **WG-Up network**. The WG-Down network takes the Discrete Wavelet Transform of the input image and outputs 4 images of sub-bands. They are respectively the LL, LH, HL, HH sub-bands. In the LL sub-band,a low-pass filter is applied on the rows and columns of the image and thus captures most of the low-frequency content of the image. The LH band is created by passing a low-pass filter on the rows and high-pass filter on the columns. The HL band is created by passing a high-pass filter on the rows and a low-pass filter on the columns of the image.Finally, the HH sub-band is created by passing a high-pass filter on both rows and columns. In essence, the LL sub-band captures the low-frequency details i.e. an approximation of the image, while the LH, HL, HH sub-bands capture the high-frequency details of the image. 
+The main problem with diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> is that the small vanilla U-Net cannot incorporate the dynamic spectrum into its loss function. So, the authors of the paper<d-cite key="yang2022diffusionprobabilisticmodelslim"></d-cite> introduce a spectrum-aware distillation to enable photo-realistic generation with small models. The U-Net is replaced with a Wavelet Gating module which consists of a **WG-Down** and **WG-Up network**. The WG-Down network takes the Discrete Wavelet Transform(DWT)<d-footnote>refer to this <a href="https://en.wikipedia.org/wiki/Discrete_wavelet_transform" target="_blank">article</a></d-footnote> of the input image and outputs 4 images of sub-bands. They are respectively the LL, LH, HL, HH sub-bands. In the LL sub-band,a low-pass filter is applied on the rows and columns of the image and thus captures most of the low-frequency content of the image. The LH band is created by passing a low-pass filter on the rows and high-pass filter on the columns. The HL band is created by passing a high-pass filter on the rows and a low-pass filter on the columns of the image.Finally, the HH sub-band is created by passing a high-pass filter on both rows and columns. In essence, the LL sub-band captures the low-frequency details i.e. an approximation of the image, while the LH, HL, HH sub-bands capture the high-frequency details of the image. 
 
 {% include figure.html path="assets/img/2025-04-28-analysing-the-spectral-biases-in-generative-models/Spectral_diffusion.png" class="img-fluid" %}
 <div class="caption">
@@ -517,5 +523,5 @@ Here $\lambda_s$ = 0.1 and $\lambda_f$ = 0.1.
 It was found that the frequency term in the loss function accounts for the largest change in FID, showing its importance in high-quality image generation. Thus using spectral knowledge during training helps a small network to produce high-quality realistic images and eliminate the 'bias' problem in diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite>.
 
 # Conclusion
-In this article, we looked at another domain of viewing images and processing them i.e. the frequency domain. We then shed light into how the generative models posses certain biases in the frequency domain, particularly bias against high frequency content generation. We try to explain the reason behind this by breaking down the architecure of GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite> and diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> and look at how the math behind these model's working may lead to these observations. Finally, we discussed a new architecture to mitigate these issues.
+In this article, we looked at another domain of viewing images and processing them i.e. the frequency domain. We then shed light into how the generative models posses certain biases in the frequency domain, particularly bias against high frequency content generation. We try to explain the reason behind this by breaking down the architecure of GANs<d-cite key="goodfellow2014generativeadversarialnetworks"></d-cite> and diffusion models<d-cite key="ho2020denoisingdiffusionprobabilisticmodels"></d-cite> and look at how the math behind these model's working may lead to these observations. Finally, we discussed an architecture to mitigate these issues.
 
