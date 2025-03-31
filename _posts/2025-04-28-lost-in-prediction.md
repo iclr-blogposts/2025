@@ -7,7 +7,7 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# authors:
+authors:
   - name: Almog Gueta
     affiliations:
       name: Technion - IIT
