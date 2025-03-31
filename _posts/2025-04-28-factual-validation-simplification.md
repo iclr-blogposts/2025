@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: 'Factual Context Validation and Simplification: A Scalable Method to Enhance GPT Trustworthiness and Efficiency'
-description: 'As the deployment of Large Language Models (LLMs) like GPT expands across domains, mitigating their susceptibility to factual inaccuracies, or hallucinations, becomes crucial for ensuring reliable performance. This blog post introduces two novel frameworks that enhance retrieval-augmented generation (RAG): one uses summarization to achieve a maximium of 57.7% storage reduction, while the other preserves critical information through statement-level extraction. Leveraging DBSCAN clustering, vectorized fact storage, and LLM-driven fact-checking, the pipelines deliver higher overall performance across benchmarks such as PubmedQA, SQuAD, and HotpotQA. By optimizing efficiency and accuracy, these frameworks advance trustworthy AI for impactful real-world applications.'
+description: 'As the deployment of Large Language Models (LLMs) like GPT expands across domains, mitigating their susceptibility to factual inaccuracies or hallucinations becomes crucial for ensuring reliable performance. This blog post introduces two novel frameworks that enhance retrieval-augmented generation (RAG): one uses summarization to achieve a maximum of 57.7% storage reduction, while the other preserves critical information through statement-level extraction. Leveraging DBSCAN clustering, vectorized fact storage, and LLM-driven fact-checking, the pipelines deliver higher overall performance across benchmarks such as PubmedQA, SQuAD, and HotpotQA. By optimizing efficiency and accuracy, these frameworks advance trustworthy AI for impactful real-world applications.'
 date: 2025-04-28
 future: true
 htmlwidgets: true
@@ -551,7 +551,7 @@ While the PubmedQA dataset was not supportive for chain-of-thought reasoning, th
 One of the main limitations of the proposed framework (summarization-based) is the potential loss of important contextual details—particularly concerning in high-stakes domains such as finance, law, or medicine. To mitigate this risk and retain comprehensive coverage of critical information, we introduce an Alternative Pipeline that avoids excessive compression by converting the input data into standalone, verifiable statements. When a input passage can't safely be condensed, the system simply reproduces statements identical to the source text, thus ensuring no crucial content is omitted. Rather than aiming for a prescribed compression metric, the pipeline focuses on statement-level extraction, preserving essential facts while eliminating redundancies and inaccuracies.
 
 <figure style="text-align: center;">
-    <img src="{{ 'assets/img/2025-04-28-factual-validation-simplification/alternative.png' | relative_url }}" style="width: 85%;">
+    <img src="{{ 'assets/img/2025-04-28-factual-validation-simplification/alternative.png' | relative_url }}" style="width: 75%;">
     <figcaption style="font-size: 15px; text-align: left; margin: 0 auto; max-width: 800px;">
         <strong>Figure 6.</strong> This diagram illustrates the workflow of the Statement Extraction pipeline, which adds extracted and compressed statements into a vector database. When data is added to the system, the text is converted into statements, clustered and combined based on similarity, embedded, and entered into a vector database. When data is fetched from the system, it fetches the closest embeddings and statements to the query embedding and determines their sufficiency in answering the prompt. If the context is insufficient, it creates new queries based on the information it needs and repeats the process until it has enough information. Then, it returns the statements that it fetched. The boxes highlighted with blue dashed borders indicate modifications to the summarization-based pipeline.
     </figcaption>
@@ -561,7 +561,7 @@ One of the main limitations of the proposed framework (summarization-based) is t
 
 To evaluate this alternative pipeline, experiments were conducted on two widely used QA datasets: Stanford Question Answering Dataset (SQuAD) <d-cite key="rajpurkar2016"></d-cite> and HotpotQA <d-cite key="yang2018"></d-cite>. We compare factual accuracy and storage size between this Alternative Pipeline and the Traditional Pipeline that stores and retrieves paragraph-level contexts under ideal conditions with RAG.
 
-#### SQuAD QA
+### SQuAD
 
 | **Metric**          | **Traditional Pipeline** | **Statement Extraction** | **Difference** |
 |---------------------|--------------------------|--------------------------|----------------|
@@ -570,7 +570,7 @@ To evaluate this alternative pipeline, experiments were conducted on two widely 
 
 **Table 2.** On the SQuAD dataset, statement extraction yields a 2.4% increase in factual accuracy while reducing storage size by 21.43%.
 
-#### HotpotQA
+### HotpotQA
 
 | **Metric**          | **Traditional Pipeline** | **Statement Extraction** | **Difference** |
 |---------------------|--------------------------|--------------------------|----------------|
@@ -579,7 +579,7 @@ To evaluate this alternative pipeline, experiments were conducted on two widely 
 
 **Table 3.** On the HotpotQA dataset, the statement extraction pipeline achieves a 1.3% higher accuracy while reducing storage by 8.12%. Though less significant than SQuAD, the improvement demonstrates that statement-level coverage can enhance reliability even in multi-hop question answering tasks.
 
-Notably, in comparison to our proposed pipeline, the storage savings here are not as large. However, this Alternative Pipeline ensures no critical details are inadvertently removed. Just as with the proposed approach, it integrates easily into existing RAG setups, requiring minimal computational overhead. DBSCAN and cosine similarity are relatively lightweight, and the LLM calls typically cost only around a $0.01 per API call.
+Notably, in comparison to our proposed pipeline, the storage savings here are not as large. However, this Alternative Pipeline ensures no critical details are inadvertently removed. Just as with the proposed approach, it integrates easily into existing RAG setups, requiring minimal computational overhead. DBSCAN and cosine similarity are relatively lightweight, and the LLM calls typically cost only around $0.01 per API call.
 
 ## Realistic Usage
 
@@ -594,12 +594,6 @@ Most real-world data comes from unstructured sources, including blog posts, news
 **Table 4.** Storage sizes before and after statement extraction. Combining both articles after statement extraction yields a 3.3 KB storage size, significantly smaller than the raw 8.4 KB.
 
 Through DBSCAN clustering, near-duplicate statements—such as multiple introductions of “Gemini 2.0” from different perspectives—are merged into a single statement without risking the loss of important data. In high-stakes settings, this pipeline can similarly maintain critical details (e.g., disclaimers, side effects, or legal clauses). Consequently, while it may not compress as aggressively as the proposed pipeline, the Alternative Pipeline provides stronger guarantees of context sensitivity and factual completeness.
-
-## Broader Implications
-
-The results of these two pipeline highlight its potential to advance how RAG systems handle unstructured and large-scale datasets. Its ability to compress and organize data effectively expands the capacity of vector databases, allowing for systems to manage larger and more diverse datasets without sacrificing query performance. This scalability is critical for real-world applications and increasing context windows, enabling more complex multi-step reasoning tasks and better contextual understanding <d-cite key="yao2024"></d-cite>.
-
-By leveraging modular components like clustering and vectorized storage, it enables future systems to integrate real-time updates, ensuring that models stay relevant as knowledge evolves without requiring full retraining. The design also ensures seamless integration with existing RAG and GPT systems, supporting easy implementation while allowing for specific customization. This adaptability allows organizations to fit the system for various use cases, such as domain-specific QA systems or bias detection tools.
 
 ## Broader Implications
 
