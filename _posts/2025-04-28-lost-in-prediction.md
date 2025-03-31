@@ -419,7 +419,7 @@ A quick word on ethics: This research involves technology aimed at predicting hu
 
 *** 
 
-<br><br><br>
+<br>
 
 *This blogpost extends the technical experiments presented in our paper <d-cite key="gueta2024can"></d-cite>, delving deeper into broader aspects that naturally in a paper can only receive a shorter discussion as it primarily presents the technical results. We invite you to read the paper for comprehensive background and detailed experiments.*
 
