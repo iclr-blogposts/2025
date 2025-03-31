@@ -129,7 +129,7 @@ Aligning with Shiller’s arguments and with existing literature, the extraction
 
 ## Social Media Narratives 𝕏
 
-We have collected <d-footnote>Data is available through the Social Media Archive (SOMAR): https://socialmediaarchive.org/record/77.</d-footnote> two comprehensive datasets of tweets from Twitter (X), a platform chosen for its real-time reflection of public opinions and ability to capture diverse economic narratives. These datasets cover a broad time-frame, and a wide range of topics relevant to the economy, including economics, business, politics, and current events, ensuring a broad and comprehensive representation of narratives.  
+We have collected <d-footnote>Data is available through the Social Media Archive (SOMAR): "https://socialmediaarchive.org/record/77".</d-footnote> two comprehensive datasets of tweets from Twitter (X), a platform chosen for its real-time reflection of public opinions and ability to capture diverse economic narratives. These datasets cover a broad time-frame, and a wide range of topics relevant to the economy, including economics, business, politics, and current events, ensuring a broad and comprehensive representation of narratives.  
 
 Both datasets were carefully curated using targeted queries with the inclusion of specific keywords, and were analyzed to ensure quality and relevant for capturing economic narratives. 
 
