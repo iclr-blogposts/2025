@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: "Lost in Prediction: Why Social Media Narratives  Don't Help Macroeconomic Forecasting?"
+title: "Lost in Prediction: Why Social Media Narratives Don't Help Macroeconomic Forecasting?"
 description: "Can we predict the macroeconomy by analyzing the narratives people share on social media? We dove deep into the world of Narrative Economics, using NLP models to analyze millions of viral tweets and see if they could help us predict the fluctuations of macroeconomic indicators. 🚨 Spoiler alert: it's not that easy!  Join us as we explore the interesting relationship between narratives, social media, and macroeconomy, and uncover the challenges of turning narratives into treasure."
 date: 2025-04-28
 future: true
@@ -8,22 +8,28 @@ htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
-authors:
-  - name: Anonymous
+# authors:
+#   - name: Anonymous
 
 # authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+  - name: Almog Gueta
+    affiliations:
+      name: Technion - IIT
+  - name: Amir Feder
+    url: "https://www.amirfeder.com"
+    affiliations:
+      name: Columbia University
+  - name: Zorik Gekhman
+    affiliations:
+      name: Technion - IIT
+  - name: Ariel Goldstein
+    url: "https://www.deepcognitionlab.com/"
+    affiliations:
+      name: Hebrew University
+  - name: Roi Reichart
+    url: "https://roireichart.com/"
+    affiliations:
+      name: Technion - IIT
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-lost-in-prediction.bib  
