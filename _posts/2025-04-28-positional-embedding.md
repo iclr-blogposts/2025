@@ -379,7 +379,7 @@ The architecture proposed by (Press et al. [2021] <d-cite key="press2021train"><
 
 {% include figure.html path="assets/img/2025-04-28-positional-embedding/ALiBi1.png" class="img-fluid" %}
 <div class="caption">
-    Figure 4: Visualization of ALiBi's attention computation mechanism. The method introduces a head-specific linear bias matrix (right) that gets added element-wise to the standard query-key dot product attention scores (left). This bias injection occurs before the softmax operation, while preserving the remaining transformer architecture. The bias strength is controlled by a  $m$, which is predetermined for each attention head.
+    Figure 4: Visualization of ALiBi's attention computation mechanism. The method introduces a head-specific linear bias matrix (right) that gets added element-wise to the standard query-key dot product attention scores (left). This bias injection occurs before the softmax operation, while preserving the remaining transformer architecture. The bias strength is controlled by a  $m$, which is predetermined for each attention head. Inspired from <d-cite key="press2021train"></d-cite>
 </div>
 
 ### What is $$\textbf{m}$$ ?
