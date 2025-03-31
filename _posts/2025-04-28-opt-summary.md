@@ -443,11 +443,19 @@ Note that this problem diverges from classical stochastic optimization because t
 
 * Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite> (or Decision-Focused Learning<d-cite key="mandi2024decision"></d-cite>)
 
-$$
-\min_{x\in\mathcal{X}}\ F(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z].
-$$
+  $$
+  \min_{x\in\mathcal{X}}\ F(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z].
+  $$
 
-Contextual stochastic optimization aims to leverage side information $Z$ to facilitate decision-making. The goal is to find a policy $\pi$ that maps a context $z$ to a decision $x$. Thus the performance measure is $\mathbb{E}_z(F(\pi(z);z) - F(\pi^*(z);z))$ or $\mathbb{E}_z\|\|\pi(z) - \pi^*(z)\|\|^2$. The challenges for solving such problems come from the fact that usually the available samples are only $(z,\xi)$ pairs, i.e., one does not have access to multiple samples of $\xi$ from the conditional distribution. As a result, one usually needs to first estimate $F(x;z)$ via nonparametric statistics techniques like $k$-nearest neighbors and kernel regression or via reparametrization tricks and conduct a regression. Both could suffer from the curse of dimensionality as the dimension of $z$ is large. 
+  Contextual stochastic optimization aims to leverage side information $Z$ to facilitate decision-making. The goal is to find a policy $\pi$ that maps a context $z$ to a decision $x$. Thus the performance measure is 
+
+  $$\mathbb{E}_z(F(\pi(z);z) - F(\pi^*(z);z))$$ 
+
+  or 
+  
+  $$\mathbb{E}_z\|\|\pi(z) - \pi^*(z)\|\|^2.$$
+  
+  The challenges for solving such problems come from the fact that usually the available samples are only $(z,\xi)$ pairs, i.e., one does not have access to multiple samples of $\xi$ from the conditional distribution. As a result, one usually needs to first estimate $F(x;z)$ via nonparametric statistics techniques like $k$-nearest neighbors and kernel regression or via reparametrization tricks and conduct a regression. Both could suffer from the curse of dimensionality as the dimension of $z$ is large. 
 
 * Distributionally Robust Optimization<d-cite key="kuhn2024distributionally"></d-cite>
 
