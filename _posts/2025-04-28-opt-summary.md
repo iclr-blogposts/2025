@@ -380,7 +380,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 | Type               | Measure | LB                                          | UB                               | Reference (LB)      | Reference (UB)                           |
 |--------------------|---------|---------------------------------------------|----------------------------------|-------------------|------------------------------------------------|
-| NC-SC, FS, AS    | Primal Stationarity        | $\Omega\left(\sqrt{n\kappa}\Delta L\epsilon^{-2}\right)$ | $\mathcal{O}\left(\sqrt{n}\kappa^2 L\Delta\epsilon^{-2}\right)$ | <d-cite key="zhang2021complexity"></d-cite>        |  <d-cite key="zhang2021complexity"></d-cite>,  |          
+| NC-SC, FS, AS    | Primal Stationarity        | $\Omega\left(n+\sqrt{n\kappa}\Delta L\epsilon^{-2}\right)$ | $\mathcal{O}\left((n+n^{3/4}\sqrt{\kappa})\Delta L\epsilon^{-2}\right)$ | <d-cite key="zhang2021complexity"></d-cite>,  Theorem 3.2   |  <d-cite key="zhang2021complexity"></d-cite>, Section 4.2 |          
 | NC-C, FS, IS     | Near-stationarity        | Unknown | $\mathcal{O}\left(n^{3/4}L^2D\Delta\epsilon^{-3}\right)$ |  /        |  <d-cite key="yang2020catalyst"></d-cite>,                               |
 | NC-SC, Stoc, SS  | Primal Stationarity        | $\Omega\left(\kappa^{1/3}\Delta L\epsilon^{-4}\right)$ | $\mathcal{O}\left(\kappa\Delta L\epsilon^{-4}\right)$ |  <d-cite key="li2021complexity"></d-cite>,        |  <d-cite key="zhang2022sapd+"></d-cite>,                                                  |
 | NC-SC, Stoc, IS  | Primal Stationarity        | Unknown | $\mathcal{O}\left(\kappa^2\Delta L\epsilon^{-3}\right)$ |  /        |  <d-cite key="zhang2022sapd+"></d-cite>, |
