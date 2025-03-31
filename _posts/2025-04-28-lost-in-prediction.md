@@ -417,6 +417,8 @@ Lastly, we are limited to publicly accessible LLMs with a known cutoff date to e
 
 A quick word on ethics: This research involves technology aimed at predicting human and economic behavior. It's vital to state clearly that this kind of tech could be misused in harmful or unfair ways (e.g., for market manipulation or unfair practices). We strongly believe it needs to be developed and used with caution and constant awareness of its ethical implications.
 
+*** 
+
 <br>
 
 *This blogpost extends the technical experiments presented in our paper <d-cite key="gueta2024can"></d-cite>, delving deeper into broader aspects that naturally in a paper can only receive a shorter discussion as it primarily presents the technical results. We invite you to read the paper for comprehensive background and detailed experiments.*
