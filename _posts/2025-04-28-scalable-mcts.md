@@ -163,7 +163,7 @@ As the number of iterations grows to infinity, the average reward estimates $Q(s
 
 ### The UCT Selection Policy
 
-A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far) while building the search tree. UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase<d-cite key="swiechowski2022mcts"></d-cite>.
+A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorithm, introduced by Kocsis and Szepesvári<d-cite key="kocsis2006bandit"></d-cite>. This algorithm applies the principle of _optimism in the face of uncertainty_ to balance between exploration (of not well-tested actions) and exploitation (of the best actions identified so far) while building the search tree. UCT extends the UCB1 algorithm, adapting it for decision-making within the tree during the selection phase.
 
 During the selection phase, the algorithm chooses actions based on the statistics of actions that have already been explored within the search tree. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown in brackets below:
 
@@ -228,7 +228,7 @@ Tree parallelism, which will be the focus for the remainder of this blogpost, is
 **Yet at the same time, there are many challenges:**
 
 -   MCTS relies on the statistics gathered from previous iterations to guide future decisions. In tree-parallel implementations, these statistics may become outdated due to concurrent updates, potentially leading to suboptimal traversal of the search tree.
--   Evaluating actions far from the optimal trajectory can degrade performance, as rollout variability and approximation errors may cause suboptimal actions to appear overly promising.<d-cite key="schrittwieser2024questions"></d-cite>.
+-   Evaluating actions far from the optimal trajectory can degrade performance, as rollout variability and approximation errors may cause suboptimal actions to appear overly promising<d-cite key="schrittwieser2024questions"></d-cite>.
 -   Managing concurrent access to the tree and ensuring data integrity introduces complexity. For instance, race conditions or data overwrites could corrupt the search process<d-cite key="steinmetz2020more"></d-cite>.
 
 To fully leverage tree parallelism while maintaining decision quality, researchers have developed a range of strategies to address its key challenges: avoiding redundant work, coordinating concurrent updates, and maintaining consistency in shared memory. In the sections that follow, we'll explore how techniques like virtual loss, synchronization mechanisms (both lock-based and lock-free), and distributed scheduling (e.g., TDS) tackle these issues and enable scalable, high-performance MCTS implementations.
