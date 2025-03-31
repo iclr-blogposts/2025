@@ -155,7 +155,7 @@ The oracle complexity model consists of the following components:
 
   - *Complexity measure* $\mathcal{M}$, e.g., 
     - Optimality gap $f(x)-f(x^\star)$ where $x^\star$ is the global minimum.
-    - Point distance $\|\|x-x^\star\|\|$.
+    - Point distance $\|\|x-x^\star\|\|^2$ (or the norm).
     - Function stationarity $\|\|\nabla f(x)\|\|$, which is common in nonconvex optimization. 
 
 {% include figure.html path="assets/img/2025-04-28-opt-summary/complexity_analysis.jpg" class="img-fluid" %}
@@ -235,6 +235,7 @@ For convenience, we summarize some of the notations commonly used in tables belo
 - $\mathcal{O},\tilde{\mathcal{O}},\Omega$: For nonnegative functions $f(x)$ and $g(x)$, we say $f=\mathcal{O}(g)$ if $f(x)\leq cg(x)$ for some $c>0$, and further write $f=\tilde{\mathcal{O}}(g)$ to omit poly-logarithmic terms on some constants, and $f=\Omega(g)$ if $f(x)\geq cg(x)$.
 - $\Delta$, $D$: The initial function value gap $\Delta\triangleq f(x_0)-f(x^\star)$, and the initial point distance $D\triangleq\|\|x_0-x^\star\|\|$.
 - Optimality gap: the function value gap $f(x) - f^\star$.
+- Point distance: the distance (squared) between the current iterate and the global optimum $\|\| x-x^\star \|\|^2$.
 - Stationarity: the function gradient norm $\|\| \nabla f(x) \|\|$.
 - Near-stationarity: the gradient norm $\|\| \nabla f_\lambda(x) \|\|$, where $f_\lambda$ is the Moreau envelope of the original function $f$.
 - Duality Gap (for minimax optimization): the primal-dual gap of a given point $(\hat{x},\hat{y})$, defined as $G_f(\hat{x},\hat{y})\triangleq\max_y f(\hat{x},y)-\min_x f(x,\hat{y})$
