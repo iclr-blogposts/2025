@@ -398,7 +398,7 @@ This study serves as a foundation for further exploration, highlighting the need
 
 <br>
 
-*This blogpost extends the technical experiments presented in our paper <d-cite key="gueta2024can"></cite>, delving deeper into broader aspects that naturally in a paper can only receive a shorter discussion as it primarily presents the technical results. We invite you to read the paper for comprehensive background and detailed experiments.*
+*This blogpost extends the technical experiments presented in our paper <d-cite key="gueta2024can"></d-cite>, delving deeper into broader aspects that naturally in a paper can only receive a shorter discussion as it primarily presents the technical results. We invite you to read the paper for comprehensive background and detailed experiments.*
 
 
 
