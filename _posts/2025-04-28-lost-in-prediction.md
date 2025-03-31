@@ -129,7 +129,7 @@ Aligning with Shiller’s arguments and with existing literature, the extraction
 
 ## Social Media Narratives 𝕏
 
-We have collected <d-footnote>Data is available through the Social Media Archive (SOMAR): "https://socialmediaarchive.org/record/77".</d-footnote> two comprehensive datasets of tweets from Twitter (X), a platform chosen for its real-time reflection of public opinions and ability to capture diverse economic narratives. These datasets cover a broad time-frame, and a wide range of topics relevant to the economy, including economics, business, politics, and current events, ensuring a broad and comprehensive representation of narratives.  
+We have collected<d-footnote>Data is available through the Social Media Archive (SOMAR): "https://socialmediaarchive.org/record/77".</d-footnote> two comprehensive datasets of tweets from Twitter (X), a platform chosen for its real-time reflection of public opinions and ability to capture diverse economic narratives. These datasets cover a broad time-frame, and a wide range of topics relevant to the economy, including economics, business, politics, and current events, ensuring a broad and comprehensive representation of narratives.  
 
 Both datasets were carefully curated using targeted queries with the inclusion of specific keywords, and were analyzed to ensure quality and relevant for capturing economic narratives. 
 
@@ -155,7 +155,7 @@ To confirm the presence of narratives within our Twitter dataset, we conducted a
 We can see the evolving nature of these narratives over time, where the distribution is aligned with real-life related events. 👍
 
 ### LLMs Show Potential in Understanding Narratives
-A more advanced technique to extract and analyze narratives is using LLMs. Prompting OpenAI's Chat Completion API, GPT-3.5 <d-cite key="ChatGPT-3.5"></d-cite> with monthly tweets and prices of economic indicator from matching dates, we generated <d-footnote>Data is available through the Social Media Archive (SOMAR): "https://socialmediaarchive.org/record/77".</d-footnote> LLM-based narratives analysis, one for each date in the post-2021 dataset, containing a component of summarized analysis of the tweets and a component of potential effect on the given financial indicator. 
+A more advanced technique to extract and analyze narratives is using LLMs. Prompting OpenAI's Chat Completion API, GPT-3.5 <d-cite key="ChatGPT-3.5"></d-cite> with monthly tweets and prices of economic indicator from matching dates, we generated<d-footnote>Data is available through the Social Media Archive (SOMAR): "https://socialmediaarchive.org/record/77".</d-footnote> LLM-based narratives analysis, one for each date in the post-2021 dataset, containing a component of summarized analysis of the tweets and a component of potential effect on the given financial indicator. 
 
 Here's a snippet of such an LLM-based narrative analysis for inputs of dates 29/08/2022 to 28/09/2022. In this time period, the Federal Reserve raised interest rates in an effort to combat inflation and the US Supreme Court ruled that the Biden administration could not extend the pause on student loan payments:
 
