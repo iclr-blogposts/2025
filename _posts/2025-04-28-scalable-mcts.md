@@ -278,7 +278,7 @@ Local mutex methods offer a finer-grained alternative by locking only the node c
 
 Because lock-based methods can incur coordination overhead and implementation complexity, some systems opt for lock-free approaches, which use atomic operations and memory consistency models to enable safe concurrent access without explicit locking<d-cite key="steinmetz2020more"></d-cite>. Lock-free methods are harder to implement correctly, but they often provide better scalability and performance in multithreaded environments.
 
-## Distributed MCTS - WU-UCT
+## Distributed MCTS - WU-UCT {#distributed-mcts-wu-uct}
 
 To scale MCTS to large state spaces, Liu et al. proposed a distributed framework that decouples the algorithm's core phases into separate tasks. These tasks are executed in parallel across specialized roles: a master process, expansion workers, and simulation workers.
 
@@ -298,7 +298,7 @@ By decoupling expansion from simulation, the framework parallelizes MCTS without
 
 Although this framework requires frequent communication between the master and workers, Liu et al. found that the computation time of expansion and simulation far outweighs the messaging overhead. As a result, the system scales effectively across many machines without communication becoming a bottleneck.
 
-## Distributed MCTS - TDS
+## Distributed MCTS - TDS {#distributed-mcts-tds}
 
 In 2011, Yoshizoe et al.<d-cite key="yoshizoe2011scalable"></d-cite> applied transposition-driven scheduling (TDS) to scale MCTS across multiple machines. TDS partitions the search tree across workers using hash-based assignment, allowing tasks to be processed where the data resides. This design reduces communication overhead and supports efficient, asynchronous coordination—making it well-suited for large-scale parallelism.
 
