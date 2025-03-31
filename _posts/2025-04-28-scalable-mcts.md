@@ -12,7 +12,10 @@ hidden: false
 #   - name: Anonymous
 
 authors:
-    - name: Anonymous
+  - name: Will Knipe
+    url: "https://willknipe.com"
+    affiliations:
+      name: Carnegie Mellon University
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-scalable-mcts.bib
@@ -61,7 +64,7 @@ _styles: >
 
 ## Intro
 
-Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously -- especially for complex queries -- is unrealistic. The AI industry is now shifting its focus to optimizing inference-time compute, seeking ways to harness computational resources more effectively. One promising approach is leveraging scalable search algorithms, which enable models to plan, reason, and refine their outputs. With enough compute, these methods have the potential to solve many of humanity's grand challenges.
+Recently, there has been a large focus on training Large Language Models (LLMs) with up to trillions of parameters, using vast amounts of compute for training. However, expecting these models to produce perfect answers instantaneously—especially for complex queries—is unrealistic. The AI industry is now shifting its focus to optimizing inference-time compute, seeking ways to harness computational resources more effectively. One promising approach is leveraging scalable search algorithms, which enable models to plan, reason, and refine their outputs. With enough compute, these methods have the potential to solve many of humanity's grand challenges.
 
 Rich Sutton’s [_bitter lesson_](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) highlights why scalability is key:
 
@@ -80,17 +83,19 @@ MuZero's success reveals a characteristic relationship between search time and p
 
 ## MCTS Background
 
-In this blog post, we will focus on MCTS with the Upper Confidence bounds applied to Trees (UCT) algorithm, which is a widely used variant that effectively balances exploration and exploitation. For simplicity, we will refer to this variant as "MCTS" throughout the post. MCTS, a powerful algorithm for decision making in large state spaces, is commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. It stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before MCTS became prominent, techniques like minimax with alpha-beta pruning were the standard in game AI. While alpha-beta pruning could efficiently reduce the search space, its effectiveness often depended on the quality of evaluation functions and move ordering. MCTS offered a different approach that could work without domain-specific knowledge, though both methods can benefit from incorporating heuristics<d-cite key="swiechowski2022mcts"></d-cite>. Below, we will walk through the details of MCTS and UCT.
+In this blog post, we will focus on MCTS with the Upper Confidence bounds applied to Trees (UCT) algorithm, which is a widely used variant that effectively balances exploration and exploitation. For simplicity, we will refer to this variant as "MCTS" throughout the post. MCTS, a powerful algorithm for decision making in large state spaces, is commonly used in games, optimization problems, and real-world domains such as protein folding and molecular design. It stands out for its ability to search complex spaces without the need for additional heuristic knowledge, making it adaptable across a variety of problems. Before MCTS became prominent, techniques like minimax with alpha-beta pruning were the standard in game AI. While alpha-beta pruning could efficiently reduce the search space, its effectiveness often depended on the quality of evaluation functions and move ordering. MCTS offered a different approach that could work without domain-specific knowledge, though both methods can benefit from incorporating heuristics<d-cite key="swiechowski2022mcts"></d-cite>. Let’s now take a closer look at how these four phases work together to guide the search process:
 
 ### The Four Phases of MCTS
 
-MCTS operates in an environment that defines the states, actions, transition rules, and reward assignments. The algorithm iteratively builds a search tree, collecting statistics for each node, such as visit counts and the average reward from simulations that pass through it. These statistics guide the decision-making process, enabling the algorithm to balance exploration and exploitation. The algorithm operates in four main phases:
+MCTS operates in an environment that defines states, actions, a transition function, and a reward function. In the diagrams below, we assume a simplified environment where both states and actions are represented as single nodes due to the environment's deterministic transition function, and only terminal nodes yield rewards (either 0 or 1). While the diagrams represent both states and actions as single nodes for visual clarity, in MCTS it is generally the state-action pairs that collect key decision-making statistics such as average reward $Q(s, a)$ and visit counts $N(s, a)$, which are crucial inputs to the UCT formula that guides the selection process.  States themselves also track visit counts $N(s)$, which influence exploration decisions.
+
+The core of MCTS lies in its iterative tree-building process, which unfolds through a repeated cycle of four distinct phases. In the diagrams that follow, note that the values shown in the nodes represent the average rewards $Q(s, a)$ accumulated through multiple iterations. Let’s now take a closer look at how these four phases work together to guide the search process:
 
 <div class="row mt-4">
   <div class="col-md-6">
     <h4>1. Selection</h4>
     <p>
-      Starting from the root, MCTS traverses child nodes using a policy that balances exploration and exploitation until it reaches a node with unexplored children (allowing for expansion) or a terminal node. 
+      Starting from the root, the algorithm traverses child nodes using a policy that balances exploration and exploitation until it reaches a node with unexplored children (allowing for expansion) or a terminal node. 
     </p>
   </div>
   <div class="col-md-6">
@@ -136,7 +141,7 @@ MCTS operates in an environment that defines the states, actions, transition rul
 </div>
 
 <div class="caption mt-3">
-  These diagrams and their descriptions outline the four main phases of MCTS: Selection, Expansion, Simulation, and Backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
+  These diagrams and their descriptions outline the four main phases of MCTS: selection, expansion, simulation, and backpropagation. Diagrams adapted from Wikipedia<d-cite key="wiki:mcts"></d-cite>.
 </div>
 
 MCTS is an **anytime** algorithm, meaning it can be stopped at any point during its execution and still return the best decision found up to that point. This is particularly useful when dealing with problems where the state space is too large to be fully explored. In practical applications, MCTS operates within a computational budget, which could be defined by a fixed number of iterations or a set amount of time.
@@ -161,7 +166,10 @@ A key component of MCTS is the _Upper Confidence Bounds for Trees (UCT)_ algorit
 During the selection phase, the algorithm chooses actions based on the statistics of actions that have already been explored within the search tree. The action $a_{selection}$ to play in a given state $s$ is selected by maximizing the UCT score shown in brackets below:
 
 $$
-a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left\{ Q(s, a) + C \sqrt{\frac{\ln N(s)}{N(s, a)}} \right\} \tag{2}
+a_{selection} = \underset{a \in A(s)}{\operatorname{argmax}} \left\{
+\underbrace{Q(s, a)}_{\text{exploitation term}} +
+\underbrace{C \sqrt{\frac{\ln N(s)}{N(s, a)}}}_{\text{exploration term}}
+\right\} \tag{2}
 $$
 
 where:
@@ -173,13 +181,17 @@ where:
 -   $N(s, a)$ is the number of times action $a$ has been played from state $s$.
 -   $C$ is a constant controlling the balance between exploration and exploitation. In general, it is set differently depending on the domain.
 
+In the formula, the exploitation term favors actions that have yielded high rewards in past simulations, encouraging the algorithm to revisit promising search paths. The exploration term, in contrast, gives a bonus to actions that have been selected less frequently, pushing the algorithm to try out underexplored branches of the tree.
+
 This concludes our discussion of the foundational elements of MCTS, providing the necessary context for understanding scalable MCTS. For a deeper dive into MCTS, I highly recommend [this guide](https://gibberblot.github.io/rl-notes/single-agent/mcts.html "Monte Carlo Tree Search (MCTS)") by Tim Miller.
 
 ## How can we scale MCTS?
 
-Its great that MCTS improves its solution quality with time, but what if we have an urgent problem that must be solved within a short amount of time (e.g. real-time decision making)? In this case, MCTS can be adapted to leverage parallel computation, enabling us to find a better solution within our fixed time budget. As we will see, parallelizing MCTS without degrading its performance is challenging since each iteration requires information from all previous iterations to provide an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In this blogpost, we will explore scalable adaptations of MCTS that effectively parallelize and distribute its computation.
+While MCTS naturally improves solution quality with additional computation time, one of its most compelling advantages is its ability to leverage parallel compute to find better solutions within a fixed time budget. This capability is critical for real-world applications where decisions must be made under strict time constraints. By distributing computation across multiple processors, parallel MCTS implementations can deliver dramatically better solutions without extending [wall-clock time](https://en.wikipedia.org/wiki/Elapsed_real_time)—a fundamental advantage in time-sensitive domains.
 
-To find better solutions without increasing [wall-clock time](https://en.wikipedia.org/wiki/Elapsed_real_time), we can consider how the four different phases of MCTS can be distributed. There are three broad types of parallelism used to scale MCTS, and we will discuss each one below.
+The importance of this parallelization becomes clear when addressing high-stakes scenarios such as autonomous vehicle navigation, emergency response planning, or real-time financial trading, where improving decision quality without sacrificing response time is critical. However, parallelizing MCTS without degrading its performance is non-trivial, as each iteration depends on information accumulated in previous iterations to maintain an effective **exploration-exploitation tradeoff**<d-cite key="liu2020watch"></d-cite>. In the sections that follow, we’ll explore how MCTS can be parallelized effectively, as well as techniques for scaling to larger and deeper search trees.
+
+To tackle the challenges of parallel MCTS, researchers have introduced three primary strategies—leaf, root, and tree parallelism—each with different tradeoffs in coordination and efficiency. The figure below provides a visual overview of these approaches, which we’ll explore in the sections that follow.
 
 {% include figure.html path="assets/img/2025-04-28-scalable-mcts/mcts_parallelism.png" class="img-fluid" %}
 
