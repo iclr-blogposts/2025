@@ -7,10 +7,6 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# Anonymize when submitting
-# authors:
-#   - name: Anonymous
-
 # authors:
   - name: Almog Gueta
     affiliations:
