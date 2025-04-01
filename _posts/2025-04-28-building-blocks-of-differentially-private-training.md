@@ -567,7 +567,7 @@ In this blog post, we explored the building blocks of differentially private tra
 
 Both approaches offer viable paths to private deep learning, with different tradeoffs. For practitioners looking to train neural networks with differential privacy, experimenting with both approaches may be valuable, as their relative performance can depend on factors like model architecture, dataset size, and privacy requirements. 
 
-Finally, we added some of the code to generate the simulations in this [repo](https://github.com/mahegz/iclr25_dp_blog).
+Finally, we added some of the code to generate the simulations in this [repo](https://github.com/mahegz/iclr25_dp_blog), which will also host any post-publication updates or corrections to the blog.
 
 **Acknowledgments**
 
