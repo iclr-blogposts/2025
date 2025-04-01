@@ -562,8 +562,8 @@ This is competitive with DP-SGD.
 
 In this blog post, we explored the building blocks of differentially private training through two main approaches:
 
-- DP-SGD, which adds independent Gaussian noise at each iteration, with privacy amplification through careful subsampling
-- Matrix factorization mechanisms, which reduces noise accumulation by enable carefully correlated noise across iterations
+- DP-SGD, which adds independent Gaussian noise at each iteration, with privacy amplification through subsampling
+- Matrix factorization mechanisms, which reduces noise accumulation by using carefully correlated noise across iterations
 
 Both approaches offer viable paths to private deep learning, with different tradeoffs. For practitioners looking to train neural networks with differential privacy, experimenting with both approaches may be valuable, as their relative performance can depend on factors like model architecture, dataset size, and privacy requirements. 
 
