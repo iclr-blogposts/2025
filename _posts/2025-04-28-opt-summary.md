@@ -433,7 +433,7 @@ $$
 
   Note that this problem diverges from classical stochastic optimization because the distribution of $\xi$ depends on the decision variable $x$. Such dependency often disrupts the convexity of $F$, even if $f$ is convex with respect to $x$. In practical scenarios where the randomness can be decoupled from the decision variable, as in $\xi = g(x) + \eta$, the problem can be simplified to a classical stochastic optimization framework. This presents a trade-off: One can either impose additional modeling assumptions to revert to a classical approach or tackle the computational complexities inherent in such performative prediction problems. Practically, it is advisable to explore the specific structure of the problem to determine if it can be restructured into classical stochastic optimization.
 
-* Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite> (or Decision-Focused Learning<d-cite key="mandi2024decision"></d-cite>)
+* Contextual Stochastic Optimization<d-cite key="bertsimas2020predictive"></d-cite><d-cite key="sadana2024survey"></d-cite><d-cite key="mandi2024decision"></d-cite>
 
   $$
   \min_{x\in\mathcal{X}}\ F(x;z)\triangleq\mathbb{E}_{\xi\sim\mathcal{D}}[f(x;\xi)~|~Z=z].
