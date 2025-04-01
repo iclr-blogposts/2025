@@ -17,17 +17,6 @@ authors:
     affiliations:
       name: EPFL & ETH Zürich
 
-# To-do:
-# 1. https://arxiv.org/pdf/2412.02175
-# 2. advice from others (RG, GB,...) 
-# 3. format
-# 4. https://arxiv.org/abs/2501.05677
-# 5. Shuffling 2309.07879, also one paper reviewed
-# 6. https://arxiv.org/pdf/2502.14060
-# 7. https://proceedings.mlr.press/v139/yoon21d.html
-# 8. 2411.14601
-# 9. Epoch-SGD?
-
 # Grammar:
 # Avoid ":" in the title
 
