@@ -205,7 +205,7 @@ The above two points are very important in both DP practice and research. While 
 
 ### Privatizing Gradient Descent
 
-Now that we introduced basic notions and tools of DP, let's go back to our goal of training a neural network on a simple dataset, starting with the fundamental optimization algorithm in machine learning - gradient descent (GD). Given a dataset $$D = \{z_1,...,z_k\}$$ and a model $$f_\theta$$ parameterized by $$\theta$$, GD aims to minimize the empirical loss $$R(f_\theta,D) = \sum_i R(f_\theta,z_i)$$ through iterative updates:
+Now that we introduced basic notions and tools of DP, let's go back to our goal of training a neural network on a simple dataset, starting with the fundamental optimization algorithm in machine learning - gradient descent (GD). Given a dataset $$D = \{z_1,...,z_N\}$$ and a model $$f_\theta$$ parameterized by $$\theta$$, GD aims to minimize the empirical loss $$R(f_\theta,D) = \sum_i R(f_\theta,z_i)$$ through iterative updates:
 
 **Algorithm: Gradient Descent (GD)**
 * **Input**: Initial parameters $\theta_0$, Dataset $D := \{z_1,...,z_N\}$, learning rate $\eta$, number of steps $T$
@@ -262,11 +262,11 @@ Finally, going back to our goal of calculating $$(\varepsilon_{\text{tot}}, \del
 
 #### A first try at DP training:
 
-After introducing the advanced composition theorem, we technically have all the ingredients for a first trial to train a small two-layer neural network on a simple dataset. For our model we will use a simple two-layer neural network with ReLU activation and $$128$$ hidden units. For the data, we will use $$5000$$ randomly sampled images from MNIST. To train our model with DP, we first need to set the hyperparameters $$C$$ (clipping norm) and $$T$$ (number of iteration). Then, after picking the privacy guarantee we want by setting $$\varepsilon$$ and $$\delta$$, we can use the Gaussian mechanism along with advanced composition result to calculate the magnitude of Gaussian noise required at each iteration. 
+After introducing the advanced composition theorem, we technically have all the ingredients for a first trial to train a small two-layer neural network on a simple dataset. For our model we will use a simple two-layer neural network with ReLU activation and $$128$$ hidden units. For the data, we will use $$5000$$ randomly sampled images from MNIST. To train our model with DP, we first need to set the hyperparameters $$C$$ (clipping norm) and $$T$$ (number of iterations). Then, after picking the privacy guarantee we want by setting $$\varepsilon$$ and $$\delta$$, we can use the Gaussian mechanism along with advanced composition result to calculate the magnitude of Gaussian noise required at each iteration. 
 
 In fact, we may make use of a handy result from <d-cite key=kairouz2015composition></d-cite>, which states that to get $(\varepsilon,\delta)$ it is sufficient to have each inner Gaussian mechanism satisfy $(\varepsilon_0, \delta_0)$ with $\varepsilon_0 = \frac{\varepsilon}{2\sqrt{T\log(e + \varepsilon/\delta)}}$ and $\delta_0 = \frac{\delta}{2T}$. We can then use $\varepsilon_0$ and $\delta_0$ to calculate the amount of noise we need to have. However, we are left with two hyperparameters to tune $C$ and $T$. For the gradient clipping $C$, one common heuristic is to tune it is to run the training without any DP, measure the distribution of the gradient norms, and pick $C$ so that we are doing some clipping but not a lot of clipping<d-footnote>This is a bit vague. It is hard to be very specific about hyperparameter tuning intuitions.</d-footnote> <d-footnote>On a side note, in the wider machine learning community, gradient clipping is being used to stabilize training. The critical difference is that we are computing the average of clipped gradients, while the (widely used) gradient clipping is often a clipping of the average gradients.</d-footnote><d-footnote>Tuning hyperparameters using non-DP runs could leak information. We skip this detail here but proper DP training requires accounting for hyperparameter tuning within the privacy budget, see <d-cite key=papernot2022hyperparameter></d-cite></d-footnote>. $T$ can also be tricky to tune. For a larger $T$, we are able to train longer but we need to use smaller $\varepsilon_0$ and $\delta_0$ forcing us to add more noise at each iteration.
 
-To get some intuition of the tuning of $C$ and $T$, let's try a training run without any DP to see the gradient norms and the loss curves. We run gradient descent with learning rate $0.01$ for $5000$ iterations. For the gradients norm, the $95\%$ quantile is around $32$ and very low number of gradients go above $40$. For the sake of round numbers, let's take $C=30$ <d-footnote>One may want to do better hyperparameter tuning in practice, but this blog is for illustrations only. More aggressive clipping can also work better.</d-footnote>.
+To get some intuition of the tuning of $C$ and $T$, let's try a training run without any DP to see the gradient norms and the loss curves. We run gradient descent with learning rate $0.01$ for $5000$ iterations. For the gradients norm, the $95\%$ quantile is around $32$ and very small number of gradients go above $40$. For the sake of round numbers, let's take $C=30$ <d-footnote>One may want to do better hyperparameter tuning in practice, but this blog is for illustrations only. More aggressive clipping can also work better.</d-footnote>.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -413,7 +413,7 @@ Let's try another training trial this time with SGD.
 </div>
 
 
-> 📝 **In summary**, in the previous subsection, we already showed that it is possible to effectively train DP neural networks using GD. Typically, due to computational requirements, we are forced to use SGD. However, in SGD, we are using smaller batches at each step and thus increasing the sensitivity. As a result, if we naively train with SGD, we will be forced to add much more noise at each step. Privacy amplification by subsampling allows us to solve this dilemma by showing that subsampling itself amplifies the privacy gurantee. So, when training with SGD, we need much less noise. All of these factors roughly even out, making the noise scale needed for DP-SGD reasonable.
+> 📝 **In summary**, in the previous subsection, we already showed that it is possible to effectively train DP neural networks using GD. Typically, due to computational requirements, we are forced to use SGD. However, in SGD, we are using smaller batches at each step and thus increasing the sensitivity. As a result, if we naively train with SGD, we will be forced to add much more noise at each step. Privacy amplification by subsampling allows us to solve this dilemma by showing that subsampling itself amplifies the privacy guarantee. So, when training with SGD, we need much less noise. All of these factors roughly even out, making the noise scale needed for DP-SGD reasonable.
 
 ## Beyond DP-SGD: Using Correlated Noise
 
@@ -421,7 +421,7 @@ While DP-SGD with privacy amplification has become the standard approach for dif
 
 1. **Reliance on Privacy Amplification**: Privacy amplification through subsampling requires strong assumptions on how data is processed. In many cases, the data may not fit in memory and sampling each datapoint with equal probability is not feasible.
 
-2. **Suboptimal Noise Addition**: DP-SGD treats each gradient step independently, potentially leading noise accumulation. For the sake of illustration, consider the case where the gradients are constant. Then, then the noise of DP-SGD, added independently at each iteration, will keep accumulating. 
+2. **Suboptimal Noise Addition**: DP-SGD treats each gradient step independently, potentially leading noise accumulation. For the sake of illustration, consider the case where the gradients are constant. Then, the noise of DP-SGD, added independently at each iteration, will keep accumulating. 
 
 If not DP-SGD, what else can we do? Well, a growing line of work investigates adding **correlated noise** instead of independent noise at each iteration. To our knowledge, using this idea for training neural networks was first explored in <d-cite key=kairouz2021practical></d-cite><d-footnote> Prior to <d-cite key=kairouz2021practical></d-cite>, the idea of using correlated noise was studied in the streaming setting of DP <d-cite key=dwork2010differential></d-cite>. A brief summary of this setting and its application to SGD can be found in <d-cite key=denisov2022improved></d-cite></d-footnote>. In the rest of this blog, we will look at the matrix factorization mechanism <d-cite key=choquette2023multiMF></d-cite>, which is a specific mechanism that allows us to train DP models while adding correlated noise through the iterations. 
 
@@ -486,7 +486,7 @@ with a noise matrix $$Z$$. The key insight is that we can factorize $$A = BC$$. 
 
 $$\widehat{AH} = B(CH+Z).$$
 
-Here, we shift the placement of the DP mechanism to make it on the computation of $$CH$$. Since $$A$$ is independent of the data, $$B$$ is also independent of the data. So if $$CH$$ is computed in a DP, then so will $$BCH=AH$$. Then, if $$C$$ is invertible, we can equivalently rewrite this as 
+Here, we shift the placement of the DP mechanism to make it on the computation of $$CH$$. Since $$A$$ is independent of the data, $$B$$ is also independent of the data. So if $$CH$$ is computed in a DP way, then so will $$BCH=AH$$. Then, if $$C$$ is invertible, we can equivalently rewrite this as 
 
 $$\widehat{AH} = A(H+C^{-1}Z).$$
 
