@@ -11,8 +11,8 @@ hidden: false
 authors:
   - name: Huayi Tang*
     url: "https://gasteinh.github.io/"
-    affiliations: GSAI, Renmin Univ.
-      name: 
+    affiliations: 
+      name: GSAI, Renmin Univ.
   - name: Yuhe Guo
     url: "https://yuziguo.github.io/"
     affiliations:
