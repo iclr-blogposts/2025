@@ -8,24 +8,37 @@ future: true
 htmlwidgets: true
 hidden: false
 
-authors:
-  - name: Huayi Tang*
-    url: "https://gasteinh.github.io/"
-    affiliations: 
-      name: GSAI, Renmin Univ.
-  - name: Yuhe Guo
-    url: "https://yuziguo.github.io/"
-    affiliations:
-      name: GSAI, Renmin Univ.
-  - name: Yong Liu
-    url: "https://gsai.ruc.edu.cn/english/liuyong"
-    affiliations:
-      name: GSAI, Renmin Univ.
-  - name: Zhewei Wei
-    url: "https://weizhewei.com/"
-    affiliations:
-      name: GSAI, Renmin Univ.
+# authors:
+#   - name: Huayi Tang*
+#     url: "https://gasteinh.github.io/"
+#     affiliations: 
+#       name: GSAI, Renmin Univ.
+#   - name: Yuhe Guo*
+#     url: "https://yuziguo.github.io/"
+#     affiliations:
+#       name: GSAI, Renmin Univ.
+#   - name: Yong Liu
+#     url: "https://gsai.ruc.edu.cn/english/liuyong"
+#     affiliations:
+#       name: GSAI, Renmin Univ.
+#   - name: Zhewei Wei
+#     url: "https://weizhewei.com/"
+#     affiliations:
+#       name: GSAI, Renmin Univ.
 
+authors:
+  - name: Albert Einstein
+    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+    affiliations:
+      name: IAS, Princeton
+  - name: Boris Podolsky
+    url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
+    affiliations:
+      name: IAS, Princeton
+  - name: Nathan Rosen
+    url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
+    affiliations:
+      name: IAS, Princeton
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-linear-gnn-convergence-restated.bib  
