@@ -15,11 +15,11 @@ authors:
   - name: Linh The Nguyen
     url: https://scholar.google.com/citations?user=dGrDyKwAAAAJ&hl
     affiliations:
-      name: Movian AI, Vietnam
+      name: Qualcomm AI Research<d-footnote>Qualcomm Vietnam Company Limited</d-footnote>
   - name: Dat Quoc Nguyen
     url: https://datquocnguyen.github.io
     affiliations:
-      name: Movian AI, Vietnam
+      name: Qualcomm AI Research<d-footnote>Qualcomm Vietnam Company Limited</d-footnote>
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-foundation-adapter.bib  
