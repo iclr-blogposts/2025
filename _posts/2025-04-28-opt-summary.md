@@ -34,7 +34,7 @@ toc:
   - name: Framework - Oracle Complexity Model
     subsections:
     - name: Framework Setup
-    - name: What We Did Not Cover
+    - name: What We Do Not Cover
   - name: Notations
   - name: Summary of Results
     subsections:
