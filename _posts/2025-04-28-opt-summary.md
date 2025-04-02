@@ -336,7 +336,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 | Problem Type         | Measure | LB                                         | UB                            | Reference (LB)      | Reference (UB)                                   |
 |----------------------|---------|---------------------------------------------|-------------------------------|-------------------|------------------------------------------|
-| SC-SC, FS       | Duality Gap | $\Omega\left((n + \kappa) \log \frac{1}{\epsilon}\right)$ | $\checkmark$ | <d-cite key="xie2020lower"></d-cite>, Theorem 1      | <d-cite key="palaniappan2016stochastic"></d-cite>, Theorem 1      |
+| SC-SC, FS           | Duality Gap | $\Omega\left((n + \kappa) \log \frac{1}{\epsilon}\right)$ | $\checkmark$ | <d-cite key="xie2020lower"></d-cite>, Theorem 1      | <d-cite key="palaniappan2016stochastic"></d-cite>, Theorem 1      |
 | SC-SC, Stoc, SS      | Duality Gap | $\Omega(\epsilon^{-1})$                    | $\checkmark$                  | /                                            | <d-cite key="hsieh2019convergence"></d-cite>, Theorem 5       |
 | SC-SC, Stoc, NS      | Duality Gap | $\Omega(\epsilon^{-1})$                    | $\checkmark$                  | /                                            | <d-cite key="yan2020optimal"></d-cite>, Theorem 1       |
 | SC-SC, Stoc      | Stationarity | $\Omega(\sigma^2\epsilon^{-2}+\kappa)$                    | $\checkmark$                  | <d-cite key="chen2024near"></d-cite>, Theorem 6.1    | <d-cite key="chen2024near"></d-cite>, Theorem 4.1       |
