@@ -205,6 +205,8 @@ $$x^{t+1}=\text{prox}_{\lambda f}(x^t)\triangleq\underset{x}{\arg\min}\left\{f(x
 
 where the proximal operator requires to solve a subproblem exactly. Solving a subproblem could be regarded as a new kind of oracle in algorithm design. Similarly, algorithms like the alternating direction method of multipliers (ADMM)<d-cite key="boyd2011distributed"></d-cite>, which also inherits subproblems to solve, are not discussed.
 
+Also here we do not cover the method like *conditional gradient method* (or Frank–Wolfe algorithm)<d-cite key="braun2022conditional"></d-cite>, which further requires a linear minimization oracle (LMO) in the algorithm design, so that it can avoid potentially expensive projection steps.
+
 ---
 
 ## Notations
@@ -456,7 +458,7 @@ $$
 
 ### Landscape Analysis
   
-  Since most deep learning problems are nonconvex, a vast amount of literature focuses on finding a (generalized) stationary point of the original optimization problem, but the practice often showed that one could find global optimality for various structured nonconvex problems efficiently. In fact, there is a line of research tailored for the global landscape of structured nonconvex optimization; for example, in neural network training, the interpolation condition holds for some overparameterized neural networks<d-cite key="sun2020global"></d-cite>. 
+  Since most deep learning problems are nonconvex, a vast amount of literature focuses on finding a (generalized) stationary point of the original optimization problem, but the practice often showed that one could find global optimality for various structured nonconvex problems efficiently. In fact, there is a line of research tailored for the global landscape of structured nonconvex optimization. For example, in neural network training, the interpolation condition holds for some overparameterized neural networks<d-cite key="sun2020global"></d-cite>; also it has been observed that low-rank structures naturally emerge in the weight matrices during training<d-cite key="balzano2025overview"></d-cite>. 
   
   Regarding such a mismatch between theory and practice, one reason may be the coarse assumptions the community applied in the theoretical analysis, which cannot effectively characterize the landscape of objectives. Here we briefly summarize a few structures arising in recent works, which try to mix the gap between practice and theory:
 
