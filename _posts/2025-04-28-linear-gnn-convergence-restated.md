@@ -265,7 +265,7 @@ The backpropagation process is illustrated in the image below.
 
 <!-- {% include figure.html path="assets/img/2025-04-28-linear-gnn-convergence-restated/fig5-V3.png" width="100" caption='<b>Forward and backward pass for understanding gradients calculus</b>. The style of illustration refers to <a href="http://colah.github.io/posts/2015-08-Backprop/">Colah&apos;s blog</a> for inspiration.' %} -->
 
-{% include figure.html path="assets/img/2025-04-28-linear-gnn-convergence-restated/fig5-V3.png" width="100" caption="<b>Forward and backward pass for understanding gradients calculus</b>. The style of illustration refers to <a href='http://colah.github.io/posts/2015-08-Backprop/'>Colah&apos;s blog</a> for inspiration." %}
+{% include figure.html path="assets/img/2025-04-28-linear-gnn-convergence-restated/fig5-V3.png" width="100" caption="<b>Forward and backward pass for understanding gradients calculus</b>. The style of illustration refers to <a href='http://colah.github.io/posts/2015-08-Backprop/'>this blog</a> for inspiration." %}
 
 
 
