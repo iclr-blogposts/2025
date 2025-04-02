@@ -8,9 +8,24 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# Anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Huayi Tang*
+    url: "https://gasteinh.github.io/"
+    affiliations: GSAI, Renmin Univ.
+      name: 
+  - name: Yuhe Guo
+    url: "https://yuziguo.github.io/"
+    affiliations:
+      name: GSAI, Renmin Univ.
+  - name: Yong Liu
+    url: "https://gsai.ruc.edu.cn/english/liuyong"
+    affiliations:
+      name: GSAI, Renmin Univ.
+  - name: Zhewei Wei
+    url: "https://weizhewei.com/"
+    affiliations:
+      name: GSAI, Renmin Univ.
+
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-linear-gnn-convergence-restated.bib  
@@ -43,9 +58,13 @@ toc:
 
 <!-- Note: please use the table of contents as defined in the front matter rather than the traditional markdown styling. -->
 
+
 ## Introduction
 
-**[Test]**，In this post, we're diving into a 2021 paper that attempts to pin down the *training dynamics* of Graph Neural Networks (GNNs). 
+(*\* denotes equal contribution*)
+
+
+In this post, we're diving into a 2021 paper that attempts to pin down the *training dynamics* of Graph Neural Networks (GNNs). 
 
 This paper<d-cite key="Xu2021"></d-cite>, written by researchers Keyulu Xu, Mozhi Zhang, Stefanie Jegelka and Kenji Kawaguchi, comes with several **strong claims**. Among them, the first and most important one is: linear GNNs <d-footnote> <b>Hint</b>: Check the Minimal Background Section for formal definition of a linear GNN. </d-footnote> converge to the optimal loss at a **linear rate** <d-footnote> <b>Hint</b>: Linear convergence means that we need $\mathcal{O}(\log 1/\epsilon)$ steps of iteration to ensure that the absolute value of the difference between the current solution and the optimal solution is less than $\epsilon$. </d-footnote>. Intrigued? Let’s unravel it together.
 
@@ -508,7 +527,7 @@ By simple calculation, one can verify that the inequality only holds when
 
 $$
 \begin{equation*}
-    \underbrace{\Vert (I_{m_y n} - \mathbf{P}_{\tilde{G}_H^\top \otimes I_{m_y}}) \textrm{vec}[Y] \Vert_2}_{L} \geq \underbrace{\Vert \textrm{vec}[\hat{Y}-Y] \Vert_2}_{L^*_H},
+    \underbrace{\Vert (I_{m_y n} - \mathbf{P}_{\tilde{G}_H^\top \otimes I_{m_y}}) \textrm{vec}[Y] \Vert_2}_{L_{H}^{*}} \geq \underbrace{\Vert \textrm{vec}[\hat{Y}-Y] \Vert_2}_{L},
 \end{equation*}
 $$
 
