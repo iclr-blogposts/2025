@@ -308,7 +308,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 **Remark:**
 
-1. References: <d-cite key="lan2018optimal"></d-cite><d-cite key="xie2019general"></d-cite><d-cite key="allen2018katyusha"></d-cite><d-cite key="woodworth2016tight"></d-cite><d-cite key="zhou2019lower"></d-cite><d-cite key="wang2019spiderboost"></d-cite><d-cite key="fang2018spider"></d-cite><d-cite key="ghadimi2012optimal"></d-cite><d-cite key="lan2012optimal"></d-cite><d-cite key="agarwal2009information"></d-cite><d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite><d-cite key="allen2018make"></d-cite><d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite><d-cite key="davis2018stochastic"></d-cite>
+1. References: <d-cite key="lan2018optimal"></d-cite> <d-cite key="xie2019general"></d-cite> <d-cite key="allen2018katyusha"></d-cite> <d-cite key="woodworth2016tight"></d-cite> <d-cite key="zhou2019lower"></d-cite> <d-cite key="wang2019spiderboost"></d-cite> <d-cite key="fang2018spider"></d-cite> <d-cite key="ghadimi2012optimal"></d-cite> <d-cite key="lan2012optimal"></d-cite> <d-cite key="agarwal2009information"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="foster2019complexity"></d-cite> <d-cite key="allen2018make"></d-cite> <d-cite key="arjevani2023lower"></d-cite> <d-cite key="ghadimi2013stochastic"></d-cite> <d-cite key="davis2018stochastic"></d-cite>
 2. Here $n$ corresponds to the number of component functions $f_i$, and $\kappa\triangleq L/\mu$ is the condition number, $\sigma^2$ corresponds to the variance of gradient estimator.
 3. For the finite-sum $L$-IS $\mu$-SC case, <d-cite key="woodworth2016tight"></d-cite> considered more general randomized algorithm and oracle class settings, and derived $\Omega \left( n + \sqrt{\kappa n} \log \frac{1}{\epsilon} \right)$ lower bound. A matching upper bound is proposed in <d-cite key="defazio2016simple"></d-cite>.
 4. For IFO/SFO-based algorithms, here we only consider the case that all oracles are *independent*, so shuffling-based algorithm analysis is not directly applicable here, regarding their without-replacement sampling<d-cite key="cho2023sgda"></d-cite>.
@@ -329,7 +329,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 **Remark:**
 
-1. References: <d-cite key="zhang2022lower"></d-cite><d-cite key="chambolle2016ergodic"><d-cite key="wang2020improved"></d-cite></d-cite><d-cite key="ouyang2021lower"></d-cite> <d-cite key="chambolle2011first"></d-cite> <d-cite key="xie2020lower"></d-cite> <d-cite key="nemirovski2004prox"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="du2019linear"></d-cite>   <d-cite key="yang2020global"></d-cite>
+1. References: <d-cite key="zhang2022lower"></d-cite> <d-cite key="chambolle2016ergodic"></d-cite> <d-cite key="wang2020improved"></d-cite> <d-cite key="ouyang2021lower"></d-cite> <d-cite key="chambolle2011first"></d-cite> <d-cite key="xie2020lower"></d-cite> <d-cite key="nemirovski2004prox"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="du2019linear"></d-cite> <d-cite key="yang2020global"></d-cite>
 2. Here $\kappa_x$ and $\kappa_y$ corresponds to condition numbers on $x$ and $y$ components, respectively. A more refined dicussion regarding the different structure between $x$, $y$ and their coupling can be found in <d-cite key="kovalev2024linear"></d-cite> and references therein.
 
 ### Case 2-2: (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
@@ -350,7 +350,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 **Remark:**
 
-1. References: <d-cite key="xie2020lower"></d-cite> <d-cite key="yazdandoost2023stochastic"></d-cite> <d-cite key="juditsky2011solving"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="palaniappan2016stochastic"></d-cite> <d-cite key="hsieh2019convergence"> </d-cite> <d-cite key="yan2020optimal"></d-cite> <d-cite key="yang2020global"></d-cite> <d-cite key="chen2024near"></d-cite>
+1. References: <d-cite key="xie2020lower"></d-cite> <d-cite key="yazdandoost2023stochastic"></d-cite> <d-cite key="juditsky2011solving"></d-cite> <d-cite key="nemirovski2009robust"></d-cite> <d-cite key="yang2020catalyst"></d-cite> <d-cite key="palaniappan2016stochastic"></d-cite> <d-cite key="hsieh2019convergence"></d-cite> <d-cite key="yan2020optimal"></d-cite> <d-cite key="yang2020global"></d-cite> <d-cite key="chen2024near"></d-cite>
 
 ### Case 2-3: NC-(S)C Deterministic Minimax Optimization
 
