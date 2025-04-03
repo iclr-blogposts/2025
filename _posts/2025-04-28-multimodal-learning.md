@@ -268,7 +268,7 @@ These examples highlight a critical limitation:
 Designing a "balanced" benchmark to avoid dependence on a single modality fails to capture the true complexity of real-world scenarios.
 </aside>
 
-## Are complex multi-modal architectures enough?
+### Are complex multi-modal architectures enough?
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
