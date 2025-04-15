@@ -44,7 +44,7 @@ toc:
     - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
     - name: Case 2-3 - NC-(S)C Deterministic Minimax Optimization
     - name: Case 2-4 - NC-(S)C Finite-sum and Stochastic Minimax Optimization
-  - name: What's next?
+  - name: What's Next?
     subsections:
     - name: Richer Problem Structure
     - name: Landscape Analysis
@@ -388,7 +388,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 ---
 
-## What is next?
+## What's Next?
 The section above summarizes the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly, this is not the end of the story. There are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics. We also need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory. Sometimes (or often), we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective in accelerating the training of deep learning models, which contrast the classical convergence theory. Below, we discuss what could be potentially interesting next steps. 
 
 ### Richer Problem Structure
@@ -493,7 +493,7 @@ Such a question has been partially addressed for stochastic optimization using *
   Recently, there appeared some works that go beyond the classical oracle model in evaluating the optimization algorithm efficiency, for example:
 
   - In <d-cite key="pedregosa2020acceleration"></d-cite> and <d-cite key="paquette2021sgd"></d-cite>, they considered **average-case complexity** in optimization algorithm analysis, this topic is well established in theoretical computer science. Such a pattern considers the convergence behavior in the average sense rather than the classical worst-case flavor, and it further specifies the objective formulation and data distribution, which results in more refined complexity bounds than the common worst-case complexities while at the expense of more complicated analysis. The study of average-case complexity in the context of optimization algorithms is still less mature, and there are still many open questions.
-  - On the other hand, with the development of higher-order algorithms, some recent works<d-cite key="doikov2023second"></d-cite> further considered the **arithmetic complexity** in optimization by incorporating the computational cost of each oracle into accout<d-footnote>In Nesterov's book<d-cite key="nesterov2018lectures"></d-cite>, these two are also called "analytical complexity" and "arithmetical complexity".</d-footnote>
+  - On the other hand, with the development of higher-order algorithms, some recent works<d-cite key="doikov2023second"></d-cite> further considered the **arithmetic complexity** in optimization by incorporating the computational cost of each oracle into accout.<d-footnote>In Nesterov's book<d-cite key="nesterov2018lectures"></d-cite>, these two are also called "analytical complexity" and "arithmetical complexity".</d-footnote>
   - Also in distributed optimization (or federated learning) literature, the communication cost is one of the main bottlenecks compared to computation<d-cite key="konevcny2016federated"></d-cite><d-cite key="mcmahan2017communication"></d-cite><d-cite key="karimireddy2020scaffold"></d-cite><d-cite key="kairouz2021advances"></d-cite>, so many works modified the oracle framework a bit and turn to study the complexity bound in terms of **communication cost** (or communication oracle) rather than the computation efforts, such change also motivated the fruitful study of *local algorithms*<d-cite key="stich2019local"></d-cite><d-cite key="mishchenko2022proxskip"></d-cite>, which try to skip unnecessary communications while still attain the convergence guarantees. 
   - Recently another series of recent works<d-cite key="grimmer2024provably"></d-cite><d-cite key="altschuler2023acceleration1"></d-cite><d-cite key="altschuler2023acceleration2"></d-cite> consider **long stepsize** by incorporating a craft stepsize schedule into first-order methods and achieve a faster convergence rate, which is quite counterintuitive and may be of interests to the community. At the same time, as indicated in <d-cite key="kornowski2024open"></d-cite><d-cite key="altschuler2023acceleration1"></d-cite>, such theoretical outperformance generally only works for some specific iteration numbers, while in lack of guarantees of *anytime convergence*, also the extension of the study beyond the deterministic and convex case is still an open problem.
   
