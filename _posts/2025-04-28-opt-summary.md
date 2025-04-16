@@ -44,7 +44,7 @@ toc:
     - name: Case 2-2 - (S)C-(S)C Finite-sum and Stochastic Minimax Optimization
     - name: Case 2-3 - NC-(S)C Deterministic Minimax Optimization
     - name: Case 2-4 - NC-(S)C Finite-sum and Stochastic Minimax Optimization
-  - name: What's Next?
+  - name: What is Next?
     subsections:
     - name: Richer Problem Structure
     - name: Landscape Analysis
@@ -388,7 +388,7 @@ We present the lower and upper bound results in tables below<d-footnote>. Given 
 
 ---
 
-## What's Next?
+## What is Next?
 The section above summarizes the upper and lower bounds of the oracle complexity for finding an $\epsilon$-optimal solution or $\epsilon$-stationary points for minimization and minimax problems. Clearly, this is not the end of the story. There are more and more optimization problems arising from various applications like machine learning and operation research<d-cite key="bottou2018optimization"></d-cite>, which come with more involved problem structure and complicated landscape characteristics. We also need to indicate that the above summary corresponds to asymptotic upper and lower bounds in theory. Sometimes (or often), we find it harder to explain algorithm behavior in practice using existing theory, e.g., <d-cite key="defazio2019ineffectiveness"></d-cite> shows that variance reduction may be ineffective in accelerating the training of deep learning models, which contrast the classical convergence theory. Below, we discuss what could be potentially interesting next steps. 
 
 ### Richer Problem Structure
