@@ -182,8 +182,6 @@ Crucially, we selected GPT-4o and Sonnet-3.5 because they rank at almost the sam
 - **Model B**: The same Mistral model fine-tuned on outputs provided by Company Beta (Claude Sonnet).
 
 
-
-
 **Experimental Protocol:**
 
 
