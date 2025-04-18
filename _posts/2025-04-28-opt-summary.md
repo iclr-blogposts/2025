@@ -245,7 +245,7 @@ As mentioned above, we categorize the discussion based on the problem, stochasti
 2. Finite-sum and stochastic optimization
 
 **Minimax Problems**, based on the convexity combination of each component, we consider the following cases:
-1. SC-SC/SC-C/C-C deterministic minimax
+1. SC-SC/SC-C/C-C deterministic minimax optimization
 2. SC-SC/SC-C/C-C finite-sum and stochastic minimax optimization
 3. NC-SC/NC-C deterministic minimax optimization
 4. NC-SC/NC-C finite-sum and stochastic minimax optimization
