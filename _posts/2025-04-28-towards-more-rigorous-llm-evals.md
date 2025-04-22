@@ -5,7 +5,15 @@ description: "As language models (LMs) become increasingly sophisticated and exi
 We show how to conduct this type of analysis using a recent paper as a case study. We hope this post serves as a tutorial for LM researchers aiming to enhance the rigor of their empirical evaluations."
 
 authors:
-- anonymous
+  - name: Desi R Ivanova
+    affiliations:
+      name: University of Oxford
+  - name: Ilija Ilievski
+    affiliations:
+      name: University of Oxford
+  - name: Momchil Konstantinov
+    affiliations: 
+      name: 
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-towards-more-rigorous-llm-evals.bib  
