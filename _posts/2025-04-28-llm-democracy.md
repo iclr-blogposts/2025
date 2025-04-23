@@ -8,7 +8,22 @@ htmlwidgets: true
 hidden: false
 # anonymize when submitting
 authors:
-  - name: Anonymous
+  - name: Yujin Potter
+    url: "https://scholar.google.com/citations?user=ZDG9RD8AAAAJ&hl=en"
+    affiliations:
+      name: UC Berkeley
+  - name: Yejin Choi
+    url: "https://en.wikipedia.org/wiki/Yejin_Choi"
+    affiliations:
+      name: Stanford University
+  - name: David Rand
+    url: "https://en.wikipedia.org/wiki/David_G._Rand"
+    affiliations:
+      name: MIT
+  - name: Dawn Song
+    url: "https://en.wikipedia.org/wiki/Dawn_Song"
+    affiliations:
+      name: UC Berkeley
 # (must be the exact same name as your blogpost)
 bibliography: 2025-04-28-llm-democracy.bib
 # Add a table of contents to your post.
