@@ -7,23 +7,15 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# Anonymize when submitting
 authors:
-  - name: Anonymous
-
-# authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+  - name: Ruixuan Huang
+    url: "https://sproutnan.github.io/"
+    affiliations:
+      name: The Hong Kong University of Science and Technology
+  - name: Shuai Wang
+    url: "https://cse.hkust.edu.hk/~shuaiw/"
+    affiliations:
+      name: The Hong Kong University of Science and Technology
 
 # must be the exact same name as your blogpost
 bibliography: 2025-05-07-steering-llms-behavior.bib
