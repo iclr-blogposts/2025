@@ -656,3 +656,11 @@ html.transition *:after {
     }
   }
 }
+
+.highlight-box {
+  background-color: #f8f9fa; /* Light gray */
+  border-left: 5px solid #007bff; /* Blue left border */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
