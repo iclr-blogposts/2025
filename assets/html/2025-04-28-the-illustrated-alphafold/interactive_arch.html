@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .image-figure {
+            margin-bottom: 1rem;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .hover-overlay {
+            position: absolute;
+            background-color: rgba(136, 0, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .figure-caption {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <figure class="image-figure">
+        <div class="image-container">
+            <img src="../../img/2025-04-28-the-illustrated-alphafold/full_arch_for_labeling.png" alt="Full Architecture"
+                class="img-fluid rounded z-depth-1" usemap="#image-map">
+            <div class="hover-overlay" id="overlay-1"></div>
+            <div class="hover-overlay" id="overlay-2"></div>
+            <div class="hover-overlay" id="overlay-3"></div>
+            <div class="hover-overlay" id="overlay-4"></div>
+            <div class="hover-overlay" id="overlay-5"></div>
+            <div class="hover-overlay" id="overlay-6"></div>
+            <div class="hover-overlay" id="overlay-7"></div>
+            <div class="hover-overlay" id="overlay-8"></div>
+            <div class="hover-overlay" id="overlay-9"></div>
+            <div class="hover-overlay" id="overlay-10"></div>
+            <div class="hover-overlay" id="overlay-11"></div>
+            <div class="hover-overlay" id="overlay-12"></div>
+            <div class="hover-overlay" id="overlay-13"></div>
+            <div class="hover-overlay" id="overlay-14"></div>
+        </div>
+        <map name="image-map">
+            <area shape="rect" alt="Tokenization" title="Tokenization" coords="0.58,50.38,8.35,74.06"
+                href="#tokenization" data-target="overlay-1">
+            <area shape="rect" alt="Retrieval" title="Retrieval" coords="8.35,3.26,22.16,40.98"
+                href="#retrieval-create-msa-and-templates" data-target="overlay-2">
+            <area shape="rect" alt="Create atom-level representations" title="Create atom-level representations"
+                coords="8.35,41.48,22.16,68.92" href="#create-atom-level-representations" data-target="overlay-3">
+            <area shape="rect" alt="Atom Transformer" title="Atom Transformer" coords="22.23,23.43,28.16,69.80"
+                href="#update-atom-level-representations-atom-transformer" data-target="overlay-4">
+            <area shape="rect" alt="Atom-Level to Token-Level" title="Atom-Level to Token-Level"
+                coords="28.16,40.23,31.89,69.80" href="#aggregate-atom-level--token-level" data-target="overlay-5">
+            <area shape="rect" alt="Template module" title="Template module" coords="34.56,34.59,40.56,56.02"
+                href="#template-module" data-target="overlay-6">
+            <area shape="rect" alt="MSA module" title="MSA module" coords="42.15,34.21,48.16,56.02" href="#msa-module"
+                data-target="overlay-7">
+            <area shape="rect" alt="Pairformer" title="Pairformer" coords="49.67,34.21,63.52,69.80"
+                href="#pairformer-module" data-target="overlay-8">
+            <area shape="rect" alt="Diffusion module" title="Diffusion module" coords="68.37,41.48,90.20,70.18"
+                href="#diffusion-module" data-target="overlay-9">
+            <area shape="rect" alt="Confidence and Loss" title="Confidence and loss" coords="90.96,20.05,99.71,47.37"
+                href="#4-loss-function-and-other-training-details" data-target="overlay-10">
+            <area shape="rect" alt="Other training details" title="Other training details"
+                coords="90.96,47.37,99.71,66.17" href="#other-training-details" data-target="overlay-11">
+            <area shape="rect" alt="Input preparation" title="Input preparation" coords="8.35,87.84,23.46,97.74"
+                href="#1-input-preparation" data-target="overlay-12">
+            <area shape="rect" alt="Representation learning" title="Representation learning"
+                coords="38.76,87.84,58.97,97.49" href="#2-representation-learning" data-target="overlay-13">
+            <area shape="rect" alt="Structure prediction" title="Structure prediction" coords="71.69,88.22,89.37,96.74"
+                href="#3-structure-prediction" data-target="overlay-14">
+        </map>
+    </figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var img = document.querySelector('.image-container img');
+            var map = document.querySelector('map[name="image-map"]');
+            var areas = map.querySelectorAll('area');
+            var overlays = document.querySelectorAll('.hover-overlay');
+
+            function updateAreasAndOverlays() {
+                var width = img.width;
+                var height = img.height;
+
+                areas.forEach(function (area, index) {
+                    var coords = area.getAttribute('coords').split(',');
+                    var newCoords = coords.map(function (coord, i) {
+                        return i % 2 === 0 ? Math.round(coord * width / 100) : Math.round(coord * height / 100);
+                    });
+                    area.coords = newCoords.join(',');
+
+                    var overlay = overlays[index];
+                    overlay.style.left = (newCoords[0] / width * 100) + '%';
+                    overlay.style.top = (newCoords[1] / height * 100) + '%';
+                    overlay.style.width = ((newCoords[2] - newCoords[0]) / width * 100) + '%';
+                    overlay.style.height = ((newCoords[3] - newCoords[1]) / height * 100) + '%';
+                });
+            }
+
+            // Update areas and overlays initially and on window resize
+            updateAreasAndOverlays();
+            window.addEventListener('resize', updateAreasAndOverlays);
+
+            // Hover effects and click handling
+            areas.forEach(function (area) {
+                // Add hover effects
+                area.addEventListener('mouseover', function () {
+                    var targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).style.opacity = '1';
+                });
+                area.addEventListener('mouseout', function () {
+                    var targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).style.opacity = '0';
+                });
+
+                // Add click handler
+                area.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var href = this.getAttribute('href');
+                    window.parent.location.hash = href.substring(1); // Remove the # from the href
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
