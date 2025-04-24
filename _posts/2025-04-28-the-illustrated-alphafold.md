@@ -6,7 +6,12 @@ giscus_comments: false
 date: 2025-04-28
 future: true
 authors:
-  - name: Anonymous
+  - name: Elana Simon
+    affiliations:
+      name: Stanford University
+  - name: Jake Silberg
+    affiliations:
+      name: Stanford University
 images:
   compare: true
   slider: true
