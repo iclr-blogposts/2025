@@ -58,13 +58,13 @@ It is important to note here that these non-members should be from the **same** 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/calibrated-mia/groundhog.avif" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/2025-04-28-calibrated-mia/groundhog.avif" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/calibrated-mia/squirrel.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/2025-04-28-calibrated-mia/squirrel.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/calibrated-mia/llama.webp" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/2025-04-28-calibrated-mia/llama.webp" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
