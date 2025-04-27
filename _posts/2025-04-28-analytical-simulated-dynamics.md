@@ -17,19 +17,15 @@ future: true
 htmlwidgets: true
 hidden: false
 
-# TODO: Anonymize when submitting!
 authors:
-  - name: Anonymous
+  - name: Rodrigo Carrasco-Davis
+    url: "https://scholar.google.cl/citations?user=PLBqVGoAAAAJ"
     affiliations:
-      name: Anonymous
-#  - name: Rodrigo Carrasco-Davis
-#    url: "https://scholar.google.cl/citations?user=PLBqVGoAAAAJ"
-#    affiliations:
-#      name: Gatsby Unit, UCL
-#  - name: Erin Grant
-#    url: "https://eringrant.github.io/"
-#    affiliations:
-#      name: "Gatsby Unit & SWC, UCL"
+      name: Gatsby Unit, UCL
+  - name: Erin Grant
+    url: "https://eringrant.github.io/"
+    affiliations:
+      name: "Gatsby Unit & SWC, UCL"
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-analytical-simulated-dynamics.bib
