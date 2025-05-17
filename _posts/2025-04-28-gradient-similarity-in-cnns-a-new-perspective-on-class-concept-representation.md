@@ -21,7 +21,8 @@ authors:
   - name: Ahmet Enis Cetin
     affiliations:
       name: University of Illinois Chicago, Chicago
-# must be the exact same name as your blogpost
+      
+      
 bibliography: 2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation.bib  
 
 # Add a table of contents to your post.
@@ -50,21 +51,21 @@ toc:
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
 # If you use this post as a template, delete this _styles block.
-_styles: >
-  .fake-img {
-    background: #bbb;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
-  }
-  .fake-img p {
-    font-family: monospace;
-    color: white;
-    text-align: left;
-    margin: 12px 0;
-    text-align: center;
-    font-size: 16px;
-  }
+# _styles: >
+#   .fake-img {
+#     background: #bbb;
+#     border: 1px solid rgba(0, 0, 0, 0.1);
+#     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+#     margin-bottom: 12px;
+#   }
+#   .fake-img p {
+#     font-family: monospace;
+#     color: white;
+#     text-align: left;
+#     margin: 12px 0;
+#     text-align: center;
+#     font-size: 16px;
+#   }
 ---
 
 ## Introduction
@@ -148,7 +149,7 @@ To explore the effectiveness of gradient-based similarity. The protocol involved
    - We generated a dataset containing ten distinct animal classes using a **Stable Diffusion Model** <d-cite key="rombach2022highresolution"></d-cite>. This allowed us to create diverse and realistic samples for each class, providing a rich dataset for evaluating similarities, while avoinding to test on samples which the pretained model is trained on.
 <div class="l-body">
 
-  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/generic_classes_grid-12.png" class="img-fluid" %}
+  {% include figure.html path="assets/img/2025-04-28-gradient-similarity-in-cnns-a-new-perspective-on-class-concept-representation/generic_classes_grid_12.png" class="img-fluid" %}
 
 </div>
 <div class="caption">
