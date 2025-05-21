@@ -176,14 +176,13 @@ GPU와 NPU 등은 GEMVs arithmetic intensity 가 높을 수록 효율적으로 �
 
   - MHA Block: **GEMV** 비중이 높아짐
     - QKV Generation (GEMM): $XW_Q,XW_K, XW_V: [1, d_{emb}] \times [d_{emb}, d_{emb}]$ 로, Vector-Multiplication 곱이 발생한다.  
-    각 K,V 는 이전의 KV Cache를 memory로부터터 Load하여 연결하여야 하며 KV는 아래와 같이 연결된다.  
-    $K,V: [N_{prev}+1, d_{emb}]$
+    각 K,V 는 이전의 KV Cache를 memory로부터터 Load하여 연결하여야 하며 KV는 $K,V: [N_{prev}+1, d_{emb}]$  형태로 구성된다. 하나의 request는 GEMV 형태처럼 보일 수 있으나, decoding의 여러 request가 동일한 weight를 공유하기 때문에 실제로는 $[N_{batches}, d_{emb}] \times [d_{emb}, d_{emb}]$ 형태로 GEMM 연산으로 처리된다.
     - Attention :  $Q \times K^T \times V:  [1, \frac{d_{emb}}{H}]\times[\frac{d_{emb}}{H}, N_{prev}+1] \times [N_{prev}+1, \frac{d_{emb}}{H}]$  으로 무거운 KV Cache를 load하는 과정에서 Memory-Bound 형태로 연산이 진행된다.
     - Concat: $ \text{Concat}([head_1:[1, \frac{d_{emb}}{H}], ..., head_h:[1, \frac{d_{emb}}{H}]]) :[1, d_{emb}]$ 
   - FF Block
     - Feed Forward 1: $ Z = XW_1+ b_1 $ 에서 $XW_1:[1, d_{emb}]\times[d_{emb},4\times d_{emb}]$ 형태로 GEMV 형태의 연산이 처리된다.
     - GeLU: 단순 scalar 곱
-    - Feed Forward 2: $ \text{Output} = ZW_2 + b_2 $ 에서 $XW_2:[1, 4\times d_{emb}]\times[4\times d_{emb},d_{emb}]$ 형태로 GEMM 형태의 연산이 처리된다.
+    - Feed Forward 2: $ \text{Output} = ZW_2 + b_2 $ 에서 $XW_2:[1, 4\times d_{emb}]\times[4\times d_{emb},d_{emb}]$ 형태로 하나의 Request는 GEMV 형태이지만, Feed Forward 과정은 여러 requests 들이 weight를 공유하여, linear operation이기 때문에 여러 request를 묶은 하나의 Batch를 한 번에 처리하므로로 GEMM 형태의 연산이 처리된다. 즉, $[N_{batches}, d_{emb}] \times [d_{emb}, 4\times d_{emb}] \times [4\times d_{emb}, d_{emb}]$ 형태로 처리된다.
 
 
 즉, Prefill의 경우에는 대부분이 연산이 GEMM 형태로 이루어지며, 초기 단계로인하여 각 Request가 이전 단계의 KV Cache가 없기 때문에 compute-bound하게 연산이 가능하다. 반면, decoding의 경우에는 각자의 request마다 자신만의 KV Cache가 존재하고 해당 길이가 Attention이 길어질 수록 memory bottleneck이 많이 발생하게 된다.  
