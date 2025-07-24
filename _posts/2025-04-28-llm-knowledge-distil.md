@@ -12,7 +12,14 @@ hidden: false
 #   - name: Anonymous
 
 authors:
-  - name: Anonymous
+  - name: Yihan Cao
+    url: "https://scholar.google.com/citations?user=OqAc0T0AAAAJ&hl=en&oi=ao"
+    affiliations:
+      name: LinkedIn Corporation
+  - name: Yanbin Kang
+    url: ""
+    affiliations:
+      name: LinkedIn Corporation
 
 # must be the exact same name as your blogpost
 bibliography: 2025-04-28-llm-knowledge-distil.bib  
