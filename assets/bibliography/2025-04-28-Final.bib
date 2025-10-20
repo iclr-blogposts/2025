@@ -1,0 +1,145 @@
+@inproceedings{OmNICCL,
+author = {Gu, Tongzhou and Fei, Jiawei and Canini, Marco},
+title = {OmNICCL: Zero-cost Sparse AllReduce with Direct Cache Access and SmartNICs},
+year = {2024},
+isbn = {9798400707131},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3672198.3673804},
+doi = {10.1145/3672198.3673804},
+abstract = {AllReduce is a collective communication pattern commonly used in Distributed Deep Learning (DDL) and High Performance Computing (HPC). Sparse AllReduce, which compresses the data transmitted, achieves significant acceleration on specific workloads. However, compression introduces a non-negligible performance overhead. Therefore, we propose the OmNICreduce algorithm, an efficient inter-node sparse AllReduce method, as well as its implementation, OmNICCL. It utilizes Direct Cache Access (DCA) to achieve zero-overhead lossless compression and employs SmartNICs for aggregation on the data plane. We demonstrate that our method can provide up to a 7.24\texttimes{} speedup over conventional dense AllReduce methods under a 100Gbps RoCEv2 network and 1.76-17.37\texttimes{} performance improvement over state-of-the-art implementations when performing sparse AllReduce.},
+booktitle = {Proceedings of the 2024 SIGCOMM Workshop on Networks for AI Computing},
+pages = {75–83},
+numpages = {9},
+keywords = {Collective Communication, DCA, DPU, In-Network Aggregation, SmartNIC},
+location = {Sydney, NSW, Australia},
+series = {NAIC '24}
+}
+
+@inproceedings{OmniReduce,
+author = {Fei, Jiawei and Ho, Chen-Yu and Sahu, Atal N. and Canini, Marco and Sapio, Amedeo},
+title = {Efficient sparse collective communication and its application to accelerate distributed deep learning},
+year = {2021},
+isbn = {9781450383837},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3452296.3472904},
+doi = {10.1145/3452296.3472904},
+abstract = {Efficient collective communication is crucial to parallel-computing applications such as distributed training of large-scale recommendation systems and natural language processing models. Existing collective communication libraries focus on optimizing operations for dense inputs, resulting in transmissions of many zeros when inputs are sparse. This counters current trends that see increasing data sparsity in large models.We propose OmniReduce, an efficient streaming aggregation system that exploits sparsity to maximize effective bandwidth use by sending only non-zero data blocks. We demonstrate that this idea is beneficial and accelerates distributed training by up to 8.2x. Even at 100 Gbps, OmniReduce delivers 1.4--2.9x better performance for network-bottlenecked DNNs.},
+booktitle = {Proceedings of the 2021 ACM SIGCOMM 2021 Conference},
+pages = {676–691},
+numpages = {16},
+keywords = {deep learning, distributed training},
+location = {Virtual Event, USA},
+series = {SIGCOMM '21}
+}
+
+@INPROCEEDINGS{DirectReduce,
+  author={Hui, Lihuan and Yang, Wang and Wang, Yanbo},
+  booktitle={2024 IEEE International Symposium on Parallel and Distributed Processing with Applications (ISPA)}, 
+  title={Leveraging SmartNIC for Ring AllReduce Offloading}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={173-180},
+  keywords={Systematics;Protocols;Distance learning;Simulation;Message passing;Logic gates;Parallel processing;Topology;Optimization;Engines;Ring All-Reduce;SmartNIC;In-Network Aggregation;collective communication},
+  doi={10.1109/ISPA63168.2024.00030}
+}
+
+@ARTICLE{FPGANIC,
+  author={Ma, Rui and Georganas, Evangelos and Heinecke, Alexander and Gribok, Sergey and Boutros, Andrew and Nurvitadhi, Eriko},
+  journal={IEEE Computer Architecture Letters}, 
+  title={FPGA-Based AI Smart NICs for Scalable Distributed AI Training Systems}, 
+  year={2022},
+  volume={21},
+  number={2},
+  pages={49-52},
+  keywords={Training;Artificial intelligence;Field programmable gate arrays;Tensors;Computational modeling;Bandwidth;Scalability;AI training;all-reduce;smart NIC;FPGA},
+  doi={10.1109/LCA.2022.3189207}}
+
+
+@inproceedings{OffPath,
+  title={Characterizing off-path $\{$SmartNIC$\}$ for accelerating distributed systems},
+  author={Wei, Xingda and Cheng, Rongxin and Yang, Yuhan and Chen, Rong and Chen, Haibo},
+  booktitle={17th USENIX Symposium on Operating Systems Design and Implementation (OSDI 23)},
+  pages={987--1004},
+  year={2023}
+}
+
+@inproceedings{OptimusNIC,
+  title={OptimusNIC: Offloading Optimizer State to SmartNICs for Efficient Large-Scale AI Training},
+  author={Rebai, Achref and Canini, Marco},
+  booktitle={Proceedings of the 5th Workshop on Machine Learning and Systems},
+  pages={176--182},
+  year={2025}
+}
+
+@inproceedings{LineFS,
+author = {Kim, Jongyul and Jang, Insu and Reda, Waleed and Im, Jaeseong and Canini, Marco and Kosti\'{c}, Dejan and Kwon, Youngjin and Peter, Simon and Witchel, Emmett},
+title = {LineFS: Efficient SmartNIC Offload of a Distributed File System with Pipeline Parallelism},
+year = {2021},
+isbn = {9781450387095},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3477132.3483565},
+doi = {10.1145/3477132.3483565},
+abstract = {In multi-tenant systems, the CPU overhead of distributed file systems (DFSes) is increasingly a burden to application performance. CPU and memory interference cause degraded and unstable application and storage performance, in particular for operation latency. Recent client-local DFSes for persistent memory (PM) accelerate this trend. DFS offload to SmartNICs is a promising solution to these problems, but it is challenging to fit the complex demands of a DFS onto simple SmartNIC processors located across PCIe.We present LineFS, a SmartNIC-offloaded, high-performance DFS with support for client-local PM. To fully leverage the SmartNIC architecture, we decompose DFS operations into execution stages that can be offloaded to a parallel datapath execution pipeline on the SmartNIC. LineFS offloads CPU-intensive DFS tasks, like replication, compression, data publication, index and consistency management to a Smart-NIC. We implement LineFS on the Mellanox BlueField Smart-NIC and compare it to Assise, a state-of-the-art PM DFS. LineFS improves latency in LevelDB up to 80\% and throughput in Filebench up to 79\%, while providing extended DFS availability during host system failures.},
+booktitle = {Proceedings of the ACM SIGOPS 28th Symposium on Operating Systems Principles},
+pages = {756–771},
+numpages = {16},
+keywords = {SmartNIC offload, Distributed file system},
+location = {Virtual Event, Germany},
+series = {SOSP '21}
+}
+
+@INPROCEEDINGS{AstraSim2,
+  author={Won, William and Heo, Taekyung and Rashidi, Saeed and Sridharan, Srinivas and Srinivasan, Sudarshan and Krishna, Tushar},
+  booktitle={2023 IEEE International Symposium on Performance Analysis of Systems and Software (ISPASS)}, 
+  title={ASTRA-sim2.0: Modeling Hierarchical Networks and Disaggregated Systems for Large-model Training at Scale}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={283-294},
+  keywords={Training;Semiconductor device modeling;Analytical models;Network topology;Systems modeling;Throughput;Data models;Distributed training;High-performance training;Multi-dimensional network;Disaggregated memory system},
+  doi={10.1109/ISPASS57527.2023.00035}}
+
+@inproceedings{SqueezeNIC,
+author = {Rebai, Achref and Ojewale, Mubarak Adetunji and Ullah, Anees and Canini, Marco and Fahmy, Suhaib A.},
+title = {SqueezeNIC: Low-Latency In-NIC Compression for Distributed Deep Learning},
+year = {2024},
+isbn = {9798400707131},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3672198.3673801},
+doi = {10.1145/3672198.3673801},
+abstract = {To alleviate the communication bottleneck of distributed deep learning training, several data compression algorithms have been proposed. However, these algorithms introduce computational overhead and resource allocation concerns on CPUs and GPUs. In this paper, we introduce SqueezeNIC, an FPGA-based Network Interface Card (NIC) that offloads communication compression from CPUs/GPUs, bridging a high bandwidth intra-node network with a high bandwidth inter-node network. It enables better overlap of gradient communication and computation to further reduce training time per iteration in distributed training. Our evaluations shows that SqueezeNIC achieves line rate compression and can speed up training by up to a factor of 1.21\texttimes{}, compared to baseline approaches.},
+booktitle = {Proceedings of the 2024 SIGCOMM Workshop on Networks for AI Computing},
+pages = {61–68},
+numpages = {8},
+keywords = {Distributed Training, FPGA, In-Network Compression},
+location = {Sydney, NSW, Australia},
+series = {NAIC '24}
+}
+
+
+@misc{bluefield2,
+  author       = {{NVIDIA}},
+  title        = {NVIDIA BlueField-2 DPU},
+  year         = {2023},
+  howpublished = {\url{https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/documents/datasheet-nvidia-bluefield-2-dpu.pdf}},
+  note         = {Datasheet, Accessed: 2025-05-22}
+}
+
+@misc{denneman2020multiGPU,
+  author = {Frank Denneman},
+  title = {Multi-GPU and Distributed Deep Learning},
+  howpublished = {\url{https://frankdenneman.nl/2020/02/19/multi-gpu-and-distributed-deep-learning/}},
+  year = {2020},
+  note = {Accessed: 2025-05-24}
+}
+
+@misc{wikiCollectiveOp,
+  title = {Collective operation},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Collective_operation}},
+  note = {Accessed: 2025-05-24}
+}
